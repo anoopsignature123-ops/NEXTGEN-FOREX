@@ -3,17 +3,13 @@
 @section('title', 'NEXTGEN FOREX - Member Portal Login')
 
 @section('content')
-    <!-- Login Container -->
-    <div class="w-full max-w-md relative z-20 space-y-6 my-auto">
+    <div class="space-y-6">
         <!-- Logo Header -->
         <div class="text-center space-y-3">
             <div class="ng-logo-box mx-auto flex items-center justify-center">
                 <svg class="w-16 h-16 drop-shadow-[0_0_20px_rgba(243,202,82,0.8)]" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="50" cy="50" r="44" stroke="url(#goldGradUserLog)" stroke-width="4" fill="url(#bgGlobeUserLog)"/>
                     <circle cx="50" cy="50" r="39" stroke="rgba(243,202,82,0.4)" stroke-width="1.5" stroke-dasharray="4 2" fill="none"/>
-                    <ellipse cx="50" cy="50" rx="36" ry="14" stroke="rgba(0,230,118,0.3)" stroke-width="1" fill="none"/>
-                    <ellipse cx="50" cy="50" rx="14" ry="36" stroke="rgba(0,230,118,0.3)" stroke-width="1" fill="none"/>
-                    <line x1="14" y1="50" x2="86" y2="50" stroke="rgba(0,230,118,0.3)" stroke-width="1"/>
                     <path d="M 28 70 L 28 30 L 46 70 L 46 30" stroke="url(#goldGradUserLog)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M 32 68 L 74 24" stroke="url(#goldGradUserLog)" stroke-width="6" stroke-linecap="round"/>
                     <path d="M 60 22 L 78 22 L 78 40" stroke="url(#goldGradUserLog)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -39,7 +35,7 @@
         </div>
 
         <!-- Login Form Card -->
-        <div class="ng-pkg-card p-8 border-2 border-amber-400 shadow-[0_0_40px_rgba(0,0,0,0.9)] space-y-6 relative backdrop-blur-xl">
+        <div class="ng-pkg-card p-8 border-2 border-amber-400 ng-auth-card-shadow space-y-6 relative backdrop-blur-xl">
             <div class="text-center space-y-1">
                 <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-black uppercase tracking-widest border border-emerald-500/40">
                     MEMBER PORTAL
@@ -111,11 +107,15 @@
                 </button>
             </form>
 
-            <div class="text-center pt-2 border-t border-amber-500/20">
-                <p class="text-xs text-neutral-400">
+            <div class="text-center pt-3 border-t border-amber-500/20 flex items-center justify-between text-xs">
+                <p class="text-neutral-400">
                     Don't have an account? 
-                    <a href="{{ route('user.register') }}" class="text-amber-400 font-black hover:underline ml-1">REGISTER NOW</a>
+                    <a href="{{ route('user.register') }}" class="text-amber-400 font-black hover:underline ml-1">REGISTER</a>
                 </p>
+                <a href="{{ url('/') }}" class="text-neutral-300 font-bold hover:text-amber-400 flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    Back to Home
+                </a>
             </div>
         </div>
     </div>

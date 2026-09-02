@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +15,16 @@ class AdminAuth
      */
     public function handle(Request $request, Closure $next): Response
     {
+        // If an admin user ID exists in session, ensure Auth::user() evaluates as Admin for admin routes
+        if (session()->has('admin_user_id')) {
+            $admin = User::find(session('admin_user_id'));
+            if ($admin && $admin->isAdmin()) {
+                Auth::setUser($admin);
+
+                return $next($request);
+            }
+        }
+
         if (! Auth::check()) {
             return redirect()->route('admin.login')->with('error', 'Please log in to access the Admin Panel.');
         }

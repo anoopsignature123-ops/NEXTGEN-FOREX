@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
@@ -39,6 +41,43 @@ class UserController extends Controller
         $users = $query->latest()->paginate(10)->withQueryString();
 
         return view('admin.users.index', compact('users'));
+    }
+
+    /**
+     * Live AJAX Autocomplete Suggestions for Global Header Search.
+     */
+    public function globalSearchSuggestions(Request $request): JsonResponse
+    {
+        $query = trim($request->query('q', ''));
+
+        if (strlen($query) < 2) {
+            return response()->json([]);
+        }
+
+        $users = User::where('role_id', 2)
+            ->where(function ($q) use ($query) {
+                $q->where('name', 'like', "%{$query}%")
+                    ->orWhere('email', 'like', "%{$query}%")
+                    ->orWhere('referral_code', 'like', "%{$query}%")
+                    ->orWhere('mobile', 'like', "%{$query}%");
+            })
+            ->take(6)
+            ->get();
+
+        $results = [];
+
+        foreach ($users as $user) {
+            $results[] = [
+                'id' => $user->id,
+                'title' => $user->name,
+                'subtitle' => $user->referral_code.' • '.$user->email,
+                'status' => strtoupper($user->status),
+                'url' => route('admin.users.show', $user->id),
+                'initial' => strtoupper(substr($user->name, 0, 1)),
+            ];
+        }
+
+        return response()->json($results);
     }
 
     /**
@@ -132,13 +171,33 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified user from database.
+     * Login as User / Impersonate User from Admin Panel.
      */
-    public function destroy(User $user): RedirectResponse
+    public function impersonate(User $user): RedirectResponse
     {
-        $code = $user->referral_code;
-        $user->delete();
+        $adminId = Auth::id() ?? session('admin_user_id', 1);
+        session()->put('admin_user_id', $adminId);
+        session()->put('impersonated_user_id', $user->id);
 
-        return redirect()->route('admin.users')->with('success', "Member {$code} deleted successfully.");
+        return redirect()->route('user.dashboard')->with('info', "Logged in as member {$user->name} ({$user->referral_code}).");
+    }
+
+    /**
+     * Stop impersonating and return to Admin Panel.
+     */
+    public function stopImpersonating(): RedirectResponse
+    {
+        session()->forget('impersonated_user_id');
+
+        if (session()->has('admin_user_id')) {
+            $admin = User::find(session('admin_user_id'));
+            if ($admin) {
+                Auth::setUser($admin);
+
+                return redirect()->route('admin.users')->with('success', 'Exited member view and returned to Admin Control Panel.');
+            }
+        }
+
+        return redirect()->route('user.dashboard');
     }
 }

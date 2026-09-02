@@ -15,8 +15,7 @@ body, body#dashboard {
     background-image: 
         radial-gradient(circle at 15% 15%, rgba(243, 202, 82, 0.18) 0%, transparent 40%),
         radial-gradient(circle at 85% 85%, rgba(0, 230, 118, 0.15) 0%, transparent 40%),
-        linear-gradient(135deg, #062417 0%, #03140b 50%, #010905 100%),
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill-opacity='0.05' fill='%23f3ca52'%3E%3Cpath d='M15 20h3v40h-3zM45 10h3v60h-3zM75 30h3v45h-3zM100 15h3v35h-3z'/%3E%3C/g%3E%3C/svg%3E") !important;
+        linear-gradient(135deg, #062417 0%, #03140b 50%, #010905 100%) !important;
     background-attachment: fixed !important;
     color: #e2e8f0;
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;

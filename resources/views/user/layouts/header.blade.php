@@ -1,6 +1,18 @@
 <!-- ======================================
      Start User Header Area
      ====================================== -->
+@if(session()->has('impersonated_by'))
+    <div class="w-full bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 text-black px-4 py-2.5 text-xs font-black flex flex-col sm:flex-row items-center justify-between gap-2 shadow-xl sticky top-0 z-[100] border-b-2 border-black">
+        <div class="flex items-center gap-2">
+            <i data-lucide="shield-alert" class="w-4 h-4 text-black shrink-0"></i>
+            <span>ADMIN IMPERSONATION MODE • Logged in as Member: <strong class="uppercase text-black underline">{{ Auth::user()->name }}</strong> ({{ Auth::user()->referral_code }})</span>
+        </div>
+        <a href="{{ route('user.stop-impersonate') }}" class="px-3 py-1.5 rounded-lg bg-black text-amber-400 font-bold hover:bg-neutral-900 transition text-[11px] uppercase tracking-wider flex items-center gap-1.5 shadow shrink-0">
+            <i data-lucide="arrow-left" class="w-3.5 h-3.5 text-amber-400"></i> Return to Admin Panel
+        </a>
+    </div>
+@endif
+
 <header class="sticky top-0 z-50 glass @container">
     <div class="flex items-center justify-between px-2 sm:px-6 py-2 sm:py-4">
         <div class="flex items-center gap-2 sm:gap-4">
@@ -85,6 +97,13 @@
                         <i data-lucide="layout-dashboard" class="w-4 h-4 text-amber-400"></i>
                         <span>User Dashboard</span>
                     </a>
+                    @if(session()->has('impersonated_by'))
+                        <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-bold text-amber-400 hover:bg-amber-500/10 transition"
+                            href="{{ route('user.stop-impersonate') }}">
+                            <i data-lucide="arrow-left" class="w-4 h-4 text-amber-400"></i>
+                            <span>Return to Admin Panel</span>
+                        </a>
+                    @endif
                     <div class="my-1 border-t border-amber-500/20"></div>
                     <form action="{{ route('user.logout') }}" method="POST">
                         @csrf

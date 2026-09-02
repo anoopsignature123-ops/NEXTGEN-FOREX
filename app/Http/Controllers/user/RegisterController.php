@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -14,8 +15,52 @@ class RegisterController extends Controller
     public function showRegistrationForm(Request $request): View
     {
         $sponsor = $request->query('sponsor', 'NGF-0000001');
+        $position = strtolower($request->query('position', 'left'));
+        $isLockedSponsor = $request->has('sponsor');
+        $isLockedPosition = $request->has('position');
 
-        return view('user.auth.register', compact('sponsor'));
+        return view('user.auth.register', compact('sponsor', 'position', 'isLockedSponsor', 'isLockedPosition'));
+    }
+
+    /**
+     * Live AJAX lookup for sponsor code verification.
+     */
+    public function checkSponsor(Request $request): JsonResponse
+    {
+        $code = trim($request->query('code', ''));
+
+        if (empty($code)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Please enter a valid sponsor code.',
+            ]);
+        }
+
+        $sponsorUser = User::where('referral_code', $code)->first();
+
+        if ($sponsorUser) {
+            return response()->json([
+                'success' => true,
+                'name' => $sponsorUser->name,
+                'email' => $sponsorUser->email,
+                'referral_code' => $sponsorUser->referral_code,
+            ]);
+        }
+
+        // Default system admin fallback code
+        if ($code === 'NGF-0000001') {
+            return response()->json([
+                'success' => true,
+                'name' => 'NextGen System Admin',
+                'email' => 'admin@nextgenforex.com',
+                'referral_code' => 'NGF-0000001',
+            ]);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Invalid Sponsor Code! Member not found in system.',
+        ]);
     }
 
     public function register(Request $request): View
@@ -59,6 +104,9 @@ class RegisterController extends Controller
 
         return view('user.auth.register', [
             'sponsor' => $user->sponsor_code,
+            'position' => strtolower($user->position),
+            'isLockedSponsor' => false,
+            'isLockedPosition' => false,
             'registeredUser' => $registeredUser,
             'showModal' => true,
         ]);

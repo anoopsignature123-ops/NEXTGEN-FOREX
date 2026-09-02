@@ -18,11 +18,24 @@
                 <i data-lucide="panel-left" class="w-5 h-5"></i>
             </button>
 
-            <!-- Search -->
-            <div class="relative hidden md:block">
-                <i data-lucide="search" class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-muted"></i>
-                <input type="text" id="globalSearch" placeholder="Search users, packages, transactions..."
-                    class="w-80 pl-10 pr-4 py-2.5 rounded-xl bg-bg border border-border text-sm text-text placeholder:text-muted focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition" />
+            <!-- Global Search Form with Live Autocomplete Suggestions -->
+            <div class="relative hidden md:block z-50">
+                <form action="{{ route('admin.users') }}" method="GET" id="globalSearchForm">
+                    <i data-lucide="search" class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-muted pointer-events-none"></i>
+                    <input type="text" name="search" value="{{ request('search') }}" id="globalSearch" autocomplete="off" placeholder="Global search members, email, code..."
+                        class="w-80 pl-10 pr-4 py-2.5 rounded-xl bg-bg border border-border text-sm text-text placeholder:text-muted focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition" />
+                </form>
+
+                <!-- Live Autocomplete Suggestions Dropdown Box -->
+                <div id="globalSearchSuggestions" style="display: none;" class="absolute left-0 top-full mt-2 w-96 rounded-2xl bg-panel border border-amber-500/40 shadow-2xl overflow-hidden p-2 z-50">
+                    <div class="p-2 border-b border-amber-500/20 text-[11px] font-bold text-amber-400 uppercase tracking-wider flex items-center justify-between">
+                        <span>SUGGESTED MEMBERS</span>
+                        <span id="searchResultCount" class="text-neutral-400 font-mono text-[10px]">0 found</span>
+                    </div>
+                    <div id="suggestionsList" class="divide-y divide-amber-500/10 max-h-72 overflow-y-auto py-1">
+                        <!-- Populated dynamically via JS -->
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -107,11 +120,75 @@
         }
     }
 
-    document.addEventListener('click', function (e) {
-        const menu = document.getElementById('adminProfileMenu');
-        const btn = document.getElementById('adminDropdownBtn');
-        if (menu && btn && !btn.contains(e.target) && !menu.contains(e.target)) {
-            menu.style.display = 'none';
+    document.addEventListener("DOMContentLoaded", function() {
+        const searchInput = document.getElementById('globalSearch');
+        const dropdown = document.getElementById('globalSearchSuggestions');
+        const suggestionsList = document.getElementById('suggestionsList');
+        const countSpan = document.getElementById('searchResultCount');
+
+        if (searchInput && dropdown && suggestionsList) {
+            let debounceTimer = null;
+
+            searchInput.addEventListener('input', function() {
+                const query = this.value.trim();
+
+                if (query.length < 2) {
+                    dropdown.style.display = 'none';
+                    return;
+                }
+
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    fetch(`{{ route('admin.global-search-suggestions') }}?q=${encodeURIComponent(query)}`)
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data && data.length > 0) {
+                                countSpan.textContent = `${data.length} found`;
+                                suggestionsList.innerHTML = data.map(item => `
+                                    <a href="${item.url}" class="flex items-center justify-between p-2.5 rounded-xl hover:bg-amber-500/15 transition group">
+                                        <div class="flex items-center gap-3 overflow-hidden">
+                                            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 text-black font-black text-xs flex items-center justify-center shrink-0 shadow">
+                                                ${item.initial}
+                                            </div>
+                                            <div class="overflow-hidden">
+                                                <div class="font-bold text-white text-xs group-hover:text-amber-400 transition truncate">${item.title}</div>
+                                                <div class="text-[11px] text-neutral-400 font-mono truncate">${item.subtitle}</div>
+                                            </div>
+                                        </div>
+                                        <span class="px-2 py-0.5 rounded text-[9px] font-black tracking-wider ${item.status === 'ACTIVE' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40' : 'bg-rose-500/20 text-rose-300 border border-rose-500/40'} shrink-0">
+                                            ${item.status}
+                                        </span>
+                                    </a>
+                                `).join('');
+                                dropdown.style.display = 'block';
+                            } else {
+                                countSpan.textContent = '0 found';
+                                suggestionsList.innerHTML = `
+                                    <div class="p-3 text-center text-xs text-neutral-400 font-medium">
+                                        No members matching "${query}"
+                                    </div>
+                                `;
+                                dropdown.style.display = 'block';
+                            }
+                        })
+                        .catch(() => {
+                            dropdown.style.display = 'none';
+                        });
+                }, 200);
+            });
+
+            document.addEventListener('click', function(e) {
+                const btn = document.getElementById('adminDropdownBtn');
+                const menu = document.getElementById('adminProfileMenu');
+                
+                if (menu && btn && !btn.contains(e.target) && !menu.contains(e.target)) {
+                    menu.style.display = 'none';
+                }
+
+                if (!searchInput.contains(e.target) && !dropdown.contains(e.target)) {
+                    dropdown.style.display = 'none';
+                }
+            });
         }
     });
 </script>

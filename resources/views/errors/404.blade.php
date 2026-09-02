@@ -6,38 +6,119 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>404 - Page Not Found | NEXTGEN FOREX</title>
     <link rel="icon" type="image/png" href="{{ asset('assets/images/favicon.png') }}" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="{{ asset('css/index.css') }}" rel="stylesheet">
     <link href="{{ asset('css/nextgen-theme.css') }}" rel="stylesheet">
+    <style>
+        body.ng-error-bg {
+            background-color: #020c07 !important;
+            background-image: radial-gradient(circle at 50% 40%, rgba(243, 202, 82, 0.22) 0%, rgba(3, 18, 11, 0.96) 65%, #010804 100%) !important;
+            background-attachment: fixed !important;
+            min-height: 100vh;
+        }
+
+        .ng-giant-number {
+            font-size: clamp(120px, 20vw, 260px) !important;
+            line-height: 0.85 !important;
+            letter-spacing: -4px !important;
+            filter: drop-shadow(0 0 45px rgba(243, 202, 82, 0.55));
+        }
+    </style>
 </head>
 
-<body id="dashboard" class="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-black text-slate-100">
+<body class="ng-error-bg flex flex-col justify-between items-center min-h-screen p-4 sm:p-8 text-slate-100 font-sans">
 
-    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black z-10 opacity-90"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-amber-500/10 blur-[150px]"></div>
-    </div>
-
-    <div class="w-full max-w-md relative z-20 space-y-6 text-center my-auto px-4">
-        <div class="ng-pkg-card p-8 border-2 border-amber-400 shadow-[0_0_50px_rgba(243,202,82,0.2)] space-y-6 relative backdrop-blur-xl">
-            <div class="w-16 h-16 mx-auto rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+    <!-- Top Header Bar -->
+    <header class="w-full max-w-5xl flex items-center justify-between py-4 border-b border-amber-500/20">
+        <a href="{{ url('/') }}" class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 via-amber-500 to-yellow-600 p-0.5 shadow-[0_0_15px_rgba(243,202,82,0.5)]">
+                <div class="w-full h-full rounded-[10px] bg-black flex items-center justify-center">
+                    <span class="text-amber-400 font-black text-lg font-heading">NG</span>
+                </div>
             </div>
+            <div>
+                <h1 class="text-lg font-black text-gold-gradient tracking-wider uppercase leading-none">NEXTGEN</h1>
+                <p class="text-[9px] text-amber-400 font-extrabold tracking-[2px] uppercase">FOREX TRADING</p>
+            </div>
+        </a>
 
-            <div class="space-y-2">
-                <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-black uppercase tracking-widest border border-amber-500/40">
-                    HTTP ERROR 404
+        <a href="{{ url('/') }}" class="px-4 py-2 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 font-bold text-xs hover:bg-amber-500/20 transition flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            Home
+        </a>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="w-full max-w-2xl my-auto text-center py-6 space-y-6">
+        
+        <!-- MASSIVE GIANT 404 NUMBER -->
+        <div class="space-y-2 select-none">
+            <h1 class="ng-giant-number font-black text-gold-gradient font-heading">
+                404
+            </h1>
+            
+            <div class="pt-2">
+                <span class="px-4 py-1.5 rounded-full bg-amber-500/20 text-amber-300 text-xs font-black uppercase tracking-[3px] border border-amber-500/40 shadow-inner inline-flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+                    HTTP ERROR 404 • PAGE NOT FOUND
                 </span>
-                <h1 class="text-3xl font-black text-white font-heading">PAGE NOT FOUND</h1>
-                <p class="text-xs text-neutral-300">The requested page URL does not exist or has been moved.</p>
-            </div>
-
-            <div class="pt-2 flex flex-col gap-2">
-                <a href="{{ url('/') }}" class="w-full py-3 rounded-xl bg-amber-500 text-black font-black text-xs uppercase tracking-wider hover:scale-102 transition shadow-lg flex items-center justify-center gap-2">
-                    BACK TO HOME
-                </a>
             </div>
         </div>
-    </div>
+
+        <!-- Description -->
+        <div class="space-y-3 max-w-lg mx-auto">
+            <h2 class="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight font-heading">
+                UNMAPPED FOREX TERRITORY
+            </h2>
+            <p class="text-xs sm:text-sm text-neutral-300 leading-relaxed font-medium">
+                The requested page URL does not exist or has been relocated in our network.
+            </p>
+            <div>
+                <span class="text-xs font-mono text-amber-400 bg-black/80 px-4 py-2 rounded-xl border border-amber-500/30 inline-flex items-center gap-2 break-all max-w-full">
+                    <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                    {{ request()->url() }}
+                </span>
+            </div>
+        </div>
+
+        <!-- Compact Proportioned Action Buttons (No full-screen width stretch) -->
+        <div class="pt-4 max-w-md mx-auto flex flex-col sm:flex-row items-center justify-center gap-3">
+            <a href="{{ url('/') }}" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-amber-500 text-black font-black text-xs uppercase tracking-wider hover:scale-105 transition shadow-lg flex items-center justify-center gap-2 shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                RETURN TO HOME
+            </a>
+
+            @auth
+                <a href="{{ route('user.dashboard') }}" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-neutral-900 border border-amber-500/40 text-amber-400 font-bold text-xs uppercase tracking-wider hover:bg-neutral-800 transition flex items-center justify-center gap-2 shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                    MEMBER DASHBOARD
+                </a>
+            @else
+                <a href="{{ route('user.login') }}" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-neutral-900 border border-amber-500/40 text-amber-400 font-bold text-xs uppercase tracking-wider hover:bg-neutral-800 transition flex items-center justify-center gap-2 shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+                    MEMBER LOGIN
+                </a>
+            @endauth
+        </div>
+
+        <!-- Public Quick Links ONLY (NO Admin Info / NO Admin Links) -->
+        <div class="pt-6 border-t border-amber-500/20 flex flex-wrap items-center justify-center gap-6 text-xs text-neutral-400 font-semibold">
+            <a href="{{ route('user.login') }}" class="hover:text-amber-400 transition flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> Member Login
+            </a>
+            <a href="{{ route('user.register') }}" class="hover:text-amber-400 transition flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> Register Account
+            </a>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full max-w-5xl py-4 text-center border-t border-amber-500/20">
+        <p class="text-xs text-neutral-400 font-semibold font-mono">
+            NEXTGEN FOREX TRADING SYSTEM • ALL RIGHTS RESERVED © {{ date('Y') }}
+        </p>
+    </footer>
 
 </body>
 

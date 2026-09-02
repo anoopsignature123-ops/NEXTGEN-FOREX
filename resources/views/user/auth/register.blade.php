@@ -49,28 +49,72 @@
             <form action="{{ route('user.register') }}" method="POST" class="space-y-4">
                 @csrf
 
-                <!-- Sponsor ID Input -->
+                <!-- Sponsor ID Input & Live Verification Box -->
                 <div>
-                    <label class="block text-xs font-bold text-amber-400 uppercase mb-1.5">Sponsor Code / ID *</label>
+                    <div class="flex items-center justify-between mb-1.5">
+                        <label class="block text-xs font-bold text-amber-400 uppercase">Sponsor Code / ID *</label>
+                        @if(isset($isLockedSponsor) && $isLockedSponsor)
+                            <span class="text-[10px] font-black text-amber-300 bg-amber-500/20 px-2 py-0.5 rounded border border-amber-500/40 uppercase flex items-center gap-1">
+                                🔒 Locked via Referral Link
+                            </span>
+                        @endif
+                    </div>
                     <div class="relative">
-                        <input type="text" name="sponsor_id" value="{{ old('sponsor_id', $sponsor ?? 'NGF-0000001') }}" required placeholder="e.g. NGF-0000001" class="w-full px-4 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400">
+                        <input 
+                            type="text" 
+                            id="sponsorInput"
+                            name="sponsor_id" 
+                            value="{{ old('sponsor_id', $sponsor ?? 'NGF-0000001') }}" 
+                            required 
+                            {{ (isset($isLockedSponsor) && $isLockedSponsor) ? 'readonly' : '' }}
+                            placeholder="e.g. NGF-0000001" 
+                            class="w-full px-4 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400 {{ (isset($isLockedSponsor) && $isLockedSponsor) ? 'opacity-85 cursor-not-allowed bg-amber-500/5' : '' }}">
+                    </div>
+
+                    <!-- Live Sponsor Info Card AJAX output -->
+                    <div id="sponsorInfoBox" class="mt-2 hidden p-3 rounded-xl border text-xs font-medium transition-all">
+                        <!-- Populated by JS -->
                     </div>
                 </div>
 
                 <!-- Binary Position Selection -->
                 <div>
-                    <label class="block text-xs font-bold text-amber-400 uppercase mb-1.5">Binary Tree Placement Leg *</label>
+                    <div class="flex items-center justify-between mb-1.5">
+                        <label class="block text-xs font-bold text-amber-400 uppercase">Binary Tree Placement Leg *</label>
+                        @if(isset($isLockedPosition) && $isLockedPosition)
+                            <span class="text-[10px] font-black text-amber-300 bg-amber-500/20 px-2 py-0.5 rounded border border-amber-500/40 uppercase flex items-center gap-1">
+                                🔒 Position Locked ({{ strtoupper($position ?? 'LEFT') }} LEG)
+                            </span>
+                        @endif
+                    </div>
+
+                    @if(isset($isLockedPosition) && $isLockedPosition)
+                        <input type="hidden" name="position" value="{{ $position ?? 'left' }}">
+                    @endif
+
                     <div class="grid grid-cols-2 gap-3">
-                        <label class="p-3.5 rounded-xl border border-amber-500/40 bg-bg cursor-pointer hover:bg-amber-500/10 transition flex items-center gap-3">
-                            <input type="radio" name="position" value="left" checked class="w-4 h-4 accent-amber-500">
+                        <label class="p-3.5 rounded-xl border border-amber-500/40 bg-bg cursor-pointer hover:bg-amber-500/10 transition flex items-center gap-3 {{ (isset($isLockedPosition) && $isLockedPosition) ? 'opacity-85 cursor-not-allowed' : '' }}">
+                            <input 
+                                type="radio" 
+                                name="position" 
+                                value="left" 
+                                {{ (isset($position) && strtolower($position) === 'left') ? 'checked' : '' }}
+                                {{ (isset($isLockedPosition) && $isLockedPosition) ? 'disabled' : '' }}
+                                class="w-4 h-4 accent-amber-500">
                             <div>
                                 <span class="text-xs font-bold text-white block uppercase">LEFT LEG</span>
                                 <span class="text-[10px] text-amber-400 font-semibold block">Power Leg</span>
                             </div>
                         </label>
 
-                        <label class="p-3.5 rounded-xl border border-amber-500/40 bg-bg cursor-pointer hover:bg-amber-500/10 transition flex items-center gap-3">
-                            <input type="radio" name="position" value="right" class="w-4 h-4 accent-amber-500">
+                        <label class="p-3.5 rounded-xl border border-amber-500/40 bg-bg cursor-pointer hover:bg-amber-500/10 transition flex items-center gap-3 {{ (isset($isLockedPosition) && $isLockedPosition) ? 'opacity-85 cursor-not-allowed' : '' }}">
+                            <input 
+                                type="radio" 
+                                name="position" 
+                                value="right" 
+                                {{ (isset($position) && strtolower($position) === 'right') ? 'checked' : '' }}
+                                {{ (isset($isLockedPosition) && $isLockedPosition) ? 'disabled' : '' }}
+                                class="w-4 h-4 accent-amber-500">
                             <div>
                                 <span class="text-xs font-bold text-white block uppercase">RIGHT LEG</span>
                                 <span class="text-[10px] text-emerald-400 font-semibold block">Weaker Leg</span>
@@ -98,7 +142,7 @@
                     <input type="text" name="mobile" value="{{ old('mobile') }}" required placeholder="+1 234 567 890" class="w-full px-4 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400">
                 </div>
 
-                <!-- Password & Confirm Password with Pure Vector SVG Eye Toggle -->
+                <!-- Password & Confirm Password -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-bold text-amber-400 uppercase mb-1.5">Account Password *</label>
@@ -152,11 +196,15 @@
                 </button>
             </form>
 
-            <div class="text-center pt-2 border-t border-amber-500/20">
-                <p class="text-xs text-neutral-400">
+            <div class="text-center pt-3 border-t border-amber-500/20 flex items-center justify-between text-xs">
+                <p class="text-neutral-400">
                     Already have an account? 
                     <a href="{{ route('user.login') }}" class="text-amber-400 font-black hover:underline ml-1">LOG IN HERE</a>
                 </p>
+                <a href="{{ url('/') }}" class="text-neutral-300 font-bold hover:text-amber-400 flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    Back to Home
+                </a>
             </div>
         </div>
     </div>
@@ -232,6 +280,53 @@
             @if (isset($showModal) && $showModal)
                 showToast('Welcome!', "Registration successful! Member Code generated.", 'success');
             @endif
+
+            // Real-time Sponsor ID Verification Lookup
+            const sponsorInput = document.getElementById('sponsorInput');
+            if (sponsorInput) {
+                const verifySponsor = () => {
+                    const code = sponsorInput.value.trim();
+                    const box = document.getElementById('sponsorInfoBox');
+
+                    if (!code) {
+                        box.classList.add('hidden');
+                        return;
+                    }
+
+                    fetch(`{{ route('user.check-sponsor') }}?code=${encodeURIComponent(code)}`)
+                        .then(res => res.json())
+                        .then(data => {
+                            box.classList.remove('hidden');
+                            if (data.success) {
+                                box.className = 'mt-2 p-3 rounded-xl border bg-emerald-500/10 border-emerald-500/40 text-emerald-400 text-xs font-semibold flex items-center justify-between';
+                                box.innerHTML = `
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                                        <div>
+                                            <span class="font-black uppercase tracking-wider text-white block">✓ VERIFIED SPONSOR</span>
+                                            <span class="text-emerald-300 font-bold">${data.name}</span>
+                                            <span class="text-neutral-400 font-mono text-[11px] block">${data.email}</span>
+                                        </div>
+                                    </div>
+                                    <span class="text-[10px] font-mono bg-black/50 px-2 py-1 rounded text-amber-400 border border-amber-500/30">${data.referral_code}</span>
+                                `;
+                            } else {
+                                box.className = 'mt-2 p-3 rounded-xl border bg-rose-500/10 border-rose-500/40 text-rose-300 text-xs font-semibold flex items-center gap-2';
+                                box.innerHTML = `
+                                    <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                                    <span>${data.message || 'Invalid Sponsor Code! User not found.'}</span>
+                                `;
+                            }
+                        })
+                        .catch(() => {
+                            box.classList.add('hidden');
+                        });
+                };
+
+                sponsorInput.addEventListener('input', verifySponsor);
+                sponsorInput.addEventListener('change', verifySponsor);
+                verifySponsor();
+            }
         });
 
         function togglePassVisibility(inputId, openId, closedId) {

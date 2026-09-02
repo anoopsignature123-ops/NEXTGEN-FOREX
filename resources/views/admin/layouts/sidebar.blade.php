@@ -49,18 +49,32 @@
             Active Modules
         </div>
 
-        <!-- Working Module 1: Dashboard -->
+        <!-- Dashboard -->
         <a class='nav-item {{ request()->routeIs("admin.dashboard") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
             href='{{ route("admin.dashboard") }}'>
             <i data-lucide="layout-dashboard" class="w-5 h-5 shrink-0 text-amber-400"></i>
             <span class="nav-text">Admin Dashboard</span>
         </a>
 
-        <!-- Working Module 2: User Management -->
+        <!-- User Management Directory -->
         <a class='nav-item {{ request()->routeIs("admin.users*") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
             href='{{ route("admin.users") }}'>
             <i data-lucide="users" class="w-5 h-5 shrink-0 text-amber-400"></i>
             <span class="nav-text">User Management</span>
+        </a>
+
+        <!-- Investment Packages Management -->
+        <a class='nav-item {{ request()->routeIs("admin.packages*") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("admin.packages.index") }}'>
+            <i data-lucide="package-check" class="w-5 h-5 shrink-0 text-amber-400"></i>
+            <span class="nav-text">Packages Management</span>
+        </a>
+
+        <!-- Deposit Requests -->
+        <a class='nav-item {{ request()->routeIs("admin.deposits*") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("admin.deposits.index") }}'>
+            <i data-lucide="wallet" class="w-5 h-5 shrink-0 text-amber-400"></i>
+            <span class="nav-text">Deposit Requests</span>
         </a>
 
         <!-- COMING SOON MODULES SECTION -->
@@ -71,12 +85,6 @@
         <div class="flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-500 opacity-60 cursor-not-allowed">
             <i data-lucide="building-2" class="w-5 h-5 shrink-0 text-neutral-500"></i>
             <span class="nav-text">Company Settings</span>
-            <span class="ml-auto text-[9px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded font-black">COMING SOON</span>
-        </div>
-
-        <div class="flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-500 opacity-60 cursor-not-allowed">
-            <i data-lucide="package-check" class="w-5 h-5 shrink-0 text-neutral-500"></i>
-            <span class="nav-text">Investment Packages</span>
             <span class="ml-auto text-[9px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded font-black">COMING SOON</span>
         </div>
 

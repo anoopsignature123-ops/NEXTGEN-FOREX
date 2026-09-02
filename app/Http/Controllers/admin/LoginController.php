@@ -44,6 +44,7 @@ class LoginController extends Controller
             }
 
             $request->session()->regenerate();
+            session(['admin_user_id' => $user->id]);
 
             return redirect()->route('admin.dashboard')->with('success', 'Welcome back, '.$user->name);
         }
@@ -54,6 +55,7 @@ class LoginController extends Controller
     public function logout(Request $request): RedirectResponse
     {
         Auth::logout();
+        $request->session()->forget(['admin_user_id', 'impersonated_user_id']);
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 

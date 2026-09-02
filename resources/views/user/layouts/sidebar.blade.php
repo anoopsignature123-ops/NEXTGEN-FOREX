@@ -46,14 +46,78 @@
     <!-- Navigation -->
     <nav class="py-4 flex-1 overflow-y-auto space-y-1">
         <div class="nav-section-title px-5 pt-3 pb-2 text-[10px] font-black uppercase tracking-[2px] text-amber-400/70">
-            Active Module
+            Active Modules
         </div>
 
-        <!-- Working Module: Dashboard -->
+        <!-- Dashboard -->
         <a class='nav-item {{ request()->routeIs("user.dashboard") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
             href='{{ route("user.dashboard") }}'>
             <i data-lucide="layout-dashboard" class="w-5 h-5 shrink-0 text-amber-400"></i>
-            <span class="nav-text">Member Dashboard</span>
+            <span class="nav-text">Dashboard</span>
+        </a>
+
+        <!-- INVESTMENTS & FUNDINGS SECTION -->
+        <div class="nav-section-title px-5 pt-4 pb-2 mt-2 text-[10px] font-black uppercase tracking-[2px] text-amber-400/70">
+            Investments & Fundings
+        </div>
+
+        <!-- Add Fund / Deposit Wallet -->
+        <a class='nav-item {{ request()->routeIs("user.deposits.index") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("user.deposits.index") }}'>
+            <i data-lucide="wallet" class="w-5 h-5 shrink-0 text-amber-400"></i>
+            <span class="nav-text">Add Fund / Deposit</span>
+        </a>
+
+        <!-- Deposit History -->
+        <a class='nav-item {{ request()->routeIs("user.deposits.history") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("user.deposits.history") }}'>
+            <i data-lucide="clock" class="w-5 h-5 shrink-0 text-amber-400"></i>
+            <span class="nav-text">Deposit History</span>
+        </a>
+
+        <!-- Buy Packages -->
+        <a class='nav-item {{ request()->routeIs("user.packages.index") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("user.packages.index") }}'>
+            <i data-lucide="package-check" class="w-5 h-5 shrink-0 text-amber-400"></i>
+            <span class="nav-text">Buy Packages</span>
+        </a>
+
+        <!-- Packages History -->
+        <a class='nav-item {{ request()->routeIs("user.packages.history") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("user.packages.history") }}'>
+            <i data-lucide="history" class="w-5 h-5 shrink-0 text-amber-400"></i>
+            <span class="nav-text">Packages History</span>
+        </a>
+
+        <!-- MY NETWORK SECTION -->
+        <div class="nav-section-title px-5 pt-4 pb-2 mt-2 text-[10px] font-black uppercase tracking-[2px] text-amber-400/70">
+            My Network & Team
+        </div>
+
+        <!-- Direct Members -->
+        <a class='nav-item {{ request()->routeIs("user.network.direct*") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("user.network.direct") }}'>
+            <i data-lucide="users" class="w-5 h-5 shrink-0 text-amber-400"></i>
+            <span class="nav-text">Direct Members</span>
+        </a>
+
+        <!-- My Team Tree -->
+        <a class='nav-item {{ request()->routeIs("user.network.tree*") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("user.network.tree") }}'>
+            <i data-lucide="git-merge" class="w-5 h-5 shrink-0 text-amber-400"></i>
+            <span class="nav-text">My Team Tree</span>
+        </a>
+
+        <!-- ACCOUNT & SETTINGS SECTION -->
+        <div class="nav-section-title px-5 pt-4 pb-2 mt-2 text-[10px] font-black uppercase tracking-[2px] text-amber-400/70">
+            Account & Security
+        </div>
+
+        <!-- My Profile -->
+        <a class='nav-item {{ request()->routeIs("user.profile*") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("user.profile") }}'>
+            <i data-lucide="user-cog" class="w-5 h-5 shrink-0 text-amber-400"></i>
+            <span class="nav-text">My Profile</span>
         </a>
 
         <!-- COMING SOON MODULES SECTION -->
@@ -68,26 +132,8 @@
         </div>
 
         <div class="flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-500 opacity-60 cursor-not-allowed">
-            <i data-lucide="package-check" class="w-5 h-5 shrink-0 text-neutral-500"></i>
-            <span class="nav-text">Buy Packages</span>
-            <span class="ml-auto text-[9px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded font-black">COMING SOON</span>
-        </div>
-
-        <div class="flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-500 opacity-60 cursor-not-allowed">
             <i data-lucide="coins" class="w-5 h-5 shrink-0 text-neutral-500"></i>
             <span class="nav-text">My Incomes</span>
-            <span class="ml-auto text-[9px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded font-black">COMING SOON</span>
-        </div>
-
-        <div class="flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-500 opacity-60 cursor-not-allowed">
-            <i data-lucide="users" class="w-5 h-5 shrink-0 text-neutral-500"></i>
-            <span class="nav-text">My Team & Network</span>
-            <span class="ml-auto text-[9px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded font-black">COMING SOON</span>
-        </div>
-
-        <div class="flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-500 opacity-60 cursor-not-allowed">
-            <i data-lucide="wallet" class="w-5 h-5 shrink-0 text-neutral-500"></i>
-            <span class="nav-text">Deposit & Withdraw</span>
             <span class="ml-auto text-[9px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded font-black">COMING SOON</span>
         </div>
 
