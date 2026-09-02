@@ -1,0 +1,398 @@
+/* NextGen Forex Premium Luxury Gold & Dark Forest Emerald Theme Overrides */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+:root {
+    --color-accent: #f3ca52 !important;
+    --color-emerald-500: #d4af37 !important;
+    --color-teal-500: #f3ca52 !important;
+    --color-border: rgba(212, 175, 55, 0.4) !important;
+    --font-heading: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+body, body#dashboard {
+    background-color: #021008 !important;
+    background-image: 
+        radial-gradient(circle at 15% 15%, rgba(243, 202, 82, 0.18) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(0, 230, 118, 0.15) 0%, transparent 40%),
+        linear-gradient(135deg, #062417 0%, #03140b 50%, #010905 100%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill-opacity='0.05' fill='%23f3ca52'%3E%3Cpath d='M15 20h3v40h-3zM45 10h3v60h-3zM75 30h3v45h-3zM100 15h3v35h-3z'/%3E%3C/g%3E%3C/svg%3E") !important;
+    background-attachment: fixed !important;
+    color: #e2e8f0;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+}
+
+/* Typography Enhancements */
+h1, h2, h3, h4, h5, h6, .font-heading, .logo-text, .nav-section-title {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+    letter-spacing: -0.2px;
+}
+
+h1, h2, h3 {
+    font-weight: 800;
+}
+
+/* Page Entrance Animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.inner-content > * {
+    animation: fadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.inner-content > *:nth-child(1) { animation-delay: 0.05s; }
+.inner-content > *:nth-child(2) { animation-delay: 0.10s; }
+.inner-content > *:nth-child(3) { animation-delay: 0.15s; }
+.inner-content > *:nth-child(4) { animation-delay: 0.20s; }
+.inner-content > *:nth-child(5) { animation-delay: 0.25s; }
+
+/* Header Dropdown Menu Styling */
+.dropdown-menu:not(.hidden) {
+    display: block !important;
+    animation: fadeInDown 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Sidebar styling & Mobile Responsiveness */
+.sidebar {
+    width: 270px !important;
+    background: linear-gradient(180deg, #04170d 0%, #020d07 100%) !important;
+    border-right: 1.5px solid rgba(212, 175, 55, 0.35) !important;
+    box-shadow: 5px 0 25px rgba(0, 0, 0, 0.7);
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+}
+
+@media (min-width: 1024px) {
+    .main-content {
+        margin-left: 270px !important;
+    }
+}
+
+@media (max-width: 1023px) {
+    .sidebar {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        bottom: 0 !important;
+        z-index: 50 !important;
+        transform: translateX(-100%) !important;
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    .sidebar.mobile-sidebar-open {
+        transform: translateX(0) !important;
+        box-shadow: 10px 0 40px rgba(0, 0, 0, 0.9) !important;
+    }
+}
+
+.logo-section {
+    border-bottom: 1.5px solid rgba(212, 175, 55, 0.3) !important;
+    background: linear-gradient(180deg, rgba(212, 175, 55, 0.12) 0%, transparent 100%);
+    padding: 16px 16px !important;
+}
+
+/* Header Area */
+header.glass {
+    background: rgba(3, 18, 11, 0.92) !important;
+    border-bottom: 1.5px solid rgba(212, 175, 55, 0.3) !important;
+    backdrop-filter: blur(16px);
+}
+
+/* Sidebar Active Nav Item - GOLD METALLIC SHIMMER */
+.nav-item.active, a.nav-item.active {
+    background: linear-gradient(135deg, #d4af37 0%, #f3ca52 50%, #aa771c 100%) !important;
+    color: #000000 !important;
+    font-weight: 800 !important;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+    font-size: 14px !important;
+    border-right: none !important;
+    box-shadow: 0 4px 18px rgba(243, 202, 82, 0.45) !important;
+    transition: all 0.3s ease !important;
+}
+
+.nav-item.active *, a.nav-item.active * {
+    color: #000000 !important;
+}
+
+.nav-item:hover:not(.active) {
+    background: rgba(243, 202, 82, 0.15) !important;
+    color: #f3ca52 !important;
+    transform: translateX(3px);
+}
+
+.nav-item:hover:not(.active) * {
+    color: #f3ca52 !important;
+}
+
+.nav-item {
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Badges Override - ALL GOLD */
+.bg-emerald-500\/20, .bg-emerald-500\/10, .bg-sky-500\/20, .bg-amber-500\/20, .bg-amber-500\/10 {
+    background: rgba(212, 175, 55, 0.18) !important;
+    border: 1px solid rgba(243, 202, 82, 0.4) !important;
+    color: #f3ca52 !important;
+}
+
+/* Cards & Panels - Dark Emerald with Gold Glowing Border */
+.bg-panel {
+    background: linear-gradient(180deg, rgba(8, 38, 24, 0.92) 0%, rgba(3, 18, 11, 0.96) 100%) !important;
+    border: 1.5px solid rgba(212, 175, 55, 0.4) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(243, 202, 82, 0.2) !important;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.bg-panel:hover {
+    transform: translateY(-4px);
+    border-color: #f3ca52 !important;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(243, 202, 82, 0.4), inset 0 1px 0 rgba(243, 202, 82, 0.3) !important;
+}
+
+/* PDF Slide 11 Package Card Beveled Gold Frame */
+.ng-pkg-card {
+    background: linear-gradient(180deg, #093320 0%, #04190f 100%) !important;
+    border: 2px solid #e2b842 !important;
+    outline: 1px solid rgba(255, 215, 0, 0.3) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(226, 184, 66, 0.25) !important;
+    transition: all 0.35s ease-in-out !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.ng-pkg-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    border-color: #fff2a3 !important;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 35px rgba(243, 202, 82, 0.6) !important;
+}
+
+.ng-gold-ribbon {
+    background: linear-gradient(135deg, #d4af37 0%, #fcf6ba 40%, #b38728 70%, #aa771c 100%) !important;
+    color: #000000 !important;
+    font-weight: 800 !important;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+}
+
+.ng-banner-title {
+    background: linear-gradient(180deg, #072e1c 0%, #03140b 100%) !important;
+    border: 2px solid #e2b842 !important;
+    border-radius: 24px !important;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(226, 184, 66, 0.3) !important;
+}
+
+/* Gold Shimmer Button Animation */
+@keyframes goldShimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+.bg-amber-500, .bg-emerald-500, .btn-gold {
+    background: linear-gradient(90deg, #d4af37 0%, #f3ca52 35%, #fff5c0 50%, #f3ca52 65%, #aa771c 100%) !important;
+    background-size: 200% 100% !important;
+    animation: goldShimmer 5s infinite linear;
+    color: #000000 !important;
+    font-weight: 800 !important;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35) !important;
+    border: none !important;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.bg-amber-500:hover, .bg-emerald-500:hover, .btn-gold:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 0 25px rgba(243, 202, 82, 0.6) !important;
+}
+
+/* Card Titles & Headings */
+.text-amber-400, .text-emerald-400, .text-teal-400, .text-sky-400 {
+    color: #f3ca52 !important;
+}
+
+.text-gold-gradient {
+    background: linear-gradient(135deg, #fff5c0 0%, #f3ca52 40%, #d4af37 70%, #aa771c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Number Circle Badges like PDF */
+.pdf-num-badge {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #d4af37 0%, #f3ca52 50%, #aa771c 100%);
+    color: #000000;
+    font-weight: 900;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 14px rgba(243, 202, 82, 0.6);
+    border: 2px solid #fff5c0;
+}
+
+/* Tables & Mobile Responsiveness */
+.bg-bg {
+    background-color: rgba(2, 12, 6, 0.95) !important;
+}
+
+thead th {
+    color: #f3ca52 !important;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.5px;
+    border-bottom: 1.5px solid rgba(212, 175, 55, 0.3) !important;
+}
+
+tbody tr {
+    transition: all 0.2s ease !important;
+}
+
+tbody tr:hover {
+    background-color: rgba(243, 202, 82, 0.08) !important;
+}
+
+/* Input Fields & Real-time Validation Styling */
+input[type="text"], input[type="email"], input[type="password"], input[type="number"], select {
+    background-color: rgba(2, 12, 6, 0.9) !important;
+    border: 1.5px solid rgba(212, 175, 55, 0.35) !important;
+    color: #ffffff !important;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+    transition: all 0.25s ease !important;
+}
+
+input:focus, select:focus {
+    border-color: #f3ca52 !important;
+    box-shadow: 0 0 15px rgba(243, 202, 82, 0.4) !important;
+}
+
+input.is-invalid, select.is-invalid {
+    border-color: #ff5252 !important;
+    box-shadow: 0 0 12px rgba(255, 82, 82, 0.4) !important;
+}
+
+input.is-valid, select.is-valid {
+    border-color: #00e676 !important;
+    box-shadow: 0 0 12px rgba(0, 230, 118, 0.3) !important;
+}
+
+.input-error-msg {
+    color: #ff5252;
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 4px;
+    display: block;
+}
+
+/* Reusable Table Pagination Buttons */
+.pagination-btn {
+    padding: 6px 12px;
+    border-radius: 8px;
+    background: rgba(2, 12, 6, 0.9);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    color: #f3ca52;
+    font-weight: 700;
+    font-size: 12px;
+    transition: all 0.2s ease;
+}
+
+.pagination-btn:hover:not(:disabled) {
+    background: #f3ca52;
+    color: #000;
+}
+
+.pagination-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.pagination-btn.active-page {
+    background: #f3ca52;
+    color: #000000;
+}
+
+/* Global Toast Notification System */
+#toastContainer {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.toast-msg {
+    pointer-events: auto;
+    min-width: 290px;
+    max-width: 400px;
+    padding: 14px 18px;
+    border-radius: 14px;
+    background: linear-gradient(180deg, #093320 0%, #04190f 100%);
+    border: 1.5px solid #f3ca52;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(243, 202, 82, 0.3);
+    color: #ffffff;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-size: 13px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    animation: toastIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.toast-msg.toast-success {
+    border-color: #00e676;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 230, 118, 0.3);
+}
+
+.toast-msg.toast-error {
+    border-color: #ff5252;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 82, 82, 0.3);
+}
+
+@keyframes toastIn {
+    from {
+        opacity: 0;
+        transform: translateX(40px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+@keyframes toastOut {
+    from {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(40px) scale(0.95);
+    }
+}
