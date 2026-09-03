@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>@yield('title', 'NEXTGEN FOREX - Auth Portal')</title>
     <link rel="icon" type="image/png" href="{{ asset('assets/images/favicon.png') }}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="{{ asset('css/index.css') }}" rel="stylesheet">
     <link href="{{ asset('css/nextgen-theme.css') }}" rel="stylesheet">
@@ -13,10 +14,11 @@
         body.ng-auth-bg {
             background-color: #020b06 !important;
             background-image: 
-                radial-gradient(circle at 50% 45%, rgba(243, 202, 82, 0.18) 0%, rgba(2, 16, 9, 0.95) 60%, #010704 100%),
-                linear-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(212, 175, 55, 0.05) 1px, transparent 1px) !important;
-            background-size: 100% 100%, 45px 45px, 45px 45px !important;
+                linear-gradient(to bottom, rgba(2, 22, 13, 0.82), rgba(1, 10, 5, 0.92)),
+                url('{{ asset("images/auth_bg.jpg") }}') !important;
+            background-size: cover !important;
+            background-position: center center !important;
+            background-repeat: no-repeat !important;
             background-attachment: fixed !important;
             min-height: 100vh;
         }

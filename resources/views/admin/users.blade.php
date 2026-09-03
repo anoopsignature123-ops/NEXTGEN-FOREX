@@ -15,21 +15,21 @@
     </div>
 </div>
 
-<!-- Power Leg vs Weaker Leg 50:50 Overview -->
+<!-- Team A vs Team B Overview -->
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <div class="p-6 rounded-2xl bg-panel border border-amber-500/40 shadow-xl space-y-4">
+    <div class="p-6 rounded-2xl pdf-package-card shadow-xl space-y-4">
         <div class="flex items-center justify-between">
             <div>
                 <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">PRIMARY VOLUME</span>
-                <h3 class="text-xl font-black text-white">POWER LEG BUSINESS</h3>
+                <h3 class="text-xl font-black text-white">TEAM A BUSINESS</h3>
             </div>
             <div class="pdf-num-badge shrink-0">50%</div>
         </div>
         <div class="flex items-baseline gap-2">
             <span class="text-3xl font-black text-amber-400">$1,850,000</span>
-            <span class="text-xs text-muted">Total Power Volume</span>
+            <span class="text-xs text-neutral-400">Total Team A Volume</span>
         </div>
-        <div class="w-full bg-neutral-900 h-2 rounded-full overflow-hidden">
+        <div class="w-full bg-black/80 h-2 rounded-full overflow-hidden border border-amber-500/30">
             <div class="bg-amber-500 h-full w-1/2"></div>
         </div>
         <p class="text-xs text-neutral-400">Calculated on 50:50 ratio for Team Salary & Matching Income.</p>

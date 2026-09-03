@@ -14,15 +14,18 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('role_id')->default(2)->constrained('roles')->onDelete('cascade');
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('email')->nullable();
             $table->string('mobile')->nullable();
             $table->string('referral_code')->unique(); // Main Member Identifier e.g. NGF-0967542
             $table->string('sponsor_code')->nullable(); // Sponsor's referral_code e.g. NGF-0000001
-            $table->string('position')->default('left'); // left or right binary leg
+            $table->enum('position', ['left', 'right'])->nullable(); // Left or Right Binary Tree leg
             $table->enum('status', ['active', 'inactive'])->default('inactive'); // Default inactive until package purchased
+            $table->decimal('deposit_wallet', 15, 2)->default(0.00); // For depositing funds & buying packages
+            $table->decimal('earning_wallet', 15, 2)->default(0.00); // For ROI earnings, referral commissions, matching bonuses
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('wallet_address')->nullable();
+            $table->string('password')->nullable();
             $table->rememberToken();
             $table->string('image')->nullable();
             $table->timestamp('activated_at')->nullable();

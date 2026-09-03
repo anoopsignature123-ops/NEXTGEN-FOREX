@@ -6,8 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>NEXTGEN FOREX - User Member Portal</title>
     <link rel="icon" type="image/png" href="{{ asset('assets/images/favicon.png') }}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     <link href="{{ asset('css/index.css') }}" rel="stylesheet">
     <link href="{{ asset('css/nextgen-theme.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css">
 </head>
 
 <body id="dashboard" class="relative overflow-x-hidden min-h-screen text-slate-100">
@@ -27,6 +30,7 @@
 
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="{{ asset('js/app-validation.js') }}"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -34,10 +38,43 @@
                 window.lucide.createIcons();
             }
 
-            // Mobile Sidebar Drawer Controller
+            // Initialize Modern Flatpickr JS Datepickers Globally
+            if (typeof flatpickr === 'function') {
+                flatpickr('.datepicker, .js-datepicker', {
+                    dateFormat: 'Y-m-d',
+                    theme: 'dark',
+                    allowInput: true,
+                    disableMobile: "true"
+                });
+            }
+
+            // Universal Sidebar Controller (Desktop Collapse + Mobile Drawer)
+            const sidebarToggles = document.querySelectorAll('.js-sidebar-toggle');
             const mobileBtns = document.querySelectorAll('.js-mobile-menu-toggle');
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebarOverlay');
+
+            // Restore Desktop Sidebar Preference
+            if (localStorage.getItem('nextgen_sidebar_collapsed') === 'true' && window.innerWidth >= 1024) {
+                document.body.classList.add('sidebar-collapsed');
+            }
+
+            sidebarToggles.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (window.innerWidth >= 1024) {
+                        document.body.classList.toggle('sidebar-collapsed');
+                        const isCollapsed = document.body.classList.contains('sidebar-collapsed');
+                        localStorage.setItem('nextgen_sidebar_collapsed', isCollapsed ? 'true' : 'false');
+                    } else {
+                        if (sidebar) sidebar.classList.toggle('mobile-sidebar-open');
+                        if (overlay) {
+                            overlay.classList.toggle('hidden');
+                            overlay.classList.toggle('opacity-100');
+                        }
+                    }
+                });
+            });
 
             mobileBtns.forEach(btn => {
                 btn.addEventListener('click', function(e) {

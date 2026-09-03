@@ -28,22 +28,68 @@
     <!-- DEPOSIT HISTORY TABLE CONTAINER -->
     <div class="bg-panel p-6 shadow-2xl rounded-2xl border border-amber-500/30 space-y-6">
         
-        <!-- Quick Status Filter Tabs -->
-        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-amber-500/20 pb-4">
-            <div class="flex flex-wrap items-center gap-2.5">
-                <a href="{{ route('user.deposits.history') }}" class="whitespace-nowrap inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition {{ !request('status') ? 'bg-amber-500 text-black font-black shadow-md' : 'bg-bg border border-amber-500/30 text-neutral-300 hover:text-amber-400' }}">
-                    <i data-lucide="wallet" class="w-4 h-4"></i> All Deposits
+        <!-- Filter Bar with JS Datepicker & Search in 1 Single Row -->
+        <div class="flex flex-col lg:flex-row items-stretch lg:items-end justify-between gap-4 border-b border-amber-500/20 pb-4">
+            
+            <!-- Quick Status Tabs -->
+            <div class="flex flex-wrap items-center gap-2">
+                <a href="{{ route('user.deposits.history') }}" class="whitespace-nowrap inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition {{ !request('status') ? 'bg-amber-500 text-black font-black shadow-md' : 'bg-bg border border-amber-500/30 text-neutral-300 hover:text-amber-400' }}">
+                    <i data-lucide="wallet" class="w-3.5 h-3.5"></i> All
                 </a>
-                <a href="{{ route('user.deposits.history', ['status' => 'pending']) }}" class="whitespace-nowrap inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition {{ request('status') === 'pending' ? 'bg-amber-500 text-black font-black shadow-md' : 'bg-bg border border-amber-500/30 text-neutral-300 hover:text-amber-400' }}">
-                    <i data-lucide="clock" class="w-4 h-4"></i> ⏳ Pending
+                <a href="{{ route('user.deposits.history', ['status' => 'pending']) }}" class="whitespace-nowrap inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition {{ request('status') === 'pending' ? 'bg-amber-500 text-black font-black shadow-md' : 'bg-bg border border-amber-500/30 text-neutral-300 hover:text-amber-400' }}">
+                    <i data-lucide="clock" class="w-3.5 h-3.5"></i> Pending
                 </a>
-                <a href="{{ route('user.deposits.history', ['status' => 'approved']) }}" class="whitespace-nowrap inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition {{ request('status') === 'approved' ? 'bg-emerald-500 text-black font-black shadow-md' : 'bg-bg border border-amber-500/30 text-neutral-300 hover:text-emerald-400' }}">
-                    <i data-lucide="check-circle" class="w-4 h-4"></i> ✅ Approved
+                <a href="{{ route('user.deposits.history', ['status' => 'approved']) }}" class="whitespace-nowrap inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition {{ request('status') === 'approved' ? 'bg-emerald-500 text-black font-black shadow-md' : 'bg-bg border border-amber-500/30 text-neutral-300 hover:text-emerald-400' }}">
+                    <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Approved
                 </a>
-                <a href="{{ route('user.deposits.history', ['status' => 'rejected']) }}" class="whitespace-nowrap inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition {{ request('status') === 'rejected' ? 'bg-rose-500/20 text-rose-300 border border-rose-500/50 font-black shadow-md' : 'bg-bg border border-amber-500/30 text-neutral-300 hover:text-rose-400' }}">
-                    <i data-lucide="x-circle" class="w-4 h-4"></i> ❌ Rejected
+                <a href="{{ route('user.deposits.history', ['status' => 'rejected']) }}" class="whitespace-nowrap inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition {{ request('status') === 'rejected' ? 'bg-rose-500/20 text-rose-300 border border-rose-500/50 font-black shadow-md' : 'bg-bg border border-amber-500/30 text-neutral-300 hover:text-rose-400' }}">
+                    <i data-lucide="x-circle" class="w-3.5 h-3.5"></i> Rejected
                 </a>
             </div>
+
+            <!-- Date Range & Search Form (100% MATCHING REFERENCE UI CARD) -->
+            <form action="{{ route('user.deposits.history') }}" method="GET" class="flex flex-nowrap items-end gap-3 overflow-x-auto text-xs font-sans pb-1">
+                @if(request('status'))
+                    <input type="hidden" name="status" value="{{ request('status') }}">
+                @endif
+
+                <!-- 1. FROM DATE -->
+                <div class="w-36 shrink-0">
+                    <label class="block text-[10px] font-extrabold text-amber-400 uppercase tracking-wider mb-1">FROM DATE</label>
+                    <div class="relative">
+                        <i data-lucide="calendar" class="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-amber-400"></i>
+                        <input type="text" name="start_date" value="{{ request('start_date') }}" placeholder="YYYY-MM-DD" class="datepicker w-full pl-8 pr-3 py-2 rounded-xl bg-black/60 border border-amber-500/40 text-white font-mono text-xs focus:outline-none focus:border-amber-400">
+                    </div>
+                </div>
+
+                <!-- 2. TO DATE -->
+                <div class="w-36 shrink-0">
+                    <label class="block text-[10px] font-extrabold text-amber-400 uppercase tracking-wider mb-1">TO DATE</label>
+                    <div class="relative">
+                        <i data-lucide="calendar" class="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-amber-400"></i>
+                        <input type="text" name="end_date" value="{{ request('end_date') }}" placeholder="YYYY-MM-DD" class="datepicker w-full pl-8 pr-3 py-2 rounded-xl bg-black/60 border border-amber-500/40 text-white font-mono text-xs focus:outline-none focus:border-amber-400">
+                    </div>
+                </div>
+
+                <!-- 3. SEARCH TXN HASH -->
+                <div class="min-w-[180px] shrink-0">
+                    <label class="block text-[10px] font-extrabold text-amber-400 uppercase tracking-wider mb-1">SEARCH TXN HASH</label>
+                    <div class="relative">
+                        <i data-lucide="search" class="w-3.5 h-3.5 absolute left-3.5 top-1/2 -translate-y-1/2 text-amber-400"></i>
+                        <input type="text" name="search" value="{{ request('search') }}" placeholder="Search Txn Hash..." class="w-full pl-9 pr-3 py-2 rounded-xl bg-black/60 border border-amber-500/40 text-white font-semibold text-xs focus:outline-none focus:border-amber-400">
+                    </div>
+                </div>
+
+                <!-- 4. FILTER ACTIONS -->
+                <div class="flex items-center gap-1.5 shrink-0">
+                    <button type="submit" class="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-black font-black text-xs uppercase tracking-wider shadow-[0_0_15px_rgba(243,202,82,0.5)] transition flex items-center justify-center gap-1.5 shrink-0" title="Apply Filter">
+                        <i data-lucide="filter" class="w-3.5 h-3.5 text-black"></i> FILTER
+                    </button>
+                    <a href="{{ route('user.deposits.history') }}" class="py-2 px-3 rounded-xl bg-black/60 border border-white/60 text-white hover:bg-white/10 font-bold text-xs transition flex items-center justify-center shrink-0" title="Reset Filters">
+                        Reset
+                    </a>
+                </div>
+            </form>
         </div>
 
         <div class="overflow-x-auto">

@@ -11,8 +11,13 @@
     <link href="{{ asset('css/nextgen-theme.css') }}" rel="stylesheet">
     <style>
         body.ng-error-bg {
-            background-color: #0c0205 !important;
-            background-image: radial-gradient(circle at 50% 40%, rgba(255, 82, 82, 0.22) 0%, rgba(24, 4, 10, 0.96) 65%, #080104 100%) !important;
+            background-color: #020b06 !important;
+            background-image: 
+                linear-gradient(to bottom, rgba(20, 4, 10, 0.88), rgba(8, 1, 4, 0.94)),
+                url('{{ asset("images/auth_bg.jpg") }}') !important;
+            background-size: cover !important;
+            background-position: center center !important;
+            background-repeat: no-repeat !important;
             background-attachment: fixed !important;
             min-height: 100vh;
         }
@@ -26,27 +31,7 @@
     </style>
 </head>
 
-<body class="ng-error-bg flex flex-col justify-between items-center min-h-screen p-4 sm:p-8 text-slate-100 font-sans">
-
-    <!-- Top Header Bar -->
-    <header class="w-full max-w-5xl flex items-center justify-between py-4 border-b border-rose-500/20">
-        <a href="{{ url('/') }}" class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-500 via-amber-500 to-yellow-600 p-0.5 shadow-[0_0_15px_rgba(255,82,82,0.5)]">
-                <div class="w-full h-full rounded-[10px] bg-black flex items-center justify-center">
-                    <span class="text-rose-400 font-black text-lg font-heading">NG</span>
-                </div>
-            </div>
-            <div>
-                <h1 class="text-lg font-black text-gold-gradient tracking-wider uppercase leading-none">NEXTGEN</h1>
-                <p class="text-[9px] text-rose-400 font-extrabold tracking-[2px] uppercase">FOREX TRADING</p>
-            </div>
-        </a>
-
-        <a href="{{ url('/') }}" class="px-4 py-2 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 font-bold text-xs hover:bg-rose-500/20 transition flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-rose-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-            Home
-        </a>
-    </header>
+<body class="ng-error-bg flex flex-col justify-center items-center min-h-screen p-4 sm:p-8 text-slate-100 font-sans">
 
     <!-- Main Content Area -->
     <main class="w-full max-w-2xl my-auto text-center py-6 space-y-6">

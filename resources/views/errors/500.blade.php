@@ -11,8 +11,13 @@
     <link href="{{ asset('css/nextgen-theme.css') }}" rel="stylesheet">
     <style>
         body.ng-error-bg {
-            background-color: #020c07 !important;
-            background-image: radial-gradient(circle at 50% 40%, rgba(0, 230, 118, 0.22) 0%, rgba(3, 18, 11, 0.96) 65%, #010804 100%) !important;
+            background-color: #020b06 !important;
+            background-image: 
+                linear-gradient(to bottom, rgba(2, 22, 13, 0.85), rgba(1, 10, 5, 0.93)),
+                url('{{ asset("images/auth_bg.jpg") }}') !important;
+            background-size: cover !important;
+            background-position: center center !important;
+            background-repeat: no-repeat !important;
             background-attachment: fixed !important;
             min-height: 100vh;
         }
@@ -26,27 +31,7 @@
     </style>
 </head>
 
-<body class="ng-error-bg flex flex-col justify-between items-center min-h-screen p-4 sm:p-8 text-slate-100 font-sans">
-
-    <!-- Top Header Bar -->
-    <header class="w-full max-w-5xl flex items-center justify-between py-4 border-b border-emerald-500/20">
-        <a href="{{ url('/') }}" class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 via-amber-500 to-yellow-600 p-0.5 shadow-[0_0_15px_rgba(0,230,118,0.5)]">
-                <div class="w-full h-full rounded-[10px] bg-black flex items-center justify-center">
-                    <span class="text-emerald-400 font-black text-lg font-heading">NG</span>
-                </div>
-            </div>
-            <div>
-                <h1 class="text-lg font-black text-gold-gradient tracking-wider uppercase leading-none">NEXTGEN</h1>
-                <p class="text-[9px] text-emerald-400 font-extrabold tracking-[2px] uppercase">FOREX TRADING</p>
-            </div>
-        </a>
-
-        <button onclick="window.location.reload()" class="px-4 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold text-xs hover:bg-emerald-500/20 transition flex items-center gap-2 cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
-            Retry
-        </button>
-    </header>
+<body class="ng-error-bg flex flex-col justify-center items-center min-h-screen p-4 sm:p-8 text-slate-100 font-sans">
 
     <!-- Main Content Area -->
     <main class="w-full max-w-2xl my-auto text-center py-6 space-y-6">

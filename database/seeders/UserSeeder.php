@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // Default Super Admin User (Role 1)
+        // 1. Default Super Admin User (Role 1)
         User::updateOrCreate(
             ['email' => 'admin@nextgenforex.com'],
             [
@@ -23,25 +23,27 @@ class UserSeeder extends Seeder
                 'mobile' => '1234567890',
                 'referral_code' => 'NGF-0000001',
                 'sponsor_code' => null,
-                'position' => 'left',
+
                 'status' => 'active',
-                'password' => Hash::make('password123'),
+                'password' => Hash::make('Admin@123'),
             ]
         );
 
-        // Default Member User (Role 2) - Inactive by default until package investment
+        // 2. Default Member User (Role 2) - John Trader
         User::updateOrCreate(
             ['email' => 'user@nextgenforex.com'],
             [
                 'role_id' => 2,
-                'name' => 'John Trader',
-                'email' => 'user@nextgenforex.com',
+                'name' => 'Root User',
+                'email' => 'root@nextgenforex.com',
                 'mobile' => '9876543210',
                 'referral_code' => 'NGF-0967542',
-                'sponsor_code' => 'NGF-0000001',
-                'position' => 'left',
-                'status' => 'inactive',
-                'password' => Hash::make('password123'),
+                'sponsor_code' => null,
+
+                'deposit_wallet' => 00.00,
+                'earning_wallet' => 00.00,
+
+                'password' => Hash::make('Root@123'),
             ]
         );
     }

@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\user;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Package;
+use App\Models\Transaction;
 use App\Models\UserPackage;
+use App\Services\Incomes\DirectIncomeService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -58,19 +60,17 @@ class PackageController extends Controller
             // Deduct Deposit Wallet
             $user->decrement('deposit_wallet', $investedAmount);
 
-            // Activate User if inactive
-            if ($user->status !== 'active') {
-                $user->update([
-                    'status' => 'active',
-                    'activated_at' => now(),
-                ]);
-            }
+            // Activate User and set activated_at timestamp if not set
+            $user->update([
+                'status' => 'active',
+                'activated_at' => $user->activated_at ?? now(),
+            ]);
 
             // Calculate ROI amounts
             $dailyRoiAmount = ($investedAmount * $package->daily_roi) / 100;
             $totalReturnAmount = $investedAmount * $package->total_return_multiplier; // 2X
 
-            UserPackage::create([
+            $userPackage = UserPackage::create([
                 'user_id' => $user->id,
                 'package_id' => $package->id,
                 'invested_amount' => $investedAmount,
@@ -83,6 +83,24 @@ class PackageController extends Controller
                 'purchased_at' => now(),
                 'expires_at' => now()->addDays($package->duration_days),
             ]);
+
+            // Log detailed financial transaction for package purchase
+            Transaction::create([
+                'user_id' => $user->id,
+                'txn_number' => 'TXN-'.rand(10000000, 99999999),
+                'wallet_type' => 'deposit_wallet',
+                'amount' => $investedAmount,
+                'charge' => 0.00,
+                'post_balance' => $user->fresh()->deposit_wallet,
+                'trx_type' => '-',
+                'type' => 'package_purchase',
+                'description' => "Purchased {$package->name} for \$".number_format($investedAmount, 2).' via Deposit Wallet',
+                'reference_id' => $userPackage->id,
+                'status' => 'completed',
+            ]);
+
+            // Delegate 10% Direct Referral Commission to Dedicated DirectIncomeService (PDF Page 15)
+            app(DirectIncomeService::class)->distributeDirectCommission($user, $userPackage, $investedAmount);
         });
 
         return redirect()->route('user.packages.history')->with('success', "Congratulations! You have successfully purchased {$package->name} for \$".number_format($investedAmount, 2).'! Account is active.');

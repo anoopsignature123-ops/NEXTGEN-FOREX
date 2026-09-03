@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Package;
+use App\Models\UserPackage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -18,6 +19,58 @@ class PackageController extends Controller
         $packages = Package::withCount('userPackages')->orderBy('id', 'asc')->get();
 
         return view('admin.packages.index', compact('packages'));
+    }
+
+    /**
+     * Display a comprehensive listing of all user package investments & reports.
+     */
+    public function history(Request $request): View
+    {
+        $query = UserPackage::with(['user', 'package']);
+
+        if ($request->filled('search')) {
+            $search = trim($request->search);
+            $query->whereHas('user', function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('referral_code', 'like', "%{$search}%");
+            });
+        }
+
+        if ($request->filled('package_id')) {
+            $query->where('package_id', $request->package_id);
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->filled('start_date')) {
+            $query->whereDate('purchased_at', '>=', $request->start_date);
+        }
+
+        if ($request->filled('end_date')) {
+            $query->whereDate('purchased_at', '<=', $request->end_date);
+        }
+
+        $investments = (clone $query)->latest('id')->paginate(15)->withQueryString();
+
+        // Summary Statistics KPIs
+        $totalInvestments = UserPackage::count();
+        $totalCapitalInvested = UserPackage::sum('invested_amount');
+        $totalRoiPaid = UserPackage::sum('paid_roi_amount');
+        $activePackagesCount = UserPackage::where('status', 'active')->count();
+
+        $allPackages = Package::orderBy('id', 'asc')->get();
+
+        return view('admin.packages.history', compact(
+            'investments',
+            'totalInvestments',
+            'totalCapitalInvested',
+            'totalRoiPaid',
+            'activePackagesCount',
+            'allPackages'
+        ));
     }
 
     /**

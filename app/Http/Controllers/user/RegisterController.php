@@ -14,12 +14,10 @@ class RegisterController extends Controller
 {
     public function showRegistrationForm(Request $request): View
     {
-        $sponsor = $request->query('sponsor', 'NGF-0000001');
-        $position = strtolower($request->query('position', 'left'));
+        $sponsor = $request->query('sponsor', null);
         $isLockedSponsor = $request->has('sponsor');
-        $isLockedPosition = $request->has('position');
 
-        return view('user.auth.register', compact('sponsor', 'position', 'isLockedSponsor', 'isLockedPosition'));
+        return view('user.auth.register', compact('sponsor', 'isLockedSponsor'));
     }
 
     /**
@@ -47,7 +45,7 @@ class RegisterController extends Controller
             ]);
         }
 
-        // Default system admin fallback code
+        // System default admin fallback code
         if ($code === 'NGF-0000001') {
             return response()->json([
                 'success' => true,
@@ -63,16 +61,22 @@ class RegisterController extends Controller
         ]);
     }
 
-    public function register(Request $request): View
+    public function register(Request $request)
     {
         $request->validate([
-            'sponsor_id' => 'required',
+            'sponsor_id' => 'required|string',
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'mobile' => 'required',
-            'position' => 'required',
             'password' => 'required|min:6|confirmed',
         ]);
+
+        $sponsorCode = trim($request->sponsor_id);
+        $sponsorUser = User::where('referral_code', $sponsorCode)->first();
+
+        if (! $sponsorUser && $sponsorCode !== 'NGF-0000001') {
+            return redirect()->back()->withInput()->withErrors(['sponsor_id' => 'Invalid Sponsor Code! Member not found in system.']);
+        }
 
         $referralCode = User::generateReferralCode();
         $txPin = (string) rand(100000, 999999);
@@ -84,8 +88,7 @@ class RegisterController extends Controller
             'email' => $request->email,
             'mobile' => $request->mobile,
             'referral_code' => $referralCode,
-            'sponsor_code' => $request->sponsor_id,
-            'position' => strtolower($request->position),
+            'sponsor_code' => $sponsorCode,
             'status' => 'inactive',
             'password' => Hash::make($request->password),
         ]);
@@ -98,15 +101,12 @@ class RegisterController extends Controller
             'name' => $user->name,
             'email' => $user->email,
             'mobile' => $user->mobile,
-            'position' => strtoupper($user->position),
             'tx_pin' => $txPin,
         ];
 
         return view('user.auth.register', [
             'sponsor' => $user->sponsor_code,
-            'position' => strtolower($user->position),
             'isLockedSponsor' => false,
-            'isLockedPosition' => false,
             'registeredUser' => $registeredUser,
             'showModal' => true,
         ]);

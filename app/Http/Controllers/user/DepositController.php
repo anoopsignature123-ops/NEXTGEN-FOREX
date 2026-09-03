@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\user;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Deposit;
+use App\Models\Transaction;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class DepositController extends Controller
@@ -42,25 +44,51 @@ class DepositController extends Controller
             $proofPath = $request->file('proof_image')->store('deposits', 'public');
         }
 
-        Deposit::create([
-            'user_id' => Auth::id(),
-            'amount' => $validated['amount'],
-            'payment_gateway' => $validated['payment_gateway'],
-            'txn_hash' => $validated['txn_hash'],
-            'proof_image' => $proofPath,
-            'status' => 'pending',
-        ]);
+        $user = Auth::user();
 
-        return redirect()->route('user.deposits.history')->with('success', 'Your deposit request of $'.number_format($validated['amount'], 2).' has been submitted successfully! Admin will review and credit your wallet shortly.');
+        DB::transaction(function () use ($user, $validated, $proofPath) {
+            // 1. Create Deposit Record with INSTANT APPROVED status (No Admin Approval Required)
+            $deposit = Deposit::create([
+                'user_id' => $user->id,
+                'amount' => $validated['amount'],
+                'payment_gateway' => $validated['payment_gateway'],
+                'txn_hash' => $validated['txn_hash'],
+                'proof_image' => $proofPath,
+                'status' => 'approved',
+            ]);
+
+            // 2. Increment User Deposit Wallet INSTANTLY
+            $user->increment('deposit_wallet', $validated['amount']);
+
+            // 3. Create Financial Audit Transaction Record
+            Transaction::create([
+                'user_id' => $user->id,
+                'txn_number' => 'DEP-'.rand(10000000, 99999999),
+                'wallet_type' => 'deposit_wallet',
+                'amount' => $validated['amount'],
+                'charge' => 0.00,
+                'post_balance' => $user->fresh()->deposit_wallet,
+                'trx_type' => '+',
+                'type' => 'deposit_instant',
+                'description' => 'Instant Deposit of $'.number_format($validated['amount'], 2)." via {$validated['payment_gateway']} (Txn Hash: {$validated['txn_hash']})",
+                'reference_id' => $deposit->id,
+                'status' => 'completed',
+            ]);
+        });
+
+        return redirect()->route('user.deposits.history')->with('success', 'Congratulations! $'.number_format($validated['amount'], 2).' has been instantly credited to your Deposit Wallet!');
     }
 
     /**
-     * Display dedicated My Deposit History page.
+     * Display dedicated My Deposit History page with date range & status filters.
      */
     public function history(Request $request): View
     {
         $user = Auth::user();
         $status = $request->query('status');
+        $startDate = $request->query('start_date');
+        $endDate = $request->query('end_date');
+        $search = $request->query('search');
 
         $query = Deposit::where('user_id', $user->id);
 
@@ -68,7 +96,19 @@ class DepositController extends Controller
             $query->where('status', $status);
         }
 
-        $deposits = $query->latest()->paginate(15);
+        if ($startDate) {
+            $query->whereDate('created_at', '>=', $startDate);
+        }
+
+        if ($endDate) {
+            $query->whereDate('created_at', '<=', $endDate);
+        }
+
+        if ($search) {
+            $query->where('txn_hash', 'like', "%{$search}%");
+        }
+
+        $deposits = $query->latest()->paginate(15)->withQueryString();
 
         return view('user.deposits.history', compact('user', 'deposits'));
     }

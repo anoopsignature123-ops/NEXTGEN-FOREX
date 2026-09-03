@@ -9,8 +9,8 @@
                 <span class="pdf-num-badge">DM</span>
                 <span class="text-xs text-amber-400 font-extrabold tracking-[3px] uppercase">NEXTGEN FOREX NETWORK</span>
             </div>
-            <h1 class="text-2xl sm:text-3xl font-black text-gold-gradient font-heading">DEPOSIT REQUESTS MANAGEMENT</h1>
-            <p class="text-xs text-neutral-300 mt-1">Review USDT (BEP20) funding requests and credit user deposit wallets.</p>
+            <h1 class="text-2xl sm:text-3xl font-black text-gold-gradient font-heading">MEMBER DEPOSIT HISTORY AUDIT</h1>
+            <p class="text-xs text-neutral-300 mt-1">Audit USDT (BEP20) instant deposits credited to member deposit wallets.</p>
         </div>
     </div>
 
@@ -28,25 +28,57 @@
     <!-- Main Container Panel (Matching User Management Panel) -->
     <div class="bg-panel p-6 shadow-2xl rounded-2xl border border-amber-500/30 space-y-6">
         
-        <!-- Status Tabs (Matching User Management Tabs) -->
-        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-amber-500/20 pb-4">
-            <div class="flex flex-wrap items-center gap-2.5">
-                <a href="{{ route('admin.deposits.index') }}" class="whitespace-nowrap inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition {{ !request('status') ? 'bg-amber-500 text-black font-black shadow-md' : 'bg-bg border border-amber-500/30 text-neutral-300 hover:text-amber-400' }}">
-                    <i data-lucide="wallet" class="w-4 h-4"></i> All Deposits
-                </a>
-                <a href="{{ route('admin.deposits.index', ['status' => 'pending']) }}" class="whitespace-nowrap inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition {{ request('status') === 'pending' ? 'bg-amber-500 text-black font-black shadow-md' : 'bg-bg border border-amber-500/30 text-neutral-300 hover:text-amber-400' }}">
-                    <i data-lucide="clock" class="w-4 h-4"></i> ⏳ Pending
-                </a>
-                <a href="{{ route('admin.deposits.index', ['status' => 'approved']) }}" class="whitespace-nowrap inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition {{ request('status') === 'approved' ? 'bg-emerald-500 text-black font-black shadow-md' : 'bg-bg border border-amber-500/30 text-neutral-300 hover:text-emerald-400' }}">
-                    <i data-lucide="check-circle" class="w-4 h-4"></i> ✅ Approved
-                </a>
-                <a href="{{ route('admin.deposits.index', ['status' => 'rejected']) }}" class="whitespace-nowrap inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition {{ request('status') === 'rejected' ? 'bg-rose-500/20 text-rose-300 border border-rose-500/50 font-black shadow-md' : 'bg-bg border border-amber-500/30 text-neutral-300 hover:text-rose-400' }}">
-                    <i data-lucide="x-circle" class="w-4 h-4"></i> ❌ Rejected
-                </a>
+        <!-- Filter Bar with JS Datepicker & Search in 1 Single Row -->
+        <div class="flex flex-col lg:flex-row items-stretch lg:items-end justify-between gap-4 border-b border-amber-500/20 pb-4">
+            
+            <!-- Title Label -->
+            <div class="flex items-center gap-2 text-xs font-black text-amber-400 uppercase tracking-wider">
+                <i data-lucide="history" class="w-4 h-4 text-amber-400"></i>
+                <span>INSTANT DEPOSIT AUDIT LOG</span>
             </div>
+
+            <!-- Date Range & Search Form -->
+            <form action="{{ route('admin.deposits.index') }}" method="GET" class="flex flex-nowrap items-end gap-3 overflow-x-auto text-xs font-sans pb-1">
+                <!-- 1. FROM DATE -->
+                <div class="w-36 shrink-0">
+                    <label class="block text-[10px] font-extrabold text-amber-400 uppercase tracking-wider mb-1">FROM DATE</label>
+                    <div class="relative">
+                        <i data-lucide="calendar" class="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-amber-400"></i>
+                        <input type="text" name="start_date" value="{{ request('start_date') }}" placeholder="YYYY-MM-DD" class="datepicker w-full pl-8 pr-3 py-2 rounded-xl bg-black/60 border border-amber-500/40 text-white font-mono text-xs focus:outline-none focus:border-amber-400">
+                    </div>
+                </div>
+
+                <!-- 2. TO DATE -->
+                <div class="w-36 shrink-0">
+                    <label class="block text-[10px] font-extrabold text-amber-400 uppercase tracking-wider mb-1">TO DATE</label>
+                    <div class="relative">
+                        <i data-lucide="calendar" class="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-amber-400"></i>
+                        <input type="text" name="end_date" value="{{ request('end_date') }}" placeholder="YYYY-MM-DD" class="datepicker w-full pl-8 pr-3 py-2 rounded-xl bg-black/60 border border-amber-500/40 text-white font-mono text-xs focus:outline-none focus:border-amber-400">
+                    </div>
+                </div>
+
+                <!-- 3. SEARCH TXN HASH / MEMBER -->
+                <div class="flex-1 min-w-[200px]">
+                    <label class="block text-[10px] font-extrabold text-amber-400 uppercase tracking-wider mb-1">SEARCH MEMBER / HASH</label>
+                    <div class="relative">
+                        <i data-lucide="search" class="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-amber-400"></i>
+                        <input type="text" name="search" value="{{ request('search') }}" placeholder="Member name, code, hash..." class="w-full pl-8 pr-3 py-2 rounded-xl bg-black/60 border border-amber-500/40 text-white font-mono text-xs focus:outline-none focus:border-amber-400">
+                    </div>
+                </div>
+
+                <!-- 4. FILTER BUTTON -->
+                <div class="flex items-center gap-2 shrink-0">
+                    <button type="submit" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-black text-xs uppercase tracking-wider shadow transition flex items-center justify-center gap-1.5 shrink-0">
+                        <i data-lucide="filter" class="w-3.5 h-3.5 text-black"></i> FILTER
+                    </button>
+                    <a href="{{ route('admin.deposits.index') }}" class="py-2 px-3 rounded-xl bg-bg border border-amber-500/30 text-neutral-300 hover:text-amber-400 font-bold text-xs transition flex items-center justify-center shrink-0">
+                        Reset
+                    </a>
+                </div>
+            </form>
         </div>
 
-        <!-- Table Container -->
+        <!-- DEPOSIT HISTORY TABLE -->
         <div class="overflow-x-auto">
             <table class="w-full text-left text-sm whitespace-nowrap">
                 <thead class="bg-bg text-amber-400 uppercase text-xs font-bold font-heading tracking-wider border-b border-amber-500/30">
@@ -55,9 +87,8 @@
                         <th class="p-4">AMOUNT ($)</th>
                         <th class="p-4">GATEWAY</th>
                         <th class="p-4">TRANSACTION HASH</th>
-                        <th class="p-4">SUBMITTED DATE & TIME</th>
-                        <th class="p-4">STATUS</th>
-                        <th class="p-4 rounded-r-xl text-center">DIRECT ACTIONS</th>
+                        <th class="p-4">DEPOSIT DATE & TIME</th>
+                        <th class="p-4 rounded-r-xl">STATUS</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-amber-500/20 text-neutral-200">
@@ -66,13 +97,13 @@
                         <!-- User Info -->
                         <td class="p-4">
                             <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 text-black font-black text-sm flex items-center justify-center shadow-md shrink-0">
+                                <div class="w-9 h-9 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 text-black font-black text-xs flex items-center justify-center shadow-md shrink-0">
                                     {{ strtoupper(substr($dep->user->name ?? 'U', 0, 1)) }}
                                 </div>
                                 <div>
-                                    <div class="font-black text-white text-sm">{{ $dep->user->name ?? 'Unknown User' }}</div>
-                                    <div class="text-xs text-neutral-400">{{ $dep->user->email ?? '' }}</div>
-                                    <div class="text-xs text-amber-400 font-mono">{{ $dep->user->referral_code ?? '' }}</div>
+                                    <a href="{{ route('admin.users.show', $dep->user->id ?? 1) }}" class="font-black text-white hover:text-amber-300 transition text-xs block font-heading">{{ $dep->user->name ?? 'Unknown User' }}</a>
+                                    <div class="text-[10px] text-neutral-400 font-mono">{{ $dep->user->email ?? '' }}</div>
+                                    <div class="text-[10px] text-amber-400 font-mono">{{ $dep->user->referral_code ?? '' }}</div>
                                 </div>
                             </div>
                         </td>
@@ -83,7 +114,7 @@
                         </td>
 
                         <!-- Gateway -->
-                        <td class="p-4 font-bold text-amber-300">
+                        <td class="p-4 font-bold text-amber-300 text-xs">
                             {{ $dep->payment_gateway }}
                         </td>
 
@@ -100,41 +131,15 @@
 
                         <!-- Status -->
                         <td class="p-4">
-                            @if($dep->status === 'approved')
-                                <span class="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-[10px] font-black uppercase">APPROVED</span>
-                            @elseif($dep->status === 'rejected')
-                                <span class="px-2.5 py-1 rounded bg-rose-500/20 text-rose-300 border border-rose-500/40 text-[10px] font-black uppercase">REJECTED</span>
-                            @else
-                                <span class="px-2.5 py-1 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-black uppercase">PENDING</span>
-                            @endif
-                        </td>
-
-                        <!-- Actions -->
-                        <td class="p-4 text-center">
-                            @if($dep->status === 'pending')
-                                <div class="flex items-center justify-center gap-2">
-                                    <form action="{{ route('admin.deposits.approve', $dep->id) }}" method="POST" onsubmit="return confirm('Approve deposit of ${{ number_format($dep->amount, 2) }} and credit user wallet?')">
-                                        @csrf
-                                        <button type="submit" class="px-3.5 py-1.5 rounded-xl bg-emerald-500 text-black text-xs font-black uppercase hover:bg-emerald-400 transition shadow">
-                                            Approve
-                                        </button>
-                                    </form>
-                                    <form action="{{ route('admin.deposits.reject', $dep->id) }}" method="POST" onsubmit="return confirm('Reject this deposit request?')">
-                                        @csrf
-                                        <button type="submit" class="px-3.5 py-1.5 rounded-xl bg-rose-500/20 border border-rose-500/50 text-rose-300 text-xs font-bold hover:bg-rose-500/40 transition">
-                                            Reject
-                                        </button>
-                                    </form>
-                                </div>
-                            @else
-                                <span class="text-xs text-neutral-400 italic">Processed</span>
-                            @endif
+                            <span class="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-[10px] font-black uppercase tracking-wider flex items-center gap-1 w-fit">
+                                <i data-lucide="check-circle" class="w-3 h-3 text-emerald-400"></i> INSTANT CREDITED
+                            </span>
                         </td>
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="7" class="p-8 text-center text-neutral-400 text-sm">
-                            No deposit requests found.
+                        <td colspan="6" class="p-8 text-center text-neutral-400 text-sm font-semibold">
+                            No deposit records found in history.
                         </td>
                     </tr>
                     @endforelse

@@ -45,23 +45,25 @@
 
     <!-- Navigation -->
     <nav class="py-4 flex-1 overflow-y-auto space-y-1">
+        
+        <!-- 0. MAIN OVERVIEW SECTION -->
         <div class="nav-section-title px-5 pt-3 pb-2 text-[10px] font-black uppercase tracking-[2px] text-amber-400/70">
-            Active Modules
+            MAIN OVERVIEW
         </div>
 
-        <!-- Dashboard -->
+        <!-- Dashboard Link -->
         <a class='nav-item {{ request()->routeIs("user.dashboard") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
             href='{{ route("user.dashboard") }}'>
             <i data-lucide="layout-dashboard" class="w-5 h-5 shrink-0 text-amber-400"></i>
             <span class="nav-text">Dashboard</span>
         </a>
 
-        <!-- INVESTMENTS & FUNDINGS SECTION -->
+        <!-- 1. ADD FUND & WITHDRAWAL SECTION -->
         <div class="nav-section-title px-5 pt-4 pb-2 mt-2 text-[10px] font-black uppercase tracking-[2px] text-amber-400/70">
-            Investments & Fundings
+            ADD FUND & WITHDRAWAL
         </div>
 
-        <!-- Add Fund / Deposit Wallet -->
+        <!-- Add Fund / Deposit -->
         <a class='nav-item {{ request()->routeIs("user.deposits.index") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
             href='{{ route("user.deposits.index") }}'>
             <i data-lucide="wallet" class="w-5 h-5 shrink-0 text-amber-400"></i>
@@ -74,6 +76,25 @@
             <i data-lucide="clock" class="w-5 h-5 shrink-0 text-amber-400"></i>
             <span class="nav-text">Deposit History</span>
         </a>
+
+        <!-- Withdrawal Request -->
+        <a class='nav-item {{ request()->routeIs("user.withdrawals.index") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("user.withdrawals.index") }}'>
+            <i data-lucide="arrow-up-right" class="w-5 h-5 shrink-0 text-amber-400"></i>
+            <span class="nav-text">Withdrawal</span>
+        </a>
+
+        <!-- Withdrawal History -->
+        <a class='nav-item {{ request()->routeIs("user.withdrawals.history") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("user.withdrawals.history") }}'>
+            <i data-lucide="receipt" class="w-5 h-5 shrink-0 text-amber-400"></i>
+            <span class="nav-text">Withdrawal History</span>
+        </a>
+
+        <!-- 2. INVESTMENT SECTION -->
+        <div class="nav-section-title px-5 pt-4 pb-2 mt-2 text-[10px] font-black uppercase tracking-[2px] text-amber-400/70">
+            INVESTMENT
+        </div>
 
         <!-- Buy Packages -->
         <a class='nav-item {{ request()->routeIs("user.packages.index") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
@@ -89,9 +110,21 @@
             <span class="nav-text">Packages History</span>
         </a>
 
-        <!-- MY NETWORK SECTION -->
+        <!-- 3. TRANSACTIONS SECTION -->
         <div class="nav-section-title px-5 pt-4 pb-2 mt-2 text-[10px] font-black uppercase tracking-[2px] text-amber-400/70">
-            My Network & Team
+            TRANSACTIONS
+        </div>
+
+        <!-- Transaction Logs -->
+        <a class='nav-item {{ request()->routeIs("user.transactions*") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("user.transactions.index") }}'>
+            <i data-lucide="receipt" class="w-5 h-5 shrink-0 text-amber-400"></i>
+            <span class="nav-text">Transaction Logs</span>
+        </a>
+
+        <!-- 4. MY NETWORK SECTION -->
+        <div class="nav-section-title px-5 pt-4 pb-2 mt-2 text-[10px] font-black uppercase tracking-[2px] text-amber-400/70">
+            MY NETWORK & TEAM
         </div>
 
         <!-- Direct Members -->
@@ -108,9 +141,70 @@
             <span class="nav-text">My Team Tree</span>
         </a>
 
-        <!-- ACCOUNT & SETTINGS SECTION -->
+        <!-- 5. MY INCOMES & REPORTS SECTION -->
         <div class="nav-section-title px-5 pt-4 pb-2 mt-2 text-[10px] font-black uppercase tracking-[2px] text-amber-400/70">
-            Account & Security
+            MY INCOMES & REPORTS
+        </div>
+
+        <!-- 0. Income Overview Summary -->
+        <a class='nav-item {{ request()->routeIs("user.reports.summary") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-2.5 rounded-xl text-xs font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("user.reports.summary") }}'>
+            <i data-lucide="bar-chart-3" class="w-4 h-4 shrink-0 text-amber-400"></i>
+            <span class="nav-text">Income Overview Summary</span>
+        </a>
+
+        <!-- 1. My ROI Income -->
+        <a class='nav-item {{ request()->routeIs("user.reports.roi") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-2.5 rounded-xl text-xs font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("user.reports.roi") }}'>
+            <i data-lucide="trending-up" class="w-4 h-4 shrink-0 text-amber-400"></i>
+            <span class="nav-text">My ROI Income</span>
+        </a>
+
+        <!-- 2. My Direct Income -->
+        <a class='nav-item {{ request()->routeIs("user.reports.direct") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-2.5 rounded-xl text-xs font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("user.reports.direct") }}'>
+            <i data-lucide="user-check" class="w-4 h-4 shrink-0 text-amber-400"></i>
+            <span class="nav-text">Direct Commission Report</span>
+        </a>
+
+        <!-- 3. My Special Bonus -->
+        <a class='nav-item {{ request()->routeIs("user.reports.bonus") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-2.5 rounded-xl text-xs font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("user.reports.bonus") }}'>
+            <i data-lucide="gift" class="w-4 h-4 shrink-0 text-amber-400"></i>
+            <span class="nav-text">24H Special Bonus</span>
+        </a>
+
+        <!-- 4. My Matching Income -->
+        <a class='nav-item {{ request()->routeIs("user.reports.matching") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-2.5 rounded-xl text-xs font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("user.reports.matching") }}'>
+            <i data-lucide="git-merge" class="w-4 h-4 shrink-0 text-amber-400"></i>
+            <span class="nav-text">Matching Income</span>
+        </a>
+
+        <!-- 5. My Direct Salary -->
+        <a class='nav-item {{ request()->routeIs("user.reports.direct-salary") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-2.5 rounded-xl text-xs font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("user.reports.direct-salary") }}'>
+            <i data-lucide="banknote" class="w-4 h-4 shrink-0 text-amber-400"></i>
+            <span class="nav-text">Direct Salary Income</span>
+        </a>
+
+        <!-- 6. My Team Salary -->
+        <a class='nav-item {{ request()->routeIs("user.reports.team-salary") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-2.5 rounded-xl text-xs font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("user.reports.team-salary") }}'>
+            <i data-lucide="users" class="w-4 h-4 shrink-0 text-amber-400"></i>
+            <span class="nav-text">Team Salary Income</span>
+        </a>
+
+        <!-- 7. My Rewards -->
+        <a class='nav-item {{ request()->routeIs("user.reports.rewards") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-2.5 rounded-xl text-xs font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("user.reports.rewards") }}'>
+            <i data-lucide="trophy" class="w-4 h-4 shrink-0 text-amber-400"></i>
+            <span class="nav-text">Reward Income</span>
+        </a>
+
+        <!-- 6. ACCOUNT & SECURITY SECTION -->
+        <div class="nav-section-title px-5 pt-4 pb-2 mt-2 text-[10px] font-black uppercase tracking-[2px] text-amber-400/70">
+            ACCOUNT & SECURITY
         </div>
 
         <!-- My Profile -->
@@ -120,28 +214,13 @@
             <span class="nav-text">My Profile</span>
         </a>
 
-        <!-- COMING SOON MODULES SECTION -->
-        <div class="nav-section-title px-5 pt-4 pb-2 mt-2 text-[10px] font-black uppercase tracking-[2px] text-amber-400/70">
-            Upcoming Features
-        </div>
+        <!-- Support Tickets -->
+        <a class='nav-item {{ request()->routeIs("user.tickets*") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("user.tickets.index") }}'>
+            <i data-lucide="headphones" class="w-5 h-5 shrink-0 text-amber-400"></i>
+            <span class="nav-text">Support Tickets</span>
+        </a>
 
-        <div class="flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-500 opacity-60 cursor-not-allowed">
-            <i data-lucide="building-2" class="w-5 h-5 shrink-0 text-neutral-500"></i>
-            <span class="nav-text">Company Overview</span>
-            <span class="ml-auto text-[9px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded font-black">COMING SOON</span>
-        </div>
-
-        <div class="flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-500 opacity-60 cursor-not-allowed">
-            <i data-lucide="coins" class="w-5 h-5 shrink-0 text-neutral-500"></i>
-            <span class="nav-text">My Incomes</span>
-            <span class="ml-auto text-[9px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded font-black">COMING SOON</span>
-        </div>
-
-        <div class="flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-500 opacity-60 cursor-not-allowed">
-            <i data-lucide="shield-check" class="w-5 h-5 shrink-0 text-neutral-500"></i>
-            <span class="nav-text">Terms & Rules</span>
-            <span class="ml-auto text-[9px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded font-black">COMING SOON</span>
-        </div>
     </nav>
 
     <!-- User Footprint -->
@@ -160,5 +239,5 @@
     </div>
 </aside>
 <!-- ======================================
-     End Sidebar Area
+     End User Sidebar Area
      ====================================== -->

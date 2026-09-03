@@ -84,7 +84,7 @@
                 <p class="font-bold text-amber-300">📌 Deposit Rules & Instructions (PDF Terms Page 20):</p>
                 <ul class="list-disc list-inside space-y-1 text-neutral-300">
                     <li>Minimum deposit amount is <strong class="text-emerald-400">$10.00 USDT</strong>.</li>
-                    <li>Deposits are processed 24/7 on USDT (BEP20) network.</li>
+                    <li>Deposits are instantly credited 24/7 to your Deposit Wallet.</li>
                     <li>Enter your exact transaction hash (Txn Hash) after sending payment.</li>
                 </ul>
             </div>
@@ -103,7 +103,7 @@
                     </div>
                 </div>
 
-                <form action="{{ route('user.deposits.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4" id="depositSubmitForm">
+                <form action="{{ route('user.deposits.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4" id="depositSubmitForm" onsubmit="return confirm('Are you sure you want to submit this deposit? Funds will be instantly credited to your Deposit Wallet!');">
                     @csrf
                     <input type="hidden" name="payment_gateway" value="USDT (BEP20)">
 

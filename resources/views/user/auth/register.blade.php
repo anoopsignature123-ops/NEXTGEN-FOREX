@@ -3,30 +3,20 @@
 @section('title', 'NEXTGEN FOREX - Member Registration')
 
 @section('content')
-    <!-- Registration Container -->
-    <div class="w-full max-w-xl relative z-20 space-y-6 my-8">
-        <!-- Logo Header -->
-        <div class="text-center space-y-3">
-            <div class="ng-logo-box mx-auto flex items-center justify-center">
-                <svg class="w-16 h-16 drop-shadow-[0_0_20px_rgba(243,202,82,0.8)]" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="50" cy="50" r="44" stroke="url(#goldGradReg)" stroke-width="4" fill="url(#bgGlobeReg)"/>
-                    <circle cx="50" cy="50" r="39" stroke="rgba(243,202,82,0.4)" stroke-width="1.5" stroke-dasharray="4 2" fill="none"/>
-                    <path d="M 28 70 L 28 30 L 46 70 L 46 30" stroke="url(#goldGradReg)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M 32 68 L 74 24" stroke="url(#goldGradReg)" stroke-width="6" stroke-linecap="round"/>
-                    <path d="M 60 22 L 78 22 L 78 40" stroke="url(#goldGradReg)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-                    <defs>
-                        <linearGradient id="goldGradReg" x1="0" y1="0" x2="100" y2="100">
-                            <stop offset="0%" stop-color="#fff5c0"/>
-                            <stop offset="35%" stop-color="#f3ca52"/>
-                            <stop offset="70%" stop-color="#d4af37"/>
-                            <stop offset="100%" stop-color="#aa771c"/>
-                        </linearGradient>
-                        <radialGradient id="bgGlobeReg" cx="50%" cy="50%" r="50%">
-                            <stop offset="0%" stop-color="#093822"/>
-                            <stop offset="70%" stop-color="#041d11"/>
-                            <stop offset="100%" stop-color="#020d07"/>
-                        </radialGradient>
-                    </defs>
+<div class="min-h-screen flex items-center justify-center p-4 relative font-sans">
+    
+    <!-- Background Decorator Overlay -->
+    <div class="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-500/10 via-bg/95 to-bg pointer-events-none"></div>
+
+    @if(!isset($showModal) || !$showModal)
+    <!-- Main Registration Form Container (Hidden when Modal is active) -->
+    <div class="w-full max-w-lg space-y-6 relative z-10 my-8">
+        
+        <!-- Header Brand Logo -->
+        <div class="text-center space-y-2 flex flex-col items-center">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 via-yellow-500 to-amber-600 p-0.5 shadow-[0_0_30px_rgba(243,202,82,0.4)] flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
                 </svg>
             </div>
             <div>
@@ -42,7 +32,7 @@
                     CREATE NEW ACCOUNT
                 </span>
                 <h2 class="text-2xl font-black text-white uppercase tracking-tight font-heading mt-2">MEMBER REGISTRATION</h2>
-                <p class="text-xs text-neutral-400">Join the next-generation binary forex investment ecosystem</p>
+                <p class="text-xs text-neutral-400">Join the next-generation forex investment ecosystem</p>
             </div>
 
             <!-- Form -->
@@ -52,7 +42,7 @@
                 <!-- Sponsor ID Input & Live Verification Box -->
                 <div>
                     <div class="flex items-center justify-between mb-1.5">
-                        <label class="block text-xs font-bold text-amber-400 uppercase">Sponsor Code / ID *</label>
+                        <label class="block text-xs font-bold text-amber-400 uppercase">Sponsor Code / ID (Optional)</label>
                         @if(isset($isLockedSponsor) && $isLockedSponsor)
                             <span class="text-[10px] font-black text-amber-300 bg-amber-500/20 px-2 py-0.5 rounded border border-amber-500/40 uppercase flex items-center gap-1">
                                 🔒 Locked via Referral Link
@@ -64,62 +54,15 @@
                             type="text" 
                             id="sponsorInput"
                             name="sponsor_id" 
-                            value="{{ old('sponsor_id', $sponsor ?? 'NGF-0000001') }}" 
-                            required 
+                            value="{{ old('sponsor_id', $sponsor ?? '') }}" 
                             {{ (isset($isLockedSponsor) && $isLockedSponsor) ? 'readonly' : '' }}
-                            placeholder="e.g. NGF-0000001" 
+                            placeholder="Enter Sponsor Code (e.g. NGF-0967542)" 
                             class="w-full px-4 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400 {{ (isset($isLockedSponsor) && $isLockedSponsor) ? 'opacity-85 cursor-not-allowed bg-amber-500/5' : '' }}">
                     </div>
 
                     <!-- Live Sponsor Info Card AJAX output -->
                     <div id="sponsorInfoBox" class="mt-2 hidden p-3 rounded-xl border text-xs font-medium transition-all">
                         <!-- Populated by JS -->
-                    </div>
-                </div>
-
-                <!-- Binary Position Selection -->
-                <div>
-                    <div class="flex items-center justify-between mb-1.5">
-                        <label class="block text-xs font-bold text-amber-400 uppercase">Binary Tree Placement Leg *</label>
-                        @if(isset($isLockedPosition) && $isLockedPosition)
-                            <span class="text-[10px] font-black text-amber-300 bg-amber-500/20 px-2 py-0.5 rounded border border-amber-500/40 uppercase flex items-center gap-1">
-                                🔒 Position Locked ({{ strtoupper($position ?? 'LEFT') }} LEG)
-                            </span>
-                        @endif
-                    </div>
-
-                    @if(isset($isLockedPosition) && $isLockedPosition)
-                        <input type="hidden" name="position" value="{{ $position ?? 'left' }}">
-                    @endif
-
-                    <div class="grid grid-cols-2 gap-3">
-                        <label class="p-3.5 rounded-xl border border-amber-500/40 bg-bg cursor-pointer hover:bg-amber-500/10 transition flex items-center gap-3 {{ (isset($isLockedPosition) && $isLockedPosition) ? 'opacity-85 cursor-not-allowed' : '' }}">
-                            <input 
-                                type="radio" 
-                                name="position" 
-                                value="left" 
-                                {{ (isset($position) && strtolower($position) === 'left') ? 'checked' : '' }}
-                                {{ (isset($isLockedPosition) && $isLockedPosition) ? 'disabled' : '' }}
-                                class="w-4 h-4 accent-amber-500">
-                            <div>
-                                <span class="text-xs font-bold text-white block uppercase">LEFT LEG</span>
-                                <span class="text-[10px] text-amber-400 font-semibold block">Power Leg</span>
-                            </div>
-                        </label>
-
-                        <label class="p-3.5 rounded-xl border border-amber-500/40 bg-bg cursor-pointer hover:bg-amber-500/10 transition flex items-center gap-3 {{ (isset($isLockedPosition) && $isLockedPosition) ? 'opacity-85 cursor-not-allowed' : '' }}">
-                            <input 
-                                type="radio" 
-                                name="position" 
-                                value="right" 
-                                {{ (isset($position) && strtolower($position) === 'right') ? 'checked' : '' }}
-                                {{ (isset($isLockedPosition) && $isLockedPosition) ? 'disabled' : '' }}
-                                class="w-4 h-4 accent-amber-500">
-                            <div>
-                                <span class="text-xs font-bold text-white block uppercase">RIGHT LEG</span>
-                                <span class="text-[10px] text-emerald-400 font-semibold block">Weaker Leg</span>
-                            </div>
-                        </label>
                     </div>
                 </div>
 
@@ -208,11 +151,12 @@
             </div>
         </div>
     </div>
+    @endif
 
-    <!-- CONGRATULATIONS SUCCESS MODAL POPUP -->
+    <!-- CONGRATULATIONS SUCCESS MODAL POPUP (NO BACKGROUND FORM CLUTTER) -->
     @if(isset($showModal) && $showModal && isset($registeredUser))
-    <div id="congratsModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-        <div class="w-full max-w-md ng-pkg-card p-6 sm:p-8 border-2 border-amber-400 shadow-[0_0_60px_rgba(243,202,82,0.5)] text-center space-y-5 animate-fadeInUp">
+    <div id="congratsModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-xl">
+        <div class="w-full max-w-md ng-pkg-card p-6 sm:p-8 border-2 border-amber-400 shadow-[0_0_60px_rgba(243,202,82,0.5)] text-center space-y-5 animate-fadeInUp my-auto">
             
             <!-- Trophy Badge -->
             <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-lg border-2 border-white">
@@ -231,10 +175,10 @@
                     CONGRATULATIONS!
                 </span>
                 <h3 class="text-2xl font-black text-white uppercase tracking-tight mt-2 font-heading">REGISTRATION SUCCESSFUL</h3>
-                <p class="text-xs text-neutral-300 mt-1">Welcome to NextGen Forex Trading. Please save your login credentials below.</p>
+                <p class="text-xs text-neutral-300 mt-1">Welcome to NextGen Forex Trading. Please save your login details below.</p>
             </div>
 
-            <!-- Credentials Box -->
+            <!-- Credentials Box (CLEAN & NO TRANSACTION PIN) -->
             <div class="p-4 rounded-xl bg-black/80 border border-amber-500/40 text-left space-y-2 text-xs">
                 <div class="flex justify-between items-center pb-1.5 border-b border-amber-500/20">
                     <span class="text-neutral-400">Referral / Member Code:</span>
@@ -244,23 +188,15 @@
                     <span class="text-neutral-400">Sponsor Code:</span>
                     <span class="font-bold text-white">{{ $registeredUser['sponsor_id'] }}</span>
                 </div>
-                <div class="flex justify-between items-center pb-1.5 border-b border-amber-500/20">
+                <div class="flex justify-between items-center">
                     <span class="text-neutral-400">Member Name:</span>
                     <span class="font-bold text-white">{{ $registeredUser['name'] }}</span>
-                </div>
-                <div class="flex justify-between items-center pb-1.5 border-b border-amber-500/20">
-                    <span class="text-neutral-400">Binary Position:</span>
-                    <span class="font-bold text-emerald-400">{{ $registeredUser['position'] }} LEG</span>
-                </div>
-                <div class="flex justify-between items-center">
-                    <span class="text-neutral-400">Transaction PIN:</span>
-                    <span class="font-black text-amber-400 text-sm tracking-widest">{{ $registeredUser['tx_pin'] }}</span>
                 </div>
             </div>
 
             <!-- Actions -->
             <div class="space-y-2 pt-1">
-                <button onclick="copyDetails('{{ $registeredUser['user_id'] }}', '{{ $registeredUser['tx_pin'] }}')" class="w-full py-3 rounded-xl bg-amber-500/20 border border-amber-500/50 text-amber-300 font-bold text-xs uppercase tracking-wider hover:bg-amber-500/30 transition flex items-center justify-center gap-2">
+                <button onclick="copyDetails('{{ $registeredUser['user_id'] }}', '{{ $registeredUser['sponsor_id'] }}', '{{ $registeredUser['name'] }}')" class="w-full py-3 rounded-xl bg-amber-500/20 border border-amber-500/50 text-amber-300 font-bold text-xs uppercase tracking-wider hover:bg-amber-500/30 transition flex items-center justify-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
                     Copy Member Details
                 </button>
@@ -269,87 +205,84 @@
                     PROCEED TO DASHBOARD
                 </a>
             </div>
+
         </div>
     </div>
     @endif
-@endsection
 
-@push('scripts')
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            @if (isset($showModal) && $showModal)
-                showToast('Welcome!', "Registration successful! Member Code generated.", 'success');
-            @endif
+</div>
 
-            // Real-time Sponsor ID Verification Lookup
-            const sponsorInput = document.getElementById('sponsorInput');
-            if (sponsorInput) {
-                const verifySponsor = () => {
-                    const code = sponsorInput.value.trim();
-                    const box = document.getElementById('sponsorInfoBox');
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sponsorInput = document.getElementById('sponsorInput');
+        if (sponsorInput) {
+            const verifySponsor = () => {
+                const code = sponsorInput.value.trim();
+                const box = document.getElementById('sponsorInfoBox');
 
-                    if (!code) {
-                        box.classList.add('hidden');
-                        return;
-                    }
+                if (!code) {
+                    if (box) box.classList.add('hidden');
+                    return;
+                }
 
-                    fetch(`{{ route('user.check-sponsor') }}?code=${encodeURIComponent(code)}`)
-                        .then(res => res.json())
-                        .then(data => {
-                            box.classList.remove('hidden');
-                            if (data.success) {
-                                box.className = 'mt-2 p-3 rounded-xl border bg-emerald-500/10 border-emerald-500/40 text-emerald-400 text-xs font-semibold flex items-center justify-between';
-                                box.innerHTML = `
-                                    <div class="flex items-center gap-2">
-                                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                                        <div>
-                                            <span class="font-black uppercase tracking-wider text-white block">✓ VERIFIED SPONSOR</span>
-                                            <span class="text-emerald-300 font-bold">${data.name}</span>
-                                            <span class="text-neutral-400 font-mono text-[11px] block">${data.email}</span>
-                                        </div>
+                fetch(`{{ route('user.check-sponsor') }}?code=${encodeURIComponent(code)}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (!box) return;
+                        box.classList.remove('hidden');
+                        if (data.success) {
+                            box.className = 'mt-2 p-3 rounded-xl border bg-emerald-500/10 border-emerald-500/40 text-emerald-400 text-xs font-semibold flex items-center justify-between';
+                            box.innerHTML = `
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                                    <div>
+                                        <span class="font-black uppercase tracking-wider text-white block">✓ VERIFIED SPONSOR</span>
+                                        <span class="text-emerald-300 font-bold">${data.name}</span>
+                                        <span class="text-neutral-400 font-mono text-[11px] block">${data.email}</span>
                                     </div>
-                                    <span class="text-[10px] font-mono bg-black/50 px-2 py-1 rounded text-amber-400 border border-amber-500/30">${data.referral_code}</span>
-                                `;
-                            } else {
-                                box.className = 'mt-2 p-3 rounded-xl border bg-rose-500/10 border-rose-500/40 text-rose-300 text-xs font-semibold flex items-center gap-2';
-                                box.innerHTML = `
-                                    <span class="w-2 h-2 rounded-full bg-rose-500"></span>
-                                    <span>${data.message || 'Invalid Sponsor Code! User not found.'}</span>
-                                `;
-                            }
-                        })
-                        .catch(() => {
-                            box.classList.add('hidden');
-                        });
-                };
+                                </div>
+                                <span class="text-[10px] font-mono bg-black/50 px-2 py-1 rounded text-amber-400 border border-amber-500/30">${data.referral_code}</span>
+                            `;
+                        } else {
+                            box.className = 'mt-2 p-3 rounded-xl border bg-rose-500/10 border-rose-500/40 text-rose-300 text-xs font-semibold flex items-center gap-2';
+                            box.innerHTML = `
+                                <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                                <span>${data.message || 'Invalid Sponsor Code! User not found.'}</span>
+                            `;
+                        }
+                    })
+                    .catch(() => {
+                        if (box) box.classList.add('hidden');
+                    });
+            };
 
-                sponsorInput.addEventListener('input', verifySponsor);
-                sponsorInput.addEventListener('change', verifySponsor);
-                verifySponsor();
-            }
+            sponsorInput.addEventListener('input', verifySponsor);
+            sponsorInput.addEventListener('change', verifySponsor);
+            verifySponsor();
+        }
+    });
+
+    function togglePassVisibility(inputId, openId, closedId) {
+        const pass = document.getElementById(inputId);
+        const openSvg = document.getElementById(openId);
+        const closedSvg = document.getElementById(closedId);
+
+        if (pass.type === 'password') {
+            pass.type = 'text';
+            openSvg.classList.add('hidden');
+            closedSvg.classList.remove('hidden');
+        } else {
+            pass.type = 'password';
+            openSvg.classList.remove('hidden');
+            closedSvg.classList.add('hidden');
+        }
+    }
+
+    function copyDetails(userId, sponsorId, name) {
+        const text = `NextGen Forex Member Credentials:\nMember ID: ${userId}\nSponsor ID: ${sponsorId}\nMember Name: ${name}`;
+        navigator.clipboard.writeText(text).then(() => {
+            alert('Member details copied to clipboard!');
         });
-
-        function togglePassVisibility(inputId, openId, closedId) {
-            const pass = document.getElementById(inputId);
-            const openSvg = document.getElementById(openId);
-            const closedSvg = document.getElementById(closedId);
-
-            if (pass.type === 'password') {
-                pass.type = 'text';
-                openSvg.classList.add('hidden');
-                closedSvg.classList.remove('hidden');
-            } else {
-                pass.type = 'password';
-                openSvg.classList.remove('hidden');
-                closedSvg.classList.add('hidden');
-            }
-        }
-
-        function copyDetails(userId, pin) {
-            const details = `NEXTGEN FOREX MEMBER CREDENTIALS\nMember Code: ${userId}\nTransaction PIN: ${pin}\nPortal: {{ url('/user/login') }}`;
-            navigator.clipboard.writeText(details).then(() => {
-                showToast('Copied!', 'Member details copied to clipboard.', 'success');
-            });
-        }
-    </script>
-@endpush
+    }
+</script>
+@endsection

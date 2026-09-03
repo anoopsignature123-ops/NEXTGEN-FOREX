@@ -32,14 +32,16 @@ class ProfileController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'mobile' => 'required|string|max:20',
+            'wallet_address' => 'nullable|string|max:255',
         ]);
 
         $user->update([
             'name' => $request->name,
             'mobile' => $request->mobile,
+            'wallet_address' => $request->wallet_address,
         ]);
 
-        return redirect()->back()->with('success', 'Profile details updated successfully!');
+        return redirect()->back()->with('success', 'Profile and Withdrawal Wallet Address updated successfully!');
     }
 
     /**

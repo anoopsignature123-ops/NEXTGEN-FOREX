@@ -47,16 +47,25 @@
                 ADMIN MODE • USA BASED
             </div>
 
-            <!-- Theme Toggle -->
-            <button
-                class="flex size-11 items-center justify-center rounded-xl bg-panel border border-border text-text hover:bg-amber-500/10 transition"
-                id="themeToggle" aria-label="Toggle Theme" onclick="
-                    document.documentElement.classList.toggle('dark');
-                    localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
-                ">
-                <i data-lucide="moon" class="w-5 h-5 dark:hidden"></i>
-                <i data-lucide="sun" class="w-5 h-5 hidden dark:block text-amber-400"></i>
-            </button>
+            <!-- Live Pending Withdrawals Notification Alert Badge -->
+            @php
+                $headerPendingWithdrawals = \App\Models\Withdrawal::where('status', 'pending')->count();
+                $headerPendingTickets = \App\Models\SupportTicket::whereIn('status', ['open', 'user_reply'])->count();
+            @endphp
+            @if($headerPendingWithdrawals > 0)
+                <a href="{{ route('admin.withdrawals.index', ['status' => 'pending']) }}" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/50 text-[11px] font-black animate-pulse shadow-lg hover:bg-rose-500/30 transition" title="Click to view pending withdrawal requests">
+                    <i data-lucide="bell" class="w-3.5 h-3.5 text-rose-400"></i>
+                    <span>{{ $headerPendingWithdrawals }} PENDING WITHDRAWAL</span>
+                </a>
+            @endif
+
+            @if($headerPendingTickets > 0)
+                <a href="{{ route('admin.tickets.index', ['status' => 'pending']) }}" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/50 text-[11px] font-black animate-pulse shadow-lg hover:bg-amber-500/30 transition" title="Click to view pending support tickets">
+                    <i data-lucide="headphones" class="w-3.5 h-3.5 text-amber-400"></i>
+                    <span>{{ $headerPendingTickets }} OPEN TICKET</span>
+                </a>
+            @endif
+
 
             <!-- Profile Dropdown -->
             <div class="relative">

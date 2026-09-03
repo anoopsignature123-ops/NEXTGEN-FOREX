@@ -1,5 +1,5 @@
 <!-- ======================================
-     Start Sidebar Area
+     Start Admin Sidebar Area
      ====================================== -->
 <div id="sidebarOverlay"
     class="fixed inset-0 bg-black/70 z-40 hidden lg:hidden transition-opacity duration-300 opacity-0"
@@ -45,15 +45,17 @@
 
     <!-- Navigation -->
     <nav class="py-4 flex-1 overflow-y-auto space-y-1">
+        
+        <!-- 1. CORE MANAGEMENT SECTION -->
         <div class="nav-section-title px-5 pt-3 pb-2 text-[10px] font-black uppercase tracking-[2px] text-amber-400/70">
-            Active Modules
+            CORE MANAGEMENT
         </div>
 
-        <!-- Dashboard -->
+        <!-- Dashboard Link -->
         <a class='nav-item {{ request()->routeIs("admin.dashboard") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
             href='{{ route("admin.dashboard") }}'>
             <i data-lucide="layout-dashboard" class="w-5 h-5 shrink-0 text-amber-400"></i>
-            <span class="nav-text">Admin Dashboard</span>
+            <span class="nav-text">Dashboard</span>
         </a>
 
         <!-- User Management Directory -->
@@ -63,48 +65,151 @@
             <span class="nav-text">User Management</span>
         </a>
 
+        <!-- 2. ADD FUND & DEPOSITS SECTION -->
+        <div class="nav-section-title px-5 pt-4 pb-2 mt-2 text-[10px] font-black uppercase tracking-[2px] text-amber-400/70">
+            ADD FUND & WITHDRAWALS
+        </div>
+
+        <!-- Deposit History -->
+        @php
+            $pendingWithdrawalsCount = \App\Models\Withdrawal::where('status', 'pending')->count();
+        @endphp
+        <a class='nav-item {{ request()->routeIs("admin.deposits*") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center justify-between mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("admin.deposits.index") }}'>
+            <div class="flex items-center gap-3">
+                <i data-lucide="wallet" class="w-5 h-5 shrink-0 text-amber-400"></i>
+                <span class="nav-text">Deposit History</span>
+            </div>
+        </a>
+
+        <!-- Withdrawal Requests -->
+        <a class='nav-item {{ request()->routeIs("admin.withdrawals*") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center justify-between mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("admin.withdrawals.index") }}'>
+            <div class="flex items-center gap-3">
+                <i data-lucide="arrow-up-right" class="w-5 h-5 shrink-0 text-amber-400"></i>
+                <span class="nav-text">Withdrawal Requests</span>
+            </div>
+            @if($pendingWithdrawalsCount > 0)
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-rose-500 text-white animate-pulse shadow-md border border-rose-400 shrink-0">
+                    {{ $pendingWithdrawalsCount }} PENDING
+                </span>
+            @endif
+        </a>
+
+        <!-- 3. INVESTMENT SECTION -->
+        <div class="nav-section-title px-5 pt-4 pb-2 mt-2 text-[10px] font-black uppercase tracking-[2px] text-amber-400/70">
+            INVESTMENT
+        </div>
+
         <!-- Investment Packages Management -->
-        <a class='nav-item {{ request()->routeIs("admin.packages*") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+        <a class='nav-item {{ request()->routeIs("admin.packages.index") || request()->routeIs("admin.packages.create") || request()->routeIs("admin.packages.edit") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
             href='{{ route("admin.packages.index") }}'>
             <i data-lucide="package-check" class="w-5 h-5 shrink-0 text-amber-400"></i>
             <span class="nav-text">Packages Management</span>
         </a>
 
-        <!-- Deposit Requests -->
-        <a class='nav-item {{ request()->routeIs("admin.deposits*") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
-            href='{{ route("admin.deposits.index") }}'>
-            <i data-lucide="wallet" class="w-5 h-5 shrink-0 text-amber-400"></i>
-            <span class="nav-text">Deposit Requests</span>
+        <!-- Investment History -->
+        <a class='nav-item {{ request()->routeIs("admin.packages.history") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("admin.packages.history") }}'>
+            <i data-lucide="trending-up" class="w-5 h-5 shrink-0 text-amber-400"></i>
+            <span class="nav-text">Investment History</span>
         </a>
 
-        <!-- COMING SOON MODULES SECTION -->
+        <!-- 4. TRANSACTIONS SECTION -->
         <div class="nav-section-title px-5 pt-4 pb-2 mt-2 text-[10px] font-black uppercase tracking-[2px] text-amber-400/70">
-            Upcoming Modules
+            TRANSACTIONS
         </div>
 
-        <div class="flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-500 opacity-60 cursor-not-allowed">
-            <i data-lucide="building-2" class="w-5 h-5 shrink-0 text-neutral-500"></i>
-            <span class="nav-text">Company Settings</span>
-            <span class="ml-auto text-[9px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded font-black">COMING SOON</span>
+        <!-- Transaction History Logs -->
+        <a class='nav-item {{ request()->routeIs("admin.transactions*") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("admin.transactions.index") }}'>
+            <i data-lucide="receipt" class="w-5 h-5 shrink-0 text-amber-400"></i>
+            <span class="nav-text">Transaction History</span>
+        </a>
+
+        <!-- 5. INCOME REPORTS SECTION -->
+        <div class="nav-section-title px-5 pt-4 pb-2 mt-2 text-[10px] font-black uppercase tracking-[2px] text-amber-400/70">
+            INCOME REPORTS
         </div>
 
-        <div class="flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-500 opacity-60 cursor-not-allowed">
-            <i data-lucide="coins" class="w-5 h-5 shrink-0 text-neutral-500"></i>
-            <span class="nav-text">Income Reports</span>
-            <span class="ml-auto text-[9px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded font-black">COMING SOON</span>
+        <!-- 0. Income Overview Summary -->
+        <a class='nav-item {{ request()->routeIs("admin.reports.summary") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-2.5 rounded-xl text-xs font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("admin.reports.summary") }}'>
+            <i data-lucide="bar-chart-3" class="w-4 h-4 shrink-0 text-amber-400"></i>
+            <span class="nav-text">Income Overview Summary</span>
+        </a>
+
+        <!-- 1. ROI Income Report -->
+        <a class='nav-item {{ request()->routeIs("admin.reports.roi") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-2.5 rounded-xl text-xs font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("admin.reports.roi") }}'>
+            <i data-lucide="trending-up" class="w-4 h-4 shrink-0 text-amber-400"></i>
+            <span class="nav-text">ROI Income Report</span>
+        </a>
+
+        <!-- 2. Direct Income Report -->
+        <a class='nav-item {{ request()->routeIs("admin.reports.direct") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-2.5 rounded-xl text-xs font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("admin.reports.direct") }}'>
+            <i data-lucide="user-check" class="w-4 h-4 shrink-0 text-amber-400"></i>
+            <span class="nav-text">Direct Commission Report</span>
+        </a>
+
+        <!-- 3. Bonus Income Report -->
+        <a class='nav-item {{ request()->routeIs("admin.reports.bonus") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-2.5 rounded-xl text-xs font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("admin.reports.bonus") }}'>
+            <i data-lucide="gift" class="w-4 h-4 shrink-0 text-amber-400"></i>
+            <span class="nav-text">24H Special Bonus</span>
+        </a>
+
+        <!-- 4. Matching Income Report -->
+        <a class='nav-item {{ request()->routeIs("admin.reports.matching") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-2.5 rounded-xl text-xs font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("admin.reports.matching") }}'>
+            <i data-lucide="git-merge" class="w-4 h-4 shrink-0 text-amber-400"></i>
+            <span class="nav-text">Matching Income</span>
+        </a>
+
+        <!-- 5. Direct Salary Report -->
+        <a class='nav-item {{ request()->routeIs("admin.reports.direct-salary") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-2.5 rounded-xl text-xs font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("admin.reports.direct-salary") }}'>
+            <i data-lucide="banknote" class="w-4 h-4 shrink-0 text-amber-400"></i>
+            <span class="nav-text">Direct Salary Income</span>
+        </a>
+
+        <!-- 6. Team Salary Report -->
+        <a class='nav-item {{ request()->routeIs("admin.reports.team-salary") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-2.5 rounded-xl text-xs font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("admin.reports.team-salary") }}'>
+            <i data-lucide="users" class="w-4 h-4 shrink-0 text-amber-400"></i>
+            <span class="nav-text">Team Salary Income</span>
+        </a>
+
+        <!-- 7. Reward Income Report -->
+        <a class='nav-item {{ request()->routeIs("admin.reports.rewards") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-2.5 rounded-xl text-xs font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("admin.reports.rewards") }}'>
+            <i data-lucide="trophy" class="w-4 h-4 shrink-0 text-amber-400"></i>
+            <span class="nav-text">Reward Income</span>
+        </a>
+
+        <!-- 6. HELP DESK & SUPPORT SECTION -->
+        <div class="nav-section-title px-5 pt-4 pb-2 mt-2 text-[10px] font-black uppercase tracking-[2px] text-amber-400/70">
+            HELP DESK & SUPPORT
         </div>
 
-        <div class="flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-500 opacity-60 cursor-not-allowed">
-            <i data-lucide="arrow-left-right" class="w-5 h-5 shrink-0 text-neutral-500"></i>
-            <span class="nav-text">Transactions & Finance</span>
-            <span class="ml-auto text-[9px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded font-black">COMING SOON</span>
-        </div>
+        @php
+            $pendingTicketCount = \App\Models\SupportTicket::whereIn('status', ['open', 'user_reply'])->count();
+        @endphp
+        <!-- Support Tickets -->
+        <a class='nav-item {{ request()->routeIs("admin.tickets*") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center justify-between mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("admin.tickets.index") }}'>
+            <div class="flex items-center gap-3">
+                <i data-lucide="headphones" class="w-5 h-5 shrink-0 text-amber-400"></i>
+                <span class="nav-text">Support Tickets</span>
+            </div>
+            @if($pendingTicketCount > 0)
+                <span class="px-2 py-0.5 rounded-full bg-rose-500 text-white font-mono font-black text-[10px] shadow-md animate-pulse">
+                    {{ $pendingTicketCount }} OPEN
+                </span>
+            @endif
+        </a>
 
-        <div class="flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-500 opacity-60 cursor-not-allowed">
-            <i data-lucide="shield-check" class="w-5 h-5 shrink-0 text-neutral-500"></i>
-            <span class="nav-text">Terms & Policies</span>
-            <span class="ml-auto text-[9px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded font-black">COMING SOON</span>
-        </div>
     </nav>
 
     <!-- Admin Footprint -->
@@ -121,5 +226,5 @@
     </div>
 </aside>
 <!-- ======================================
-     End Sidebar Area
+     End Admin Sidebar Area
      ====================================== -->

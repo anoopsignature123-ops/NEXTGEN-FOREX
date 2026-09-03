@@ -36,24 +36,24 @@
             </div>
             <h3 class="text-2xl font-black text-emerald-400 mt-2">{{ $stats['active'] }}</h3>
         </div>
-        <div class="p-5 rounded-2xl bg-panel border border-amber-500/30 shadow-lg">
+        <div class="p-5 rounded-2xl pdf-package-card shadow-lg">
             <div class="flex items-center justify-between">
-                <span class="text-xs font-bold uppercase text-neutral-400">Left Power Leg</span>
-                <i data-lucide="arrow-left-circle" class="w-5 h-5 text-amber-400"></i>
+                <span class="text-xs font-bold uppercase text-neutral-400">Team A Network</span>
+                <i data-lucide="users" class="w-5 h-5 text-amber-400"></i>
             </div>
             <h3 class="text-2xl font-black text-amber-300 mt-2">{{ $stats['left'] }}</h3>
         </div>
-        <div class="p-5 rounded-2xl bg-panel border border-amber-500/30 shadow-lg">
+        <div class="p-5 rounded-2xl pdf-package-card shadow-lg">
             <div class="flex items-center justify-between">
-                <span class="text-xs font-bold uppercase text-neutral-400">Right Weaker Leg</span>
-                <i data-lucide="arrow-right-circle" class="w-5 h-5 text-emerald-400"></i>
+                <span class="text-xs font-bold uppercase text-neutral-400">Team B Network</span>
+                <i data-lucide="users" class="w-5 h-5 text-emerald-400"></i>
             </div>
             <h3 class="text-2xl font-black text-emerald-400 mt-2">{{ $stats['right'] }}</h3>
         </div>
     </div>
 
     <!-- Filter & Table Container -->
-    <div class="bg-panel p-6 shadow-2xl rounded-2xl border border-amber-500/30 space-y-6">
+    <div class="pdf-package-card p-6 shadow-2xl rounded-2xl space-y-6">
         <!-- Search & Filter Form -->
         <form action="{{ route('user.network.direct') }}" method="GET" class="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-amber-500/20 pb-4">
             <div class="relative w-full sm:w-72">
@@ -63,9 +63,9 @@
 
             <div class="flex items-center gap-3 w-full sm:w-auto">
                 <select name="position" onchange="this.form.submit()" class="px-4 py-2.5 rounded-xl bg-bg border border-amber-500/40 text-amber-400 font-bold text-xs focus:outline-none cursor-pointer">
-                    <option value="">All Binary Legs</option>
-                    <option value="left" {{ request('position') === 'left' ? 'selected' : '' }}>Left Leg (Power Leg)</option>
-                    <option value="right" {{ request('position') === 'right' ? 'selected' : '' }}>Right Leg (Weaker Leg)</option>
+                    <option value="">All Team Branches</option>
+                    <option value="left" {{ request('position') === 'left' ? 'selected' : '' }}>Team A Network</option>
+                    <option value="right" {{ request('position') === 'right' ? 'selected' : '' }}>Team B Network</option>
                 </select>
 
                 <select name="status" onchange="this.form.submit()" class="px-4 py-2.5 rounded-xl bg-bg border border-amber-500/40 text-amber-400 font-bold text-xs focus:outline-none cursor-pointer">
@@ -79,11 +79,11 @@
         <!-- Direct Members Table -->
         <div class="overflow-x-auto">
             <table class="w-full text-left text-sm whitespace-nowrap">
-                <thead class="bg-bg text-amber-400 uppercase text-xs font-bold font-heading tracking-wider border-b border-amber-500/30">
+                <thead class="bg-black/80 text-amber-400 uppercase text-xs font-bold font-heading tracking-wider border-b border-amber-500/30">
                     <tr>
                         <th class="p-4 rounded-l-xl">Direct Member</th>
                         <th class="p-4">Member Code</th>
-                        <th class="p-4">Binary Side</th>
+                        <th class="p-4">Team Branch</th>
                         <th class="p-4">Registration Date</th>
                         <th class="p-4">Status</th>
                         <th class="p-4 rounded-r-xl text-center">Actions</th>
@@ -94,7 +94,7 @@
                     <tr class="hover:bg-amber-500/10 transition">
                         <td class="p-4">
                             <div class="flex items-center gap-3">
-                                <div class="w-9 h-9 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 text-black font-black text-xs flex items-center justify-center shadow">
+                                <div class="w-9 h-9 rounded-full pdf-gold-badge text-black font-black text-xs flex items-center justify-center shadow">
                                     {{ strtoupper(substr($direct->name, 0, 1)) }}
                                 </div>
                                 <div>
@@ -106,9 +106,9 @@
                         <td class="p-4 font-mono font-bold text-amber-400">{{ $direct->referral_code }}</td>
                         <td class="p-4">
                             @if(strtolower($direct->position) === 'left')
-                                <span class="px-2.5 py-1 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-black uppercase">LEFT LEG</span>
+                                <span class="px-2.5 py-1 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-black uppercase">TEAM A</span>
                             @else
-                                <span class="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-[10px] font-black uppercase">RIGHT LEG</span>
+                                <span class="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-[10px] font-black uppercase">TEAM B</span>
                             @endif
                         </td>
                         <td class="p-4 text-xs font-medium text-neutral-300">{{ $direct->created_at ? $direct->created_at->format('M d, Y h:i A') : 'N/A' }}</td>

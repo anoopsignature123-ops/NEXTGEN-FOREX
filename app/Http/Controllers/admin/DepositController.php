@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Deposit;
+use App\Models\Transaction;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,6 +19,8 @@ class DepositController extends Controller
     {
         $status = $request->query('status');
         $search = $request->query('search');
+        $startDate = $request->query('start_date');
+        $endDate = $request->query('end_date');
 
         $query = Deposit::with('user')->latest();
 
@@ -25,12 +28,22 @@ class DepositController extends Controller
             $query->where('status', $status);
         }
 
+        if ($startDate) {
+            $query->whereDate('created_at', '>=', $startDate);
+        }
+
+        if ($endDate) {
+            $query->whereDate('created_at', '<=', $endDate);
+        }
+
         if ($search) {
-            $query->whereHas('user', function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                    ->orWhere('email', 'like', "%{$search}%")
-                    ->orWhere('referral_code', 'like', "%{$search}%");
-            })->orWhere('txn_hash', 'like', "%{$search}%");
+            $query->where(function ($q) use ($search) {
+                $q->whereHas('user', function ($uq) use ($search) {
+                    $uq->where('name', 'like', "%{$search}%")
+                        ->orWhere('email', 'like', "%{$search}%")
+                        ->orWhere('referral_code', 'like', "%{$search}%");
+                })->orWhere('txn_hash', 'like', "%{$search}%");
+            });
         }
 
         $deposits = $query->paginate(15)->withQueryString();
@@ -57,6 +70,21 @@ class DepositController extends Controller
             // Credit User's Deposit Wallet
             $user = $deposit->user;
             $user->increment('deposit_wallet', $deposit->amount);
+
+            // Log detailed financial transaction
+            Transaction::create([
+                'user_id' => $user->id,
+                'txn_number' => 'TXN-'.rand(10000000, 99999999),
+                'wallet_type' => 'deposit_wallet',
+                'amount' => $deposit->amount,
+                'charge' => 0.00,
+                'post_balance' => $user->fresh()->deposit_wallet,
+                'trx_type' => '+',
+                'type' => 'deposit',
+                'description' => "Deposit of \${$deposit->amount} approved via {$deposit->payment_gateway} (Txn: {$deposit->txn_hash})",
+                'reference_id' => $deposit->id,
+                'status' => 'completed',
+            ]);
         });
 
         return redirect()->back()->with('success', "Deposit of \${$deposit->amount} approved and credited to user's Deposit Wallet.");

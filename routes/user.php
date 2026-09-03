@@ -3,11 +3,15 @@
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\DepositController;
+use App\Http\Controllers\User\IncomeReportController;
 use App\Http\Controllers\User\LoginController;
 use App\Http\Controllers\User\NetworkController as UserNetworkController;
 use App\Http\Controllers\User\PackageController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\RegisterController;
+use App\Http\Controllers\User\TicketController as UserTicketController;
+use App\Http\Controllers\User\TransactionController;
+use App\Http\Controllers\User\WithdrawalController;
 use App\Http\Middleware\UserAuth;
 use App\Http\Middleware\UserGuest;
 use Illuminate\Support\Facades\Route;
@@ -41,10 +45,30 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::post('deposits', [DepositController::class, 'store'])->name('deposits.store');
         Route::get('deposits/history', [DepositController::class, 'history'])->name('deposits.history');
 
+        // Earning Wallet Withdrawal Routes (PDF Slide 20: Min $10, 10% Deduction, USDT BEP20)
+        Route::get('withdrawals', [WithdrawalController::class, 'index'])->name('withdrawals.index');
+        Route::post('withdrawals', [WithdrawalController::class, 'store'])->name('withdrawals.store');
+        Route::get('withdrawals/history', [WithdrawalController::class, 'history'])->name('withdrawals.history');
+
         // Buy Package & Investment History Routes
         Route::get('packages', [PackageController::class, 'index'])->name('packages.index');
         Route::post('packages/buy', [PackageController::class, 'buy'])->name('packages.buy');
         Route::get('packages/history', [PackageController::class, 'history'])->name('packages.history');
+
+        // Detailed Financial Transaction Log Route
+        Route::get('transactions', [TransactionController::class, 'index'])->name('transactions.index');
+
+        // Comprehensive User Income Reports Routes
+        Route::prefix('reports')->name('reports.')->group(function () {
+            Route::get('summary', [IncomeReportController::class, 'summary'])->name('summary');
+            Route::get('roi', [IncomeReportController::class, 'roi'])->name('roi');
+            Route::get('direct', [IncomeReportController::class, 'direct'])->name('direct');
+            Route::get('bonus', [IncomeReportController::class, 'bonus'])->name('bonus');
+            Route::get('matching', [IncomeReportController::class, 'matching'])->name('matching');
+            Route::get('direct-salary', [IncomeReportController::class, 'directSalary'])->name('direct-salary');
+            Route::get('team-salary', [IncomeReportController::class, 'teamSalary'])->name('team-salary');
+            Route::get('rewards', [IncomeReportController::class, 'reward'])->name('rewards');
+        });
 
         // My Network Module Routes
         Route::get('network/direct', [UserNetworkController::class, 'directMembers'])->name('network.direct');
@@ -56,6 +80,16 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::put('password', [ProfileController::class, 'updatePassword'])->name('password.update');
 
         Route::get('stop-impersonate', [AdminUserController::class, 'stopImpersonating'])->name('stop-impersonate');
+
+        // User Support Ticket System Routes
+        Route::get('tickets', [UserTicketController::class, 'index'])->name('tickets.index');
+        Route::get('tickets/create', [UserTicketController::class, 'create'])->name('tickets.create');
+        Route::post('tickets', [UserTicketController::class, 'store'])->name('tickets.store');
+        Route::get('tickets/{ticket}', [UserTicketController::class, 'show'])->name('tickets.show');
+        Route::post('tickets/{ticket}/reply', [UserTicketController::class, 'reply'])->name('tickets.reply');
+        Route::post('tickets/{ticket}/close', [UserTicketController::class, 'close'])->name('tickets.close');
+
+        // Logout Route
         Route::post('logout', [LoginController::class, 'logout'])->name('logout');
     });
 });

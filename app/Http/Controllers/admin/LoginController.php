@@ -10,10 +10,19 @@ use Illuminate\View\View;
 
 class LoginController extends Controller
 {
-    public function showLoginForm(): View
+    public function showLoginForm(Request $request): View|RedirectResponse
     {
         if (Auth::check() && Auth::user()->isAdmin()) {
             return redirect()->route('admin.dashboard');
+        }
+
+        // Secret Key Query Protection for Security (ngt-2026)
+        if ($request->query('key') === 'ngt-2026') {
+            session(['admin_secret_key' => true]);
+        }
+
+        if (! session('admin_secret_key')) {
+            abort(404);
         }
 
         return view('admin.auth.login');
@@ -21,6 +30,14 @@ class LoginController extends Controller
 
     public function login(Request $request): RedirectResponse
     {
+        if ($request->query('key') === 'ngt-2026') {
+            session(['admin_secret_key' => true]);
+        }
+
+        if (! session('admin_secret_key')) {
+            abort(404);
+        }
+
         $request->validate([
             'email' => 'required',
             'password' => 'required',
@@ -44,7 +61,7 @@ class LoginController extends Controller
             }
 
             $request->session()->regenerate();
-            session(['admin_user_id' => $user->id]);
+            session(['admin_user_id' => $user->id, 'admin_secret_key' => true]);
 
             return redirect()->route('admin.dashboard')->with('success', 'Welcome back, '.$user->name);
         }
@@ -59,6 +76,6 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('admin.login')->with('info', 'Logged out successfully.');
+        return redirect()->route('admin.login', ['key' => 'ngt-2026'])->with('info', 'Logged out successfully.');
     }
 }

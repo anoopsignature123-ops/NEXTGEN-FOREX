@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>NEXTGEN FOREX - Coming Soon</title>
     <link rel="icon" type="image/png" href="{{ asset('assets/images/favicon.png') }}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     <link href="{{ asset('css/index.css') }}" rel="stylesheet">
     <link href="{{ asset('css/nextgen-theme.css') }}" rel="stylesheet">
 </head>

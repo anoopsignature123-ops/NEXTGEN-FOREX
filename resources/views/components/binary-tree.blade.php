@@ -12,38 +12,38 @@
 
 <div class="w-full space-y-6 select-none font-sans">
 
-    <!-- TOP 4 GENEALOGY SUMMARY CARDS (Matching Reference Screenshot) -->
+    <!-- TOP 4 GENEALOGY SUMMARY CARDS (Matching PDF Slide Deep Emerald & Gold Frame Theme) -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <!-- Card 1: USER NAME -->
-        <div class="p-4 rounded-2xl bg-[#0f1b23] border border-amber-500/30 shadow-lg relative overflow-hidden">
-            <div class="text-[11px] font-bold uppercase tracking-wider text-amber-400">USER NAME</div>
-            <h3 class="text-xl font-black text-gold-gradient font-heading mt-1">{{ $root ? $root->name : 'N/A' }}</h3>
+        <div class="p-4 rounded-3xl pdf-package-card relative overflow-hidden">
+            <div class="text-[11px] font-extrabold uppercase tracking-wider text-amber-400">USER NAME</div>
+            <h3 class="text-xl font-black text-white font-heading mt-1">{{ $root ? $root->name : 'N/A' }}</h3>
         </div>
 
         <!-- Card 2: USER ID -->
-        <div class="p-4 rounded-2xl bg-[#0f1b23] border border-amber-500/30 shadow-lg relative overflow-hidden">
-            <div class="text-[11px] font-bold uppercase tracking-wider text-amber-400">USER ID</div>
+        <div class="p-4 rounded-3xl pdf-package-card relative overflow-hidden">
+            <div class="text-[11px] font-extrabold uppercase tracking-wider text-amber-400">USER ID CODE</div>
             <h3 class="text-xl font-black text-amber-300 font-mono tracking-wider mt-1">{{ $root ? $root->referral_code : 'N/A' }}</h3>
         </div>
 
-        <!-- Card 3: LEFT BUSINESS -->
-        <div class="p-4 rounded-2xl bg-[#0f1b23] border border-amber-500/30 shadow-lg relative overflow-hidden">
-            <div class="text-[11px] font-bold uppercase tracking-wider text-amber-400">LEFT BUSINESS</div>
-            <h3 class="text-xl font-black text-gold-gradient font-mono mt-1">{{ $root ? $root->left_leg_stats['business'] : '$0.00' }}</h3>
+        <!-- Card 3: TEAM A BUSINESS -->
+        <div class="p-4 rounded-3xl pdf-package-card relative overflow-hidden">
+            <div class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-400">TEAM A BUSINESS</div>
+            <h3 class="text-xl font-black text-emerald-400 font-mono mt-1">{{ $root ? $root->left_leg_stats['business'] : '$0.00' }}</h3>
         </div>
 
-        <!-- Card 4: RIGHT BUSINESS -->
-        <div class="p-4 rounded-2xl bg-[#0f1b23] border border-amber-500/30 shadow-lg relative overflow-hidden">
-            <div class="text-[11px] font-bold uppercase tracking-wider text-amber-400">RIGHT BUSINESS</div>
-            <h3 class="text-xl font-black text-gold-gradient font-mono mt-1">{{ $root ? $root->right_leg_stats['business'] : '$0.00' }}</h3>
+        <!-- Card 4: TEAM B BUSINESS -->
+        <div class="p-4 rounded-3xl pdf-package-card relative overflow-hidden">
+            <div class="text-[11px] font-extrabold uppercase tracking-wider text-sky-400">TEAM B BUSINESS</div>
+            <h3 class="text-xl font-black text-sky-300 font-mono mt-1">{{ $root ? $root->right_leg_stats['business'] : '$0.00' }}</h3>
         </div>
     </div>
 
     <!-- CANVAS HEADER TOOLBAR WITH DOWNLOAD IMAGE BUTTON -->
-    <div class="flex flex-col sm:flex-row justify-between items-center gap-4 bg-[#09150e] p-4 rounded-2xl border border-amber-500/30">
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-4 p-4 rounded-3xl pdf-package-card">
         <div class="flex items-center gap-2">
             <span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse"></span>
-            <span class="text-xs font-bold text-amber-300 uppercase tracking-wider font-heading">BINARY TEAM TREE GRAPH</span>
+            <span class="text-xs font-black text-amber-300 uppercase tracking-wider font-heading">BINARY TEAM TREE GRAPH</span>
         </div>
 
         <!-- Action Buttons -->
@@ -52,20 +52,20 @@
             <button type="button" 
                     onclick="downloadTreeImage()" 
                     id="downloadTreeBtn"
-                    class="px-4 py-2 rounded-xl bg-amber-500/15 hover:bg-amber-500/30 border border-amber-400/60 text-amber-300 font-extrabold text-xs flex items-center gap-2 transition shadow-md hover:scale-105 active:scale-95 cursor-pointer">
+                    class="px-4 py-2 rounded-xl pdf-gold-ribbon font-black text-xs flex items-center gap-2 transition shadow-md hover:scale-105 active:scale-95 cursor-pointer">
                 <span>📸 Download Tree Image</span>
             </button>
 
             <!-- RECENTER TREE BUTTON -->
             <a href="{{ route($routePrefix . '.network.tree') }}" 
-               class="px-4 py-2 rounded-xl bg-neutral-900/90 hover:bg-neutral-800 border border-neutral-700 text-neutral-300 font-bold text-xs flex items-center gap-2 transition shadow-md">
+               class="px-4 py-2 rounded-xl bg-black/80 hover:bg-black border border-amber-500/40 text-amber-300 font-bold text-xs flex items-center gap-2 transition shadow-md">
                 <span>🎯 Recenter Root</span>
             </a>
         </div>
     </div>
 
-    <!-- MAIN GENEALOGY TREE GRAPH CANVAS (With Generous Top Padding pt-20 on Inner Canvas) -->
-    <div id="treeCanvasContainer" class="w-full overflow-x-auto px-6 py-12 rounded-2xl bg-[#0b161e] border-2 border-amber-500/30 shadow-2xl relative flex justify-start sm:justify-center">
+    <!-- MAIN GENEALOGY TREE GRAPH CANVAS -->
+    <div id="treeCanvasContainer" class="w-full overflow-x-auto px-6 py-12 rounded-3xl pdf-package-card relative flex justify-start sm:justify-center">
         
         <div class="flex flex-col items-center min-w-[680px] mx-auto pt-20 pb-8">
 
@@ -76,36 +76,32 @@
                 @endif
             </div>
 
-            <!-- LEVEL 0 -> LEVEL 1 SVG CONNECTOR (Exact 680px Fixed Min-Width Grid Alignment) -->
+            <!-- LEVEL 0 -> LEVEL 1 SVG CONNECTOR -->
             <div class="w-[680px] min-w-[680px] flex justify-center">
                 <svg class="w-[680px] h-12 overflow-visible" viewBox="0 0 680 48" fill="none">
-                    <!-- Vertical Line Down from Root Center (340, 0) to (340, 24) -->
                     <path d="M 340 0 L 340 24" stroke="#f3ca52" stroke-width="2" stroke-dasharray="4 3"/>
-                    <!-- Single Continuous Unbroken Horizontal Dashed Line (170, 24) to (510, 24) -->
                     <path d="M 170 24 L 510 24" stroke="#f3ca52" stroke-width="2" stroke-dasharray="4 3"/>
-                    <!-- Vertical Drop Line to Left Child (170, 24) to (170, 48) -->
                     <path d="M 170 24 L 170 48" stroke="#f3ca52" stroke-width="2" stroke-dasharray="4 3"/>
-                    <!-- Vertical Drop Line to Right Child (510, 24) to (510, 48) -->
                     <path d="M 510 24 L 510 48" stroke="#f3ca52" stroke-width="2" stroke-dasharray="4 3"/>
                 </svg>
             </div>
 
-            <!-- ================= LEVEL 1: LEFT & RIGHT BRANCHES ================= -->
+            <!-- ================= LEVEL 1: TEAM A & TEAM B BRANCHES ================= -->
             <div class="grid grid-cols-2 w-[680px] min-w-[680px] justify-items-center">
                 
-                <!-- LEFT CHILD BRANCH (340px Column Width -> Center = 170px) -->
+                <!-- TEAM A CHILD BRANCH -->
                 <div class="flex flex-col items-center w-[340px] min-w-[340px]">
                     @if($left1)
-                        @include('components.binary-node-card', ['node' => $left1, 'role' => 'LEFT LEG', 'routePrefix' => $routePrefix])
+                        @include('components.binary-node-card', ['node' => $left1, 'role' => 'TEAM A', 'routePrefix' => $routePrefix])
                     @else
-                        <a href="{{ route('user.register', ['sponsor' => $root->referral_code, 'position' => 'left']) }}" target="_blank" class="p-3.5 rounded-2xl bg-[#0e1a22] border-2 border-dashed border-amber-400/70 hover:bg-amber-500/15 transition text-center w-44 shadow-lg block group">
+                        <a href="{{ route('user.register', ['sponsor' => $root->referral_code, 'position' => 'left']) }}" target="_blank" class="p-3.5 rounded-2xl bg-black/80 border-2 border-dashed border-amber-400/70 hover:bg-amber-500/15 transition text-center w-44 shadow-lg block group">
                             <div class="w-9 h-9 mx-auto rounded-full bg-amber-500/20 text-amber-400 font-black text-base flex items-center justify-center mb-1 group-hover:scale-110 transition">+</div>
-                            <div class="text-[11px] font-black text-amber-300 uppercase tracking-wider">ADD LEFT MEMBER</div>
+                            <div class="text-[11px] font-black text-amber-300 uppercase tracking-wider">ADD TEAM A MEMBER</div>
                             <div class="text-[10px] text-neutral-400 mt-0.5 font-semibold">Empty Slot</div>
                         </a>
                     @endif
 
-                    <!-- LEVEL 1 LEFT -> LEVEL 2 SVG CONNECTOR (Exact 320px Fixed Min-Width Grid Alignment) -->
+                    <!-- LEVEL 1 CONNECTOR -->
                     <div class="w-[320px] min-w-[320px] flex justify-center">
                         <svg class="w-[320px] h-10 overflow-visible" viewBox="0 0 320 40" fill="none">
                             <path d="M 160 0 L 160 20" stroke="#f3ca52" stroke-width="2" stroke-dasharray="4 3"/>
@@ -115,22 +111,22 @@
                         </svg>
                     </div>
 
-                    <!-- LEVEL 2 LEFT SUB-CHILDREN (L-L & L-R) -->
+                    <!-- LEVEL 2 TEAM A SUB-CHILDREN (A-1 & A-2) -->
                     <div class="grid grid-cols-2 w-[320px] min-w-[320px] justify-items-center">
                         <div>
                             @if($left_left2)
-                                @include('components.binary-node-card', ['node' => $left_left2, 'role' => 'L-L', 'routePrefix' => $routePrefix, 'isSmall' => true])
+                                @include('components.binary-node-card', ['node' => $left_left2, 'role' => 'A-1', 'routePrefix' => $routePrefix, 'isSmall' => true])
                             @else
-                                <div class="p-2.5 rounded-xl bg-[#091218] border border-dashed border-amber-500/30 text-center w-28 opacity-70">
+                                <div class="p-2.5 rounded-xl bg-black/60 border border-dashed border-amber-500/30 text-center w-28 opacity-70">
                                     <span class="text-[10px] text-neutral-400 font-bold">Empty Slot</span>
                                 </div>
                             @endif
                         </div>
                         <div>
                             @if($left_right2)
-                                @include('components.binary-node-card', ['node' => $left_right2, 'role' => 'L-R', 'routePrefix' => $routePrefix, 'isSmall' => true])
+                                @include('components.binary-node-card', ['node' => $left_right2, 'role' => 'A-2', 'routePrefix' => $routePrefix, 'isSmall' => true])
                             @else
-                                <div class="p-2.5 rounded-xl bg-[#091218] border border-dashed border-amber-500/30 text-center w-28 opacity-70">
+                                <div class="p-2.5 rounded-xl bg-black/60 border border-dashed border-amber-500/30 text-center w-28 opacity-70">
                                     <span class="text-[10px] text-neutral-400 font-bold">Empty Slot</span>
                                 </div>
                             @endif
@@ -138,19 +134,19 @@
                     </div>
                 </div>
 
-                <!-- RIGHT CHILD BRANCH (340px Column Width -> Center = 510px) -->
+                <!-- TEAM B CHILD BRANCH -->
                 <div class="flex flex-col items-center w-[340px] min-w-[340px]">
                     @if($right1)
-                        @include('components.binary-node-card', ['node' => $right1, 'role' => 'RIGHT LEG', 'routePrefix' => $routePrefix])
+                        @include('components.binary-node-card', ['node' => $right1, 'role' => 'TEAM B', 'routePrefix' => $routePrefix])
                     @else
-                        <a href="{{ route('user.register', ['sponsor' => $root->referral_code, 'position' => 'right']) }}" target="_blank" class="p-3.5 rounded-2xl bg-[#0e1a22] border-2 border-dashed border-emerald-400/70 hover:bg-emerald-500/15 transition text-center w-44 shadow-lg block group">
+                        <a href="{{ route('user.register', ['sponsor' => $root->referral_code, 'position' => 'right']) }}" target="_blank" class="p-3.5 rounded-2xl bg-black/80 border-2 border-dashed border-emerald-400/70 hover:bg-emerald-500/15 transition text-center w-44 shadow-lg block group">
                             <div class="w-9 h-9 mx-auto rounded-full bg-emerald-500/20 text-emerald-400 font-black text-base flex items-center justify-center mb-1 group-hover:scale-110 transition">+</div>
-                            <div class="text-[11px] font-black text-emerald-300 uppercase tracking-wider">ADD RIGHT MEMBER</div>
+                            <div class="text-[11px] font-black text-emerald-300 uppercase tracking-wider">ADD TEAM B MEMBER</div>
                             <div class="text-[10px] text-neutral-400 mt-0.5 font-semibold">Empty Slot</div>
                         </a>
                     @endif
 
-                    <!-- LEVEL 1 RIGHT -> LEVEL 2 SVG CONNECTOR (Exact 320px Fixed Min-Width Grid Alignment) -->
+                    <!-- LEVEL 1 CONNECTOR -->
                     <div class="w-[320px] min-w-[320px] flex justify-center">
                         <svg class="w-[320px] h-10 overflow-visible" viewBox="0 0 320 40" fill="none">
                             <path d="M 160 0 L 160 20" stroke="#f3ca52" stroke-width="2" stroke-dasharray="4 3"/>
@@ -160,22 +156,22 @@
                         </svg>
                     </div>
 
-                    <!-- LEVEL 2 RIGHT SUB-CHILDREN (R-L & R-R) -->
+                    <!-- LEVEL 2 TEAM B SUB-CHILDREN (B-1 & B-2) -->
                     <div class="grid grid-cols-2 w-[320px] min-w-[320px] justify-items-center">
                         <div>
                             @if($right_left2)
-                                @include('components.binary-node-card', ['node' => $right_left2, 'role' => 'R-L', 'routePrefix' => $routePrefix, 'isSmall' => true])
+                                @include('components.binary-node-card', ['node' => $right_left2, 'role' => 'B-1', 'routePrefix' => $routePrefix, 'isSmall' => true])
                             @else
-                                <div class="p-2.5 rounded-xl bg-[#091218] border border-dashed border-emerald-500/30 text-center w-28 opacity-70">
+                                <div class="p-2.5 rounded-xl bg-black/60 border border-dashed border-emerald-500/30 text-center w-28 opacity-70">
                                     <span class="text-[10px] text-neutral-400 font-bold">Empty Slot</span>
                                 </div>
                             @endif
                         </div>
                         <div>
                             @if($right_right2)
-                                @include('components.binary-node-card', ['node' => $right_right2, 'role' => 'R-R', 'routePrefix' => $routePrefix, 'isSmall' => true])
+                                @include('components.binary-node-card', ['node' => $right_right2, 'role' => 'B-2', 'routePrefix' => $routePrefix, 'isSmall' => true])
                             @else
-                                <div class="p-2.5 rounded-xl bg-[#091218] border border-dashed border-emerald-500/30 text-center w-28 opacity-70">
+                                <div class="p-2.5 rounded-xl bg-black/60 border border-dashed border-emerald-500/30 text-center w-28 opacity-70">
                                     <span class="text-[10px] text-neutral-400 font-bold">Empty Slot</span>
                                 </div>
                             @endif
@@ -224,25 +220,25 @@
                 <span id="mobileModalPackage" class="font-black text-amber-300 uppercase">Partner / Active</span>
             </div>
 
-            <!-- Left Team Members Pill -->
+            <!-- Team A Members Pill -->
             <div class="p-2.5 rounded-xl bg-emerald-950/80 border border-emerald-500/40 flex justify-between items-center text-[11px]">
-                <span class="font-extrabold text-emerald-400 uppercase">Left Team Members:</span>
+                <span class="font-extrabold text-emerald-400 uppercase">Team A Members:</span>
                 <span id="mobileModalLeftMembers" class="font-black text-emerald-300 font-mono">0 Act, 0 Inact</span>
             </div>
 
-            <!-- Right Team Members Pill -->
+            <!-- Team B Members Pill -->
             <div class="p-2.5 rounded-xl bg-sky-950/80 border border-sky-500/40 flex justify-between items-center text-[11px]">
-                <span class="font-extrabold text-sky-400 uppercase">Right Team Members:</span>
+                <span class="font-extrabold text-sky-400 uppercase">Team B Members:</span>
                 <span id="mobileModalRightMembers" class="font-black text-sky-300 font-mono">0 Act, 0 Inact</span>
             </div>
 
             <div class="flex justify-between items-center pt-1 border-t border-amber-500/20">
-                <span class="text-neutral-400 font-medium">Left Business:</span>
+                <span class="text-neutral-400 font-medium">Team A Business:</span>
                 <span id="mobileModalLeftBusiness" class="font-black text-emerald-400 font-mono text-sm">$0.00</span>
             </div>
 
             <div class="flex justify-between items-center">
-                <span class="text-neutral-400 font-medium">Right Business:</span>
+                <span class="text-neutral-400 font-medium">Team B Business:</span>
                 <span id="mobileModalRightBusiness" class="font-black text-sky-400 font-mono text-sm">$0.00</span>
             </div>
         </div>

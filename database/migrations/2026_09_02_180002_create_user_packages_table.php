@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('package_id')->constrained('packages')->onDelete('cascade');
-            $table->decimal('invested_amount', 15, 2);
-            $table->decimal('daily_roi', 5, 2); // ROI % at time of purchase
-            $table->decimal('daily_roi_amount', 15, 2);
+            $table->decimal('invested_amount', 15, 2)->default(0.00);
+            $table->decimal('daily_roi', 5, 2)->default(0.00); // ROI % at time of purchase
+            $table->decimal('daily_roi_amount', 15, 2)->default(0.00);
             $table->integer('duration_days')->default(200);
-            $table->decimal('total_return_amount', 15, 2); // invested_amount * 2
+            $table->decimal('total_return_amount', 15, 2)->default(0.00); // invested_amount * 2
             $table->decimal('paid_roi_amount', 15, 2)->default(0.00);
             $table->enum('status', ['active', 'completed'])->default('active');
             $table->timestamp('purchased_at')->useCurrent();

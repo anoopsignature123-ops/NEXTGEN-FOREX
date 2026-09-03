@@ -52,16 +52,6 @@
                 </div>
             @endif
 
-            <!-- Theme Toggle -->
-            <button
-                class="flex size-11 items-center justify-center rounded-xl bg-panel border border-border text-text hover:bg-amber-500/10 transition"
-                id="themeToggle" aria-label="Toggle Theme" onclick="
-                    document.documentElement.classList.toggle('dark');
-                    localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
-                ">
-                <i data-lucide="moon" class="w-5 h-5 dark:hidden"></i>
-                <i data-lucide="sun" class="w-5 h-5 hidden dark:block text-amber-400"></i>
-            </button>
 
             <!-- User Profile Dropdown -->
             <div class="relative">

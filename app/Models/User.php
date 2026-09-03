@@ -22,11 +22,13 @@ class User extends Authenticatable
         'name',
         'email',
         'mobile',
+        'wallet_address',
         'referral_code',
         'sponsor_code',
         'position',
         'status',
         'deposit_wallet',
+        'earning_wallet',
         'password',
     ];
 
@@ -49,14 +51,26 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
+            'activated_at' => 'datetime',
             'password' => 'hashed',
             'deposit_wallet' => 'decimal:2',
+            'earning_wallet' => 'decimal:2',
         ];
     }
 
     public function deposits(): HasMany
     {
         return $this->hasMany(Deposit::class);
+    }
+
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function withdrawals(): HasMany
+    {
+        return $this->hasMany(Withdrawal::class);
     }
 
     public function userPackages(): HasMany

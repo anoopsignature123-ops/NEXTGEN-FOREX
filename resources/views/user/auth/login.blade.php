@@ -57,7 +57,7 @@
                                 <circle cx="12" cy="7" r="4"/>
                             </svg>
                         </div>
-                        <input type="text" name="email" value="{{ old('email', 'NGF-0967542') }}" required placeholder="NGF-0967542 or email..." class="w-full pl-11 pr-4 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400">
+                        <input type="text" name="email" value="{{ old('email') }}" required placeholder="Enter referral code or email..." class="w-full pl-11 pr-4 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400">
                     </div>
                 </div>
 
@@ -72,7 +72,7 @@
                             </svg>
                         </div>
 
-                        <input type="password" id="userPassword" name="password" value="password123" required placeholder="••••••••" class="w-full pl-11 pr-12 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400">
+                        <input type="password" id="userPassword" name="password" required placeholder="Enter your password..." class="w-full pl-11 pr-12 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400">
 
                         <button type="button" onclick="toggleUserPassword()" class="absolute right-3 top-1/2 -translate-y-1/2 p-2 text-amber-400 hover:text-amber-300 transition focus:outline-none" aria-label="Toggle Password Visibility">
                             <svg id="userEyeOpen" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

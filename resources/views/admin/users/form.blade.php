@@ -28,21 +28,21 @@
 
     <!-- Binary Tree Placement Leg Cards -->
     <div>
-        <label class="block text-xs font-bold text-amber-400 uppercase mb-1.5">Binary Tree Placement Leg *</label>
+        <label class="block text-xs font-bold text-amber-400 uppercase mb-1.5">Placement Branch *</label>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <label class="p-3.5 rounded-xl border border-amber-500/40 bg-bg cursor-pointer hover:bg-amber-500/10 transition flex items-center gap-3">
                 <input type="radio" name="position" value="left" {{ old('position', $user->position ?? 'left') === 'left' ? 'checked' : '' }} class="w-4 h-4 accent-amber-500">
                 <div>
-                    <span class="text-xs font-bold text-white block uppercase">LEFT LEG</span>
-                    <span class="text-[10px] text-amber-400 font-semibold block">Power Leg</span>
+                    <span class="text-xs font-bold text-white block uppercase">TEAM A</span>
+                    <span class="text-[10px] text-amber-400 font-semibold block">Primary Branch</span>
                 </div>
             </label>
 
             <label class="p-3.5 rounded-xl border border-amber-500/40 bg-bg cursor-pointer hover:bg-amber-500/10 transition flex items-center gap-3">
                 <input type="radio" name="position" value="right" {{ old('position', $user->position ?? '') === 'right' ? 'checked' : '' }} class="w-4 h-4 accent-amber-500">
                 <div>
-                    <span class="text-xs font-bold text-white block uppercase">RIGHT LEG</span>
-                    <span class="text-[10px] text-emerald-400 font-semibold block">Weaker Leg</span>
+                    <span class="text-xs font-bold text-white block uppercase">TEAM B</span>
+                    <span class="text-[10px] text-emerald-400 font-semibold block">Secondary Branch</span>
                 </div>
             </label>
         </div>
