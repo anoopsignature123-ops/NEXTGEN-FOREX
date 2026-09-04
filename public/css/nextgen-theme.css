@@ -98,11 +98,19 @@ body.sidebar-collapsed .main-content {
 body.sidebar-collapsed .sidebar .logo-text,
 body.sidebar-collapsed .sidebar .nav-text,
 body.sidebar-collapsed .sidebar .nav-section-title,
-body.sidebar-collapsed .sidebar .user-info {
+body.sidebar-collapsed .sidebar .user-info,
+body.sidebar-collapsed .sidebar .full-logo,
+.sidebar.collapsed .full-logo {
     display: none !important;
 }
 
-body.sidebar-collapsed .sidebar .logo-section {
+body.sidebar-collapsed .sidebar .mini-logo,
+.sidebar.collapsed .mini-logo {
+    display: block !important;
+}
+
+body.sidebar-collapsed .sidebar .logo-section,
+.sidebar.collapsed .logo-section {
     justify-content: center !important;
     padding: 16px 8px !important;
 }

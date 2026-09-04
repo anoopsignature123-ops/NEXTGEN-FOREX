@@ -99,7 +99,7 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email',
             'mobile' => 'required|string|max:20',
             'sponsor_code' => 'required|string',
-            'position' => 'required|in:left,right',
+            'position' => 'nullable|in:left,right',
             'password' => 'required|min:6|confirmed',
         ]);
 
@@ -112,7 +112,7 @@ class UserController extends Controller
             'mobile' => $request->mobile,
             'referral_code' => $referralCode,
             'sponsor_code' => $request->sponsor_code,
-            'position' => strtolower($request->position),
+            'position' => strtolower($request->input('position', 'left')),
             'status' => 'inactive', // Default inactive until package investment
             'password' => Hash::make($request->password),
         ]);

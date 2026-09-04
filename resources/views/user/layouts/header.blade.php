@@ -14,8 +14,8 @@
 @endif
 
 <header class="sticky top-0 z-50 glass @container">
-    <div class="flex items-center justify-between px-2 sm:px-6 py-2 sm:py-4">
-        <div class="flex items-center gap-2 sm:gap-4">
+    <div class="flex items-center justify-between px-2 sm:px-6 py-2 sm:py-4 relative">
+        <div class="flex items-center gap-2 sm:gap-4 z-10">
             <!-- Mobile Menu Button -->
             <button
                 class="lg:hidden flex size-11 items-center justify-center rounded-xl bg-panel border border-border text-text hover:bg-amber-500/10 transition js-mobile-menu-toggle"
@@ -36,6 +36,13 @@
                 <input type="text" id="globalSearch" placeholder="Search dashboard stats..."
                     class="w-80 pl-10 pr-4 py-2.5 rounded-xl bg-bg border border-border text-sm text-text placeholder:text-muted focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition" />
             </div>
+        </div>
+
+        <!-- Centered Mobile Brand Logo -->
+        <div class="lg:hidden absolute left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-none z-10">
+            <a href="{{ route('user.dashboard') }}" class="pointer-events-auto flex items-center justify-center">
+                <img src="{{ asset('images/nextgen_logo.png') }}" alt="NEXTGEN FOREX Logo" class="h-11 sm:h-12 w-auto max-w-[210px] sm:max-w-[240px] object-contain drop-shadow-[0_0_16px_rgba(243,202,82,0.95)]">
+            </a>
         </div>
 
         <div class="flex items-center gap-2 sm:gap-3">

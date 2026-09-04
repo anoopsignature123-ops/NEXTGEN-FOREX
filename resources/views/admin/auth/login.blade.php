@@ -4,34 +4,11 @@
 
 @section('content')
     <div class="space-y-6">
-        <!-- Logo Header -->
+        <!-- Brand Logo -->
         <div class="text-center space-y-3">
-            <div class="ng-logo-box mx-auto flex items-center justify-center">
-                <svg class="w-16 h-16 drop-shadow-[0_0_20px_rgba(243,202,82,0.8)]" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="50" cy="50" r="44" stroke="url(#goldGradLogin)" stroke-width="4" fill="url(#bgGlobeGradLogin)"/>
-                    <circle cx="50" cy="50" r="39" stroke="rgba(243,202,82,0.4)" stroke-width="1.5" stroke-dasharray="4 2" fill="none"/>
-                    <path d="M 28 70 L 28 30 L 46 70 L 46 30" stroke="url(#goldGradLogin)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M 32 68 L 74 24" stroke="url(#goldGradLogin)" stroke-width="6" stroke-linecap="round"/>
-                    <path d="M 60 22 L 78 22 L 78 40" stroke="url(#goldGradLogin)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-                    <defs>
-                        <linearGradient id="goldGradLogin" x1="0" y1="0" x2="100" y2="100">
-                            <stop offset="0%" stop-color="#fff5c0"/>
-                            <stop offset="35%" stop-color="#f3ca52"/>
-                            <stop offset="70%" stop-color="#d4af37"/>
-                            <stop offset="100%" stop-color="#aa771c"/>
-                        </linearGradient>
-                        <radialGradient id="bgGlobeGradLogin" cx="50%" cy="50%" r="50%">
-                            <stop offset="0%" stop-color="#093822"/>
-                            <stop offset="70%" stop-color="#041d11"/>
-                            <stop offset="100%" stop-color="#020d07"/>
-                        </radialGradient>
-                    </defs>
-                </svg>
-            </div>
-            <div>
-                <h1 class="text-3xl font-black text-gold-gradient tracking-wider uppercase leading-none">NEXTGEN</h1>
-                <p class="text-xs text-amber-400 font-extrabold tracking-[3px] uppercase mt-1.5">— FOREX TRADING —</p>
-            </div>
+            <a href="{{ url('/') }}" class="inline-block">
+                <img src="{{ asset('images/nextgen_logo.png') }}" alt="NEXTGEN FOREX Logo" class="h-16 sm:h-20 w-auto mx-auto object-contain drop-shadow-[0_0_20px_rgba(243,202,82,0.8)] hover:scale-105 transition duration-300">
+            </a>
         </div>
 
         <!-- Login Form Card -->

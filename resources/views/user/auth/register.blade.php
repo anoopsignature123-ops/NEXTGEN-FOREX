@@ -13,16 +13,10 @@
     <div class="w-full max-w-lg space-y-6 relative z-10 my-8">
         
         <!-- Header Brand Logo -->
-        <div class="text-center space-y-2 flex flex-col items-center">
-            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 via-yellow-500 to-amber-600 p-0.5 shadow-[0_0_30px_rgba(243,202,82,0.4)] flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-                </svg>
-            </div>
-            <div>
-                <h1 class="text-3xl font-black text-gold-gradient tracking-wider uppercase leading-none">NEXTGEN</h1>
-                <p class="text-xs text-amber-400 font-extrabold tracking-[3px] uppercase mt-1.5">— FOREX TRADING —</p>
-            </div>
+        <div class="text-center space-y-3">
+            <a href="{{ url('/') }}" class="inline-block">
+                <img src="{{ asset('images/nextgen_logo.png') }}" alt="NEXTGEN FOREX Logo" class="h-16 sm:h-20 w-auto mx-auto object-contain drop-shadow-[0_0_20px_rgba(243,202,82,0.8)] hover:scale-105 transition duration-300">
+            </a>
         </div>
 
         <!-- Form Card -->

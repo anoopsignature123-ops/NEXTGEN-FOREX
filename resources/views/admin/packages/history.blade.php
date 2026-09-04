@@ -249,13 +249,8 @@
         </div>
 
         <!-- Pagination -->
-        <div class="pt-4 border-t border-amber-500/20 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div class="text-xs text-neutral-400 font-semibold">
-                Showing {{ $investments->firstItem() ?? 0 }} to {{ $investments->lastItem() ?? 0 }} of {{ $investments->total() }} investment records
-            </div>
-            <div>
-                {{ $investments->links() }}
-            </div>
+        <div class="pt-2 border-t border-amber-500/20">
+            {{ $investments->links() }}
         </div>
     </div>
 </div>

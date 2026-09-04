@@ -103,19 +103,30 @@ class User extends Authenticatable
     }
 
     /**
-     * Direct Left Child node in binary tree.
+     * Direct Left Child node in tree graph (First direct referral or position='left').
      */
     public function leftChild(): ?User
     {
-        return User::where('sponsor_code', $this->referral_code)->where('position', 'left')->first();
+        return User::where('sponsor_code', $this->referral_code)
+            ->orderByRaw("CASE WHEN position = 'left' THEN 0 ELSE 1 END")
+            ->orderBy('id', 'asc')
+            ->first();
     }
 
     /**
-     * Direct Right Child node in binary tree.
+     * Direct Right Child node in tree graph (Second direct referral or position='right').
      */
     public function rightChild(): ?User
     {
-        return User::where('sponsor_code', $this->referral_code)->where('position', 'right')->first();
+        $left = $this->leftChild();
+
+        return User::where('sponsor_code', $this->referral_code)
+            ->when($left, function ($q) use ($left) {
+                $q->where('id', '!=', $left->id);
+            })
+            ->orderByRaw("CASE WHEN position = 'right' THEN 0 ELSE 1 END")
+            ->orderBy('id', 'asc')
+            ->first();
     }
 
     /**
@@ -123,11 +134,15 @@ class User extends Authenticatable
      */
     public function getLeftLegStatsAttribute(): array
     {
-        $leftDirects = User::where('sponsor_code', $this->referral_code)->where('position', 'left')->get();
+        $allDirects = User::where('sponsor_code', $this->referral_code)->get();
+        $leftDirects = $allDirects->filter(function ($u, $index) {
+            return strtolower((string) $u->position) === 'left' || (empty($u->position) && $index % 2 === 0);
+        });
+
         $active = $leftDirects->where('status', 'active')->count();
         $inactive = $leftDirects->where('status', 'inactive')->count();
         $total = $leftDirects->count();
-        $business = $active * 1000;
+        $business = UserPackage::whereIn('user_id', $leftDirects->pluck('id'))->where('status', 'active')->sum('invested_amount');
 
         return [
             'active' => $active,
@@ -143,11 +158,15 @@ class User extends Authenticatable
      */
     public function getRightLegStatsAttribute(): array
     {
-        $rightDirects = User::where('sponsor_code', $this->referral_code)->where('position', 'right')->get();
+        $allDirects = User::where('sponsor_code', $this->referral_code)->get();
+        $rightDirects = $allDirects->filter(function ($u, $index) {
+            return strtolower((string) $u->position) === 'right' || (empty($u->position) && $index % 2 !== 0);
+        });
+
         $active = $rightDirects->where('status', 'active')->count();
         $inactive = $rightDirects->where('status', 'inactive')->count();
         $total = $rightDirects->count();
-        $business = $active * 1000;
+        $business = UserPackage::whereIn('user_id', $rightDirects->pluck('id'))->where('status', 'active')->sum('invested_amount');
 
         return [
             'active' => $active,

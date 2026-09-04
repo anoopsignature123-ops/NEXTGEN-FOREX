@@ -29,23 +29,7 @@
     <div class="bg-panel p-6 shadow-2xl rounded-2xl border border-amber-500/30 space-y-6">
         
         <!-- Filter Bar with JS Datepicker & Search in 1 Single Row -->
-        <div class="flex flex-col lg:flex-row items-stretch lg:items-end justify-between gap-4 border-b border-amber-500/20 pb-4">
-            
-            <!-- Quick Status Tabs -->
-            <div class="flex flex-wrap items-center gap-2">
-                <a href="{{ route('user.deposits.history') }}" class="whitespace-nowrap inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition {{ !request('status') ? 'bg-amber-500 text-black font-black shadow-md' : 'bg-bg border border-amber-500/30 text-neutral-300 hover:text-amber-400' }}">
-                    <i data-lucide="wallet" class="w-3.5 h-3.5"></i> All
-                </a>
-                <a href="{{ route('user.deposits.history', ['status' => 'pending']) }}" class="whitespace-nowrap inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition {{ request('status') === 'pending' ? 'bg-amber-500 text-black font-black shadow-md' : 'bg-bg border border-amber-500/30 text-neutral-300 hover:text-amber-400' }}">
-                    <i data-lucide="clock" class="w-3.5 h-3.5"></i> Pending
-                </a>
-                <a href="{{ route('user.deposits.history', ['status' => 'approved']) }}" class="whitespace-nowrap inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition {{ request('status') === 'approved' ? 'bg-emerald-500 text-black font-black shadow-md' : 'bg-bg border border-amber-500/30 text-neutral-300 hover:text-emerald-400' }}">
-                    <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Approved
-                </a>
-                <a href="{{ route('user.deposits.history', ['status' => 'rejected']) }}" class="whitespace-nowrap inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition {{ request('status') === 'rejected' ? 'bg-rose-500/20 text-rose-300 border border-rose-500/50 font-black shadow-md' : 'bg-bg border border-amber-500/30 text-neutral-300 hover:text-rose-400' }}">
-                    <i data-lucide="x-circle" class="w-3.5 h-3.5"></i> Rejected
-                </a>
-            </div>
+        <div class="flex flex-col lg:flex-row items-stretch lg:items-end justify-end gap-4 border-b border-amber-500/20 pb-4">
 
             <!-- Date Range & Search Form (100% MATCHING REFERENCE UI CARD) -->
             <form action="{{ route('user.deposits.history') }}" method="GET" class="flex flex-nowrap items-end gap-3 overflow-x-auto text-xs font-sans pb-1">

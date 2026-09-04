@@ -110,13 +110,12 @@
                             <div class="text-[11px] text-amber-400 font-mono">{{ $direct->sponsor_code }}</div>
                         </td>
                         <td class="p-4">
-                            @if(strtolower($direct->position) === 'left')
+                            @if(strtolower((string)$direct->position) === 'left')
                                 <span class="px-2.5 py-1 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-black uppercase">TEAM A</span>
-                            @else
+                            @elseif(strtolower((string)$direct->position) === 'right')
                                 <span class="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-[10px] font-black uppercase">TEAM B</span>
-                            @endif
-                        </td>
-                                <span class="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-[10px] font-black uppercase">RIGHT LEG</span>
+                            @else
+                                <span class="px-2.5 py-1 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30 text-[10px] font-black uppercase">DIRECT</span>
                             @endif
                         </td>
                         <td class="p-4 text-xs font-medium text-neutral-300">{{ $direct->created_at ? $direct->created_at->format('M d, Y h:i A') : 'N/A' }}</td>

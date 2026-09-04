@@ -23,7 +23,16 @@ class PackageController extends Controller
         $user = Auth::user();
         $packages = Package::where('status', 'active')->orderBy('id', 'asc')->get();
 
-        return view('user.packages.index', compact('user', 'packages'));
+        // Get user's active non-expired packages grouped/keyed by package_id with total sum & count
+        $userActivePackages = UserPackage::where('user_id', $user->id)
+            ->where('status', 'active')
+            ->where('expires_at', '>', now())
+            ->selectRaw('package_id, SUM(invested_amount) as total_invested, COUNT(id) as active_count, MAX(expires_at) as max_expires_at')
+            ->groupBy('package_id')
+            ->get()
+            ->keyBy('package_id');
+
+        return view('user.packages.index', compact('user', 'packages', 'userActivePackages'));
     }
 
     /**
@@ -32,27 +41,37 @@ class PackageController extends Controller
     public function buy(Request $request): RedirectResponse
     {
         $request->validate([
-            'package_id' => 'required|exists:packages,id',
-            'invested_amount' => 'required|numeric|min:1',
+            'invested_amount' => 'required|numeric|min:10',
         ]);
 
-        $package = Package::findOrFail($request->package_id);
         $investedAmount = (float) $request->invested_amount;
         $user = Auth::user();
 
-        // 1. Check if package is active
-        if ($package->status !== 'active') {
-            return redirect()->back()->with('error', 'This package is currently disabled.');
+        // 1. Auto-detect matching active package tier based on invested amount range
+        $package = Package::where('status', 'active')
+            ->where('min_amount', '<=', $investedAmount)
+            ->where(function ($q) use ($investedAmount) {
+                $q->where('max_amount', '>=', $investedAmount)
+                    ->orWhere('max_amount', '>=', 999999);
+            })
+            ->first();
+
+        if (! $package && $request->filled('package_id')) {
+            $package = Package::where('status', 'active')->find($request->package_id);
         }
 
-        // 2. Check min / max limits for the selected package
-        if ($investedAmount < $package->min_amount || $investedAmount > $package->max_amount) {
+        if (! $package) {
+            return redirect()->back()->with('error', "No active investment package found matching \${$investedAmount}. Please enter an amount within valid package ranges.");
+        }
+
+        // 2. Check min / max limits for the matched package
+        if ($investedAmount < $package->min_amount || ($package->max_amount < 999999 && $investedAmount > $package->max_amount)) {
             return redirect()->back()->with('error', "Investment amount must be between \${$package->min_amount} and \${$package->max_amount} for {$package->name}.");
         }
 
         // 3. Check Deposit Wallet Balance
         if ((float) $user->deposit_wallet < $investedAmount) {
-            return redirect()->route('user.deposits.index')->with('error', "Insufficient Deposit Wallet Balance (\${$user->deposit_wallet}). Please add funds first to purchase {$package->name}!");
+            return redirect()->route('user.deposits.index')->with('error', "Insufficient Deposit Wallet Balance (\${$user->deposit_wallet}). Please add funds first to invest \${$investedAmount} in {$package->name}!");
         }
 
         // 4. Perform Transaction: Deduct Deposit Wallet, Create UserPackage, Activate User Account
@@ -94,16 +113,16 @@ class PackageController extends Controller
                 'post_balance' => $user->fresh()->deposit_wallet,
                 'trx_type' => '-',
                 'type' => 'package_purchase',
-                'description' => "Purchased {$package->name} for \$".number_format($investedAmount, 2).' via Deposit Wallet',
+                'description' => 'Invested $'.number_format($investedAmount, 2)." in {$package->name} via Deposit Wallet",
                 'reference_id' => $userPackage->id,
                 'status' => 'completed',
             ]);
 
-            // Delegate 10% Direct Referral Commission to Dedicated DirectIncomeService (PDF Page 15)
+            // Delegate 10% Direct Referral Commission to Dedicated DirectIncomeService
             app(DirectIncomeService::class)->distributeDirectCommission($user, $userPackage, $investedAmount);
         });
 
-        return redirect()->route('user.packages.history')->with('success', "Congratulations! You have successfully purchased {$package->name} for \$".number_format($investedAmount, 2).'! Account is active.');
+        return redirect()->route('user.packages.history')->with('success', 'Congratulations! You have successfully invested $'.number_format($investedAmount, 2)." in {$package->name}! Daily ROI activated.");
     }
 
     /**

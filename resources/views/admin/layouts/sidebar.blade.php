@@ -6,36 +6,11 @@
     aria-hidden="true"></div>
 <aside class="sidebar" id="sidebar">
     <!-- Logo Section -->
-    <div class="logo-section flex items-center gap-3 px-4 py-4 border-b border-amber-500/30 shrink-0 bg-gradient-to-b from-amber-500/10 to-transparent">
-        <div class="ng-logo-box shrink-0 flex items-center justify-center">
-            <svg class="w-10 h-10 drop-shadow-[0_0_8px_rgba(243,202,82,0.6)]" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="50" cy="50" r="44" stroke="url(#goldGradientAdmin)" stroke-width="4" fill="url(#bgGlobeGradientAdmin)"/>
-                <circle cx="50" cy="50" r="39" stroke="rgba(243,202,82,0.4)" stroke-width="1.5" stroke-dasharray="4 2" fill="none"/>
-                <ellipse cx="50" cy="50" rx="36" ry="14" stroke="rgba(0,230,118,0.3)" stroke-width="1" fill="none"/>
-                <ellipse cx="50" cy="50" rx="14" ry="36" stroke="rgba(0,230,118,0.3)" stroke-width="1" fill="none"/>
-                <line x1="14" y1="50" x2="86" y2="50" stroke="rgba(0,230,118,0.3)" stroke-width="1"/>
-                <path d="M 28 70 L 28 30 L 46 70 L 46 30" stroke="url(#goldGradientAdmin)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M 32 68 L 74 24" stroke="url(#goldGradientAdmin)" stroke-width="6" stroke-linecap="round"/>
-                <path d="M 60 22 L 78 22 L 78 40" stroke="url(#goldGradientAdmin)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-                <defs>
-                    <linearGradient id="goldGradientAdmin" x1="0" y1="0" x2="100" y2="100">
-                        <stop offset="0%" stop-color="#fff5c0"/>
-                        <stop offset="35%" stop-color="#f3ca52"/>
-                        <stop offset="70%" stop-color="#d4af37"/>
-                        <stop offset="100%" stop-color="#aa771c"/>
-                    </linearGradient>
-                    <radialGradient id="bgGlobeGradientAdmin" cx="50%" cy="50%" r="50%">
-                        <stop offset="0%" stop-color="#093822"/>
-                        <stop offset="70%" stop-color="#041d11"/>
-                        <stop offset="100%" stop-color="#020d07"/>
-                    </radialGradient>
-                </defs>
-            </svg>
-        </div>
-        <div class="logo-text min-w-0 flex-1">
-            <h1 class="text-xl font-black tracking-wider leading-none text-gold-gradient uppercase whitespace-nowrap">NEXTGEN</h1>
-            <p class="text-[10px] text-amber-400 font-bold tracking-[2px] uppercase leading-tight mt-1 whitespace-nowrap">— ADMIN CONTROL —</p>
-        </div>
+    <div class="logo-section flex items-center justify-between gap-2 px-4 py-4 border-b border-amber-500/30 shrink-0 bg-gradient-to-b from-amber-500/20 via-amber-500/5 to-transparent">
+        <a href="{{ route('admin.dashboard') }}" class="flex items-center justify-center flex-1 min-w-0">
+            <img src="{{ asset('images/nextgen_logo.png') }}" alt="NEXTGEN FOREX Logo" class="full-logo h-12 sm:h-14 w-auto max-w-[210px] object-contain drop-shadow-[0_0_16px_rgba(243,202,82,0.9)] hover:scale-105 transition duration-300">
+            <img src="{{ asset('assets/images/favicon.png') }}" alt="NEXTGEN Emblem" class="mini-logo hidden w-10 h-10 object-contain drop-shadow-[0_0_15px_rgba(243,202,82,0.9)] hover:scale-110 transition duration-300 mx-auto">
+        </a>
         <button
             class="lg:hidden! flex w-8 h-8 items-center justify-center rounded-lg text-amber-400 hover:bg-amber-500/20 transition js-mobile-menu-toggle shrink-0"
             aria-label="Close sidebar">

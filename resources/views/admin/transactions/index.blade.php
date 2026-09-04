@@ -185,13 +185,9 @@
             </table>
         </div>
 
-        <div class="pt-4 border-t border-amber-500/20 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div class="text-xs text-neutral-400 font-semibold">
-                Showing {{ $transactions->firstItem() ?? 0 }} to {{ $transactions->lastItem() ?? 0 }} of {{ $transactions->total() }} matching transactions
-            </div>
-            <div>
-                {{ $transactions->links() }}
-            </div>
+        <!-- Pagination -->
+        <div class="pt-2 border-t border-amber-500/20">
+            {{ $transactions->links() }}
         </div>
     </div>
 

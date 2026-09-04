@@ -239,13 +239,8 @@
         </div>
 
         <!-- Pagination -->
-        <div class="pt-4 border-t border-amber-500/20 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div class="text-xs text-neutral-400 font-semibold">
-                Showing {{ $users->firstItem() ?? 0 }} to {{ $users->lastItem() ?? 0 }} of {{ $users->total() }} registered members
-            </div>
-            <div>
-                {{ $users->links() }}
-            </div>
+        <div class="pt-2 border-t border-amber-500/20">
+            {{ $users->links() }}
         </div>
     </div>
 </div>

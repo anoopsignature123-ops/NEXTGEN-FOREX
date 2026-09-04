@@ -69,32 +69,38 @@ class NetworkController extends Controller
         }
 
         $treeData = $this->buildBinaryTreeData($rootUser);
+        $directMembers = User::where('sponsor_code', $rootUser->referral_code)->latest()->get();
 
-        return view('user.network.tree', compact('rootUser', 'treeData'));
+        return view('user.network.tree', compact('rootUser', 'treeData', 'directMembers'));
     }
 
     /**
-     * Build 3-level binary tree structure for visual display.
+     * Build dynamic genealogy team tree structure for visual display.
      */
     private function buildBinaryTreeData(User $root): array
     {
-        $left1 = $root->leftChild();
-        $right1 = $root->rightChild();
+        $root->load(['sponsor', 'userPackages', 'transactions']);
 
-        $left_left2 = $left1 ? $left1->leftChild() : null;
-        $left_right2 = $left1 ? $left1->rightChild() : null;
+        // Load all direct referrals of root with sponsor, packages, transactions & count
+        $directMembers = User::where('sponsor_code', $root->referral_code)
+            ->with(['sponsor', 'userPackages', 'transactions'])
+            ->withCount('directMembers')
+            ->orderBy('id', 'asc')
+            ->get();
 
-        $right_left2 = $right1 ? $right1->leftChild() : null;
-        $right_right2 = $right1 ? $right1->rightChild() : null;
+        foreach ($directMembers as $direct) {
+            $direct->sub_children = User::where('sponsor_code', $direct->referral_code)
+                ->with(['sponsor', 'userPackages', 'transactions'])
+                ->withCount('directMembers')
+                ->orderBy('id', 'asc')
+                ->get();
+        }
 
         return [
             'root' => $root,
-            'left1' => $left1,
-            'right1' => $right1,
-            'left_left2' => $left_left2,
-            'left_right2' => $left_right2,
-            'right_left2' => $right_left2,
-            'right_right2' => $right_right2,
+            'directs' => $directMembers,
+            'total_directs' => $directMembers->count(),
+            'active_directs' => $directMembers->where('status', 'active')->count(),
         ];
     }
 }
