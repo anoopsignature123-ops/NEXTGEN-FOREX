@@ -99,6 +99,7 @@
                     <tr>
                         <th class="p-4 rounded-l-xl">TXN NUMBER</th>
                         <th class="p-4">MEMBER DETAILS</th>
+                        <th class="p-4">SPONSOR DETAILS</th>
                         <th class="p-4">BONUS ($)</th>
                         <th class="p-4">POST BALANCE</th>
                         <th class="p-4">DESCRIPTION / REMARK</th>
@@ -113,11 +114,21 @@
                         <td class="p-4">
                             @if($log->user)
                                 <a href="{{ route('admin.users.show', $log->user->id) }}" class="group block">
-                                    <div class="font-bold text-white group-hover:text-amber-400 transition">{{ $log->user->name }}</div>
-                                    <div class="text-xs text-neutral-400 font-mono">{{ $log->user->referral_code }}</div>
+                                    <div class="font-bold text-white group-hover:text-amber-400 transition text-xs">{{ $log->user->name }}</div>
+                                    <div class="text-[11px] text-amber-400 font-mono font-bold">{{ $log->user->referral_code }}</div>
                                 </a>
                             @else
-                                <span class="text-neutral-500 font-italic">Deleted Member</span>
+                                <span class="text-neutral-500 italic text-xs">Deleted Member</span>
+                            @endif
+                        </td>
+                        <td class="p-4">
+                            @if($log->user && $log->user->sponsor)
+                                <a href="{{ route('admin.users.show', $log->user->sponsor->id) }}" class="group block">
+                                    <div class="font-bold text-neutral-200 group-hover:text-amber-400 transition text-xs">{{ $log->user->sponsor->name }}</div>
+                                    <div class="text-[11px] text-amber-400/80 font-mono">{{ $log->user->sponsor->referral_code }}</div>
+                                </a>
+                            @else
+                                <span class="text-neutral-500 italic text-xs">No Sponsor</span>
                             @endif
                         </td>
                         <td class="p-4 font-mono font-black text-emerald-400">+${{ number_format($log->amount, 2) }}</td>
@@ -132,7 +143,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="7" class="p-8 text-center text-neutral-400 font-medium">
+                        <td colspan="8" class="p-8 text-center text-neutral-400 font-medium">
                             No 24H Special Bonus records found matching your filter parameters.
                         </td>
                     </tr>

@@ -7,6 +7,7 @@ use App\Models\Deposit;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Models\UserPackage;
+use App\Models\Withdrawal;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
@@ -30,11 +31,14 @@ class DashboardController extends Controller
 
         $totalIncomeEarned = $totalRoiEarned + $totalDirectEarned + $totalBonusEarned + $totalMatchingEarned + $totalSalaryEarned + $totalRewardsEarned;
 
-        // 3. Direct Network Team Statistics
+        // 3. Withdrawal Wallet Statistics
+        $totalWithdrawn = Withdrawal::where('user_id', $user->id)->whereIn('status', ['approved', 'completed'])->sum('net_amount');
+
+        // 4. Direct Network Team Statistics
         $directMembersCount = User::where('sponsor_code', $user->referral_code)->count();
         $activeDirectMembersCount = User::where('sponsor_code', $user->referral_code)->where('status', 'active')->count();
 
-        // 4. Personal Recent Collections
+        // 5. Personal Recent Collections
         $activePackages = UserPackage::with('package')->where('user_id', $user->id)->latest()->take(5)->get();
         $recentTransactions = Transaction::where('user_id', $user->id)->latest()->take(5)->get();
         $recentDeposits = Deposit::where('user_id', $user->id)->latest()->take(5)->get();
@@ -44,7 +48,7 @@ class DashboardController extends Controller
             'totalInvested', 'activeInvestmentsCount',
             'totalRoiEarned', 'totalDirectEarned', 'totalBonusEarned',
             'totalMatchingEarned', 'totalSalaryEarned', 'totalRewardsEarned',
-            'totalIncomeEarned',
+            'totalIncomeEarned', 'totalWithdrawn',
             'directMembersCount', 'activeDirectMembersCount',
             'activePackages', 'recentTransactions', 'recentDeposits'
         ));

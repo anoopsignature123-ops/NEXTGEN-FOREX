@@ -130,48 +130,95 @@ class User extends Authenticatable
     }
 
     /**
-     * Get Left leg team stats (Active, Inactive, Total Count, Business Volume).
+     * Get all downline user IDs recursively for a given direct member branch.
+     */
+    public function getBranchUserIds(): array
+    {
+        $ids = [$this->id];
+        $directs = User::where('sponsor_code', $this->referral_code)->get();
+
+        foreach ($directs as $directUser) {
+            $ids = array_merge($ids, $directUser->getBranchUserIds());
+        }
+
+        return array_values(array_unique($ids));
+    }
+
+    /**
+     * Get Power Leg Volume & Remaining (Weaker) Leg Volume for 50:50 matching/salary rules.
+     */
+    public function getLegVolumeStatsAttribute(): array
+    {
+        $directs = User::where('sponsor_code', $this->referral_code)->get();
+
+        if ($directs->isEmpty()) {
+            return [
+                'power_leg' => 0.00,
+                'remaining_leg' => 0.00,
+                'total_team' => 0.00,
+                'power_leg_formatted' => '$0.00',
+                'remaining_leg_formatted' => '$0.00',
+                'total_team_formatted' => '$0.00',
+            ];
+        }
+
+        $legVolumes = [];
+        foreach ($directs as $direct) {
+            $branchUserIds = $direct->getBranchUserIds();
+            $legVolume = (float) UserPackage::whereIn('user_id', $branchUserIds)
+                ->where('status', 'active')
+                ->sum('invested_amount');
+
+            $legVolumes[] = $legVolume;
+        }
+
+        rsort($legVolumes);
+
+        $powerLeg = $legVolumes[0] ?? 0.00;
+        $remainingLeg = array_sum(array_slice($legVolumes, 1));
+        $totalTeam = $powerLeg + $remainingLeg;
+
+        return [
+            'power_leg' => $powerLeg,
+            'remaining_leg' => $remainingLeg,
+            'total_team' => $totalTeam,
+            'power_leg_formatted' => '$'.number_format($powerLeg, 2),
+            'remaining_leg_formatted' => '$'.number_format($remainingLeg, 2),
+            'total_team_formatted' => '$'.number_format($totalTeam, 2),
+        ];
+    }
+
+    /**
+     * Get Power Leg team stats.
      */
     public function getLeftLegStatsAttribute(): array
     {
+        $stats = $this->leg_volume_stats;
+        $business = $stats['power_leg'];
         $allDirects = User::where('sponsor_code', $this->referral_code)->get();
-        $leftDirects = $allDirects->filter(function ($u, $index) {
-            return strtolower((string) $u->position) === 'left' || (empty($u->position) && $index % 2 === 0);
-        });
-
-        $active = $leftDirects->where('status', 'active')->count();
-        $inactive = $leftDirects->where('status', 'inactive')->count();
-        $total = $leftDirects->count();
-        $business = UserPackage::whereIn('user_id', $leftDirects->pluck('id'))->where('status', 'active')->sum('invested_amount');
 
         return [
-            'active' => $active,
-            'inactive' => $inactive,
-            'total' => $total,
+            'active' => $allDirects->where('status', 'active')->count(),
+            'inactive' => $allDirects->where('status', 'inactive')->count(),
+            'total' => $allDirects->count(),
             'business' => '$'.number_format($business, 2),
             'raw_business' => $business,
         ];
     }
 
     /**
-     * Get Right leg team stats (Active, Inactive, Total Count, Business Volume).
+     * Get Remaining Leg (Weaker Leg) team stats.
      */
     public function getRightLegStatsAttribute(): array
     {
+        $stats = $this->leg_volume_stats;
+        $business = $stats['remaining_leg'];
         $allDirects = User::where('sponsor_code', $this->referral_code)->get();
-        $rightDirects = $allDirects->filter(function ($u, $index) {
-            return strtolower((string) $u->position) === 'right' || (empty($u->position) && $index % 2 !== 0);
-        });
-
-        $active = $rightDirects->where('status', 'active')->count();
-        $inactive = $rightDirects->where('status', 'inactive')->count();
-        $total = $rightDirects->count();
-        $business = UserPackage::whereIn('user_id', $rightDirects->pluck('id'))->where('status', 'active')->sum('invested_amount');
 
         return [
-            'active' => $active,
-            'inactive' => $inactive,
-            'total' => $total,
+            'active' => $allDirects->where('status', 'active')->count(),
+            'inactive' => $allDirects->where('status', 'inactive')->count(),
+            'total' => $allDirects->count(),
             'business' => '$'.number_format($business, 2),
             'raw_business' => $business,
         ];

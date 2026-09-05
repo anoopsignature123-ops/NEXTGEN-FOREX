@@ -98,11 +98,7 @@
                         </p>
                         <p class="text-xs text-neutral-400">{{ Auth::user() ? Auth::user()->email : 'admin@nextgenforex.com' }}</p>
                     </div>
-                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-white hover:bg-amber-500/10 transition"
-                        href="{{ route('admin.dashboard') }}">
-                        <i data-lucide="layout-dashboard" class="w-4 h-4 text-amber-400"></i>
-                        <span>Admin Dashboard</span>
-                    </a>
+                    
                     <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-white hover:bg-amber-500/10 transition"
                         href="{{ route('admin.profile') }}">
                         <i data-lucide="user-cog" class="w-4 h-4 text-amber-400"></i>
@@ -113,7 +109,7 @@
                         @csrf
                         <button type="submit" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-rose-400 hover:bg-rose-500/10 transition cursor-pointer">
                             <i data-lucide="log-out" class="w-4 h-4 text-rose-400"></i>
-                            <span>Admin Logout</span>
+                            <span>Logout</span>
                         </button>
                     </form>
                 </div>

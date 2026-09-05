@@ -17,7 +17,7 @@
                 <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-black uppercase tracking-widest border border-emerald-500/40">
                     MEMBER PORTAL
                 </span>
-                <h2 class="text-2xl font-black text-white uppercase tracking-tight font-heading mt-2">USER LOGIN</h2>
+                <h2 class="text-2xl font-black text-white uppercase tracking-tight font-heading mt-2">MEMBER LOGIN</h2>
                 <p class="text-xs text-neutral-400">Log in to view earnings, packages, and binary team network</p>
             </div>
 

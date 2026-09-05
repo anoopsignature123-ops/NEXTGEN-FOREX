@@ -15,20 +15,26 @@
             <h1 class="text-2xl font-black font-heading text-white uppercase tracking-wider">
                 Withdrawal Requests Audit
             </h1>
-            <p class="text-xs text-neutral-400 mt-1">Approve or reject member withdrawal requests with instant 10% deduction calculation and USDT (BEP20) transfer tracking</p>
+            <p class="text-xs text-neutral-400 mt-1">3-Step Lifecycle Audit: Pending → Approved → Completed (with instant 10% deduction & USDT BEP20 tracking)</p>
         </div>
         
         <div class="flex items-center gap-3">
             @if($pendingCount > 0)
-                <span class="px-4 py-2 rounded-xl bg-rose-500 text-white font-black text-xs uppercase animate-pulse border border-rose-400 shadow-lg">
+                <span class="px-4 py-2 rounded-xl bg-amber-500 text-black font-black text-xs uppercase animate-pulse shadow-lg">
                     {{ $pendingCount }} PENDING REQUESTS
+                </span>
+            @endif
+            @if($approvedCount > 0)
+                <span class="px-4 py-2 rounded-xl bg-sky-500 text-white font-black text-xs uppercase shadow-lg">
+                    {{ $approvedCount }} APPROVED (AWAITING TRANSFER)
                 </span>
             @endif
         </div>
     </div>
 
     <!-- SUMMARY KPI TILES -->
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- 1. PENDING -->
         <div class="bg-panel p-5 rounded-2xl border border-amber-500/30 shadow-xl flex items-center gap-4">
             <div class="w-12 h-12 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center shrink-0">
                 <i data-lucide="clock" class="w-6 h-6 text-amber-400"></i>
@@ -39,22 +45,35 @@
             </div>
         </div>
 
-        <div class="bg-panel p-5 rounded-2xl border border-amber-500/30 shadow-xl flex items-center gap-4">
-            <div class="w-12 h-12 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center shrink-0">
-                <i data-lucide="check-circle-2" class="w-6 h-6 text-emerald-400"></i>
+        <!-- 2. APPROVED -->
+        <div class="bg-panel p-5 rounded-2xl border border-sky-500/30 shadow-xl flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-sky-500/20 border border-sky-500/40 flex items-center justify-center shrink-0">
+                <i data-lucide="check-circle" class="w-6 h-6 text-sky-400"></i>
             </div>
             <div>
-                <p class="text-[11px] font-bold text-emerald-400/80 uppercase">Total Net Approved Payouts</p>
+                <p class="text-[11px] font-bold text-sky-400/80 uppercase">Approved Requests</p>
+                <p class="text-2xl font-black text-sky-300 font-mono mt-0.5">{{ number_format($approvedCount) }}</p>
+            </div>
+        </div>
+
+        <!-- 3. COMPLETED PAYOUTS -->
+        <div class="bg-panel p-5 rounded-2xl border border-emerald-500/30 shadow-xl flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center shrink-0">
+                <i data-lucide="check-check" class="w-6 h-6 text-emerald-400"></i>
+            </div>
+            <div>
+                <p class="text-[11px] font-bold text-emerald-400/80 uppercase">Total Net Payouts Paid</p>
                 <p class="text-2xl font-black text-emerald-400 font-mono mt-0.5">${{ number_format($approvedSum, 2) }}</p>
             </div>
         </div>
 
-        <div class="bg-panel p-5 rounded-2xl border border-amber-500/30 shadow-xl flex items-center gap-4">
+        <!-- 4. DEDUCTIONS -->
+        <div class="bg-panel p-5 rounded-2xl border border-rose-500/30 shadow-xl flex items-center gap-4">
             <div class="w-12 h-12 rounded-xl bg-rose-500/20 border border-rose-500/40 flex items-center justify-center shrink-0">
                 <i data-lucide="scissors" class="w-6 h-6 text-rose-400"></i>
             </div>
             <div>
-                <p class="text-[11px] font-bold text-rose-400/80 uppercase">Total 10% Service Deductions</p>
+                <p class="text-[11px] font-bold text-rose-400/80 uppercase">10% Service Deductions</p>
                 <p class="text-2xl font-black text-rose-300 font-mono mt-0.5">${{ number_format($totalDeductionsSum, 2) }}</p>
             </div>
         </div>
@@ -71,6 +90,7 @@
                 <a href="{{ route('admin.withdrawals.index') }}" class="whitespace-nowrap inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition {{ !request('status') ? 'bg-amber-500 text-black font-black shadow-md' : 'bg-bg border border-amber-500/30 text-neutral-300 hover:text-amber-400' }}">
                     <i data-lucide="layers" class="w-3.5 h-3.5"></i> All
                 </a>
+                
                 <a href="{{ route('admin.withdrawals.index', ['status' => 'pending']) }}" class="whitespace-nowrap inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition {{ request('status') === 'pending' ? 'bg-amber-500 text-black font-black shadow-md' : 'bg-bg border border-amber-500/30 text-neutral-300 hover:text-amber-400' }}">
                     <i data-lucide="clock" class="w-3.5 h-3.5"></i> Pending
                     @if($pendingCount > 0)
@@ -79,9 +99,20 @@
                         </span>
                     @endif
                 </a>
-                <a href="{{ route('admin.withdrawals.index', ['status' => 'approved']) }}" class="whitespace-nowrap inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition {{ request('status') === 'approved' ? 'bg-emerald-500 text-black font-black shadow-md' : 'bg-bg border border-amber-500/30 text-neutral-300 hover:text-emerald-400' }}">
+
+                <a href="{{ route('admin.withdrawals.index', ['status' => 'approved']) }}" class="whitespace-nowrap inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition {{ request('status') === 'approved' ? 'bg-sky-500 text-white font-black shadow-md' : 'bg-bg border border-amber-500/30 text-neutral-300 hover:text-sky-400' }}">
                     <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Approved
+                    @if($approvedCount > 0)
+                        <span class="px-2 py-0.5 rounded-full text-[9px] font-black bg-sky-600 text-white">
+                            {{ $approvedCount }}
+                        </span>
+                    @endif
                 </a>
+
+                <a href="{{ route('admin.withdrawals.index', ['status' => 'completed']) }}" class="whitespace-nowrap inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition {{ request('status') === 'completed' ? 'bg-emerald-500 text-black font-black shadow-md' : 'bg-bg border border-amber-500/30 text-neutral-300 hover:text-emerald-400' }}">
+                    <i data-lucide="check-check" class="w-3.5 h-3.5"></i> Completed
+                </a>
+
                 <a href="{{ route('admin.withdrawals.index', ['status' => 'rejected']) }}" class="whitespace-nowrap inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition {{ request('status') === 'rejected' ? 'bg-rose-500/20 text-rose-300 border border-rose-500/50 font-black shadow-md' : 'bg-bg border border-amber-500/30 text-neutral-300 hover:text-rose-400' }}">
                     <i data-lucide="x-circle" class="w-3.5 h-3.5"></i> Rejected
                 </a>
@@ -138,15 +169,18 @@
             <div class="p-3.5 mb-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex flex-wrap items-center justify-between gap-4">
                 <div class="flex items-center gap-3">
                     <input type="checkbox" id="selectAll" class="w-4 h-4 rounded border-amber-500/40 bg-black/60 text-amber-400 focus:ring-amber-400 cursor-pointer">
-                    <label for="selectAll" class="text-xs font-bold text-amber-300 cursor-pointer uppercase tracking-wider">Select All Pending Requests</label>
+                    <label for="selectAll" class="text-xs font-bold text-amber-300 cursor-pointer uppercase tracking-wider">Select All Pending / Approved Requests</label>
                 </div>
 
-                <div class="flex items-center gap-3">
-                    <button type="button" onclick="submitBulkAction('{{ route('admin.withdrawals.bulk-approve') }}', 'Approve all selected withdrawal requests?')" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-black text-xs uppercase tracking-wider transition flex items-center gap-1.5 shadow">
-                        <i data-lucide="check-check" class="w-4 h-4"></i> Bulk Approve Selected
+                <div class="flex flex-wrap items-center gap-3">
+                    <button type="button" onclick="submitBulkAction('{{ route('admin.withdrawals.bulk-approve') }}', 'Approve all selected pending withdrawal requests? (Status: Pending → Approved)')" class="px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-white font-black text-xs uppercase tracking-wider transition flex items-center gap-1.5 shadow">
+                        <i data-lucide="check" class="w-4 h-4"></i> Bulk Approve
                     </button>
-                    <button type="button" onclick="submitBulkAction('{{ route('admin.withdrawals.bulk-reject') }}', 'Reject all selected withdrawal requests and refund amounts back to user earning wallets?')" class="px-4 py-2 rounded-xl bg-rose-500/20 border border-rose-500/50 hover:bg-rose-500 text-rose-300 hover:text-white font-bold text-xs uppercase tracking-wider transition flex items-center gap-1.5 shadow">
-                        <i data-lucide="x-circle" class="w-4 h-4"></i> Bulk Reject Selected
+                    <button type="button" onclick="submitBulkAction('{{ route('admin.withdrawals.bulk-complete') }}', 'Mark all selected withdrawal requests as Completed? (Status: Approved → Completed)')" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-black text-xs uppercase tracking-wider transition flex items-center gap-1.5 shadow">
+                        <i data-lucide="check-check" class="w-4 h-4"></i> Bulk Mark Completed
+                    </button>
+                    <button type="button" onclick="submitBulkAction('{{ route('admin.withdrawals.bulk-reject') }}', 'Reject selected withdrawal requests and refund amounts back to user earning wallets?')" class="px-4 py-2 rounded-xl bg-rose-500/20 border border-rose-500/50 hover:bg-rose-500 text-rose-300 hover:text-white font-bold text-xs uppercase tracking-wider transition flex items-center gap-1.5 shadow">
+                        <i data-lucide="x-circle" class="w-4 h-4"></i> Bulk Reject
                     </button>
                 </div>
             </div>
@@ -172,7 +206,7 @@
                         @forelse($withdrawals as $w)
                         <tr class="hover:bg-amber-500/10 transition">
                             <td class="p-4 text-center">
-                                @if($w->status === 'pending')
+                                @if(in_array($w->status, ['pending', 'approved']))
                                     <input type="checkbox" name="withdrawal_ids[]" value="{{ $w->id }}" class="withdrawal-checkbox w-4 h-4 rounded border-amber-500/40 bg-black/60 text-amber-400 focus:ring-amber-400 cursor-pointer">
                                 @else
                                     <span class="text-neutral-600 text-xs">-</span>
@@ -202,33 +236,40 @@
                             <td class="p-4 font-mono font-bold text-rose-400">-${{ number_format($w->charge, 2) }}</td>
                             <td class="p-4 font-mono font-black text-emerald-400 text-base">${{ number_format($w->net_amount, 2) }}</td>
                             <td class="p-4 font-mono text-xs text-amber-300 max-w-xs truncate" title="{{ $w->usdt_address }}">
-                                {{ $w->usdt_address }}
+                                <div>{{ $w->usdt_address }}</div>
+                                @if($w->txn_hash)
+                                    <div class="text-[10px] text-emerald-400 font-mono mt-0.5 truncate" title="{{ $w->txn_hash }}">Hash: {{ $w->txn_hash }}</div>
+                                @endif
                             </td>
                             <td class="p-4 text-xs text-neutral-400 font-mono">{{ $w->created_at->format('M d, Y h:i A') }}</td>
                             
                             <!-- Status -->
                             <td class="p-4">
-                                @if($w->status === 'approved')
-                                    <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 uppercase">
-                                        APPROVED
+                                @if($w->status === 'completed')
+                                    <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 uppercase inline-flex items-center gap-1">
+                                        <i data-lucide="check-check" class="w-3 h-3 text-emerald-400"></i> COMPLETED
+                                    </span>
+                                @elseif($w->status === 'approved')
+                                    <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-sky-500/20 text-sky-300 border border-sky-500/40 uppercase inline-flex items-center gap-1">
+                                        <i data-lucide="check-circle" class="w-3 h-3 text-sky-400"></i> APPROVED
                                     </span>
                                 @elseif($w->status === 'rejected')
                                     <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-rose-500/20 text-rose-300 border border-rose-500/40 uppercase" title="{{ $w->admin_remark }}">
                                         REJECTED (REFUNDED)
                                     </span>
                                 @else
-                                    <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/40 uppercase animate-pulse">
-                                        PENDING
+                                    <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/40 uppercase animate-pulse inline-flex items-center gap-1">
+                                        <i data-lucide="clock" class="w-3 h-3 text-amber-400"></i> PENDING
                                     </span>
                                 @endif
                             </td>
 
-                            <!-- Action -->
+                            <!-- 3-STEP LIFECYCLE ACTION BUTTONS -->
                             <td class="p-4 text-center">
                                 @if($w->status === 'pending')
                                     <div class="flex items-center justify-center gap-2">
-                                        <!-- Approve Button -->
-                                        <button type="submit" formaction="{{ route('admin.withdrawals.approve', $w->id) }}" onclick="return confirm('Approve withdrawal of ${{ number_format($w->net_amount, 2) }} to {{ $w->usdt_address }}?');" class="px-3 py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-black border border-emerald-500/40 font-bold text-xs transition flex items-center gap-1 shadow">
+                                        <!-- Step 1 -> Step 2: Approve Button -->
+                                        <button type="submit" formaction="{{ route('admin.withdrawals.approve', $w->id) }}" onclick="return confirm('Approve withdrawal request {{ $w->trx_number }}? Status will change from Pending to Approved.');" class="px-3 py-1.5 rounded-lg bg-sky-500/20 hover:bg-sky-500 text-sky-300 hover:text-white border border-sky-500/40 font-bold text-xs transition flex items-center gap-1 shadow">
                                             <i data-lucide="check" class="w-3.5 h-3.5"></i> Approve
                                         </button>
 
@@ -237,8 +278,26 @@
                                             <i data-lucide="x" class="w-3.5 h-3.5"></i> Reject
                                         </button>
                                     </div>
+                                @elseif($w->status === 'approved')
+                                    <div class="flex items-center justify-center gap-2">
+                                        <!-- Step 2 -> Step 3: Mark Completed Button -->
+                                        <button type="button" onclick="promptComplete('{{ route('admin.withdrawals.complete', $w->id) }}', '{{ number_format($w->net_amount, 2) }}')" class="px-3 py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-black border border-emerald-500/40 font-bold text-xs transition flex items-center gap-1 shadow">
+                                            <i data-lucide="check-check" class="w-3.5 h-3.5"></i> Mark Complete
+                                        </button>
+
+                                        <!-- Reject Button -->
+                                        <button type="submit" formaction="{{ route('admin.withdrawals.reject', $w->id) }}" onclick="return confirm('Reject approved withdrawal and refund ${{ number_format($w->amount, 2) }} back to user earning wallet?');" class="px-3 py-1.5 rounded-lg bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-white border border-rose-500/40 font-bold text-xs transition flex items-center gap-1 shadow">
+                                            <i data-lucide="x" class="w-3.5 h-3.5"></i> Reject
+                                        </button>
+                                    </div>
+                                @elseif($w->status === 'completed')
+                                    <span class="text-emerald-400 font-bold text-xs flex items-center justify-center gap-1">
+                                        <i data-lucide="check-check" class="w-3.5 h-3.5"></i> Completed
+                                    </span>
                                 @else
-                                    <span class="text-neutral-500 text-xs font-semibold">Processed</span>
+                                    <span class="text-rose-400 font-bold text-xs flex items-center justify-center gap-1">
+                                        <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Refunded
+                                    </span>
                                 @endif
                             </td>
                         </tr>
@@ -263,6 +322,13 @@
 
 </div>
 
+<!-- HIDDEN FORM FOR COMPLETING WITH TXN HASH -->
+<form id="completeActionForm" method="POST" action="" class="hidden">
+    @csrf
+    <input type="hidden" name="txn_hash" id="completeTxnHash">
+    <input type="hidden" name="admin_remark" id="completeRemark">
+</form>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const selectAll = document.getElementById('selectAll');
@@ -278,13 +344,24 @@ document.addEventListener('DOMContentLoaded', function() {
 function submitBulkAction(actionUrl, confirmMsg) {
     const checkboxes = document.querySelectorAll('.withdrawal-checkbox:checked');
     if (checkboxes.length === 0) {
-        alert('Please select at least one pending withdrawal request.');
+        alert('Please select at least one withdrawal request.');
         return;
     }
 
     if (confirm(confirmMsg)) {
         const form = document.getElementById('bulkActionForm');
         form.action = actionUrl;
+        form.submit();
+    }
+}
+
+function promptComplete(actionUrl, netAmount) {
+    const txnHash = prompt(`Mark withdrawal as COMPLETED for Net Amount $${netAmount}.\n\nOptional: Enter USDT BEP20 Txn Hash:`, '');
+    if (txnHash !== null) {
+        const form = document.getElementById('completeActionForm');
+        form.action = actionUrl;
+        document.getElementById('completeTxnHash').value = txnHash;
+        document.getElementById('completeRemark').value = 'Transferred $' + netAmount + ' via USDT BEP20' + (txnHash ? ' Hash: ' + txnHash : '');
         form.submit();
     }
 }

@@ -14,7 +14,7 @@ class IncomeReportController extends Controller
      */
     private function getIncomeReport(Request $request, string $type)
     {
-        $query = Transaction::with('user')->where('type', $type);
+        $query = Transaction::with(['user', 'user.sponsor', 'userPackage.user'])->where('type', $type);
 
         if ($request->filled('search')) {
             $search = trim($request->search);
@@ -24,7 +24,12 @@ class IncomeReportController extends Controller
                     ->orWhereHas('user', function ($uq) use ($search) {
                         $uq->where('name', 'like', "%{$search}%")
                             ->orWhere('email', 'like', "%{$search}%")
-                            ->orWhere('referral_code', 'like', "%{$search}%");
+                            ->orWhere('referral_code', 'like', "%{$search}%")
+                            ->orWhereHas('sponsor', function ($sq) use ($search) {
+                                $sq->where('name', 'like', "%{$search}%")
+                                    ->orWhere('email', 'like', "%{$search}%")
+                                    ->orWhere('referral_code', 'like', "%{$search}%");
+                            });
                     });
             });
         }
@@ -59,7 +64,7 @@ class IncomeReportController extends Controller
 
         $grandTotal = $roiTotal + $directTotal + $bonusTotal + $matchingTotal + $directSalaryTotal + $teamSalaryTotal + $rewardTotal;
 
-        $recentIncomes = Transaction::with('user')
+        $recentIncomes = Transaction::with(['user', 'user.sponsor', 'userPackage.user'])
             ->whereIn('type', ['daily_roi', 'direct_commission', '24h_bonus', 'matching_income', 'direct_salary', 'team_salary', 'reward_income'])
             ->latest('id')
             ->paginate(15);

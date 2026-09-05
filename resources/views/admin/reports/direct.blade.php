@@ -98,7 +98,8 @@
                 <thead class="bg-bg text-amber-400 uppercase text-xs font-bold font-heading tracking-wider border-b border-amber-500/30">
                     <tr>
                         <th class="p-4 rounded-l-xl">TXN NUMBER</th>
-                        <th class="p-4">SPONSOR DETAILS</th>
+                        <th class="p-4">INCOME EARNER (SPONSOR)</th>
+                        <th class="p-4">SOURCE MEMBER (PURCHASER)</th>
                         <th class="p-4">COMMISSION ($)</th>
                         <th class="p-4">POST BALANCE</th>
                         <th class="p-4">DESCRIPTION / REMARK</th>
@@ -110,14 +111,27 @@
                     @forelse($logs as $log)
                     <tr class="hover:bg-amber-500/10 transition">
                         <td class="p-4 font-mono font-bold text-amber-400 text-xs">{{ $log->txn_number }}</td>
+                        <!-- INCOME EARNER (SPONSOR WHO RECEIVED COMMISSION) -->
                         <td class="p-4">
                             @if($log->user)
                                 <a href="{{ route('admin.users.show', $log->user->id) }}" class="group block">
-                                    <div class="font-bold text-white group-hover:text-amber-400 transition">{{ $log->user->name }}</div>
-                                    <div class="text-xs text-neutral-400 font-mono">{{ $log->user->referral_code }}</div>
+                                    <div class="font-bold text-white group-hover:text-amber-400 transition text-xs">{{ $log->user->name }}</div>
+                                    <div class="text-[11px] text-amber-400 font-mono font-bold">{{ $log->user->referral_code }}</div>
                                 </a>
                             @else
-                                <span class="text-neutral-500 font-italic">Deleted Sponsor</span>
+                                <span class="text-neutral-500 italic text-xs">Deleted Sponsor</span>
+                            @endif
+                        </td>
+
+                        <!-- SOURCE MEMBER (PURCHASER WHO BOUGHT PACKAGE) -->
+                        <td class="p-4">
+                            @if($log->source_member)
+                                <a href="{{ route('admin.users.show', $log->source_member->id) }}" class="group block">
+                                    <div class="font-bold text-neutral-200 group-hover:text-amber-400 transition text-xs">{{ $log->source_member->name }}</div>
+                                    <div class="text-[11px] text-amber-400/80 font-mono font-bold">{{ $log->source_member->referral_code }}</div>
+                                </a>
+                            @else
+                                <span class="text-neutral-500 italic text-xs">Direct Purchase</span>
                             @endif
                         </td>
                         <td class="p-4 font-mono font-black text-emerald-400">+${{ number_format($log->amount, 2) }}</td>
@@ -132,7 +146,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="7" class="p-8 text-center text-neutral-400 font-medium">
+                        <td colspan="8" class="p-8 text-center text-neutral-400 font-medium">
                             No Direct Income records found matching your filter parameters.
                         </td>
                     </tr>

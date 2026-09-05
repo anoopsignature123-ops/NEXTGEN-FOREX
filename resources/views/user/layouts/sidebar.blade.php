@@ -23,7 +23,7 @@
         
         <!-- 0. MAIN OVERVIEW SECTION -->
         <div class="nav-section-title px-5 pt-3 pb-2 text-[10px] font-black uppercase tracking-[2px] text-amber-400/70">
-            MAIN OVERVIEW
+        Dashboard
         </div>
 
         <!-- Dashboard Link -->
@@ -94,7 +94,7 @@
         <a class='nav-item {{ request()->routeIs("user.transactions*") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
             href='{{ route("user.transactions.index") }}'>
             <i data-lucide="receipt" class="w-5 h-5 shrink-0 text-amber-400"></i>
-            <span class="nav-text">Transaction Logs</span>
+            <span class="nav-text">Transaction History</span>
         </a>
 
         <!-- 4. MY NETWORK SECTION -->

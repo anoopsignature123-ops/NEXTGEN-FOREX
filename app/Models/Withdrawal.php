@@ -20,6 +20,7 @@ class Withdrawal extends Model
         'wallet_type',
         'status',
         'admin_remark',
+        'txn_hash',
     ];
 
     protected $casts = [

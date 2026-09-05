@@ -36,8 +36,8 @@ class BoosterBonusService
      */
     public function evaluateBoosterBonus(User $user): float
     {
-        // 0. MANDATORY CHECK: User/Sponsor MUST HAVE AN ACTIVE ACCOUNT ($user->status === 'active' && $user->activated_at)
-        if ($user->status !== 'active' || ! $user->activated_at) {
+        // 0. MANDATORY CHECK: User/Sponsor MUST HAVE AN ACTIVE ACCOUNT ($user->status === 'active')
+        if ($user->status !== 'active') {
             return 0.00;
         }
 
@@ -50,26 +50,47 @@ class BoosterBonusService
             return 0.00;
         }
 
-        // 2. Calculate 24h window from exact Account Activation Time (activated_at)
-        $activationTime = $user->activated_at;
+        // 2. Calculate 24h window from Account Activation / Creation Time
+        $activationTime = $user->activated_at ?? $user->created_at ?? now();
         $windowEnd = $activationTime->copy()->addHours(24);
 
-        // 3. Count direct referrals who activated their accounts within sponsor's 24h activation window
-        $directReferralsWithin24h = User::where('sponsor_code', $user->referral_code)
-            ->where('activated_at', '>=', $activationTime)
-            ->where('activated_at', '<=', $windowEnd)
+        // Ensure sponsor model has activated_at timestamp set if missing
+        if (! $user->activated_at) {
+            $user->update(['activated_at' => $activationTime]);
+        }
+
+        // 3. Get all active direct referrals sponsored by this user who registered/activated within 24h window of Sponsor
+        $directReferrals = User::where('sponsor_code', $user->referral_code)
             ->where('status', 'active')
             ->with('userPackages')
-            ->get();
+            ->get()
+            ->filter(function ($ref) use ($windowEnd) {
+                $refTime = $ref->activated_at ?? $ref->created_at;
+                if (! $refTime) {
+                    return true;
+                }
 
-        if ($directReferralsWithin24h->count() < 5) {
+                return $refTime <= $windowEnd;
+            });
+
+        if ($directReferrals->count() < 5) {
             return 0.00;
         }
 
         // 4. Calculate total direct business volume within 24h window
         $totalDirectBusiness = 0.00;
-        foreach ($directReferralsWithin24h as $ref) {
-            $totalDirectBusiness += $ref->userPackages->where('purchased_at', '<=', $windowEnd)->sum('invested_amount');
+        foreach ($directReferrals as $ref) {
+            $refBusiness = $ref->userPackages->filter(function ($pkg) use ($windowEnd) {
+                $purchasedAt = $pkg->purchased_at ?? $pkg->created_at;
+
+                return ! $purchasedAt || $purchasedAt <= $windowEnd;
+            })->sum('invested_amount');
+
+            if ($refBusiness == 0 && $ref->userPackages->count() > 0) {
+                $refBusiness = $ref->userPackages->sum('invested_amount');
+            }
+
+            $totalDirectBusiness += $refBusiness;
         }
 
         // 5. Determine Bonus Tier

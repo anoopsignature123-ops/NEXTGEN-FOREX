@@ -40,6 +40,32 @@ class Transaction extends Model
      */
     public function user(): BelongsTo
     {
-        return $table = $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the referenced user package if applicable.
+     */
+    public function userPackage(): BelongsTo
+    {
+        return $this->belongsTo(UserPackage::class, 'reference_id');
+    }
+
+    /**
+     * Dynamic accessor for source member who generated/purchased for this commission.
+     */
+    public function getSourceMemberAttribute(): ?User
+    {
+        if ($this->type === 'direct_commission' && $this->relationLoaded('userPackage') && $this->userPackage && $this->userPackage->user) {
+            return $this->userPackage->user;
+        }
+
+        if ($this->type === 'direct_commission' && ! empty($this->description)) {
+            if (preg_match('/\((NGF-[A-Z0-9]+|\bNG[A-Z0-9]+\b)\)/i', $this->description, $matches)) {
+                return User::where('referral_code', strtoupper($matches[1]))->first();
+            }
+        }
+
+        return null;
     }
 }

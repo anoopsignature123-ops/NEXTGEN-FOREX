@@ -99,7 +99,11 @@ class WithdrawalController extends Controller
         $query = Withdrawal::where('user_id', $user->id);
 
         if ($request->filled('status')) {
-            $query->where('status', $request->status);
+            if (in_array($request->status, ['approved', 'completed'])) {
+                $query->whereIn('status', ['approved', 'completed']);
+            } else {
+                $query->where('status', $request->status);
+            }
         }
 
         if ($request->filled('start_date')) {
@@ -120,7 +124,7 @@ class WithdrawalController extends Controller
 
         $withdrawals = (clone $query)->latest('id')->paginate(15)->withQueryString();
         $totalRequested = (clone $query)->sum('amount');
-        $totalNetPaid = (clone $query)->where('status', 'approved')->sum('net_amount');
+        $totalNetPaid = (clone $query)->whereIn('status', ['approved', 'completed'])->sum('net_amount');
 
         return view('user.withdrawals.history', compact('user', 'withdrawals', 'totalRequested', 'totalNetPaid'));
     }

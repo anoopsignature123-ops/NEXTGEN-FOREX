@@ -5,7 +5,9 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Package;
 use App\Models\Transaction;
+use App\Models\User;
 use App\Models\UserPackage;
+use App\Services\Incomes\BoosterBonusService;
 use App\Services\Incomes\DirectIncomeService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -120,6 +122,14 @@ class PackageController extends Controller
 
             // Delegate 10% Direct Referral Commission to Dedicated DirectIncomeService
             app(DirectIncomeService::class)->distributeDirectCommission($user, $userPackage, $investedAmount);
+
+            // Evaluate 24-Hour Special Booster Bonus for Sponsor
+            if ($user->sponsor_code) {
+                $sponsor = User::where('referral_code', $user->sponsor_code)->first();
+                if ($sponsor) {
+                    app(BoosterBonusService::class)->evaluateBoosterBonus($sponsor);
+                }
+            }
         });
 
         return redirect()->route('user.packages.history')->with('success', 'Congratulations! You have successfully invested $'.number_format($investedAmount, 2)." in {$package->name}! Daily ROI activated.");

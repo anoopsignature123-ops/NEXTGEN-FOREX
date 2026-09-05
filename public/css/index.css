@@ -79,6 +79,7 @@
     --container-md: 28rem;
     --container-xl: 36rem;
     --container-2xl: 42rem;
+    --container-1xl: 75rem;
     --container-3xl: 48rem;
     --text-xs: 0.75rem;
     --text-xs--line-height: calc(1 / 0.75);
@@ -907,7 +908,7 @@
     width: 1px;
   }
   .max-w-2xl {
-    max-width: var(--container-2xl);
+    max-width: var(--container-1xl);
   }
   .max-w-3xl {
     max-width: var(--container-3xl);

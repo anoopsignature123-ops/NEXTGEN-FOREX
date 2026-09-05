@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Deposit;
 use App\Models\SupportTicket;
 use App\Models\Transaction;
 use App\Models\User;
@@ -12,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class UserController extends Controller
@@ -161,11 +163,25 @@ class UserController extends Controller
 
         $walletType = $request->wallet_type;
         $amount = (float) $request->amount;
-        $remark = $request->input('remark') ?: 'Directly credited by Admin side';
+        $userRemark = $request->input('remark');
+        $remark = $userRemark ? "{$userRemark} (Credited by Admin)" : 'Directly Credited by Admin';
 
         DB::transaction(function () use ($user, $walletType, $amount, $remark) {
             // Increment selected wallet balance
             $user->increment($walletType, $amount);
+
+            $deposit = null;
+            if ($walletType === 'deposit_wallet') {
+                $deposit = Deposit::create([
+                    'user_id' => $user->id,
+                    'amount' => $amount,
+                    'payment_gateway' => 'Admin Direct Credit',
+                    'txn_hash' => 'ADM-'.strtoupper(Str::random(10)),
+                    'status' => 'approved',
+                    'admin_notes' => $remark,
+                    'approved_at' => now(),
+                ]);
+            }
 
             // Create transaction log with detailed remark
             Transaction::create([
@@ -176,9 +192,9 @@ class UserController extends Controller
                 'charge' => 0.00,
                 'post_balance' => $user->fresh()->{$walletType},
                 'trx_type' => '+',
-                'type' => 'admin_add_fund',
-                'description' => $remark,
-                'reference_id' => 'ADMIN-'.(Auth::id() ?? 1),
+                'type' => $walletType === 'deposit_wallet' ? 'deposit' : 'admin_add_fund',
+                'description' => "Direct Fund Credit by Admin: {$remark}".($deposit ? " (Ref: {$deposit->deposit_ref})" : ''),
+                'reference_id' => $deposit ? $deposit->id : ('ADMIN-'.(Auth::id() ?? 1)),
                 'status' => 'completed',
             ]);
         });

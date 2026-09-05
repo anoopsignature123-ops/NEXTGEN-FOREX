@@ -12,6 +12,12 @@ class PackagePurchaseTest extends TestCase
 {
     use DatabaseTransactions;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->seed();
+    }
+
     /**
      * Test user can view the packages page cleanly.
      */

@@ -69,8 +69,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // Withdrawal Requests Management Routes (PDF Slide 20)
         Route::get('withdrawals', [WithdrawalController::class, 'index'])->name('withdrawals.index');
         Route::post('withdrawals/bulk-approve', [WithdrawalController::class, 'bulkApprove'])->name('withdrawals.bulk-approve');
+        Route::post('withdrawals/bulk-complete', [WithdrawalController::class, 'bulkComplete'])->name('withdrawals.bulk-complete');
         Route::post('withdrawals/bulk-reject', [WithdrawalController::class, 'bulkReject'])->name('withdrawals.bulk-reject');
         Route::post('withdrawals/{withdrawal}/approve', [WithdrawalController::class, 'approve'])->name('withdrawals.approve');
+        Route::post('withdrawals/{withdrawal}/complete', [WithdrawalController::class, 'complete'])->name('withdrawals.complete');
         Route::post('withdrawals/{withdrawal}/reject', [WithdrawalController::class, 'reject'])->name('withdrawals.reject');
 
         // User Management Routes

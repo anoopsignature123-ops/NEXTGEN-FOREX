@@ -23,7 +23,7 @@
         
         <!-- 1. CORE MANAGEMENT SECTION -->
         <div class="nav-section-title px-5 pt-3 pb-2 text-[10px] font-black uppercase tracking-[2px] text-amber-400/70">
-            CORE MANAGEMENT
+            Dashboard
         </div>
 
         <!-- Dashboard Link -->
@@ -47,7 +47,7 @@
 
         <!-- Deposit History -->
         @php
-            $pendingWithdrawalsCount = \App\Models\Withdrawal::where('status', 'pending')->count();
+$pendingWithdrawalsCount = \App\Models\Withdrawal::where('status', 'pending')->count();
         @endphp
         <a class='nav-item {{ request()->routeIs("admin.deposits*") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center justify-between mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
             href='{{ route("admin.deposits.index") }}'>
@@ -169,7 +169,7 @@
         </div>
 
         @php
-            $pendingTicketCount = \App\Models\SupportTicket::whereIn('status', ['open', 'user_reply'])->count();
+$pendingTicketCount = \App\Models\SupportTicket::whereIn('status', ['open', 'user_reply'])->count();
         @endphp
         <!-- Support Tickets -->
         <a class='nav-item {{ request()->routeIs("admin.tickets*") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center justify-between mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'

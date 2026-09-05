@@ -80,6 +80,7 @@
                         <option value="">All Statuses</option>
                         <option value="pending" {{ request('status') === 'pending' ? 'selected' : '' }}>Pending</option>
                         <option value="approved" {{ request('status') === 'approved' ? 'selected' : '' }}>Approved</option>
+                        <option value="completed" {{ request('status') === 'completed' ? 'selected' : '' }}>Completed</option>
                         <option value="rejected" {{ request('status') === 'rejected' ? 'selected' : '' }}>Rejected</option>
                     </select>
                 </div>
@@ -131,17 +132,21 @@
                         </td>
                         <td class="p-4 text-xs text-neutral-400 font-mono">{{ $w->created_at->format('M d, Y h:i A') }}</td>
                         <td class="p-4">
-                            @if($w->status === 'approved')
-                                <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 uppercase">
-                                    APPROVED
+                            @if($w->status === 'completed')
+                                <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 uppercase inline-flex items-center gap-1">
+                                    <i data-lucide="check-check" class="w-3 h-3 text-emerald-400"></i> COMPLETED
+                                </span>
+                            @elseif($w->status === 'approved')
+                                <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-sky-500/20 text-sky-300 border border-sky-500/40 uppercase inline-flex items-center gap-1">
+                                    <i data-lucide="check-circle" class="w-3 h-3 text-sky-400"></i> APPROVED
                                 </span>
                             @elseif($w->status === 'rejected')
                                 <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-rose-500/20 text-rose-300 border border-rose-500/40 uppercase" title="{{ $w->admin_remark }}">
                                     REJECTED (REFUNDED)
                                 </span>
                             @else
-                                <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/40 uppercase animate-pulse">
-                                    PENDING
+                                <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/40 uppercase animate-pulse inline-flex items-center gap-1">
+                                    <i data-lucide="clock" class="w-3 h-3 text-amber-400"></i> PENDING
                                 </span>
                             @endif
                         </td>

@@ -63,14 +63,14 @@ class DepositController extends Controller
             // 3. Create Financial Audit Transaction Record
             Transaction::create([
                 'user_id' => $user->id,
-                'txn_number' => 'DEP-'.rand(10000000, 99999999),
+                'txn_number' => 'TXN-'.rand(10000000, 99999999),
                 'wallet_type' => 'deposit_wallet',
                 'amount' => $validated['amount'],
                 'charge' => 0.00,
                 'post_balance' => $user->fresh()->deposit_wallet,
                 'trx_type' => '+',
-                'type' => 'deposit_instant',
-                'description' => 'Instant Deposit of $'.number_format($validated['amount'], 2)." via {$validated['payment_gateway']} (Txn Hash: {$validated['txn_hash']})",
+                'type' => 'deposit',
+                'description' => 'Deposit of $'.number_format($validated['amount'], 2)." via {$validated['payment_gateway']} (Ref: {$deposit->deposit_ref})",
                 'reference_id' => $deposit->id,
                 'status' => 'completed',
             ]);
@@ -90,7 +90,7 @@ class DepositController extends Controller
         $endDate = $request->query('end_date');
         $search = $request->query('search');
 
-        $query = Deposit::where('user_id', $user->id);
+        $query = Deposit::with(['user', 'transaction'])->where('user_id', $user->id);
 
         if ($status && in_array($status, ['pending', 'approved', 'rejected'])) {
             $query->where('status', $status);

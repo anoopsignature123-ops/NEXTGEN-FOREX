@@ -22,7 +22,7 @@ class DepositController extends Controller
         $startDate = $request->query('start_date');
         $endDate = $request->query('end_date');
 
-        $query = Deposit::with('user')->latest();
+        $query = Deposit::with(['user', 'transaction'])->latest();
 
         if ($status && in_array($status, ['pending', 'approved', 'rejected'])) {
             $query->where('status', $status);
@@ -61,10 +61,12 @@ class DepositController extends Controller
         }
 
         DB::transaction(function () use ($deposit, $request) {
+            $adminNotes = $request->input('admin_notes', 'Approved by Admin');
+
             $deposit->update([
                 'status' => 'approved',
                 'approved_at' => now(),
-                'admin_notes' => $request->input('admin_notes', 'Approved by Admin'),
+                'admin_notes' => $adminNotes,
             ]);
 
             // Credit User's Deposit Wallet
@@ -81,7 +83,7 @@ class DepositController extends Controller
                 'post_balance' => $user->fresh()->deposit_wallet,
                 'trx_type' => '+',
                 'type' => 'deposit',
-                'description' => "Deposit of \${$deposit->amount} approved via {$deposit->payment_gateway} (Txn: {$deposit->txn_hash})",
+                'description' => "Deposit of \${$deposit->amount} approved via {$deposit->payment_gateway} by Admin (Ref: {$deposit->deposit_ref}) - Remark: {$adminNotes}",
                 'reference_id' => $deposit->id,
                 'status' => 'completed',
             ]);

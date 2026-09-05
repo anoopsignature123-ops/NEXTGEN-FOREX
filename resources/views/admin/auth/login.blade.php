@@ -17,7 +17,7 @@
                 <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-black uppercase tracking-widest border border-amber-500/40">
                     RESTRICTED ACCESS
                 </span>
-                <h2 class="text-2xl font-black text-white uppercase tracking-tight font-heading mt-2">ADMINISTRATOR PORTAL</h2>
+                <h2 class="text-2xl font-black text-white uppercase tracking-tight font-heading mt-2">ADMIN LOGIN</h2>
                 <p class="text-xs text-neutral-400">Enter your master credentials to access system controls</p>
             </div>
 
@@ -26,7 +26,7 @@
                 @csrf
                 <!-- Email Field -->
                 <div>
-                    <label class="block text-xs font-bold text-amber-400 uppercase mb-1.5">Admin Email / Referral Code</label>
+                    <label class="block text-xs font-bold text-amber-400 uppercase mb-1.5">Email:</label>
                     <div class="relative">
                         <div class="absolute left-3.5 top-1/2 -translate-y-1/2 text-amber-400 pointer-events-none">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -34,13 +34,14 @@
                                 <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
                             </svg>
                         </div>
-                        <input type="text" name="email" value="{{ old('email') }}" required placeholder="Enter admin email or referral code..." class="w-full pl-11 pr-4 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400">
+                        <input type="text" name="email" value="{{ old('email') }}" required placeholder="Enter email..."
+                            class="w-full pl-11 pr-4 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400">
                     </div>
                 </div>
 
                 <!-- Password Field -->
                 <div>
-                    <label class="block text-xs font-bold text-amber-400 uppercase mb-1.5">Admin Password</label>
+                    <label class="block text-xs font-bold text-amber-400 uppercase mb-1.5">Password:</label>
                     <div class="relative">
                         <div class="absolute left-3.5 top-1/2 -translate-y-1/2 text-amber-400 pointer-events-none">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -49,7 +50,8 @@
                             </svg>
                         </div>
 
-                        <input type="password" id="adminPassword" name="password" required placeholder="Enter admin password..." class="w-full pl-11 pr-12 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400">
+                        <input type="password" id="adminPassword" name="password" required placeholder="Enter password..."
+                            class="w-full pl-11 pr-12 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400">
 
                         <button type="button" onclick="togglePassword()" class="absolute right-3 top-1/2 -translate-y-1/2 p-2 text-amber-400 hover:text-amber-300 transition focus:outline-none" aria-label="Toggle Password Visibility">
                             <svg id="eyeIconOpen" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -79,7 +81,7 @@
                         <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
                         <path d="m9 12 2 2 4-4"/>
                     </svg>
-                    LOG IN TO ADMIN CONTROL
+                    LOGIN
                 </button>
             </form>
 

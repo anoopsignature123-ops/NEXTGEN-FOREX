@@ -23,30 +23,30 @@
     </div>
 
     <!-- 4 KPI SUMMARY CARDS -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <a href="{{ route('admin.tickets.index') }}" class="p-5 rounded-3xl pdf-package-card relative overflow-hidden group block">
-            <div class="text-xs font-extrabold text-neutral-300 uppercase tracking-wider">TOTAL TICKETS</div>
-            <h3 class="text-3xl font-black text-white font-heading mt-1">{{ number_format($allCount) }}</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+        <a href="{{ route('admin.tickets.index') }}" class="p-3.5 sm:p-4 rounded-2xl pdf-package-card relative overflow-hidden group block">
+            <div class="text-[11px] font-extrabold text-neutral-300 uppercase tracking-wider truncate">TOTAL TICKETS</div>
+            <h3 class="text-xl sm:text-2xl font-black text-white font-heading mt-0.5">{{ number_format($allCount) }}</h3>
         </a>
 
-        <a href="{{ route('admin.tickets.index', ['status' => 'pending']) }}" class="p-5 rounded-3xl pdf-package-card relative overflow-hidden group block">
+        <a href="{{ route('admin.tickets.index', ['status' => 'pending']) }}" class="p-3.5 sm:p-4 rounded-2xl pdf-package-card relative overflow-hidden group block">
             <div class="flex justify-between items-center mb-1">
-                <span class="text-xs font-extrabold text-amber-400 uppercase tracking-wider">PENDING OPEN</span>
+                <span class="text-[11px] font-extrabold text-amber-400 uppercase tracking-wider truncate">PENDING OPEN</span>
                 @if($pendingCount > 0)
-                    <span class="w-3 h-3 rounded-full bg-rose-500 animate-ping"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping"></span>
                 @endif
             </div>
-            <h3 class="text-3xl font-black text-amber-300 font-heading mt-1">{{ number_format($pendingCount) }}</h3>
+            <h3 class="text-xl sm:text-2xl font-black text-amber-300 font-heading mt-0.5">{{ number_format($pendingCount) }}</h3>
         </a>
 
-        <a href="{{ route('admin.tickets.index', ['status' => 'answered']) }}" class="p-5 rounded-3xl pdf-package-card relative overflow-hidden group block">
-            <div class="text-xs font-extrabold text-emerald-400 uppercase tracking-wider">ANSWERED</div>
-            <h3 class="text-3xl font-black text-emerald-400 font-heading mt-1">{{ number_format($answeredCount) }}</h3>
+        <a href="{{ route('admin.tickets.index', ['status' => 'answered']) }}" class="p-3.5 sm:p-4 rounded-2xl pdf-package-card relative overflow-hidden group block">
+            <div class="text-[11px] font-extrabold text-emerald-400 uppercase tracking-wider truncate">ANSWERED</div>
+            <h3 class="text-xl sm:text-2xl font-black text-emerald-400 font-heading mt-0.5">{{ number_format($answeredCount) }}</h3>
         </a>
 
-        <a href="{{ route('admin.tickets.index', ['status' => 'closed']) }}" class="p-5 rounded-3xl pdf-package-card relative overflow-hidden group block">
-            <div class="text-xs font-extrabold text-neutral-400 uppercase tracking-wider">RESOLVED / CLOSED</div>
-            <h3 class="text-3xl font-black text-neutral-400 font-heading mt-1">{{ number_format($closedCount) }}</h3>
+        <a href="{{ route('admin.tickets.index', ['status' => 'closed']) }}" class="p-3.5 sm:p-4 rounded-2xl pdf-package-card relative overflow-hidden group block">
+            <div class="text-[11px] font-extrabold text-neutral-400 uppercase tracking-wider truncate">RESOLVED / CLOSED</div>
+            <h3 class="text-xl sm:text-2xl font-black text-neutral-400 font-heading mt-0.5">{{ number_format($closedCount) }}</h3>
         </a>
     </div>
 
