@@ -123,12 +123,28 @@
                         <!-- Sponsor Info -->
                         <td class="p-4 min-w-[140px]">
                             <div>
-                                <div class="font-bold text-white text-xs">
-                                    {{ $user->sponsor ? $user->sponsor->name : ($user->sponsor_code ? 'Super Admin' : 'Direct System') }}
-                                </div>
-                                <div class="text-[11px] text-amber-400 font-mono">
-                                    {{ $user->sponsor_code ?? 'NGF-0000001' }}
-                                </div>
+                                @if($user->sponsor)
+                                    <div class="font-bold text-white text-xs">
+                                        {{ $user->sponsor->name }}
+                                    </div>
+                                    <div class="text-[11px] text-amber-400 font-mono">
+                                        {{ $user->sponsor_code }}
+                                    </div>
+                                @elseif($user->sponsor_code)
+                                    <div class="font-bold text-white text-xs">
+                                        {{ $user->sponsor_code }}
+                                    </div>
+                                    <div class="text-[11px] text-amber-400 font-mono">
+                                        {{ $user->sponsor_code }}
+                                    </div>
+                                @else
+                                    <div class="font-bold text-neutral-400 text-xs">
+                                        No Sponsor
+                                    </div>
+                                    <div class="text-[11px] text-neutral-400 font-mono">
+                                        N/A
+                                    </div>
+                                @endif
                             </div>
                         </td>
 

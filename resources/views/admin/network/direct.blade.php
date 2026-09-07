@@ -106,8 +106,16 @@
                         </td>
                         <td class="p-4 font-mono font-bold text-amber-400">{{ $direct->referral_code }}</td>
                         <td class="p-4">
-                            <div class="font-bold text-white text-xs">{{ $direct->sponsor ? $direct->sponsor->name : 'Super Admin' }}</div>
-                            <div class="text-[11px] text-amber-400 font-mono">{{ $direct->sponsor_code }}</div>
+                            @if($direct->sponsor)
+                                <div class="font-bold text-white text-xs">{{ $direct->sponsor->name }}</div>
+                                <div class="text-[11px] text-amber-400 font-mono">{{ $direct->sponsor_code }}</div>
+                            @elseif($direct->sponsor_code)
+                                <div class="font-bold text-white text-xs">{{ $direct->sponsor_code }}</div>
+                                <div class="text-[11px] text-amber-400 font-mono">{{ $direct->sponsor_code }}</div>
+                            @else
+                                <div class="font-bold text-neutral-400 text-xs">No Sponsor</div>
+                                <div class="text-[11px] text-neutral-400 font-mono">N/A</div>
+                            @endif
                         </td>
                         <td class="p-4">
                             @if(strtolower((string)$direct->position) === 'left')

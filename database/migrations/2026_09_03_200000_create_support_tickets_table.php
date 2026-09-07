@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('support_tickets', function (Blueprint $table) {
             $table->id();
-            $table->string('ticket_number')->unique(); // e.g. TKT-894712
+            $table->string('ticket_number')->unique();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('subject');
             $table->enum('category', ['deposit', 'withdrawal', 'package', 'network', 'account', 'other'])->default('other');

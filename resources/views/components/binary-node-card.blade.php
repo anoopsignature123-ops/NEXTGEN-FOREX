@@ -24,12 +24,12 @@
 
         <div class="flex justify-between items-center pb-1 border-b border-amber-500/20">
             <span class="text-neutral-400 font-semibold">Sponsor ID Code</span>
-            <span class="font-black text-gold-gradient font-mono">{{ $node->sponsor_code ?? 'NGF-0000001' }}</span>
+            <span class="font-black text-gold-gradient font-mono">{{ $node->sponsor_code ?? 'N/A' }}</span>
         </div>
 
         <div class="flex justify-between items-center pb-1 border-b border-amber-500/20">
             <span class="text-neutral-400 font-semibold">Sponsor Name</span>
-            <span class="font-bold text-sky-300">{{ $node->sponsor ? $node->sponsor->name : 'Super Admin' }}</span>
+            <span class="font-bold text-sky-300">{{ $node->sponsor ? $node->sponsor->name : ($node->sponsor_code ? $node->sponsor_code : 'No Sponsor') }}</span>
         </div>
 
         <div class="flex justify-between items-center pb-1 border-b border-amber-500/20">
@@ -73,8 +73,8 @@
                 onclick="openMobileMemberModal(event, {{ json_encode([
                     'name' => $node->name,
                     'code' => $node->referral_code,
-                    'sponsor_code' => $node->sponsor_code ?? 'NGF-0000001',
-                    'sponsor_name' => $node->sponsor ? $node->sponsor->name : 'Super Admin',
+                    'sponsor_code' => $node->sponsor_code ?? 'N/A',
+                    'sponsor_name' => $node->sponsor ? $node->sponsor->name : ($node->sponsor_code ? $node->sponsor_code : 'No Sponsor'),
                     'package' => $node->status === 'active' ? 'ACTIVE MEMBER' : 'INACTIVE',
                     'left_members' => $leftStats['active'].' Act, '.$leftStats['inactive'].' Inact',
                     'right_members' => $rightStats['active'].' Act, '.$rightStats['inactive'].' Inact',
@@ -105,7 +105,7 @@
 
             <!-- SELF ID & SPONSOR ID TEXT -->
             <div class="{{ $isSmall ? 'text-[9px]' : 'text-[10px]' }} text-neutral-300 font-mono">SelfID: <span class="text-white font-bold">{{ $node->referral_code }}</span></div>
-            <div class="{{ $isSmall ? 'text-[9px]' : 'text-[10px]' }} text-amber-400 font-mono font-bold mt-0.5">SponsorID: {{ $node->sponsor_code ?? 'NGF-0000001' }}</div>
+            <div class="{{ $isSmall ? 'text-[9px]' : 'text-[10px]' }} text-amber-400 font-mono font-bold mt-0.5">SponsorID: {{ $node->sponsor_code ?? 'N/A' }}</div>
         </a>
     </div>
 </div>

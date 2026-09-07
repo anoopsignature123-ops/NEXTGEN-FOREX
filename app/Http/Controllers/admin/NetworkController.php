@@ -58,7 +58,7 @@ class NetworkController extends Controller
         }
 
         if (! isset($rootUser) || ! $rootUser) {
-            $rootUser = User::where('role_id', 1)->first() ?? User::first();
+            $rootUser = User::where('role_id', 2)->whereNull('sponsor_code')->first() ?? User::where('role_id', 2)->first();
         }
 
         $treeData = $this->buildBinaryTreeData($rootUser);

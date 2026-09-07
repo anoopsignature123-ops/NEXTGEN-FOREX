@@ -7,6 +7,7 @@ use App\Models\UserPackage;
 use App\Services\Incomes\BoosterBonusService;
 use App\Services\Incomes\DirectIncomeService;
 use App\Services\Incomes\DirectSalaryService;
+use App\Services\Incomes\LevelIncomeService;
 use App\Services\Incomes\MatchingIncomeService;
 use App\Services\Incomes\RewardIncomeService;
 use App\Services\Incomes\RoiIncomeService;
@@ -18,7 +19,7 @@ use App\Services\Incomes\TeamSalaryService;
  * MASTER FINANCIAL INCOME ENGINE (NextGen Forex Business Plan Architecture)
  * -------------------------------------------------------------------------
  * Description:
- * Central orchestrator service that encapsulates all 7 business income logic
+ * Central orchestrator service that encapsulates all 8 business income logic
  * services, ensuring strict separation of concerns, maintainability, and clean
  * financial execution.
  *
@@ -26,10 +27,11 @@ use App\Services\Incomes\TeamSalaryService;
  * 1. RoiIncomeService       - 0.5% - 1.5% Daily ROI Yield (200 Days / 2X Cap)
  * 2. DirectIncomeService    - 10% Flat Direct Referral Commission
  * 3. BoosterBonusService    - 24 Hours Special Booster Bonus ($50 / $250 / $500)
- * 4. MatchingIncomeService  - 5% Team Matching Commission (50:50 Power/Weaker Ratio)
- * 5. DirectSalaryService    - 365 Days Direct Business Salary ($1/day to $1,000/day)
- * 6. TeamSalaryService      - 15-Day Cycle Team Salary ($75/cycle for 12 Months)
- * 7. RewardIncomeService    - 10% Team Business Milestone Rewards ($100 to $5 Lacs)
+ * 4. LevelIncomeService     - 10-Tier Level Commission (20% down to 1%)
+ * 5. MatchingIncomeService  - 5% Team Matching Commission (50:50 Power/Weaker Ratio)
+ * 6. DirectSalaryService    - 365 Days Direct Business Salary ($1/day to $1,000/day)
+ * 7. TeamSalaryService      - 15-Day Cycle Team Salary ($75/cycle for 12 Months)
+ * 8. RewardIncomeService    - 10% Team Business Milestone Rewards ($100 to $5 Lacs)
  */
 class IncomeEngineService
 {
@@ -37,11 +39,20 @@ class IncomeEngineService
         public RoiIncomeService $roiService,
         public DirectIncomeService $directService,
         public BoosterBonusService $boosterService,
+        public LevelIncomeService $levelService,
         public MatchingIncomeService $matchingService,
         public DirectSalaryService $directSalaryService,
         public TeamSalaryService $teamSalaryService,
         public RewardIncomeService $rewardService
     ) {}
+
+    /**
+     * Trigger Level Income (10 Levels) for a downline.
+     */
+    public function triggerLevelIncome(User $downline, float $baseAmount, string $sourceType = 'roi'): float
+    {
+        return $this->levelService->distributeLevelIncome($downline, $baseAmount, $sourceType);
+    }
 
     /**
      * Trigger 10% Direct Commission upon package purchase.

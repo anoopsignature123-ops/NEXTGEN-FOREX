@@ -23,7 +23,7 @@
         $directInc = $u->transactions ? $u->transactions->where('type', 'direct_income')->sum('amount') : 0;
         
         return [
-            'sponsor_name' => $u->sponsor ? $u->sponsor->name : ($u->sponsor_code ?? 'SUPER ADMIN'),
+            'sponsor_name' => $u->sponsor ? $u->sponsor->name : ($u->sponsor_code ? $u->sponsor_code : 'No Sponsor'),
             'sponsor_code' => $u->sponsor_code ?? 'N/A',
             'active_invest' => '$' . number_format($activeInvest, 2),
             'earning_wallet' => '$' . number_format((float)($u->earning_wallet ?? 0), 2),

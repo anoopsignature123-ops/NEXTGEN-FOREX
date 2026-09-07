@@ -183,7 +183,7 @@
                         <i data-lucide="award" class="w-4 h-4 text-black"></i>
                     </div>
                     <span
-                        class="text-[10px] font-black text-purple-300 font-mono bg-black/60 px-2.5 py-0.5 rounded-full border border-purple-400/50 shrink-0">7
+                        class="text-[10px] font-black text-purple-300 font-mono bg-black/60 px-2.5 py-0.5 rounded-full border border-purple-400/50 shrink-0">8
                         Streams</span>
                     </div>
                 <div>
@@ -220,7 +220,7 @@
 
         </div>
 
-        <!-- DYNAMIC 7 INCOME STREAMS BREAKDOWN CARDS (SLEEK & COMPACT DEEP EMERALD DESIGN) -->
+        <!-- DYNAMIC 8 INCOME STREAMS BREAKDOWN CARDS (SLEEK & COMPACT DEEP EMERALD DESIGN) -->
         <div class="space-y-3 pt-2 relative z-10">
             <div class="flex items-center justify-between border-b border-amber-400/30 pb-2.5">
                 <div class="flex items-center gap-2.5">
@@ -230,8 +230,8 @@
                     </div>
                     <div>
                         <h2 class="text-base sm:text-lg font-black text-gold-gradient font-heading tracking-wide uppercase">
-                            NEXTGEN FOREX 7 TYPES OF INCOMES</h2>
-                        <p class="text-[11px] text-neutral-300">Live Payout Summaries Across All 7 Business Income Streams</p>
+                            NEXTGEN FOREX 8 TYPES OF INCOMES</h2>
+                        <p class="text-[11px] text-neutral-300">Live Payout Summaries Across All 8 Business Income Streams</p>
                         </div>
                         </div>
                 <a href="{{ route('admin.reports.summary') }}"
@@ -255,7 +255,7 @@
                     <h3 class="text-xl sm:text-2xl font-black text-amber-300 font-mono mt-0.5">
                         ${{ number_format($totalRoiPaidSum, 2) }}</h3>
                     <p class="text-[11px] text-neutral-400 font-normal mt-1 leading-snug">
-                        Earn <span class="gold-highlight">0.5% to 1.5% daily</span> yield for 200 Days (<span
+                        Earn <span class="gold-highlight">0.5% to 1.5% daily</span> yield (<span
                             class="text-emerald-400 font-bold">2X Cap</span>).
                     </p>
                     </a>
@@ -295,11 +295,28 @@
                     </p>
                     </a>
 
-                <!-- 4. MATCHING INCOME (5%) -->
+                <!-- 4. LEVEL INCOME (10 LEVELS) -->
+                <a href="{{ route('admin.reports.level') }}"
+                    class="p-3.5 sm:p-4 rounded-2xl pdf-package-card relative group block hover:border-teal-400 transition">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="w-6 h-6 rounded-lg pdf-gold-badge font-black text-[10px] flex items-center justify-center">4</span>
+                        <span
+                            class="px-2 py-0.5 rounded-full bg-black/60 text-teal-300 text-[9px] font-black font-mono uppercase border border-teal-500/40">10
+                            Levels</span>
+                    </div>
+                    <h4 class="text-xs font-extrabold text-white font-heading uppercase tracking-wide">Level Income</h4>
+                    <h3 class="text-xl sm:text-2xl font-black text-teal-300 font-mono mt-0.5">
+                        ${{ number_format($totalLevelPaidSum, 2) }}</h3>
+                    <p class="text-[11px] text-neutral-400 font-normal mt-1 leading-snug">
+                        <span class="text-teal-300 font-bold">10-tier team commissions</span> (20% down to 1%).
+                    </p>
+                    </a>
+
+                <!-- 5. MATCHING INCOME (5%) -->
                 <a href="{{ route('admin.reports.matching') }}"
                     class="p-3.5 sm:p-4 rounded-2xl pdf-package-card relative group block hover:border-purple-400 transition">
                     <div class="flex justify-between items-center mb-2">
-                        <span class="w-6 h-6 rounded-lg pdf-gold-badge font-black text-[10px] flex items-center justify-center">4</span>
+                        <span class="w-6 h-6 rounded-lg pdf-gold-badge font-black text-[10px] flex items-center justify-center">5</span>
                         <span
                             class="px-2 py-0.5 rounded-full bg-black/60 text-purple-300 text-[9px] font-black font-mono uppercase border border-purple-500/40">Team
                             5%</span>
@@ -312,11 +329,11 @@
                     </p>
                     </a>
 
-                <!-- 5. DIRECT SALARY INCOME -->
+                <!-- 6. DIRECT SALARY INCOME -->
                 <a href="{{ route('admin.reports.direct-salary') }}"
                     class="p-3.5 sm:p-4 rounded-2xl pdf-package-card relative group block hover:border-rose-400 transition">
                     <div class="flex justify-between items-center mb-2">
-                        <span class="w-6 h-6 rounded-lg pdf-gold-badge font-black text-[10px] flex items-center justify-center">5</span>
+                        <span class="w-6 h-6 rounded-lg pdf-gold-badge font-black text-[10px] flex items-center justify-center">6</span>
                         <span
                             class="px-2 py-0.5 rounded-full bg-black/60 text-rose-300 text-[9px] font-black font-mono uppercase border border-rose-500/40">365
                             Days</span>
@@ -325,15 +342,15 @@
                     <h3 class="text-xl sm:text-2xl font-black text-rose-300 font-mono mt-0.5">
                         ${{ number_format($totalDirectSalaryPaidSum, 2) }}</h3>
                     <p class="text-[11px] text-neutral-400 font-normal mt-1 leading-snug">
-                        <span class="text-rose-300 font-bold">Daily salary</span> ($1 to $1,000/day) for 365 days.
+                        <span class="text-rose-300 font-bold">Daily salary</span> ($1 to $50/day) for 365 days.
                     </p>
                     </a>
 
-                <!-- 6. TEAM SALARY INCOME -->
+                <!-- 7. TEAM SALARY INCOME -->
                 <a href="{{ route('admin.reports.team-salary') }}"
                     class="p-3.5 sm:p-4 rounded-2xl pdf-package-card relative group block hover:border-orange-400 transition">
                     <div class="flex justify-between items-center mb-2">
-                        <span class="w-6 h-6 rounded-lg pdf-gold-badge font-black text-[10px] flex items-center justify-center">6</span>
+                        <span class="w-6 h-6 rounded-lg pdf-gold-badge font-black text-[10px] flex items-center justify-center">7</span>
                         <span
                             class="px-2 py-0.5 rounded-full bg-black/60 text-orange-300 text-[9px] font-black font-mono uppercase border border-orange-500/40">12
                             Months</span>
@@ -342,15 +359,15 @@
                     <h3 class="text-xl sm:text-2xl font-black text-orange-300 font-mono mt-0.5">
                         ${{ number_format($totalTeamSalaryPaidSum, 2) }}</h3>
                     <p class="text-[11px] text-neutral-400 font-normal mt-1 leading-snug">
-                        <span class="text-orange-300 font-bold">$75 per 15 days</span> team salary payout.
+                        <span class="text-orange-300 font-bold">Monthly salary</span> ($100–$6,000/mo) for 12 months.
                     </p>
                     </a>
 
-                <!-- 7. REWARD INCOME -->
+                <!-- 8. REWARD INCOME -->
                 <a href="{{ route('admin.reports.rewards') }}"
                     class="p-3.5 sm:p-4 rounded-2xl pdf-package-card relative group block hover:border-violet-400 transition">
                     <div class="flex justify-between items-center mb-2">
-                        <span class="w-6 h-6 rounded-lg pdf-gold-badge font-black text-[10px] flex items-center justify-center">7</span>
+                        <span class="w-6 h-6 rounded-lg pdf-gold-badge font-black text-[10px] flex items-center justify-center">8</span>
                         <span
                             class="px-2 py-0.5 rounded-full bg-black/60 text-violet-300 text-[9px] font-black font-mono uppercase border border-violet-500/40">10%
                             Reward</span>
@@ -362,21 +379,6 @@
                         <span class="text-violet-300 font-bold">10% cash & career</span> milestone rewards.
                     </p>
                     </a>
-
-                <!-- TERMS & SYSTEM CAPPING CARD -->
-                <div class="p-3.5 sm:p-4 rounded-2xl pdf-package-card relative group">
-                    <div class="flex justify-between items-center mb-2">
-                        <span
-                            class="w-6 h-6 rounded-lg pdf-gold-badge font-black text-[10px] flex items-center justify-center">⚖️</span>
-                        <span
-                            class="px-2 py-0.5 rounded-full bg-black/60 text-rose-300 text-[9px] font-black font-mono uppercase border border-rose-500/40">Rules</span>
-                    </div>
-                    <h4 class="text-xs font-extrabold text-white font-heading uppercase tracking-wide">Plan Terms & Capping</h4>
-                    <h3 class="text-sm sm:text-base font-black text-rose-300 font-mono mt-0.5">5X Daily Capping</h3>
-                    <p class="text-[11px] text-neutral-400 font-normal mt-1 leading-snug">
-                        Min $10. <span class="gold-highlight">10% fee</span>. USDT 24x7.
-                    </p>
-                    </div>
 
             </div>
             </div>
@@ -459,17 +461,33 @@
                                         </div>
                                     </td>
 
-                                    <!-- Sponsor Info -->
-                                    <td class="p-3">
-                                        <div>
-                                            <div class="font-bold text-white text-xs">
-                                                {{ $ru->sponsor ? $ru->sponsor->name : ($ru->sponsor_code ? 'Super Admin' : 'Direct System') }}
-                                            </div>
-                                            <div class="text-[10px] text-amber-400 font-mono">
-                                                {{ $ru->sponsor_code ?? 'NGF-0000001' }}
-                                            </div>
-                                        </div>
-                                    </td>
+                                     <!-- Sponsor Info -->
+                                     <td class="p-3">
+                                         <div>
+                                             @if($ru->sponsor)
+                                                 <div class="font-bold text-white text-xs">
+                                                     {{ $ru->sponsor->name }}
+                                                 </div>
+                                                 <div class="text-[10px] text-amber-400 font-mono">
+                                                     {{ $ru->sponsor_code }}
+                                                 </div>
+                                             @elseif($ru->sponsor_code)
+                                                 <div class="font-bold text-white text-xs">
+                                                     {{ $ru->sponsor_code }}
+                                                 </div>
+                                                 <div class="text-[10px] text-amber-400 font-mono">
+                                                     {{ $ru->sponsor_code }}
+                                                 </div>
+                                             @else
+                                                 <div class="font-bold text-neutral-400 text-xs">
+                                                     No Sponsor
+                                                 </div>
+                                                 <div class="text-[10px] text-neutral-400 font-mono">
+                                                     N/A
+                                                 </div>
+                                             @endif
+                                         </div>
+                                     </td>
 
                                     <!-- Action -->
                                     <td class="p-3 text-right">

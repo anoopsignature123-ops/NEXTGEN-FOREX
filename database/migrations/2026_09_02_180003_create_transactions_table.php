@@ -20,9 +20,9 @@ return new class extends Migration
             $table->decimal('charge', 15, 2)->default(0.00);
             $table->decimal('post_balance', 15, 2)->default(0.00);
             $table->string('trx_type', 5)->default('+');
-            $table->string('type')->nullable(); // deposit, package_purchase, daily_roi, direct_commission, matching_bonus, withdrawal
-            $table->text('description')->nullable(); // Detailed remark/log
-            $table->string('reference_id')->nullable(); // Associated model ID e.g. deposit_id or user_package_id
+            $table->string('type')->nullable();
+            $table->text('description')->nullable();
+            $table->string('reference_id')->nullable();
             $table->enum('status', ['completed', 'pending', 'cancelled'])->default('completed');
             $table->timestamps();
         });

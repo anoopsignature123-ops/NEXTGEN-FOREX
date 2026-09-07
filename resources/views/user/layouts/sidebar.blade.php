@@ -149,6 +149,13 @@
             <span class="nav-text">24H Special Bonus</span>
         </a>
 
+        <!-- 4. Level Income Report -->
+        <a class='nav-item {{ request()->routeIs("user.reports.level") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-2.5 rounded-xl text-xs font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("user.reports.level") }}'>
+            <i data-lucide="layers" class="w-4 h-4 shrink-0 text-amber-400"></i>
+            <span class="nav-text">Level Income Report</span>
+        </a>
+
         <!-- 4. My Matching Income -->
         <a class='nav-item {{ request()->routeIs("user.reports.matching") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-2.5 rounded-xl text-xs font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
             href='{{ route("user.reports.matching") }}'>

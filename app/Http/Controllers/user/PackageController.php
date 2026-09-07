@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\UserPackage;
 use App\Services\Incomes\BoosterBonusService;
 use App\Services\Incomes\DirectIncomeService;
+use App\Services\Incomes\LevelIncomeService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -122,6 +123,9 @@ class PackageController extends Controller
 
             // Delegate 10% Direct Referral Commission to Dedicated DirectIncomeService
             app(DirectIncomeService::class)->distributeDirectCommission($user, $userPackage, $investedAmount);
+
+            // Delegate 10-Tier Level Income to Upline Sponsors
+            app(LevelIncomeService::class)->distributeLevelIncome($user, $investedAmount, 'package_purchase');
 
             // Evaluate 24-Hour Special Booster Bonus for Sponsor
             if ($user->sponsor_code) {

@@ -15,7 +15,7 @@
                 <div class="flex items-center gap-3 text-xs text-neutral-300 mt-1 font-mono">
                     <span>Code: <strong class="text-amber-400 font-black">{{ $user->referral_code }}</strong></span>
                     <span>•</span>
-                    <span>Sponsor: <strong class="text-white font-black">{{ $user->sponsor_code ?? 'NGF-0000001' }}</strong></span>
+                    <span>Sponsor: <strong class="text-white font-black">{{ $user->sponsor ? $user->sponsor->name . ' (' . $user->sponsor_code . ')' : ($user->sponsor_code ?? 'No Sponsor (N/A)') }}</strong></span>
                     <span>•</span>
                     <span>Registered: <strong class="text-neutral-300 font-semibold">{{ $user->created_at ? $user->created_at->format('d M Y') : 'N/A' }}</strong></span>
                 </div>
@@ -95,7 +95,7 @@
                     </div>
                     <div class="flex justify-between items-center py-1.5 border-b border-amber-500/10">
                         <span class="text-neutral-400 font-medium">Sponsor Code:</span>
-                        <span class="font-bold text-white font-mono">{{ $user->sponsor_code ?? 'NGF-0000001' }}</span>
+                        <span class="font-bold text-white font-mono">{{ $user->sponsor_code ?? 'N/A (No Sponsor)' }}</span>
                     </div>
 
                     <div class="flex justify-between items-center py-1.5 border-b border-amber-500/10">

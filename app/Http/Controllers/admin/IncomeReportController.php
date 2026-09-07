@@ -50,27 +50,28 @@ class IncomeReportController extends Controller
     }
 
     /**
-     * Master Income Summary Report across all 7 income types.
+     * Master Income Summary Report across all 8 income types.
      */
     public function summary(Request $request): View
     {
         $roiTotal = Transaction::where('type', 'daily_roi')->sum('amount');
         $directTotal = Transaction::where('type', 'direct_commission')->sum('amount');
         $bonusTotal = Transaction::where('type', '24h_bonus')->sum('amount');
+        $levelTotal = Transaction::where('type', 'level_income')->sum('amount');
         $matchingTotal = Transaction::where('type', 'matching_income')->sum('amount');
         $directSalaryTotal = Transaction::where('type', 'direct_salary')->sum('amount');
         $teamSalaryTotal = Transaction::where('type', 'team_salary')->sum('amount');
         $rewardTotal = Transaction::where('type', 'reward_income')->sum('amount');
 
-        $grandTotal = $roiTotal + $directTotal + $bonusTotal + $matchingTotal + $directSalaryTotal + $teamSalaryTotal + $rewardTotal;
+        $grandTotal = $roiTotal + $directTotal + $bonusTotal + $levelTotal + $matchingTotal + $directSalaryTotal + $teamSalaryTotal + $rewardTotal;
 
         $recentIncomes = Transaction::with(['user', 'user.sponsor', 'userPackage.user'])
-            ->whereIn('type', ['daily_roi', 'direct_commission', '24h_bonus', 'matching_income', 'direct_salary', 'team_salary', 'reward_income'])
+            ->whereIn('type', ['daily_roi', 'direct_commission', '24h_bonus', 'level_income', 'matching_income', 'direct_salary', 'team_salary', 'reward_income'])
             ->latest('id')
             ->paginate(15);
 
         return view('admin.reports.summary', compact(
-            'roiTotal', 'directTotal', 'bonusTotal', 'matchingTotal',
+            'roiTotal', 'directTotal', 'bonusTotal', 'levelTotal', 'matchingTotal',
             'directSalaryTotal', 'teamSalaryTotal', 'rewardTotal', 'grandTotal', 'recentIncomes'
         ));
     }
@@ -94,6 +95,13 @@ class IncomeReportController extends Controller
         $data = $this->getIncomeReport($request, '24h_bonus');
 
         return view('admin.reports.bonus', $data);
+    }
+
+    public function level(Request $request): View
+    {
+        $data = $this->getIncomeReport($request, 'level_income');
+
+        return view('admin.reports.level', $data);
     }
 
     public function matching(Request $request): View

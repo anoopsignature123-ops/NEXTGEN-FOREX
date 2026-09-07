@@ -85,6 +85,9 @@ class RoiIncomeService
             ]);
 
             $creditedAmount = $dailyYield;
+
+            // 4. Distribute 10-Tier Level Income to Upline Sponsors based on Daily ROI Yield
+            app(LevelIncomeService::class)->distributeLevelIncome($user, $dailyYield, 'roi');
         });
 
         return $creditedAmount;

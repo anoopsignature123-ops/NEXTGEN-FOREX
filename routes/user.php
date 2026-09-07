@@ -64,6 +64,7 @@ Route::prefix('user')->name('user.')->group(function () {
             Route::get('roi', [IncomeReportController::class, 'roi'])->name('roi');
             Route::get('direct', [IncomeReportController::class, 'direct'])->name('direct');
             Route::get('bonus', [IncomeReportController::class, 'bonus'])->name('bonus');
+            Route::get('level', [IncomeReportController::class, 'level'])->name('level');
             Route::get('matching', [IncomeReportController::class, 'matching'])->name('matching');
             Route::get('direct-salary', [IncomeReportController::class, 'directSalary'])->name('direct-salary');
             Route::get('team-salary', [IncomeReportController::class, 'teamSalary'])->name('team-salary');

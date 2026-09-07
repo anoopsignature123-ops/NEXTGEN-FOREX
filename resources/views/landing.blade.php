@@ -1,869 +1,1066 @@
-<!doctype html>
-<html lang="en" class="dark scroll-smooth">
+            <!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>NEXTGEN FOREX - Next Generation Forex & Crypto Automated Trading</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/favicon.png') }}?v=2" />
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/favicon.png') }}?v=2" />
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/images/favicon.png') }}?v=2" />
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}?v=2" />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
-    <link href="{{ asset('css/index.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/nextgen-theme.css') }}" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        body.ng-landing-bg {
-            background-color: #010603 !important;
-            background-image:
-                radial-gradient(circle at 50% 15%, rgba(243, 202, 82, 0.20) 0%, rgba(2, 22, 13, 0.96) 50%, #010704 100%),
-                url('{{ asset("images/auth_bg.jpg") }}') !important;
-            background-size: cover !important;
-            background-position: center center !important;
-            background-repeat: no-repeat !important;
-            background-attachment: fixed !important;
-            min-height: 100vh;
-        }
-    
-        .ng-glass-nav {
-            background: rgba(2, 14, 9, 0.94);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(243, 202, 82, 0.3);
-        }
-    
-        .ng-landing-card {
-            background: rgba(4, 25, 15, 0.88);
-            backdrop-filter: blur(14px);
-            border: 1px solid rgba(243, 202, 82, 0.4);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        }
-    
-        .card-hover-animate {
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-    
-        .card-hover-animate:hover {
-            transform: translateY(-8px) scale(1.015);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 35px rgba(243, 202, 82, 0.35);
-            border-color: rgba(243, 202, 82, 0.9);
-        }
-    
-        .hero-logo-glow {
-            filter: drop-shadow(0 0 35px rgba(243, 202, 82, 0.75));
-            animation: floatLogo 4s ease-in-out infinite;
-        }
-    
-        @keyframes floatLogo {
-    
-            0%,
-            100% {
-                transform: translateY(0px);
-            }
-    
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-    
-        @keyframes goldPulse {
-    
-            0%,
-            100% {
-                opacity: 0.3;
-                transform: scale(1);
-            }
-    
-            50% {
-                opacity: 0.7;
-                transform: scale(1.1);
-            }
-        }
-    
-        .animate-aura {
-            animation: goldPulse 3.5s ease-in-out infinite;
-        }
-    
-        @keyframes goldShimmer {
-            0% {
-                background-position: -200% 0;
-            }
-    
-            100% {
-                background-position: 200% 0;
-            }
-        }
-    
-        .gold-shimmer-btn {
-            background: linear-gradient(90deg, #d4af37 0%, #fff5c0 25%, #f3ca52 50%, #aa771c 75%, #d4af37 100%);
-            background-size: 200% 100%;
-            animation: goldShimmer 3s infinite linear;
-        }
-    
-        @keyframes tickerScroll {
-            0% {
-                transform: translateX(0);
-            }
-    
-            100% {
-                transform: translateX(-50%);
-            }
-        }
-    
-        .animate-ticker {
-            display: inline-flex;
-            white-space: nowrap;
-            animation: tickerScroll 25s linear infinite;
-        }
-    
-        /* Scroll Reveal Animation Classes */
-        .scroll-reveal {
-            opacity: 0;
-            transform: translateY(35px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-    
-        .scroll-reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Next Gen Forex — Smart Digital Income &amp; Growth Platform. Grow Together. Earn Together." />
+    <title>Next Gen Forex | Smart Digital Income &amp; Growth Platform</title>
+    <link rel="icon" type="image/png" href="{{ asset('website/assets/images/logo.png') }}" />
+    <link rel="stylesheet" href="{{ asset('website/assets/css/style.css') }}" />
     </head>
-    
-    <body
-        class="ng-landing-bg text-slate-100 font-sans min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-black overflow-x-hidden">
-    
-        <!-- 1. STICKY HEADER NAVBAR -->
-        <header class="sticky top-0 inset-x-0 z-50 ng-glass-nav transition-all duration-300">
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-4">
-    
-                <!-- Official PDF Logo Emblem -->
-                <a href="{{ url('/') }}" class="flex items-center gap-3 group">
-                    <img src="{{ asset('images/nextgen_logo.png') }}" alt="NEXTGEN FOREX Official Logo"
-                        class="h-12 sm:h-16 w-auto object-contain drop-shadow-[0_0_15px_rgba(243,202,82,0.8)] group-hover:scale-105 transition duration-300 shrink-0">
-                </a>
-    
-                <!-- Centered Nav Links Pill Container -->
-                <nav
-                    class="hidden lg:flex items-center gap-6 px-6 py-2 rounded-full bg-black/80 border border-amber-500/30 text-xs font-extrabold uppercase tracking-wider text-neutral-300">
-                    <a href="#home" class="hover:text-amber-400 transition">Home</a>
-                    <a href="#about" class="hover:text-amber-400 transition">About</a>
-                    <a href="#analytics" class="hover:text-amber-400 transition">Analytics</a>
-                    <a href="#calculator" class="hover:text-amber-400 transition">Calculator</a>
-                    <a href="#packages" class="hover:text-amber-400 transition">Packages</a>
-                    <a href="#faq" class="hover:text-amber-400 transition">FAQ</a>
+
+<body>
+
+    <!-- ============================================================
+                             NAVBAR
+                             ============================================================ -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo">
+                <img src="{{ asset('website/assets/images/logo.png') }}" alt="Next Gen Forex Logo" />
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="#home">Home</a>
+                <a href="#forex">Forex</a>
+                <a href="#crypto">Crypto</a>
+
+                <a href="#market-research">Market Research</a>
+
+                <a href="#arbitrage">Arbitrage Trading</a>
+                <a href="#faq">FAQs</a>
+                <div class="nav-cta-mobile-row">
+                    <a href="{{ route('user.login') }}" class="nav-cta nav-cta-mobile">Sign Up</a>
+                </div>
+                <div class="nav-cta-mobile-row">
+                    <a href="{{ route('user.register') }}" class="nav-cta nav-cta-mobile">Sign In</a>
+                </div>
+                </div>
+                <a href="{{ route('user.login') }}" class="nav-cta nav-cta-desktop">Sign Up</a>
+                <a href="{{ route('user.register') }}" class="nav-cta nav-cta-desktop">Sign In</a>
+
+                <div class="nav-toggle" id="navToggle" aria-label="Toggle Menu" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </div>
+                </div>
                 </nav>
-    
-                <!-- Action Buttons Right -->
-                <div class="flex items-center gap-3">
-                    <a href="{{ route('user.login') }}"
-                        class="hidden sm:inline-flex px-5 py-2.5 rounded-full bg-black/80 border border-amber-500/50 text-amber-300 font-extrabold text-xs uppercase tracking-wider hover:bg-amber-500/20 hover:scale-105 transition duration-300 items-center gap-1.5 shadow">
-                        Login
-                    </a>
-                    <a href="{{ route('user.register') }}"
-                        class="px-6 py-2.5 rounded-full gold-shimmer-btn font-black text-xs uppercase tracking-wider shadow-xl hover:scale-105 transition duration-300 flex items-center gap-1.5 text-black">
-                        Sign Up
-                    </a>
-                    <!-- Mobile Menu Toggle -->
-                    <button id="mobileMenuBtn" onclick="toggleMobileMenu()"
-                        class="lg:hidden p-2 rounded-xl bg-black/80 border border-amber-500/40 text-amber-400 hover:text-white transition">
-                        <i data-lucide="menu" class="w-5 h-5"></i>
-                    </button>
-                </div>
-            </div>
-    
-            <!-- Mobile Drawer -->
-            <div id="mobileDrawer"
-                class="hidden lg:hidden bg-black/95 border-b border-amber-500/40 p-6 space-y-3 text-xs font-extrabold uppercase tracking-wider text-neutral-200">
-                <a href="#home" onclick="toggleMobileMenu()"
-                    class="block py-2 border-b border-amber-500/10 hover:text-amber-400">Home</a>
-                <a href="#about" onclick="toggleMobileMenu()"
-                    class="block py-2 border-b border-amber-500/10 hover:text-amber-400">About Us</a>
-                <a href="#analytics" onclick="toggleMobileMenu()"
-                    class="block py-2 border-b border-amber-500/10 hover:text-amber-400">Market Analytics</a>
-                <a href="#calculator" onclick="toggleMobileMenu()"
-                    class="block py-2 border-b border-amber-500/10 hover:text-amber-400">ROI Calculator</a>
-                <a href="#packages" onclick="toggleMobileMenu()"
-                    class="block py-2 border-b border-amber-500/10 hover:text-amber-400">Investment Packages</a>
-                <a href="#faq" onclick="toggleMobileMenu()"
-                    class="block py-2 border-b border-amber-500/10 hover:text-amber-400">FAQ</a>
-    
-            </div>
-        </header>
-    
-        <!-- MAIN CONTENT CONTAINER: STRICTLY NARROW CENTRED COLUMN (max-w-2xl mx-auto) -->
-        <main class="py-10">
-            <div class="container mx-auto px-4">
-                <div class="flex justify-center">
-                    <!-- NARROW COMPACT COLUMN (max-w-2xl / ~670px) -->
-                    <div class="w-full max-w-2xl space-y-12">
-    
-                        <!-- 2. HERO SECTION CARD WITH OFFICIAL 3D LOGO -->
-                        <section id="home"
-                            class="p-6 sm:p-8 rounded-3xl ng-landing-card card-hover-animate scroll-reveal text-center space-y-6 relative overflow-hidden">
-    
-                            <!-- Top Star Pill Badge -->
-                            <div
-                                class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/80 border border-amber-400/80 shadow-xl mx-auto hover:scale-105 transition">
-                                <span class="text-amber-400 animate-spin" style="animation-duration: 6s;">★</span>
-                                <span
-                                    class="text-[11px] font-black text-amber-300 uppercase tracking-widest font-mono">WELCOME
-                                    TO NEXTGEN FOREX</span>
-                                <span class="text-amber-400 animate-spin" style="animation-duration: 6s;">★</span>
-                            </div>
-    
-                            <!-- Official 3D NextGen Forex Full Logo Image -->
-                            <div class="flex justify-center items-center py-3">
-                                <div class="relative w-full max-w-md flex items-center justify-center">
-                                    <div class="absolute inset-0 rounded-full bg-amber-500/20 blur-3xl animate-aura"></div>
-                                    <img src="{{ asset('images/nextgen_logo.png') }}" alt="Official NextGen Forex Logo"
-                                        class="h-20 sm:h-24 w-auto object-contain hero-logo-glow relative z-10">
-                                </div>
-                            </div>
-    
-                            <!-- Subtitle -->
-                            <div class="space-y-1">
-                                <p
-                                    class="text-[11px] sm:text-xs font-extrabold text-amber-400 tracking-[3px] uppercase font-mono">
-                                    WHERE TRADING MEETS HIGH YIELD REWARDS
-                                </p>
-                            </div>
-    
-                            <!-- Description -->
-                            <p class="text-xs text-neutral-300 font-medium max-w-lg mx-auto leading-relaxed">
-                                Earn daily ROI rewards through automated FX algorithmic trading. Transparent contract limits
-                                up to <strong class="text-amber-400 font-black">200% Return Capping</strong> with instant
-                                USDT BEP20 payouts!
-                            </p>
-    
-                            <!-- 4 Icon Steps Row -->
-                            <div class="grid grid-cols-4 gap-2 pt-1 max-w-sm mx-auto font-mono text-center">
-                                <div
-                                    class="p-2 rounded-xl bg-black/70 border border-amber-500/30 space-y-1 hover:border-amber-400 hover:scale-105 transition">
-                                    <span class="text-lg block">📈</span>
-                                    <span class="text-[9px] text-amber-300 font-bold uppercase block">TRADE</span>
-                                </div>
-                                <div
-                                    class="p-2 rounded-xl bg-black/70 border border-amber-500/30 space-y-1 hover:border-amber-400 hover:scale-105 transition">
-                                    <span class="text-lg block">🏆</span>
-                                    <span class="text-[9px] text-amber-300 font-bold uppercase block">COMPETE</span>
-                                </div>
-                                <div
-                                    class="p-2 rounded-xl bg-black/70 border border-amber-500/30 space-y-1 hover:border-amber-400 hover:scale-105 transition">
-                                    <span class="text-lg block">💰</span>
-                                    <span class="text-[9px] text-amber-300 font-bold uppercase block">EARN</span>
-                                </div>
-                                <div
-                                    class="p-2 rounded-xl bg-black/70 border border-amber-500/30 space-y-1 hover:border-amber-400 hover:scale-105 transition">
-                                    <span class="text-lg block">💎</span>
-                                    <span class="text-[9px] text-amber-300 font-bold uppercase block">REDEEM</span>
-                                </div>
-                            </div>
-    
-                            <!-- Shimmering Metallic Gold Action Buttons -->
-                            <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
-                                <a href="{{ route('user.register') }}"
-                                    class="px-6 py-3 rounded-full gold-shimmer-btn font-black text-xs uppercase tracking-wider shadow-xl hover:scale-105 transition flex items-center justify-center gap-2 text-black">
-                                    <i data-lucide="user-plus" class="w-4 h-4 text-black font-black"></i> Sign Up & Start
-                                    Earning
-                                </a>
-                                <a href="#about"
-                                    class="px-6 py-3 rounded-full bg-black/80 border-2 border-amber-500/50 text-amber-300 font-black text-xs uppercase tracking-wider hover:bg-amber-500/20 hover:scale-105 transition flex items-center justify-center gap-2 shadow-xl">
-                                    <i data-lucide="play-circle" class="w-4 h-4 text-amber-400"></i> Learn More
-                                </a>
-                            </div>
-    
-                            <!-- 3 Stat Metrics Bar -->
-                            <div class="grid grid-cols-3 gap-2 pt-5 border-t border-amber-500/20 font-mono text-center">
-                                <div>
-                                    <h4 class="text-lg sm:text-xl font-black text-amber-400">12.5K+</h4>
-                                    <span class="text-[9px] text-neutral-400 font-sans uppercase font-bold">ACTIVE
-                                        TRADERS</span>
-                                </div>
-                                <div>
-                                    <h4 class="text-lg sm:text-xl font-black text-emerald-400">$2.5M+</h4>
-                                    <span class="text-[9px] text-neutral-400 font-sans uppercase font-bold">REWARDS
-                                        PAID</span>
-                                </div>
-                                <div>
-                                    <h4 class="text-lg sm:text-xl font-black text-sky-400">200%</h4>
-                                    <span class="text-[9px] text-neutral-400 font-sans uppercase font-bold">CONTRACT
-                                        CAP</span>
-                                </div>
-                            </div>
-    
-                        </section>
-    
-                        <!-- 3. TICKER TAPE BANNER -->
-                        <div
-                            class="rounded-2xl bg-amber-500/10 border border-amber-500/40 py-2.5 overflow-hidden text-xs font-mono font-bold text-amber-300 shadow-lg scroll-reveal">
-                            <div class="flex animate-ticker gap-10">
-                                <span>▶ JOIN THOUSANDS OF TRADERS ALREADY EARNING DAILY!</span>
-                                <span>⚡ AUTOMATED FOREX TRADING ENGINE 24/5 ACTIVE!</span>
-                                <span>🏆 10% DIRECT REFERRAL + 10% TEAM A & B MATCHING BONUSES!</span>
-                                <span>💎 100% INSTANT USDT BEP20 WITHDRAWAL PROCESSING!</span>
-                                <!-- Loop repeat -->
-                                <span>▶ JOIN THOUSANDS OF TRADERS ALREADY EARNING DAILY!</span>
-                                <span>⚡ AUTOMATED FOREX TRADING ENGINE 24/5 ACTIVE!</span>
-                                <span>🏆 10% DIRECT REFERRAL + 10% TEAM A & B MATCHING BONUSES!</span>
-                            </div>
+
+    <!-- ============================================================
+                             PAGE 01 — HERO  (REDESIGNED v2 — UNIQUE / PREMIUM)
+                             ============================================================ -->
+    <section class="hero" id="home">
+
+        <!-- Layered background atmosphere -->
+        <div class="hero-noise"></div>
+        <div class="particles" id="particles"></div>
+        <div class="hero-grid-lines"></div>
+
+        <!-- Ambient gradient blobs -->
+        <div class="hero-blob hero-blob-1"></div>
+        <div class="hero-blob hero-blob-2"></div>
+        <div class="hero-blob hero-blob-3"></div>
+
+        <!-- Horizontal scan line -->
+        <div class="hero-scan-line"></div>
+
+        <!-- ═══ MAIN CONTENT ═══ -->
+        <div class="hero-v2-wrap">
+
+
+            <!-- ── CENTER STAGE: logo + headline ── -->
+            <div class="hero-stage">
+
+                <!-- Left decorative line -->
+                <div class="hero-stage-line hero-stage-line--left reveal-left"></div>
+
+                <!-- Core content -->
+                <div class="hero-stage-core">
+
+                    <!-- Logo coin -->
+                    <div class="hero-logo-frame reveal">
+                        <div class="hlf-rings">
+                            <div class="hlf-ring hlf-ring-1"></div>
+                            <div class="hlf-ring hlf-ring-2"></div>
+                            <div class="hlf-ring hlf-ring-3"></div>
                         </div>
-    
-                        <!-- 4. ABOUT US SECTION WITH 3D GOLDEN GLOBE MATCHING PDF -->
-                        <section id="about" class="space-y-6 scroll-reveal">
-    
-                            <div class="text-center space-y-2">
-                                <div
-                                    class="inline-block px-4 py-1 rounded-full bg-black/80 border border-amber-500/40 text-amber-400 text-xs font-mono font-bold uppercase">
-                                    [ ABOUT US ]
-                                </div>
-                                <h2 class="text-2xl sm:text-3xl font-black text-white uppercase font-heading">
-                                    ABOUT <span class="text-gold-gradient">NEXTGEN FOREX</span>
-                                </h2>
-                                <div class="w-16 h-1 bg-amber-400 mx-auto rounded-full mt-1"></div>
-                            </div>
-    
-                            <div class="space-y-4">
-    
-                                <!-- PDF 3D Golden Globe Image Card -->
-                                <div
-                                    class="p-4 rounded-3xl ng-landing-card card-hover-animate relative overflow-hidden flex justify-center items-center">
-                                    <div
-                                        class="relative w-full rounded-2xl overflow-hidden border border-amber-500/40 shadow-2xl">
-                                        <span
-                                            class="absolute top-3 left-3 z-20 px-3 py-1 rounded-full bg-black/90 border border-amber-400 text-amber-300 text-[10px] font-mono font-bold flex items-center gap-1.5 shadow-lg">
-                                            <i data-lucide="globe" class="w-3.5 h-3.5 text-amber-400"></i> Global Financial
-                                            Markets
-                                        </span>
-                                        <img src="{{ asset('images/pdf_gold_globe.png') }}"
-                                            alt="3D Golden Globe & Currency Symbols"
-                                            class="w-full h-60 object-cover rounded-2xl">
-                                    </div>
-                                </div>
-    
-                                <div
-                                    class="p-5 rounded-3xl ng-landing-card card-hover-animate space-y-3 relative overflow-hidden">
-                                    <div
-                                        class="w-9 h-9 rounded-xl pdf-gold-badge text-black font-black flex items-center justify-center text-base">
-                                        🚀
-                                    </div>
-                                    <h3 class="text-sm font-black text-white uppercase font-heading">The Future of Forex
-                                        Trading is Here</h3>
-                                    <p class="text-xs text-neutral-300 leading-relaxed">
-                                        <strong class="text-amber-400 font-bold">NextGen Forex</strong> combines
-                                        high-frequency Forex algorithmic execution with transparent yield contracts —
-                                        offering daily ROI returns, deposit wallet funding, and complete financial clarity.
-                                    </p>
-                                </div>
-    
-                                <div
-                                    class="p-5 rounded-3xl ng-landing-card card-hover-animate space-y-3 relative overflow-hidden">
-                                    <div
-                                        class="w-9 h-9 rounded-xl pdf-gold-badge text-black font-black flex items-center justify-center text-base">
-                                        🔗
-                                    </div>
-                                    <h3 class="text-sm font-black text-white uppercase font-heading">MT5 & Binary Rewards
-                                        System</h3>
-                                    <p class="text-xs text-neutral-300 leading-relaxed">
-                                        Earn 10% Direct Commissions and 10% Binary Matching rewards across Team A and Team B
-                                        network branches, backed by auto-fetched USDT BEP20 withdrawals.
-                                    </p>
-                                </div>
-    
-                            </div>
-                        </section>
-    
-                        <!-- 5. 3D GOLDEN BULL & PACKAGES SECTION MATCHING PDF SLIDES -->
-                        <section id="packages" class="space-y-6 scroll-reveal">
-                            <div class="text-center space-y-2">
-                                <div
-                                    class="inline-block px-4 py-1 rounded-full bg-black/80 border border-amber-500/40 text-amber-400 text-xs font-mono font-bold uppercase">
-                                    [ INVESTMENT PACKAGES ]
-                                </div>
-                                <h2 class="text-2xl sm:text-3xl font-black text-white uppercase font-heading">CHOOSE YOUR
-                                    PACKAGE</h2>
-                            </div>
-    
-                            <!-- 3D Golden Bull Graphic Card from PDF -->
-                            <div
-                                class="p-4 rounded-3xl ng-landing-card card-hover-animate relative overflow-hidden flex justify-center items-center">
-                                <div
-                                    class="relative w-full rounded-2xl overflow-hidden border border-amber-500/40 shadow-2xl">
-                                    <span
-                                        class="absolute top-3 left-3 z-20 px-3 py-1 rounded-full bg-black/90 border border-amber-400 text-amber-300 text-[10px] font-mono font-bold flex items-center gap-1.5 shadow-lg">
-                                        <i data-lucide="trending-up" class="w-3.5 h-3.5 text-emerald-400"></i> Forex Bull
-                                        Market
-                                    </span>
-                                    <img src="{{ asset('images/pdf_gold_bull.png') }}" alt="3D Golden Bull Statue & Coins"
-                                        class="w-full h-60 object-cover rounded-2xl">
-                                </div>
-                            </div>
-    
-                            <!-- 2x2 Package Grid fitting inside max-w-2xl -->
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                @forelse($packages as $pkg)
-                                    <div
-                                        class="p-5 rounded-3xl ng-landing-card card-hover-animate space-y-4 flex flex-col justify-between">
-                                        <div class="space-y-3">
-                                            <div class="flex items-center justify-between border-b border-amber-500/20 pb-2.5">
-                                                <h3 class="text-sm font-black text-white font-heading uppercase">📦
-                                                    {{ $pkg->name }}
-                                                </h3>
-                                                <span
-                                                    class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[9px] font-mono font-bold">2X
-                                                    CAP</span>
-                                            </div>
-
-                                            <div class="space-y-1">
-                                                <span class="text-[9px] text-neutral-400 font-mono uppercase block">INVESTMENT
-                                                    RANGE</span>
-                                                <div class="text-lg font-black text-amber-400 font-mono">
-                                                    ${{ number_format($pkg->min_amount) }} -
-                                                    ${{ number_format($pkg->max_amount) }}
-                                                </div>
-                                            </div>
-
-                                            <div class="space-y-1.5 text-xs pt-1">
-                                                <div
-                                                    class="flex justify-between py-1 border-b border-amber-500/10 text-neutral-300">
-                                                    <span>Daily ROI Payout:</span>
-                                                    <strong
-                                                        class="text-emerald-400 font-mono font-black">+{{ $pkg->daily_roi }}% /
-                                                        Day</strong>
-                                                </div>
-                                                <div
-                                                    class="flex justify-between py-1 border-b border-amber-500/10 text-neutral-300">
-                                                    <span>Total Return Limit:</span>
-                                                    <strong class="text-white font-mono font-bold">200% (2X Cap)</strong>
-                                                </div>
-                                                <div class="flex justify-between py-1 text-neutral-300">
-                                                    <span>Withdrawal Fee:</span>
-                                                    <strong class="text-rose-400 font-mono">10% Standard</strong>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <a href="{{ route('user.register') }}"
-                                            class="w-full py-2.5 rounded-full gold-shimmer-btn font-black text-xs uppercase tracking-wider text-center shadow-lg transition text-black">
-                                            Invest Now &rarr;
-                                        </a>
-                                    </div>
-                                @empty
-                                    @foreach([
-                                            ['name' => 'PACKAGE 1', 'min' => 10, 'max' => 100, 'roi' => '0.5'],
-                                            ['name' => 'PACKAGE 2', 'min' => 100, 'max' => 500, 'roi' => '0.75'],
-                                            ['name' => 'PACKAGE 3', 'min' => 500, 'max' => 1000, 'roi' => '1.0'],
-                                            ['name' => 'PACKAGE 4', 'min' => 1000, 'max' => 5000, 'roi' => '1.25'],
-                                        ] as $defaultPkg)
-                                        <div
-                                            class="p-5 rounded-3xl ng-landing-card card-hover-animate space-y-4 flex flex-col justify-between">
-                                            <div class="space-y-3">
-                                                <div class="flex items-center justify-between border-b border-amber-500/20 pb-2.5">
-                                                    <h3 class="text-sm font-black text-white font-heading uppercase">📦
-                                                        {{ $defaultPkg['name'] }}
-                                                    </h3>
-                                                    <span
-                                                        class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[9px] font-mono font-bold">2X
-                                                        CAP</span>
-                                                </div>
-
-                                                <div class="space-y-1">
-                                                    <span class="text-[9px] text-neutral-400 font-mono uppercase block">INVESTMENT
-                                                        RANGE</span>
-                                                    <div class="text-lg font-black text-amber-400 font-mono">
-                                                        ${{ number_format($defaultPkg['min']) }} -
-                                                        ${{ number_format($defaultPkg['max']) }}
-                                                    </div>
-                                                </div>
-
-                                                <div class="space-y-1.5 text-xs pt-1">
-                                                    <div
-                                                        class="flex justify-between py-1 border-b border-amber-500/10 text-neutral-300">
-                                                        <span>Daily ROI Payout:</span>
-                                                        <strong
-                                                            class="text-emerald-400 font-mono font-black">+{{ $defaultPkg['roi'] }}%
-                                                            / Day</strong>
-                                                    </div>
-                                                    <div
-                                                        class="flex justify-between py-1 border-b border-amber-500/10 text-neutral-300">
-                                                        <span>Total Return Limit:</span>
-                                                        <strong class="text-white font-mono font-bold">200% (2X Cap)</strong>
-                                                    </div>
-                                                    <div class="flex justify-between py-1 text-neutral-300">
-                                                        <span>Withdrawal Fee:</span>
-                                                        <strong class="text-rose-400 font-mono">10% Standard</strong>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <a href="{{ route('user.register') }}"
-                                                class="w-full py-2.5 rounded-full gold-shimmer-btn font-black text-xs uppercase tracking-wider text-center shadow-lg transition text-black">
-                                                Invest Now &rarr;
-                                            </a>
-                                        </div>
-                                    @endforeach
-                                @endforelse
-                            </div>
-                        </section>
-    
-                        <!-- 6. ROI CALCULATOR SECTION -->
-                        <section id="calculator"
-                            class="p-6 rounded-3xl ng-landing-card card-hover-animate scroll-reveal space-y-6">
-                            <div class="text-center space-y-2">
-                                <div
-                                    class="inline-block px-4 py-1 rounded-full bg-black/80 border border-amber-500/40 text-amber-400 text-xs font-mono font-bold uppercase">
-                                    [ ROI ESTIMATOR ]
-                                </div>
-                                <h2 class="text-2xl font-black text-white uppercase font-heading">EARNINGS & ROI CALCULATOR
-                                </h2>
-                            </div>
-    
-                            <div class="space-y-6 pt-2">
-                                <div class="space-y-3 p-4 rounded-2xl bg-black/80 border border-amber-500/30">
-                                    <div class="flex justify-between items-center text-xs font-mono font-bold">
-                                        <span class="text-neutral-400 uppercase font-sans">Select Investment Amount ($
-                                            USD):</span>
-                                        <span id="calcAmountLabel"
-                                            class="text-xl font-black text-amber-400 font-mono">$1,000.00</span>
-                                    </div>
-                                    <input type="range" id="calcRange" min="100" max="25000" step="100" value="1000"
-                                        oninput="updateCalculator(this.value)"
-                                        class="w-full h-3 bg-black rounded-lg appearance-none cursor-pointer accent-amber-400 border border-amber-500/40">
-                                    <div class="flex justify-between text-[10px] font-mono text-neutral-400">
-                                        <span>$100 (Min)</span>
-                                        <span>$5,000</span>
-                                        <span>$10,000</span>
-                                        <span>$25,000 (VIP)</span>
-                                    </div>
-                                </div>
-    
-                                <div class="flex flex-wrap items-center justify-center gap-2">
-                                    <span class="text-xs text-neutral-400 font-bold uppercase mr-1">Presets:</span>
-                                    <button onclick="setCalcPreset(100)"
-                                        class="px-3.5 py-1.5 rounded-xl bg-black border border-amber-500/40 text-amber-300 font-mono font-bold text-xs hover:bg-amber-500/20 transition">$100</button>
-                                    <button onclick="setCalcPreset(500)"
-                                        class="px-3.5 py-1.5 rounded-xl bg-black border border-amber-500/40 text-amber-300 font-mono font-bold text-xs hover:bg-amber-500/20 transition">$500</button>
-                                    <button onclick="setCalcPreset(1000)"
-                                        class="px-3.5 py-1.5 rounded-xl bg-black border border-amber-500/40 text-amber-300 font-mono font-bold text-xs hover:bg-amber-500/20 transition">$1,000</button>
-                                    <button onclick="setCalcPreset(5000)"
-                                        class="px-3.5 py-1.5 rounded-xl bg-black border border-amber-500/40 text-amber-300 font-mono font-bold text-xs hover:bg-amber-500/20 transition">$5,000</button>
-                                </div>
-    
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1 font-mono">
-                                    <div
-                                        class="p-3.5 rounded-2xl bg-black/90 border border-emerald-500/40 space-y-1 text-center sm:text-left">
-                                        <span class="text-[10px] text-neutral-400 uppercase font-sans font-bold block">DAILY
-                                            ROI ESTIMATE (1.5%):</span>
-                                        <strong id="calcDailyRoi" class="text-xl font-black text-emerald-400 block">$15.00 /
-                                            Day</strong>
-                                    </div>
-                                    <div
-                                        class="p-3.5 rounded-2xl bg-black/90 border border-amber-500/40 space-y-1 text-center sm:text-left">
-                                        <span class="text-[10px] text-neutral-400 uppercase font-sans font-bold block">TOTAL
-                                            200% CAP RETURN:</span>
-                                        <strong id="calcTotalReturn"
-                                            class="text-xl font-black text-amber-300 block">$2,000.00 (2X)</strong>
-                                    </div>
-                                </div>
-    
-                                <div class="pt-1 flex justify-center">
-                                    <a href="{{ route('user.register') }}"
-                                        class="px-7 py-3 rounded-full gold-shimmer-btn font-black text-xs uppercase tracking-wider text-center text-black shadow-lg hover:scale-105 transition flex items-center gap-2">
-                                        <span>Start Investing $<span id="btnAmount">1,000</span> Now &rarr;</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </section>
-    
-                        <!-- 8. FREQUENTLY ASKED QUESTIONS -->
-                        <section id="faq" class="space-y-5 scroll-reveal">
-                            <div class="text-center space-y-2 mb-4">
-                                <div
-                                    class="inline-block px-4 py-1 rounded-full bg-black/80 border border-amber-500/40 text-amber-400 text-xs font-mono font-bold uppercase">
-                                    [ FREQUENTLY ASKED QUESTIONS ]
-                                </div>
-                                <h2 class="text-2xl sm:text-3xl font-black text-white uppercase font-heading">FREQUENTLY
-                                    ASKED QUESTIONS</h2>
-                            </div>
-    
-                            <div class="space-y-3">
-                                <div class="p-4 rounded-2xl ng-landing-card card-hover-animate space-y-2 cursor-pointer"
-                                    onclick="toggleFaq('faq1')">
-                                    <div class="flex items-center justify-between">
-                                        <h4 class="text-xs sm:text-sm font-black text-white uppercase font-heading">How does
-                                            NextGen Forex generate daily ROI returns?</h4>
-                                        <i data-lucide="chevron-down" id="faq1-icon"
-                                            class="w-4 h-4 text-amber-400 transition transform shrink-0"></i>
-                                    </div>
-                                    <p id="faq1"
-                                        class="hidden text-xs text-neutral-300 leading-relaxed pt-2 border-t border-amber-500/20">
-                                        Our proprietary algorithmic trading engine executes high-frequency trades on major
-                                        Forex currency pairs (EUR/USD, GBP/USD, USD/JPY) and Gold. Daily profits are
-                                        automatically distributed into investor Earning Wallets.
-                                    </p>
-                                </div>
-    
-                                <div class="p-4 rounded-2xl ng-landing-card card-hover-animate space-y-2 cursor-pointer"
-                                    onclick="toggleFaq('faq2')">
-                                    <div class="flex items-center justify-between">
-                                        <h4 class="text-xs sm:text-sm font-black text-white uppercase font-heading">What is
-                                            the 200% ROI Contract Capping Rule?</h4>
-                                        <i data-lucide="chevron-down" id="faq2-icon"
-                                            class="w-4 h-4 text-amber-400 transition transform shrink-0"></i>
-                                    </div>
-                                    <p id="faq2"
-                                        class="hidden text-xs text-neutral-300 leading-relaxed pt-2 border-t border-amber-500/20">
-                                        Each purchased package contract has a maximum earnings limit of 200% (2X the
-                                        invested amount). Once your total ROI and referral commissions reach 200%, the
-                                        contract completes and can be renewed.
-                                    </p>
-                                </div>
-    
-                                <div class="p-4 rounded-2xl ng-landing-card card-hover-animate space-y-2 cursor-pointer"
-                                    onclick="toggleFaq('faq3')">
-                                    <div class="flex items-center justify-between">
-                                        <h4 class="text-xs sm:text-sm font-black text-white uppercase font-heading">What is
-                                            the minimum withdrawal amount?</h4>
-                                        <i data-lucide="chevron-down" id="faq3-icon"
-                                            class="w-4 h-4 text-amber-400 transition transform shrink-0"></i>
-                                    </div>
-                                    <p id="faq3"
-                                        class="hidden text-xs text-neutral-300 leading-relaxed pt-2 border-t border-amber-500/20">
-                                        The minimum withdrawal limit is $10.00 USD. All payouts are processed in USDT
-                                        (BEP20) directly to your saved crypto wallet address with a 10% standard processing
-                                        fee.
-                                    </p>
-                                </div>
-    
-                                <div class="p-4 rounded-2xl ng-landing-card card-hover-animate space-y-2 cursor-pointer"
-                                    onclick="toggleFaq('faq4')">
-                                    <div class="flex items-center justify-between">
-                                        <h4 class="text-xs sm:text-sm font-black text-white uppercase font-heading">How do
-                                            Team A & Team B Binary bonuses work?</h4>
-                                        <i data-lucide="chevron-down" id="faq4-icon"
-                                            class="w-4 h-4 text-amber-400 transition transform shrink-0"></i>
-                                    </div>
-                                    <p id="faq4"
-                                        class="hidden text-xs text-neutral-300 leading-relaxed pt-2 border-t border-amber-500/20">
-                                        Members earn 10% Direct Sponsor Commission on direct referrals, plus 10% Binary
-                                        Matching Bonus calculated on the business volume generated between your Team A and
-                                        Team B network branches.
-                                    </p>
-                                </div>
-                            </div>
-                        </section>
-    
+                        <div class="hlf-orbit-dots">
+                            <div class="hlf-odot hlf-odot-1"></div>
+                            <div class="hlf-odot hlf-odot-2"></div>
+                            <div class="hlf-odot hlf-odot-3"></div>
+                        </div>
+                        <div class="hlf-coin-wrap">
+                            <img src="{{ asset('website/assets/images/mainlogo.png') }}" alt="Next Gen Forex Logo" class="hlf-coin-img" />
+                            <div class="hlf-shine"></div>
+                        </div>
+                        <!-- Floating micro chips around logo -->
+                        <div class="hlf-chip hlf-chip-1">
+                            <img src="{{ asset('website/assets/icons/lucide/trending-up.svg') }}" alt="" />
+                            <span>Smart Income</span>
+                        </div>
+                        <div class="hlf-chip hlf-chip-2">
+                            <img src="{{ asset('website/assets/icons/lucide/coins.svg') }}" alt="" />
+                            <span>Crypto</span>
+                        </div>
+                        <div class="hlf-chip hlf-chip-3">
+                            <img src="{{ asset('website/assets/icons/lucide/globe.svg') }} " alt="" />
+                            <span>Global</span>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </main>
-    
-        <!-- 9. REAL FULL-WIDTH WEBSITE FOOTER (EXACT MATCH FOR REFERENCE IMAGE media_1788501701622.png) -->
-        <footer class="w-full bg-[#030303] text-neutral-400 text-xs mt-16 relative z-20">
-            <!-- Top Full-Width Golden Line -->
-            <div style="height: 1px; background: #f3ca52; box-shadow: 0 0 10px rgba(243, 202, 82, 0.6);" class="w-full">
-            </div>
-    
-            <!-- Main Footer Content Container -->
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-3 pb-4 space-y-8">
-    
-                <!-- 4 Columns Grid Section -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10 pb-8"
-                    style="border-bottom: 1px solid rgba(243, 202, 82, 0.2);">
-    
-                    <!-- Column 1: Brand Info, Bio, Social Icons & NGT Token -->
-                    <div class="space-y-4 text-left">
-                        <!-- Logo -->
-                        <a href="{{ url('/') }}" class="inline-block mb-1">
-                            <img src="{{ asset('images/nextgen_logo.png') }}" alt="NEXTGEN FOREX Logo" class="h-10 sm:h-12 w-auto object-contain drop-shadow-[0_0_12px_rgba(243,202,82,0.6)]">
-                        </a>
-    
-                        <!-- Bio Paragraph -->
-                        <p class="text-[12px] text-neutral-400 leading-relaxed font-sans">
-                            The future of automated forex & crypto trading is here. Join us for seamless, secure, and
-                            profitable algorithmic trading.
+
+                    <!-- Headline block -->
+                    <div class="hero-headline-block reveal">
+                        <h1 class="hero-h1">
+                            <span class="hero-h1-top">NEXT GEN</span>
+                            <span class="hero-h1-bottom">
+                                <span class="hero-h1-fx">FOREX</span>
+                                <span class="hero-h1-underline"></span>
+                            </span>
+                        </h1>
+                        <p class="hero-sub">
+                            Trade Today. Earn Tomorrow.<br />
+                            <strong>Live Your Freedom.</strong>
                         </p>
-    
-                        <!-- Circular Gold Social Icons -->
-                        <div class="flex items-center gap-2 pt-1">
-                            <!-- Twitter / X -->
-                            <a href="https://twitter.com" target="_blank" aria-label="Twitter"
-                                class="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-amber-400 hover:bg-amber-500/20 hover:border-amber-400 hover:scale-110 transition duration-300"
-                                style="border: 1px solid rgba(243, 202, 82, 0.5); background: #000000;">
-                                <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                                    <path
-                                        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                        <p class="hero-tagline-dots">
+                            <span>GROW TOGETHER</span>
+                            <span class="htd-sep">◆</span>
+                            <span>EARN TOGETHER</span>
+                            <span class="htd-sep">◆</span>
+                            <span>WIN TOGETHER</span>
+                        </p>
+
+                        <!-- CTA row -->
+                        <div class="hero-v2-cta">
+                            <a href="#about" class="hv2-btn-primary">
+                                <span class="hv2-btn-bg"></span>
+                                <img src="{{ asset('website/assets/icons/lucide/rocket.svg') }}" alt="" />
+                                <span>Get Started</span>
+                                <svg class="hv2-btn-arrow" viewBox="0 0 16 16" fill="none">
+                                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                        stroke-linejoin="round" />
                                 </svg>
                             </a>
-                            <!-- Facebook -->
-                            <a href="https://facebook.com" target="_blank" aria-label="Facebook"
-                                class="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-amber-400 hover:bg-amber-500/20 hover:border-amber-400 hover:scale-110 transition duration-300"
-                                style="border: 1px solid rgba(243, 202, 82, 0.5); background: #000000;">
-                                <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                                    <path
-                                        d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                                </svg>
-                            </a>
-                            <!-- Instagram -->
-                            <a href="https://instagram.com" target="_blank" aria-label="Instagram"
-                                class="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-amber-400 hover:bg-amber-500/20 hover:border-amber-400 hover:scale-110 transition duration-300"
-                                style="border: 1px solid rgba(243, 202, 82, 0.5); background: #000000;">
-                                <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                                    <path
-                                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                                </svg>
-                            </a>
-    
-                            <!-- YouTube -->
-                            <a href="https://youtube.com" target="_blank" aria-label="YouTube"
-                                class="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-amber-400 hover:bg-amber-500/20 hover:border-amber-400 hover:scale-110 transition duration-300"
-                                style="border: 1px solid rgba(243, 202, 82, 0.5); background: #000000;">
-                                <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                                    <path
-                                        d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-                                </svg>
+                            <a href="#sectors" class="hv2-btn-outline">
+                                <span>Explore Platform</span>
+                                <img src="{{ asset('website/assets/icons/lucide/external-link.svg') }}" alt="" />
                             </a>
                         </div>
-    
-                        <!-- Token Badge Pill -->
-    
-                    </div>
-    
-                    <!-- Column 2: QUICK LINKS -->
-                    <div class="space-y-2 text-left">
-                        <h4 class="text-xs font-bold uppercase tracking-wider text-amber-400 font-mono">
-                            QUICK LINKS
-                        </h4>
-                        <div style="height: 1px; background: rgba(255, 255, 255, 0.12); margin-top: 6px; margin-bottom: 12px;"
-                            class="w-full"></div>
-                        <ul class="space-y-2 text-[12px] text-neutral-300 font-sans">
-                            <li><a href="#home"
-                                    class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><span
-                                        class="text-amber-400 font-bold">›</span> Home</a></li>
-                            <li><a href="#about"
-                                    class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><span
-                                        class="text-amber-400 font-bold">›</span> About Us</a></li>
-                            <li><a href="#analytics"
-                                    class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><span
-                                        class="text-amber-400 font-bold">›</span> Analytics</a></li>
-                            <li><a href="#calculator"
-                                    class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><span
-                                        class="text-amber-400 font-bold">›</span> ROI Calculator</a></li>
-                            <li><a href="#packages"
-                                    class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><span
-                                        class="text-amber-400 font-bold">›</span> Packages</a></li>
-                        </ul>
-                    </div>
-                    <!-- Column 3: SUPPORT -->
-                    <div class="space-y-2 text-left">
-                        <h4 class="text-xs font-bold uppercase tracking-wider text-amber-400 font-mono">
-                            SUPPORT
-                        </h4>
-                        <div style="height: 1px; background: rgba(255, 255, 255, 0.12); margin-top: 6px; margin-bottom: 12px;"
-                            class="w-full"></div>
-                        <ul class="space-y-2 text-[12px] text-neutral-300 font-sans">
-                            <li><a href="{{ route('user.login') }}"
-                                    class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><span
-                                        class="text-amber-400 font-bold">›</span> Member Login</a></li>
-                            <li><a href="{{ route('user.register') }}"
-                                    class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><span
-                                        class="text-amber-400 font-bold">›</span> Register Account</a></li>
-    
-                            <li><a href="#faq"
-                                    class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><span
-                                        class="text-amber-400 font-bold">›</span> FAQ & Help</a></li>
-                        </ul>
-                    </div>
-                    <!-- Column 4: LEGAL -->
-                    <div class="space-y-2 text-left">
-                        <h4 class="text-xs font-bold uppercase tracking-wider text-amber-400 font-mono">
-                            LEGAL
-                        </h4>
-                        <div style="height: 1px; background: rgba(255, 255, 255, 0.12); margin-top: 6px; margin-bottom: 12px;"
-                            class="w-full"></div>
-                        <ul class="space-y-2 text-[12px] text-neutral-300 font-sans">
-                            <li><a href="#faq"
-                                    class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><span
-                                        class="text-amber-400 font-bold">›</span> Terms & Conditions</a></li>
-                            <li><a href="#faq"
-                                    class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><span
-                                        class="text-amber-400 font-bold">›</span> Privacy Policy</a></li>
-                            <li><a href="#faq"
-                                    class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><span
-                                        class="text-amber-400 font-bold">›</span> Risk Disclaimer</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- Bottom Copyright & Website Domain -->
-                <div class="pt-2 text-center space-y-1 text-[11px] text-neutral-400 font-sans">
-                    <p>
-                        &copy; {{ date('Y') }} <strong class="text-amber-400 font-bold">NextGen Forex</strong>. All rights
-                        reserved. |
-                        Automated Trading Platform!
-                    </p>
-                    <p class="text-[10px] text-amber-400/80 font-mono">
-                        www.nextgenforex.com
-                    </p>
+                        </div>
+
                 </div>
 
+                <!-- Right decorative line -->
+                <div class="hero-stage-line hero-stage-line--right reveal-right"></div>
+
+            </div>
+
+
+        </div><!-- /hero-v2-wrap -->
+
+        <!-- Scroll cue -->
+        <div class="hero-scroll-cue">
+            <div class="hsc-line"></div>
+            <span>Scroll</span>
+        </div>
+
+    </section>
+
+    <!-- ============================================================
+                             PAGE 02 — ABOUT NEXT GEN FOREX
+                             ============================================================ -->
+    <section class="about" id="about">
+        <div class="about-container">
+    
+            <div class="about-img-wrap reveal-left">
+                <img src="{{ asset('website/assets/images/icons.png') }}" alt="About Next Gen Forex"
+                    onerror="this.src='{{ asset('website/assets/images/image1.png') }}'" />
+            </div>
+            <div class="about-text reveal-right">
+                <span class="section-tag">
+                    <img src="{{ asset('website/assets/icons/lucide/info.svg') }}" alt="" class="tag-icon" />
+                    Company Overview
+                </span>
+                <h2 class="section-title">Your Gateway to<br /><span class="about-accent">Global Financial
+                        Markets</span></h2>
+            
+                <!-- Block 1 — Gateway -->
+                <div class="about-overview-block">
+                    <div class="aob-header">
+                        <div class="aob-icon">
+                            <img src="{{ asset('website/assets/icons/lucide/globe.svg') }}" alt="Gateway" />
+                        </div>
+                        <h4 class="aob-title">A Gateway to Global Financial Markets</h4>
+                        </div>
+                        <p class="aob-desc">
+                            Headquartered in the United States, Next Gen Forex Trading is a forward-thinking
+                            financial market brand dedicated to redefining how individuals and institutions
+                            interact with the global economy. We are built on the belief that financial
+                            independence should be accessible to anyone willing to learn and take action.
+                            As a premier hub for modern trading, we provide a secure, transparent, and
+                            highly efficient gateway to the world's most dynamic financial ecosystems. Our
+                            primary focus is to empower our clients by giving them the clarity, support, and
+                            tools they need to navigate the complexities of global finance with complete confidence.
+                        </p>
+                        </div>
+
+            </div>
+            </div>
+            </section>
+
+    <!-- ============================================================
+                             PAGE 03 — OUR BUSINESS SECTORS
+                             ============================================================ -->
+    <section class="sectors-section" id="sectors">
+        <div class="sectors-bg-overlay"></div>
+        <div class="sectors-glow-top"></div>
+    
+        <div class="sectors-container">
+            <!-- Header -->
+            <div class="text-center reveal">
+                <span class="section-tag">
+                    <img src="{{ asset('website/assets/icons/lucide/layers.svg') }}" alt="" class="tag-icon" />
+                    What We Cover
+                </span>
+                <h2 class="section-title">Our Business <span class="sectors-accent">Sectors</span></h2>
+                <div class="divider"></div>
+                <p class="section-subtitle">
+                    Next Gen Forex operates across six powerful domains — giving you a complete edge in the world of
+                    digital
+                    finance.
+                </p>
+            </div>
+
+            <!-- Sectors Grid -->
+            <div class="sectors-grid">
+                <!-- 1. Forex -->
+                <div class="sector-card reveal" style="--delay:0s" id="forex">
+                    <div class="sector-card-inner">
+                        <div class="sector-icon-wrap">
+                            <div class="sector-icon">
+                                <img src="{{ asset('website/assets/icons/lucide/dollar-sign.svg') }}" alt="Forex" />
+                            </div>
+                            <div class="sector-icon-ring"></div>
+                        </div>
+                        <h3 class="sector-title">Forex</h3>
+                        <p class="sector-desc">Trade the world's largest financial market. We provide structured
+                            insights into global currency
+                            pairs, exchange dynamics, and market movement strategies.</p>
+                        <div class="sector-tag">Currency Markets</div>
+                    </div>
+                    <div class="sector-card-glow"></div>
+                </div>
+
+                <!-- 2. Crypto -->
+                <div class="sector-card reveal" style="--delay:0.08s" id="crypto">
+                    <div class="sector-card-inner">
+                        <div class="sector-icon-wrap">
+                            <div class="sector-icon sector-icon--green">
+                                <img src="{{ asset('website/assets/icons/lucide/coins.svg') }}" alt="Crypto" />
+                            </div>
+                            <div class="sector-icon-ring sector-icon-ring--green"></div>
+                            </div>
+                            <h3 class="sector-title">Crypto</h3>
+                            <p class="sector-desc">Navigate the digital asset revolution with confidence. From Bitcoin to
+                                altcoins — we
+                                break down blockchain fundamentals and crypto market cycles.</p>
+                            <div class="sector-tag sector-tag--green">Digital Assets</div>
+                            </div>
+                            <div class="sector-card-glow sector-card-glow--green"></div>
+                </div>
+
+                <!-- 3. Financial Technology -->
+                <div class="sector-card reveal" style="--delay:0.16s" id="fintech">
+                    <div class="sector-card-inner">
+                        <div class="sector-icon-wrap">
+                            <div class="sector-icon">
+                                <img src="{{ asset('website/assets/icons/lucide/cpu.svg') }}" alt="FinTech" />
+                            </div>
+                            <div class="sector-icon-ring"></div>
+                        </div>
+                        <h3 class="sector-title">Financial Technology</h3>
+                        <p class="sector-desc">Leverage the power of modern FinTech innovations — from automated trading
+                            systems and
+                            smart contracts to next-generation payment infrastructure.</p>
+                        <div class="sector-tag">FinTech</div>
+                    </div>
+                    <div class="sector-card-glow"></div>
+                </div>
+
+                <!-- 4. Market Research -->
+                <div class="sector-card reveal" style="--delay:0.24s" id="market-research">
+                    <div class="sector-card-inner">
+                        <div class="sector-icon-wrap">
+                            <div class="sector-icon sector-icon--green">
+                                <img src="{{ asset('website/assets/icons/lucide/activity.svg') }}" alt="Market Research" />
+                            </div>
+                            <div class="sector-icon-ring sector-icon-ring--green"></div>
+                        </div>
+                        <h3 class="sector-title">Market Research</h3>
+                        <p class="sector-desc">Decisions built on data, not guesswork. Our in-depth market analysis
+                            covers trend identification,
+                            economic indicators, and global capital flow patterns.</p>
+                        <div class="sector-tag sector-tag--green">Data & Analytics</div>
+                    </div>
+                    <div class="sector-card-glow sector-card-glow--green"></div>
+                </div>
+                <!-- 5. Education -->
+                <div class="sector-card reveal" style="--delay:0.32s" id="education">
+                    <div class="sector-card-inner">
+                        <div class="sector-icon-wrap">
+                            <div class="sector-icon">
+                                <img src="{{ asset('website/assets/icons/lucide/book-open.svg') }}" alt="Education" />
+                            </div>
+                            <div class="sector-icon-ring"></div>
+                        </div>
+                        <h3 class="sector-title">Education</h3>
+                        <p class="sector-desc">Knowledge is your most powerful asset. From beginner fundamentals to
+                            advanced trading
+                            strategies — our structured learning content empowers every participant.</p>
+                        <div class="sector-tag">Learn & Grow</div>
+                    </div>
+                    <div class="sector-card-glow"></div>
+                </div>
+
+                <!-- 6. Arbitrage Trading -->
+                <div class="sector-card reveal" style="--delay:0.40s" id="arbitrage">
+                    <div class="sector-card-inner">
+                        <div class="sector-icon-wrap">
+                            <div class="sector-icon sector-icon--green">
+                                <img src="{{ asset('website/assets/icons/lucide/arrow-right.svg') }}" alt="Arbitrage" />
+                            </div>
+                            <div class="sector-icon-ring sector-icon-ring--green"></div>
+                            </div>
+                        <h3 class="sector-title">Arbitrage Trading</h3>
+                        <p class="sector-desc">Profit from price differentials across markets and exchanges. We provide
+                            structured
+                            approaches to identify and act on arbitrage opportunities in real time.</p>
+                        <div class="sector-tag sector-tag--green">Smart Execution</div>
+                        </div>
+                    <div class="sector-card-glow sector-card-glow--green"></div>
+                    </div>
+
+            </div>
+            
+            
+            </div>
+            </section>
+            
+            <!-- ============================================================
+                                                                                         PAGE 04 — WHAT IS CRYPTOCURRENCY
+                                                                                         ============================================================ -->
+            <section class="crypto-explainer" id="cryptocurrency">
+                <div class="ce-bg-overlay"></div>
+                <div class="ce-container">
+            
+                    <div class="text-center reveal">
+                        <span class="section-tag">
+                            Understanding Cryptocurrency
+                        </span>
+                        <h2 class="section-title">What is<br />Cryptocurrency?</h2>
+                        <div class="divider"></div>
+                        <p class="section-subtitle">
+                            Cryptocurrency is a form of digital asset that uses cryptographic technology to secure
+                            transactions and manage the creation or transfer of digital units.
+                        </p>
+                    </div>
+            
+                    <div class="ce-layout">
+            
+                        <!-- Left: Key Characteristics -->
+                        <div class="ce-left reveal-left">
+                            <h3 class="ce-sub-heading">Key Characteristics</h3>
+                            <div class="ce-chars">
+            
+                                <div class="ce-char-item">
+                                    <div class="ce-char-icon">
+                                        <img src="{{ asset('website/assets/icons/lucide/monitor.svg') }}" alt="Digital" />
+                                    </div>
+                                    <div>
+                                <h4>Digital</h4>
+                                <p>Exists in digital form and can be transferred electronically.</p>
+                                </div>
+                                </div>
+                                
+                                <div class="ce-char-item">
+                                    <div class="ce-char-icon">
+                                        <img src="{{ asset('website/assets/icons/lucide/share-2.svg') }}" alt="Decentralized" />
+                                    </div>
+                                    <div>
+                                <h4>Decentralized Technology</h4>
+                                <p>Many cryptocurrencies operate using blockchain networks rather than a single central
+                                    database.</p>
+                                </div>
+                                </div>
+                                
+                                <div class="ce-char-item">
+                                    <div class="ce-char-icon">
+                                        <img src="{{ asset('website/assets/icons/lucide/link-2.svg') }}" alt="Blockchain" />
+                                    </div>
+                                    <div>
+                                <h4>Blockchain Based</h4>
+                                <p>Transactions can be recorded on a distributed ledger.</p>
+                                </div>
+                                </div>
+
+                        <div class="ce-char-item">
+                            <div class="ce-char-icon">
+                                <img src="{{ asset('website/assets/icons/lucide/shield-check.svg') }}" alt="Secure" />
+                            </div>
+                            <div>
+                                <h4>Secure Technology</h4>
+                                <p>Cryptographic techniques are used to secure transactions and wallets.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    </div>
+
+                <!-- Right: Visual + Examples -->
+                <div class="ce-right reveal-right">
+                    <div class="ce-visual-block">
+                        <img src="{{ asset('website/assets/images/11.png') }}" alt="Cryptocurrency"
+                            onerror="this.style.display='none'" />
+                        <div class="ce-visual-glow"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+                             PAGE 05 — BENEFITS OF CRYPTOCURRENCY
+                             ============================================================ -->
+    <section class="benefits-section vs11" id="benefits">
+
+        <div class="ben-glow-line"></div>
+        <div class="ben-bg-overlay"></div>
+        
+        <div class="ben-container">
+        
+            <div class="text-center reveal">
+                <span class="section-tag">
+                    <img src="assets/icons/lucide/star.svg" alt="" class="tag-icon" />
+                    Why Cryptocurrency
+                </span>
+                <h2 class="section-title">Benefits of<br /><span class="ben-accent">Cryptocurrency</span></h2>
+                <div class="divider"></div>
+                <p class="section-subtitle">
+                    Discover why crypto is reshaping global finance — and why it matters for your future.
+                </p>
+                </div>
+
+            <!-- ROW 1 — image LEFT, content RIGHT -->
+            <div class="ben-row reveal-left">
+                <div class="ben-img-col">
+                    <div class="ben-img-wrap">
+                        <img src="{{ asset('website/assets/images/mobileview.png') }}" alt="Decentralized Finance" />
+                        <div class="ben-img-glow"></div>
+                    </div>
+                </div>
+                <div class="ben-content-col">
+                    <h3 class="ben-heading">Decentralized &amp;<br />Fast Transactions</h3>
+                    <p class="ben-desc">Cryptocurrency operates without a central authority — no banks, no borders, no
+                        delays.
+                        Peer-to-peer transfers happen in seconds, anywhere in the world, 24 hours a day.</p>
+                    <div class="ben-points">
+                        <div class="ben-point">
+                            <div class="ben-point-icon ben-point-icon--amber">
+                                <img src="{{ asset('website/assets/icons/lucide/globe.svg') }}" alt="" />
+                            </div>
+                            <div>
+                                <span class="ben-point-title">No Central Control</span>
+                                <span class="ben-point-sub">Operate freely across all borders without
+                                    intermediaries</span>
+                            </div>
+                        </div>
+                        <div class="ben-point">
+                            <div class="ben-point-icon ben-point-icon--teal">
+                                <img src="{{ asset('website/assets/icons/lucide/zap.svg') }}" alt="" />
+                            </div>
+                            <div>
+                                <span class="ben-point-title">Lightning Fast</span>
+                                <span class="ben-point-sub">Transactions confirm in seconds, not days</span>
+                            </div>
+                        </div>
+                        <div class="ben-point">
+                            <div class="ben-point-icon ben-point-icon--amber">
+                                <img src="{{ asset('website/assets/icons/lucide/dollar-sign.svg') }}" alt="" />
+                            </div>
+                            <div>
+                                <span class="ben-point-title">Low Fees</span>
+                                <span class="ben-point-sub">Minimal transaction costs compared to traditional
+                                    banking</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                </div>
+                </section>
+
+    <!-- ============================================================
+                             PAGE 06 — BENEFITS OF CRYPTOCURRENCY (Security)
+                             ============================================================ -->
+    <section class="benefits-section vs12" id="benefits">
+    
+        <div class="ben-glow-line"></div>
+        <div class="ben-bg-overlay"></div>
+    
+        <div class="ben-container">
+    
+            <!-- ROW 2 — content LEFT, image RIGHT -->
+            <div class="ben-row ben-row--reverse reveal-right">
+                <div class="ben-img-col">
+                    <div class="ben-img-wrap">
+                        <img src="{{ asset('website/assets/images/image101.png') }}" alt="Security &amp; Transparency" />
+                        <div class="ben-img-glow ben-img-glow--amber"></div>
+                    </div>
+                </div>
+                <div class="ben-content-col">
+                    <h3 class="ben-heading">Secure by Design &amp;<br />Fully Transparent</h3>
+                    <p class="ben-desc">Every transaction is protected by cryptographic technology and recorded on an
+                        immutable public
+                        blockchain. Nothing is hidden — everything is verifiable by anyone, at any time.</p>
+                    <div class="ben-points">
+                        <div class="ben-point">
+                            <div class="ben-point-icon ben-point-icon--teal">
+                                <img src="{{ asset('website/assets/icons/lucide/lock.svg') }}" alt="" />
+                            </div>
+                            <div>
+                                <span class="ben-point-title">Cryptographic Security</span>
+                                <span class="ben-point-sub">Tamper-proof and resistant to fraud at every level</span>
+                            </div>
+                        </div>
+                        <div class="ben-point">
+                            <div class="ben-point-icon ben-point-icon--amber">
+                                <img src="{{ asset('website/assets/icons/lucide/eye.svg') }}" alt="" />
+                            </div>
+                            <div>
+                                <span class="ben-point-title">Open Ledger</span>
+                                <span class="ben-point-sub">All transactions visible and verifiable on the
+                                    blockchain</span>
+                            </div>
+                        </div>
+                        <div class="ben-point">
+                            <div class="ben-point-icon ben-point-icon--teal">
+                                <img src="{{ asset('website/assets/icons/lucide/link-2.svg') }}" alt="" />
+                            </div>
+                            <div>
+                                <span class="ben-point-title">Immutable Records</span>
+                                <span class="ben-point-sub">Once recorded, data cannot be altered or deleted</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                
+                </div>
+                </section>
+    
+    <!-- ============================================================
+                             PAGE 07 — BENEFITS OF CRYPTOCURRENCY (Growth)
+                             ============================================================ -->
+    <section class="benefits-section vs13" id="benefits">
+    
+        <div class="ben-glow-line"></div>
+        <div class="ben-bg-overlay"></div>
+    
+        <div class="ben-container">
+    
+            <!-- ROW 3 — image LEFT, content RIGHT -->
+            <div class="ben-row reveal-left">
+                <div class="ben-img-col">
+                    <div class="ben-img-wrap">
+                        <img src="{{ asset('website/assets/images/image102.png') }}" alt="Growth &amp; Inclusion" />
+                        <div class="ben-img-glow"></div>
+                    </div>
+                </div>
+                <div class="ben-content-col">
+                    <h3 class="ben-heading">Growth Potential &amp;<br />Financial Inclusion</h3>
+                    <p class="ben-desc">Digital assets have created new wealth globally while opening financial services
+                        to billions
+                        of unbanked individuals. All you need is a smartphone — no bank account required.</p>
+                    <div class="ben-points">
+                        <div class="ben-point">
+                            <div class="ben-point-icon ben-point-icon--amber">
+                                <img src="{{ asset('website/assets/icons/lucide/trending-up.svg') }}" alt="" />
+                            </div>
+                            <div>
+                                <span class="ben-point-title">High Growth Asset Class</span>
+                                <span class="ben-point-sub">Demonstrated substantial returns over the long term</span>
+                            </div>
+                        </div>
+                        <div class="ben-point">
+                            <div class="ben-point-icon ben-point-icon--teal">
+                                <img src="{{ asset('website/assets/icons/lucide/users.svg') }}" alt="" />
+                            </div>
+                            <div>
+                                <span class="ben-point-title">Open to Everyone</span>
+                                <span class="ben-point-sub">No bank account needed — just a phone and connection</span>
+                            </div>
+                        </div>
+                        <div class="ben-point">
+                            <div class="ben-point-icon ben-point-icon--amber">
+                                <img src="{{ asset('website/assets/icons/lucide/award.svg') }}" alt="" />
+                            </div>
+                            <div>
+                                <span class="ben-point-title">Own Your Assets</span>
+                                <span class="ben-point-sub">Full ownership with no third-party control over your
+                                    funds</span>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+
+        </div>
+    </section>
+    
+    
+    <!-- ============================================================
+                             PAGE 08 — WHY FOREX &amp; CRYPTO WITH US
+                             ============================================================ -->
+    <section class="why-us-section" id="why-us">
+        <div class="why-us-bg-overlay"></div>
+    
+        <div class="why-us-container">
+    
+            <!-- Header -->
+            <div class="text-center reveal">
+                <span class="section-tag">
+                    <img src="{{ asset('website/assets/icons/lucide/star.svg') }}" alt="" class="tag-icon" />
+                    Why Choose Us
+                </span>
+                <h2 class="section-title">Why Forex &amp; Crypto<br /><span class="why-accent">With Us?</span></h2>
+                <div class="divider"></div>
+                <p class="section-subtitle">
+                    Everything you need to understand and explore the Forex &amp; crypto world — accurate, fast and
+                    trusted.
+                </p>
+            </div>
+
+            <!-- 6 Feature Cards -->
+            <div class="why-us-grid">
+            
+                <!-- 1 -->
+                <div class="why-card reveal" style="--delay:0s">
+                    <div class="why-card-top">
+                        <div class="why-card-icon-wrap">
+                            <div class="why-card-icon">
+                                <img src="{{ asset('website/assets/icons/lucide/activity.svg') }}" alt="Real-Time" />
+                            </div>
+                            <div class="why-icon-glow"></div>
+                            </div>
+                            </div>
+                            <h3>Real-Time Market Data</h3>
+                            <p>Stay ahead with live price feeds, market cap updates and trading volume data across all major
+                                Forex pairs and
+                                cryptocurrencies — refreshed continuously.</p>
+                            <span class="why-card-tag">Live Updates</span>
+                </div>
+
+                <!-- 2 -->
+                <div class="why-card reveal" style="--delay:0.1s">
+                    <div class="why-card-top">
+                        <div class="why-card-icon-wrap">
+                            <div class="why-card-icon why-card-icon--amber">
+                                <img src="{{ asset('website/assets/icons/lucide/shield-check.svg') }}" alt="Secure" />
+                            </div>
+                            <div class="why-icon-glow why-icon-glow--amber"></div>
+                        </div>
+                    </div>
+                    <h3>Secure Platform</h3>
+                    <p>Built with industry-grade security protocols to protect your data and digital assets at every
+                        step.</p>
+                    <span class="why-card-tag why-card-tag--amber">Encrypted</span>
+                </div>
+                <!-- 3 -->
+                <div class="why-card reveal" style="--delay:0.2s">
+                    <div class="why-card-top">
+                        <div class="why-card-icon-wrap">
+                            <div class="why-card-icon">
+                                <img src="{{ asset('website/assets/icons/lucide/book-open.svg') }}" alt="Easy" />
+                            </div>
+                            <div class="why-icon-glow"></div>
+                            </div>
+                            </div>
+                    <h3>Easy to Understand</h3>
+                    <p>Complex Forex and crypto concepts broken down into simple, clear and actionable insights for
+                        everyone — beginners to
+                        experts.</p>
+                    <span class="why-card-tag">Beginner Friendly</span>
+                </div>
+
+                <!-- 4 -->
+                <div class="why-card reveal" style="--delay:0.3s">
+                    <div class="why-card-top">
+                        <div class="why-card-icon-wrap">
+                            <div class="why-card-icon why-card-icon--amber">
+                                <img src="{{ asset('website/assets/icons/lucide/globe.svg') }}" alt="Global" />
+                            </div>
+                            <div class="why-icon-glow why-icon-glow--amber"></div>
+                            </div>
+                    </div>
+                    <h3>Global Market Insights</h3>
+                    <p>Access worldwide Forex and crypto market trends, regional data and international movement
+                        analysis from one place.
+                    </p>
+                    <span class="why-card-tag why-card-tag--amber">Worldwide</span>
+                    </div>
+
+                <!-- 5 -->
+                <div class="why-card reveal" style="--delay:0.4s">
+                    <div class="why-card-top">
+                        <div class="why-card-icon-wrap">
+                            <div class="why-card-icon">
+                                <img src="{{ asset('website/assets/icons/lucide/zap.svg') }}" alt="Fast" />
+                            </div>
+                            <div class="why-icon-glow"></div>
+                            </div>
+                            </div>
+                            <h3>Fast Updates</h3>
+                            <p>Lightning-speed data delivery ensures you always have the most current information when it
+                                matters most.</p>
+                            <span class="why-card-tag">Low Latency</span>
+                            </div>
+
+                <!-- 6 -->
+                <div class="why-card reveal" style="--delay:0.5s">
+                    <div class="why-card-top">
+                        <div class="why-card-icon-wrap">
+                            <div class="why-card-icon why-card-icon--amber">
+                                <img src="{{ asset('website/assets/icons/lucide/badge-check.svg') }}" alt="Trusted" />
+                            </div>
+                            <div class="why-icon-glow why-icon-glow--amber"></div>
+                            </div>
+                    </div>
+                    <h3>Trusted Information</h3>
+                    <p>All market data and insights are sourced from verified, reputable channels — giving you full
+                        confidence in every
+                        decision.</p>
+                    <span class="why-card-tag why-card-tag--amber">Verified Sources</span>
+                    </div>
+                    
+                    </div>
+
+        </div>
+    </section>
+    
+    <!-- ============================================================
+                                                     PAGE 09 — FAQs
+                                                     ============================================================ -->
+    <section class="faq-section" id="faq">
+        <div class="faq-bg-overlay"></div>
+    
+        <div class="faq-container">
+
+            <!-- Header -->
+            <div class="text-center reveal">
+                <span class="section-tag">
+                    <img src="{{ asset('website/assets/icons/lucide/help-circle.svg') }}" alt="" class="tag-icon" />
+                    FAQs
+                </span>
+                <h2 class="section-title">Frequently Asked<br /><span class="faq-accent">Questions</span></h2>
+                <div class="divider"></div>
+                <p class="section-subtitle">
+                    Got questions about Next Gen Forex, cryptocurrency, or the platform? We've got clear answers — right
+                    here.
+                </p>
+            </div>
+            <!-- FAQ Grid -->
+            <div class="faq-grid">
+            
+                <!-- Left Column -->
+                <div class="faq-col">
+
+                    <div class="faq-item reveal" style="--delay:0s">
+                        <button class="faq-question" aria-expanded="false">
+                            <span class="faq-q-icon">
+                                <img src="{{ asset('website/assets/icons/lucide/circle-help.svg') }}" alt="" />
+                            </span>
+                            <span>What is Next Gen Forex?</span>
+                            <span class="faq-chevron">
+                                <img src="{{ asset('website/assets/icons/lucide/chevron-down.svg') }}" alt="" />
+                            </span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Next Gen Forex is a next-generation digital platform built around Forex trading,
+                                cryptocurrency, and
+                                digital assets. It offers structured earning opportunities through multiple income
+                                categories,
+                                level-based growth, and a community-driven network — all in one ecosystem.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item reveal" style="--delay:0.05s">
+                        <button class="faq-question" aria-expanded="false">
+                            <span class="faq-q-icon">
+                                <img src="{{ asset('website/assets/icons/lucide/circle-help.svg') }}" alt="" />
+                            </span>
+                            <span>Do I need prior Forex or crypto experience to join?</span>
+                            <span class="faq-chevron">
+                                <img src="{{ asset('website/assets/icons/lucide/chevron-down.svg') }}" alt="" />
+                            </span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>No prior experience is required. Next Gen Forex is designed to be beginner-friendly. We
+                                break down complex
+                                Forex and crypto concepts into simple, clear, and actionable insights that anyone can
+                                understand and act on.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item reveal" style="--delay:0.1s">
+                        <button class="faq-question" aria-expanded="false">
+                            <span class="faq-q-icon">
+                                <img src="{{ asset('website/assets/icons/lucide/circle-help.svg') }}" alt="" />
+                            </span>
+                            <span>What is cryptocurrency?</span>
+                            <span class="faq-chevron">
+                                <img src="{{ asset('website/assets/icons/lucide/chevron-down.svg') }}" alt="" />
+                            </span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Cryptocurrency is a form of digital asset that uses cryptographic technology to secure
+                                transactions and
+                                manage the creation or transfer of digital units. It operates on decentralized networks
+                                like blockchain,
+                                making transactions transparent, secure, and borderless.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item reveal" style="--delay:0.15s">
+                        <button class="faq-question" aria-expanded="false">
+                            <span class="faq-q-icon">
+                                <img src="{{ asset('website/assets/icons/lucide/circle-help.svg') }}" alt="" />
+                            </span>
+                            <span>How does the income structure work?</span>
+                            <span class="faq-chevron">
+                                <img src="{{ asset('website/assets/icons/lucide/chevron-down.svg') }}" alt="" />
+                            </span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Next Gen Forex offers a systematic, multi-category income plan. Participants can explore
+                                level-based growth,
+                                performance-based ranks and rewards, and community network earnings. The structure is
+                                designed to be
+                                transparent, fair, and scalable as your network grows.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item reveal" style="--delay:0.2s">
+                        <button class="faq-question" aria-expanded="false">
+                            <span class="faq-q-icon">
+                                <img src="{{ asset('website/assets/icons/lucide/circle-help.svg') }}" alt="" />
+                            </span>
+                            <span>Is the platform globally accessible?</span>
+                            <span class="faq-chevron">
+                                <img src="{{ asset('website/assets/icons/lucide/chevron-down.svg') }}" alt="" />
+                            </span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Yes. Next Gen Forex provides access to global Forex and crypto market trends, regional
+                                data, and
+                                international movement analysis. Participants from across the world can join and benefit
+                                from the platform's
+                                structured ecosystem.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right Column -->
+                <div class="faq-col">
+
+                    <div class="faq-item reveal" style="--delay:0.05s">
+                        <button class="faq-question" aria-expanded="false">
+                            <span class="faq-q-icon">
+                                <img src="{{ asset('website/assets/icons/lucide/circle-help.svg') }}" alt="" />
+                            </span>
+                            <span>How is my data and investment secured?</span>
+                            <span class="faq-chevron">
+                                <img src="{{ asset('website/assets/icons/lucide/chevron-down.svg') }}" alt="" />
+                            </span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Next Gen Forex is built with industry-grade security protocols. Cryptographic techniques
+                                are used to
+                                secure all transactions and wallets, ensuring your data and digital assets are protected
+                                at every step
+                                of your journey.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item reveal" style="--delay:0.1s">
+                        <button class="faq-question" aria-expanded="false">
+                            <span class="faq-q-icon">
+                                <img src="{{ asset('website/assets/icons/lucide/circle-help.svg') }}" alt="" />
+                            </span>
+                            <span>What currencies and cryptocurrencies does Next Gen Forex support?</span>
+                            <span class="faq-chevron">
+                                <img src="{{ asset('website/assets/icons/lucide/chevron-down.svg') }}" alt="" />
+                            </span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>The platform covers major Forex currency pairs alongside a wide range of top
+                                cryptocurrencies including
+                                Bitcoin (BTC), Ethereum (ETH), BNB, Solana (SOL), XRP, and many more. Our insights span
+                                the top 10 most
+                                recognized digital assets in the global market.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item reveal" style="--delay:0.15s">
+                        <button class="faq-question" aria-expanded="false">
+                            <span class="faq-q-icon">
+                                <img src="{{ asset('website/assets/icons/lucide/circle-help.svg') }}" alt="" />
+                            </span>
+                            <span>How are performance ranks and rewards determined?</span>
+                            <span class="faq-chevron">
+                                <img src="{{ asset('website/assets/icons/lucide/chevron-down.svg') }}" alt="" />
+                            </span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Ranks and rewards are based on your participation, network growth, and overall
+                                performance within the Next
+                                Gen Forex ecosystem. The system is structured to reward consistent effort, community
+                                building, and long-term
+                                commitment to the platform.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item reveal" style="--delay:0.2s">
+                        <button class="faq-question" aria-expanded="false">
+                            <span class="faq-q-icon">
+                                <img src="{{ asset('website/assets/icons/lucide/circle-help.svg') }}" alt="" />
+                            </span>
+                            <span>How often is market data updated?</span>
+                            <span class="faq-chevron">
+                                <img src="{{ asset('website/assets/icons/lucide/chevron-down.svg') }}" alt="" />
+                            </span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Market data is refreshed continuously with live price feeds, market cap updates and
+                                trading volume data
+                                across all major Forex pairs and cryptocurrencies. Our lightning-speed delivery ensures
+                                you always have the
+                                most current information when it matters most.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item reveal" style="--delay:0.25s">
+                        <button class="faq-question" aria-expanded="false">
+                            <span class="faq-q-icon">
+                                <img src="{{ asset('website/assets/icons/lucide/circle-help.svg') }}" alt="" />
+                            </span>
+                            <span>How do I get started with Next Gen Forex?</span>
+                            <span class="faq-chevron">
+                                <img src="{{ asset('website/assets/icons/lucide/chevron-down.svg') }}" alt="" />
+                            </span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Getting started is simple. Join the Next Gen Forex ecosystem, explore the structured
+                                earning opportunities
+                                available, and begin building your network. The platform is designed to guide you from
+                                day one — whether
+                                you're a complete beginner or an experienced participant.</p>
+                        </div>
+                        </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        </section>
+
+    <!-- ============================================================
+                             FOOTER
+                             ============================================================ -->
+    <footer class="footer" id="footer">
+        <div class="footer-glow-line"></div>
+
+        <!-- CTA Banner -->
+        <div class="footer-cta-banner">
+            <div class="footer-cta-inner">
+                <div class="footer-cta-text">
+                    <h3>Ready to <span>Grow Together?</span></h3>
+                    <p>Join the Next Gen Forex ecosystem and start your structured earning journey today.</p>
+                </div>
+                <a href="#home" class="footer-cta-btn">
+                    <img src="{{ asset('website/assets/icons/lucide/rocket.svg') }}" alt="" />
+                    Get Started Now
+                </a>
+            </div>
+            </div>
+            
+            <!-- Main Grid -->
+            <div class="footer-main">
+
+            <div class="footer-brand">
+                <div class="logo-wrap">
+                    <img src="{{ asset('website/assets/images/logo.png') }}" alt="Next Gen Forex Logo" />
+                </div>
+                <p>Next Gen Forex is a next-generation digital platform built around Forex trading,
+                    cryptocurrency, and digital assets. One Platform. Multiple Opportunities. Structured Growth.</p>
+                <div class="footer-tagline">Grow Together. Earn Together.</div>
+
+                <!-- Social Icons -->
+                <div class="footer-socials">
+                    <a href="#" class="fsocial-btn" aria-label="Telegram">
+                        <img src="{{ asset('website/assets/icons/lucide/send.svg') }}" alt="Telegram" />
+                    </a>
+                    <a href="#" class="fsocial-btn" aria-label="Twitter">
+                        <img src="{{ asset('website/assets/icons/lucide/twitter.svg') }}" alt="Twitter" />
+                    </a>
+                    <a href="#" class="fsocial-btn" aria-label="Instagram">
+                        <img src="{{ asset('website/assets/icons/lucide/instagram.svg') }}" alt="Instagram" />
+                    </a>
+                    <a href="#" class="fsocial-btn" aria-label="Youtube">
+                        <img src="{{ asset('website/assets/icons/lucide/youtube.svg') }}" alt="Youtube" />
+                    </a>
+                    <a href="#" class="fsocial-btn" aria-label="Globe">
+                        <img src="{{ asset('website/assets/icons/lucide/globe.svg') }}" alt="Website" />
+                    </a>
+                    </div>
+            </div>
+
+            <div class="footer-links">
+                <h4>Platform</h4>
+                <a href="#home">Home</a>
+                <a href="#forex">Forex</a>
+                <a href="#crypto">Crypto</a>
+                <a href="#fintech">Fin Technology</a>
+                <a href="#market-research">Market Research</a>
+                <a href="#education">Education</a>
+                <a href="#arbitrage">Arbitrage Trading</a>
+                <a href="#faq">FAQs</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>Ecosystem</h4>
+                <a href="#">Income Categories</a>
+                <a href="#">Level-Based Growth</a>
+                <a href="#">Performance Ranks</a>
+                <a href="#">Community Network</a>
+                <a href="#">Digital Assets</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <a href="#">Terms of Use</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Risk Disclosure</a>
+                <a href="#">Contact Us</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>&copy; 2026 Next Gen Forex. All rights reserved.</span>
+            <span class="footer-sep">|</span>
+            <span>Smart Digital Income &amp; Growth Platform</span>
         </div>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-            }
-
-            // Scroll Reveal Intersection Observer
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
-        });
-
-        function toggleMobileMenu() {
-            const drawer = document.getElementById('mobileDrawer');
-            drawer.classList.toggle('hidden');
-        }
-
-        function updateCalculator(val) {
-            val = parseFloat(val);
-            document.getElementById('calcAmountLabel').innerText = '$' + val.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            document.getElementById('btnAmount').innerText = val.toLocaleString('en-US');
-
-            const daily = (val * 1.5) / 100;
-            const total = val * 2;
-
-            document.getElementById('calcDailyRoi').innerText = '$' + daily.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' / Day';
-            document.getElementById('calcTotalReturn').innerText = '$' + total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' (2X)';
-        }
-
-        function setCalcPreset(val) {
-            document.getElementById('calcRange').value = val;
-            updateCalculator(val);
-        }
-
-        function toggleFaq(id) {
-            const el = document.getElementById(id);
-            const icon = document.getElementById(id + '-icon');
-
-            if (el.classList.contains('hidden')) {
-                el.classList.remove('hidden');
-                icon.classList.add('rotate-180');
-            } else {
-                el.classList.add('hidden');
-                icon.classList.remove('rotate-180');
-            }
-        }
-    </script>
+    <script src="{{ asset('website/assets/js/main.js') }}"></script>
 </body>
 
 </html>

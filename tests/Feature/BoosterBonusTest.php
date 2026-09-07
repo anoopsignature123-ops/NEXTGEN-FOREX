@@ -47,8 +47,8 @@ class BoosterBonusTest extends TestCase
 
         $sponsor->refresh();
 
-        // Check 10% Direct Commissions (5 x $10 = $50) + 24H Booster Bonus ($50) = $100 Earning Wallet
-        $this->assertEquals(100.00, (float) $sponsor->earning_wallet);
+        // Check 10% Direct Commissions (5 x $10 = $50) + 20% Level 1 Commissions (5 x $20 = $100) + 24H Booster Bonus ($50) = $200 Earning Wallet
+        $this->assertEquals(200.00, (float) $sponsor->earning_wallet);
 
         // Assert 24h_bonus transaction exists
         $this->assertDatabaseHas('transactions', [

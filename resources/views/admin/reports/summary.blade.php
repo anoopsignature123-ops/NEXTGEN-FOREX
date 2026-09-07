@@ -15,7 +15,7 @@
             <h1 class="text-2xl font-black font-heading text-white uppercase tracking-wider">
                 System Income Overview
             </h1>
-            <p class="text-xs text-neutral-400 mt-1">High-level financial audit dashboard summarizing payouts across all 7 NextGen Forex income streams</p>
+            <p class="text-xs text-neutral-400 mt-1">High-level financial audit dashboard summarizing payouts across all 8 NextGen Forex income streams</p>
         </div>
         <div class="px-5 py-3 rounded-2xl bg-amber-500/10 border border-amber-500/30 shrink-0">
             <span class="text-[10px] font-bold text-amber-400 uppercase block">Grand Total Incomes Distributed</span>
@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <!-- 7 INCOME SUMMARY KPI TILES -->
+    <!-- 8 INCOME SUMMARY KPI TILES -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         
         <!-- 1. ROI -->
@@ -65,7 +65,20 @@
             </p>
         </a>
 
-        <!-- 4. Matching Income -->
+        <!-- 4. Level Income -->
+        <a href="{{ route('admin.reports.level') }}" class="group bg-panel p-4 rounded-2xl border border-amber-500/30 hover:border-amber-400 shadow-lg transition block">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-extrabold text-teal-400 uppercase tracking-wider">Level Income (10 Levels)</span>
+                <i data-lucide="layers" class="w-4 h-4 text-teal-400 group-hover:scale-110 transition"></i>
+            </div>
+            <p class="text-xl font-black text-white font-mono">${{ number_format($levelTotal, 2) }}</p>
+            <p class="text-[10px] text-neutral-400 mt-1 flex items-center justify-between">
+                <span>10-Tier Team Commissions</span>
+                <span class="text-amber-400 group-hover:underline">View Audit &rarr;</span>
+            </p>
+        </a>
+
+        <!-- 5. Matching Income -->
         <a href="{{ route('admin.reports.matching') }}" class="group bg-panel p-4 rounded-2xl border border-amber-500/30 hover:border-amber-400 shadow-lg transition block">
             <div class="flex items-center justify-between mb-2">
                 <span class="text-[10px] font-extrabold text-amber-400 uppercase tracking-wider">Matching Income (5%)</span>
@@ -78,7 +91,7 @@
             </p>
         </a>
 
-        <!-- 5. Direct Salary -->
+        <!-- 6. Direct Salary -->
         <a href="{{ route('admin.reports.direct-salary') }}" class="group bg-panel p-4 rounded-2xl border border-amber-500/30 hover:border-amber-400 shadow-lg transition block">
             <div class="flex items-center justify-between mb-2">
                 <span class="text-[10px] font-extrabold text-amber-400 uppercase tracking-wider">Direct Salary Income</span>
@@ -91,7 +104,7 @@
             </p>
         </a>
 
-        <!-- 6. Team Salary -->
+        <!-- 7. Team Salary -->
         <a href="{{ route('admin.reports.team-salary') }}" class="group bg-panel p-4 rounded-2xl border border-amber-500/30 hover:border-amber-400 shadow-lg transition block">
             <div class="flex items-center justify-between mb-2">
                 <span class="text-[10px] font-extrabold text-amber-400 uppercase tracking-wider">Team Salary Income</span>
@@ -99,20 +112,20 @@
             </div>
             <p class="text-xl font-black text-white font-mono">${{ number_format($teamSalaryTotal, 2) }}</p>
             <p class="text-[10px] text-neutral-400 mt-1 flex items-center justify-between">
-                <span>15 Days for 12 Months</span>
+                <span>12 Months Monthly Salary</span>
                 <span class="text-amber-400 group-hover:underline">View Audit &rarr;</span>
             </p>
         </a>
 
-        <!-- 7. Reward Income -->
-        <a href="{{ route('admin.reports.rewards') }}" class="group bg-panel p-4 rounded-2xl border border-amber-500/30 hover:border-amber-400 shadow-lg transition block sm:col-span-2 lg:col-span-2">
+        <!-- 8. Reward Income -->
+        <a href="{{ route('admin.reports.rewards') }}" class="group bg-panel p-4 rounded-2xl border border-amber-500/30 hover:border-amber-400 shadow-lg transition block">
             <div class="flex items-center justify-between mb-2">
-                <span class="text-[10px] font-extrabold text-amber-400 uppercase tracking-wider">Reward Income (10% Team Business)</span>
+                <span class="text-[10px] font-extrabold text-amber-400 uppercase tracking-wider">Reward Income (10%)</span>
                 <i data-lucide="trophy" class="w-4 h-4 text-amber-400 group-hover:scale-110 transition"></i>
             </div>
-            <p class="text-2xl font-black text-white font-mono">${{ number_format($rewardTotal, 2) }}</p>
+            <p class="text-xl font-black text-white font-mono">${{ number_format($rewardTotal, 2) }}</p>
             <p class="text-[10px] text-neutral-400 mt-1 flex items-center justify-between">
-                <span>10% Milestone Reward Tiers ($1K to $50 Lacs)</span>
+                <span>10% Milestone Rewards</span>
                 <span class="text-amber-400 group-hover:underline">View Audit &rarr;</span>
             </p>
         </a>

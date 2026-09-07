@@ -70,8 +70,16 @@
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono text-xs">
             <div class="p-3.5 rounded-2xl bg-black/80 border border-amber-500/30">
                 <span class="text-neutral-400 block text-[10px] uppercase font-sans font-bold">Sponsor Name:</span>
-                <strong class="text-amber-300 font-black text-sm block truncate">{{ $user->sponsor->name ?? 'Direct System' }}</strong>
-                <span class="text-[10px] text-neutral-400">Code: {{ $user->sponsor->referral_code ?? 'NGF-0000001' }}</span>
+                @if($user->sponsor)
+                    <strong class="text-amber-300 font-black text-sm block truncate">{{ $user->sponsor->name }}</strong>
+                    <span class="text-[10px] text-neutral-400">Code: {{ $user->sponsor_code ?? $user->sponsor->referral_code }}</span>
+                @elseif($user->sponsor_code)
+                    <strong class="text-amber-300 font-black text-sm block truncate">{{ $user->sponsor_code }}</strong>
+                    <span class="text-[10px] text-neutral-400">Code: {{ $user->sponsor_code }}</span>
+                @else
+                    <strong class="text-neutral-400 font-bold text-sm block truncate">No Sponsor</strong>
+                    <span class="text-[10px] text-neutral-400">Code: N/A</span>
+                @endif
             </div>
 
             <div class="p-3.5 rounded-2xl bg-black/80 border border-amber-500/30">
