@@ -117,6 +117,13 @@
             <span class="nav-text">Buy Packages</span>
         </a>
 
+        <!-- BOT -->
+        <a class='nav-item {{ request()->routeIs("user.bot*") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
+            href='{{ route("user.bot.index") }}'>
+            <i data-lucide="bot" class="w-5 h-5 shrink-0 text-amber-400"></i>
+            <span class="nav-text">BOT</span>
+        </a>
+
         <!-- Packages History -->
         <a class='nav-item {{ request()->routeIs("user.packages.history") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
             href='{{ route("user.packages.history") }}'>

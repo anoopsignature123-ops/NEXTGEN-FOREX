@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\User\ArbitrageController;
+use App\Http\Controllers\User\BotController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\DepositController;
 use App\Http\Controllers\User\IncomeReportController;
@@ -62,6 +63,11 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::get('packages', [PackageController::class, 'index'])->name('packages.index');
         Route::post('packages/buy', [PackageController::class, 'buy'])->name('packages.buy');
         Route::get('packages/history', [PackageController::class, 'history'])->name('packages.history');
+
+        // AI BOT Trading & One-Time Activation Routes
+        Route::get('bot', [BotController::class, 'index'])->name('bot.index');
+        Route::get('bot/trading', [BotController::class, 'tradingView'])->name('bot.trading');
+        Route::post('bot/activate', [BotController::class, 'activate'])->name('bot.activate');
 
         // Detailed Financial Transaction Log Route
         Route::get('transactions', [TransactionController::class, 'index'])->name('transactions.index');

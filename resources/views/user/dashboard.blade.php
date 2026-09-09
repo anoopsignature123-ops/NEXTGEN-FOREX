@@ -44,6 +44,11 @@
         .five-cards-row {
             grid-template-columns: repeat(2, minmax(0, 1fr));
         }
+        .dashboard-two-cards-row {
+            display: grid !important;
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            gap: 1rem !important;
+        }
     }
     @media (min-width: 1024px) {
         .five-cards-row {
@@ -83,34 +88,86 @@
                     @endif
                 </p>
                 </div>
-            <div
-                class="px-5 py-2.5 rounded-2xl bg-black/80 border-2 border-amber-400/80 text-amber-300 text-xs font-bold font-mono flex items-center gap-2 shadow-xl">
-                <i data-lucide="calendar" class="w-4 h-4 text-amber-400"></i>
-                <span>{{ date('l, d M Y') }}</span>
-            </div>
-            </div>
+            <div class="flex flex-wrap items-center gap-3 shrink-0">
+                @if($user->is_bot_active)
+                    <a href="{{ route('user.bot.trading') }}" class="px-4 py-2.5 rounded-2xl bg-emerald-500/20 border-2 border-emerald-500/80 text-emerald-300 text-xs font-black uppercase tracking-wider flex items-center gap-2 shadow-[0_0_15px_rgba(16,185,129,0.4)] animate-pulse hover:scale-105 transition" title="Quant Bot is Active & Mining ROI">
+                        <span class="relative flex h-2.5 w-2.5">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                        </span>
+                        <span>BOT: ACTIVE ⚡</span>
+                    </a>
+                @else
+                    <a href="{{ route('user.bot.index') }}" class="px-4 py-2.5 rounded-2xl bg-amber-500/20 border-2 border-amber-400/80 text-amber-300 text-xs font-black uppercase tracking-wider flex items-center gap-2 shadow-[0_0_15px_rgba(243,202,82,0.4)] animate-pulse hover:scale-105 transition" title="Click to Start Quant Bot for Daily ROI">
+                        <span class="h-2.5 w-2.5 rounded-full bg-amber-400"></span>
+                        <span>BOT: INACTIVE (START BOT) ⚡</span>
+                    </a>
+                @endif
 
-        <!-- SINGLE OFFICIAL MEMBER REFERRAL LINK CARD -->
-        <div
-            class="p-5 rounded-3xl pdf-package-card flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 relative z-10 shadow-xl">
-            <div class="flex items-center gap-4 overflow-hidden">
-                <div class="w-12 h-12 rounded-2xl pdf-gold-badge flex items-center justify-center font-black shrink-0">
-                    <i data-lucide="link" class="w-6 h-6 text-black"></i>
+                <div class="px-4 py-2.5 rounded-2xl bg-black/80 border-2 border-amber-400/80 text-amber-300 text-xs font-bold font-mono flex items-center gap-2 shadow-xl">
+                    <i data-lucide="calendar" class="w-4 h-4 text-amber-400"></i>
+                    <span>{{ date('l, d M Y') }}</span>
                 </div>
-                <div class="overflow-hidden">
-                    <span class="text-xs font-extrabold text-amber-400 uppercase tracking-wider block">YOUR OFFICIAL
-                        REFERRAL LINK</span>
-                    <p class="text-sm text-neutral-200 font-mono font-bold truncate mt-0.5">
-                        {{ url('/user/register?sponsor=' . $user->referral_code) }}
-                    </p>
-                    </div>
-                    </div>
-            <button
-                onclick="navigator.clipboard.writeText('{{ url('/user/register?sponsor=' . $user->referral_code) }}'); showToast('Copied!', 'Referral link copied to clipboard.', 'success');"
-                class="px-6 py-3 rounded-2xl pdf-gold-ribbon hover:brightness-110 text-black font-black text-xs uppercase tracking-wider transition shrink-0 flex items-center justify-center gap-2 cursor-pointer">
-                <i data-lucide="copy" class="w-4 h-4 text-black"></i> Copy Referral Link
-            </button>
             </div>
+        </div>
+
+        <!-- 1 SINGLE ROW GRID: BOT STATUS BANNER & REFERRAL LINK CARD -->
+        <div class="grid grid-cols-1 dashboard-two-cards-row gap-4 relative z-10">
+            <!-- BOT STATUS CARD -->
+            @if(!$user->is_bot_active)
+                <div class="p-4 rounded-3xl pdf-package-card flex flex-col sm:flex-row items-center justify-between gap-3 shadow-xl animate-pulse">
+                    <div class="flex items-center gap-3 text-center sm:text-left overflow-hidden">
+                        <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/50 flex items-center justify-center text-amber-400 shrink-0">
+                            <i data-lucide="zap" class="w-5 h-5 text-amber-400 fill-amber-400"></i>
+                        </div>
+                        <div class="overflow-hidden">
+                            <h4 class="text-xs sm:text-sm font-black text-amber-300 uppercase tracking-wider truncate">⚡ ATTENTION: TRADING BOT IS INACTIVE</h4>
+                            <p class="text-[11px] text-neutral-200 truncate">Daily ROI income is ONLY paid with an active Trading Bot.</p>
+                        </div>
+                    </div>
+                    <a href="{{ route('user.bot.index') }}" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-300 hover:to-yellow-400 text-black font-black text-xs uppercase tracking-wider shadow-lg hover:scale-105 transition shrink-0 flex items-center gap-1.5 border border-yellow-200 whitespace-nowrap">
+                        <i data-lucide="play-circle" class="w-4 h-4 text-black fill-black"></i>
+                        <span>START BOT</span>
+                    </a>
+                </div>
+            @else
+                <div class="p-4 rounded-3xl pdf-package-card flex flex-col sm:flex-row items-center justify-between gap-3 shadow-xl">
+                    <div class="flex items-center gap-3 text-center sm:text-left overflow-hidden">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/50 flex items-center justify-center text-emerald-400 shrink-0">
+                            <i data-lucide="cpu" class="w-5 h-5 text-emerald-400"></i>
+                        </div>
+                        <div class="overflow-hidden">
+                            <h4 class="text-xs sm:text-sm font-black text-emerald-300 uppercase tracking-wider truncate">🚀 TRADING BOT IS ACTIVE & MINING</h4>
+                            <p class="text-[11px] text-neutral-200 truncate">Activated on <strong class="text-amber-300 font-mono">{{ $user->bot_activated_at?->format('M d, Y H:i') }}</strong>. Yield mining 24/7.</p>
+                        </div>
+                    </div>
+                    <a href="{{ route('user.bot.trading') }}" class="px-4 py-2.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/50 font-black text-xs uppercase tracking-wider shadow-md hover:scale-105 transition shrink-0 flex items-center gap-1.5 whitespace-nowrap">
+                        <i data-lucide="line-chart" class="w-4 h-4 text-emerald-400"></i>
+                        <span>TERMINAL</span>
+                    </a>
+                </div>
+            @endif
+
+            <!-- REFERRAL LINK CARD -->
+            <div class="p-4 rounded-3xl pdf-package-card flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 shadow-xl">
+                <div class="flex items-center gap-3 overflow-hidden">
+                    <div class="w-10 h-10 rounded-xl pdf-gold-badge flex items-center justify-center font-black shrink-0">
+                        <i data-lucide="link" class="w-5 h-5 text-black"></i>
+                    </div>
+                    <div class="overflow-hidden">
+                        <span class="text-xs font-extrabold text-amber-400 uppercase tracking-wider block">OFFICIAL REFERRAL LINK</span>
+                        <p class="text-xs text-neutral-200 font-mono font-bold truncate mt-0.5">
+                            {{ url('/user/register?sponsor=' . $user->referral_code) }}
+                        </p>
+                    </div>
+                </div>
+                <button
+                    onclick="navigator.clipboard.writeText('{{ url('/user/register?sponsor=' . $user->referral_code) }}'); showToast('Copied!', 'Referral link copied to clipboard.', 'success');"
+                    class="px-4 py-2.5 rounded-xl pdf-gold-ribbon hover:brightness-110 text-black font-black text-xs uppercase tracking-wider transition shrink-0 flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap">
+                    <i data-lucide="copy" class="w-4 h-4 text-black"></i> Copy Link
+                </button>
+            </div>
+        </div>
 
         <!-- 5 MAIN FINANCIAL WALLET & CAPITAL CARDS (ALWAYS 1 SINGLE ROW ON DESKTOP) -->
         <div class="five-cards-row relative z-10">
