@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\User\ArbitrageController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\DepositController;
 use App\Http\Controllers\User\IncomeReportController;
@@ -40,10 +41,17 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::get('/', [DashboardController::class, '__invoke']);
         Route::get('dashboard', [DashboardController::class, '__invoke'])->name('dashboard');
 
+        // Live Arbitrage Trading Dashboard Routes
+        Route::get('arbitrage', [ArbitrageController::class, 'index'])->name('arbitrage');
+        Route::get('arbitration', [ArbitrageController::class, 'index'])->name('arbitration');
+
         // Add Fund / Deposit Wallet Routes
         Route::get('deposits', [DepositController::class, 'index'])->name('deposits.index');
         Route::post('deposits', [DepositController::class, 'store'])->name('deposits.store');
         Route::get('deposits/history', [DepositController::class, 'history'])->name('deposits.history');
+        Route::get('deposits/payment/{deposit}', [DepositController::class, 'paymentView'])->name('deposits.payment');
+        Route::get('deposits/{deposit}/check-status', [DepositController::class, 'checkStatus'])->name('deposits.check-status');
+        Route::get('deposits/{deposit}', [DepositController::class, 'show'])->name('deposits.show');
 
         // Earning Wallet Withdrawal Routes (PDF Slide 20: Min $10, 10% Deduction, USDT BEP20)
         Route::get('withdrawals', [WithdrawalController::class, 'index'])->name('withdrawals.index');

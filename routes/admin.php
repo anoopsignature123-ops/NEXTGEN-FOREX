@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DepositController;
+use App\Http\Controllers\Admin\GatewaySettingController;
 use App\Http\Controllers\Admin\IncomeReportController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\NetworkController;
@@ -97,6 +98,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('profile', [ProfileController::class, 'index'])->name('profile');
         Route::put('profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
         Route::put('password', [ProfileController::class, 'updatePassword'])->name('password.update');
+
+        // Payment Gateway Settings & Mode Route
+        Route::get('gateway-settings', [GatewaySettingController::class, 'index'])->name('gateway-settings.index');
+        Route::put('gateway-settings', [GatewaySettingController::class, 'update'])->name('gateway-settings.update');
 
         // Admin Support Ticket Management Routes
         Route::get('tickets', [AdminTicketController::class, 'index'])->name('tickets.index');

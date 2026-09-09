@@ -33,6 +33,45 @@
             <span class="nav-text">Dashboard</span>
         </a>
 
+        <style>
+            @keyframes arbitrageGoldGlow {
+                0%, 100% {
+                    box-shadow: 0 0 15px rgba(243, 202, 82, 0.75), 0 0 25px rgba(212, 175, 55, 0.45);
+                    filter: brightness(1);
+                }
+                50% {
+                    box-shadow: 0 0 28px rgba(243, 202, 82, 1), 0 0 45px rgba(255, 215, 0, 0.85);
+                    filter: brightness(1.15);
+                }
+            }
+
+            .arbitrage-gold-pill {
+                background: linear-gradient(90deg, #d4af37 0%, #fef08a 45%, #eab308 80%, #d4af37 100%) !important;
+                color: #000000 !important;
+                border-radius: 9999px !important;
+                animation: arbitrageGoldGlow 2.2s infinite ease-in-out !important;
+                border: 1.5px solid rgba(255, 255, 255, 0.6) !important;
+                transition: all 0.3s ease !important;
+            }
+            .arbitrage-gold-pill .nav-text,
+            .arbitrage-gold-pill i,
+            .arbitrage-gold-pill svg {
+                color: #000000 !important;
+                font-weight: 900 !important;
+                stroke: #000000 !important;
+            }
+            .arbitrage-gold-pill:hover {
+                transform: scale(1.04) !important;
+            }
+        </style>
+
+        <!-- Arbitrage Link -->
+        <a class='nav-item arbitrage-gold-pill flex items-center gap-3 mx-3 my-1.5 px-4 py-2.5 rounded-full text-sm font-black text-black shadow-xl transition'
+            href='{{ route("user.arbitrage") }}'>
+            <i data-lucide="rocket" class="w-5 h-5 shrink-0 text-black"></i>
+            <span class="nav-text text-black font-black">Arbitrage</span>
+        </a>
+
         <!-- 1. ADD FUND & WITHDRAWAL SECTION -->
         <div class="nav-section-title px-5 pt-4 pb-2 mt-2 text-[10px] font-black uppercase tracking-[2px] text-amber-400/70">
             ADD FUND & WITHDRAWAL
