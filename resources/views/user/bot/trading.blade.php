@@ -3,103 +3,151 @@
 @section('title', 'Live Trading Terminal & Bot Activation')
 
 @section('content')
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <style>
-        /* Custom scrollbar for horizontal pair switcher on mobile */
+        :root {
+            --bg-card: rgba(6, 26, 17, 0.85);
+            --border-card: rgba(243, 202, 82, 0.35);
+            --accent-gold: #f3ca52;
+            --accent-green: #10b981;
+        }
+
+        /* Custom Scrollbar for horizontal pair switcher on mobile */
         .pair-switcher-scroll::-webkit-scrollbar {
             height: 4px;
         }
         .pair-switcher-scroll::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.6);
             border-radius: 9999px;
         }
         .pair-switcher-scroll::-webkit-scrollbar-thumb {
             background: rgba(243, 202, 82, 0.4);
             border-radius: 9999px;
         }
+
+        /* Glowing Pulse Rings */
+        @keyframes beaconPulse {
+            0% { transform: scale(0.6); opacity: 0.9; }
+            70% { transform: scale(2.2); opacity: 0; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+        .pulse-dot-ring {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            position: relative;
+        }
+        .pulse-dot-ring::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: inherit;
+            opacity: 0.6;
+            animation: beaconPulse 1.8s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+        }
+
+        /* Order Log Row Slide Animation */
+        @keyframes logSlide {
+            0% { opacity: 0; transform: translateX(-10px); background: rgba(16, 185, 129, 0.2); }
+            100% { opacity: 1; transform: translateX(0); background: transparent; }
+        }
+        .log-row-animate {
+            animation: logSlide 0.6s ease-out;
+        }
     </style>
 
     <div class="w-full space-y-6">
 
-        <!-- Top Header Banner (Full Mobile Responsive) -->
-        <div class="p-4 sm:p-6 rounded-2xl bg-gradient-to-r from-amber-950/60 via-black to-amber-950/60 border border-amber-500/40 shadow-xl flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
-            <div class="space-y-1 w-full lg:w-auto">
+        <!-- Top Header Banner (Full Mobile Responsive NextGen Gold Theme) -->
+        <div class="p-5 sm:p-7 rounded-2xl bg-gradient-to-r from-amber-950/60 via-black to-amber-950/60 border border-amber-500/40 shadow-2xl flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 relative overflow-hidden text-left">
+            <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="space-y-1.5 z-10 w-full lg:w-auto text-left">
                 <div class="flex flex-wrap items-center gap-2">
                     <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-400/50 text-amber-300 text-[10px] font-black tracking-widest uppercase">LIVE ENGINE</span>
-                    <span class="text-[10px] sm:text-[11px] text-amber-400 font-extrabold tracking-[2px] uppercase">TRADINGVIEW ENGINE</span>
+                    <span class="text-[10px] sm:text-[11px] text-amber-400 font-extrabold tracking-[2px] uppercase">TRADINGVIEW SYSTEM</span>
                 </div>
-                <h1 class="text-lg sm:text-2xl lg:text-3xl font-black text-amber-300 font-heading tracking-tight drop-shadow">
-                    QUANT TRADING TERMINAL
+                <h1 class="text-xl sm:text-3xl font-black text-amber-300 font-heading tracking-tight drop-shadow uppercase flex items-center gap-3 text-left">
+                    <i class="fa-solid fa-chart-line text-amber-400 animate-pulse"></i>
+                    Quant Trading Terminal
                 </h1>
-                <p class="text-xs sm:text-sm text-neutral-300 max-w-2xl font-medium">
+                <p class="text-xs sm:text-sm text-neutral-300 max-w-2xl font-medium text-left">
                     Monitor real-time crypto markets, switch live trading pairs, and launch your NextGen Autonomous Bot.
                 </p>
             </div>
 
-            <div class="w-full lg:w-auto flex items-center justify-start lg:justify-end shrink-0">
+            <div class="z-10 w-full lg:w-auto flex items-center justify-start lg:justify-end shrink-0">
                 <a href="{{ route('user.bot.index') }}"
-                    class="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-amber-300 font-bold text-xs border border-amber-500/40 hover:border-amber-400 shadow-md transition flex items-center justify-center gap-2">
-                    <i data-lucide="arrow-left" class="w-4 h-4 text-amber-400"></i>
+                    class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-black/80 hover:bg-neutral-900 text-amber-300 font-bold text-xs border border-amber-500/40 hover:border-amber-400 shadow-xl transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-arrow-left text-amber-400"></i>
                     <span>Back to Overview</span>
                 </a>
             </div>
         </div>
 
         @if(session('success'))
-            <div class="p-4 rounded-xl bg-emerald-500/20 border border-emerald-500/60 text-emerald-300 text-xs sm:text-sm font-bold flex items-center justify-between shadow-lg">
+            <div class="p-4 rounded-xl bg-emerald-500/20 border border-emerald-500/60 text-emerald-300 text-xs sm:text-sm font-bold flex items-center justify-between shadow-xl text-left">
                 <div class="flex items-center gap-2.5">
-                    <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400 shrink-0"></i>
+                    <i class="fa-solid fa-circle-check text-emerald-400 text-base shrink-0"></i>
                     <span>{{ session('success') }}</span>
                 </div>
             </div>
         @endif
 
         @if(session('info'))
-            <div class="p-4 rounded-xl bg-amber-500/20 border border-amber-500/60 text-amber-300 text-xs sm:text-sm font-bold flex items-center justify-between shadow-lg">
+            <div class="p-4 rounded-xl bg-amber-500/20 border border-amber-500/60 text-amber-300 text-xs sm:text-sm font-bold flex items-center justify-between shadow-xl text-left">
                 <div class="flex items-center gap-2.5">
-                    <i data-lucide="info" class="w-5 h-5 text-amber-400 shrink-0"></i>
+                    <i class="fa-solid fa-circle-info text-amber-400 text-base shrink-0"></i>
                     <span>{{ session('info') }}</span>
                 </div>
             </div>
         @endif
 
         <!-- Pair Selection & High-Definition Responsive TradingView Container -->
-        <div class="p-4 sm:p-6 rounded-2xl bg-neutral-900/95 border border-amber-500/30 shadow-xl space-y-4 sm:space-y-5">
+        <div class="p-4 sm:p-6 rounded-2xl bg-gradient-to-b from-[#042417] via-[#021d12] to-black border border-amber-500/40 shadow-2xl space-y-4 sm:space-y-5 text-left">
             
             <!-- Pair Selector Controls Bar (Mobile Swipe Scrollable) -->
-            <div class="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-4 border-b border-neutral-800 pb-4">
-                <div>
-                    <h2 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
-                        <i data-lucide="line-chart" class="w-5 h-5 text-amber-400"></i>
+            <div class="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-4 border-b border-amber-500/20 pb-4 text-left">
+                <div class="text-left">
+                    <h2 class="text-base sm:text-lg font-black text-white flex items-center gap-2 uppercase tracking-wide text-left">
+                        <i class="fa-solid fa-layer-group text-amber-400"></i>
                         Crypto Pair Selector
                     </h2>
-                    <p class="text-xs text-neutral-400">Select a cryptocurrency pair to update the live TradingView market chart.</p>
+                    <p class="text-xs text-neutral-400 text-left">Select a cryptocurrency pair to update the live TradingView market chart in real time.</p>
                 </div>
 
                 <!-- Touch-scrollable pair buttons on mobile -->
                 <div class="flex flex-nowrap sm:flex-wrap overflow-x-auto pair-switcher-scroll w-full xl:w-auto gap-2 sm:gap-2.5 pb-2 sm:pb-0" id="pairSelectorButtons">
                     <button type="button" onclick="switchPair('BTCUSDT', this)" 
-                        class="pair-btn active-pair shrink-0 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-black tracking-wide border transition-all shadow-[0_0_15px_rgba(243,202,82,0.4)] bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 text-black border-amber-300 scale-105 flex items-center gap-1.5">
-                        <span>₿</span>
+                        class="pair-btn active-pair shrink-0 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-black tracking-wide border transition-all shadow-[0_0_15px_rgba(243,202,82,0.4)] bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 text-black border-amber-300 scale-105 flex items-center gap-2">
+                        <i class="fa-brands fa-bitcoin text-base"></i>
                         <span>BTC / USDT</span>
                     </button>
                     <button type="button" onclick="switchPair('ETHUSDT', this)" 
-                        class="pair-btn shrink-0 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold tracking-wide border transition-all bg-neutral-950 text-neutral-300 border-neutral-800 hover:border-amber-500/50 hover:text-amber-300 flex items-center gap-1.5">
-                        <span>Ξ</span>
+                        class="pair-btn shrink-0 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold tracking-wide border transition-all bg-black/80 text-neutral-300 border-amber-500/30 hover:border-amber-400 hover:text-amber-300 flex items-center gap-2">
+                        <i class="fa-brands fa-ethereum text-base"></i>
                         <span>ETH / USDT</span>
                     </button>
                     <button type="button" onclick="switchPair('SOLUSDT', this)" 
-                        class="pair-btn shrink-0 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold tracking-wide border transition-all bg-neutral-950 text-neutral-300 border-neutral-800 hover:border-amber-500/50 hover:text-amber-300 flex items-center gap-1.5">
-                        <span>◎</span>
+                        class="pair-btn shrink-0 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold tracking-wide border transition-all bg-black/80 text-neutral-300 border-amber-500/30 hover:border-amber-400 hover:text-amber-300 flex items-center gap-2">
+                        <i class="fa-solid fa-bolt text-base"></i>
                         <span>SOL / USDT</span>
                     </button>
                     <button type="button" onclick="switchPair('BNBUSDT', this)" 
-                        class="pair-btn shrink-0 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold tracking-wide border transition-all bg-neutral-950 text-neutral-300 border-neutral-800 hover:border-amber-500/50 hover:text-amber-300 flex items-center gap-1.5">
-                        <span>🔶</span>
+                        class="pair-btn shrink-0 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold tracking-wide border transition-all bg-black/80 text-neutral-300 border-amber-500/30 hover:border-amber-400 hover:text-amber-300 flex items-center gap-2">
+                        <i class="fa-solid fa-gem text-base"></i>
                         <span>BNB / USDT</span>
                     </button>
                     <button type="button" onclick="switchPair('XRPUSDT', this)" 
-                        class="pair-btn shrink-0 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold tracking-wide border transition-all bg-neutral-950 text-neutral-300 border-neutral-800 hover:border-amber-500/50 hover:text-amber-300 flex items-center gap-1.5">
-                        <span>✕</span>
+                        class="pair-btn shrink-0 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold tracking-wide border transition-all bg-black/80 text-neutral-300 border-amber-500/30 hover:border-amber-400 hover:text-amber-300 flex items-center gap-2">
+                        <i class="fa-solid fa-xmark text-base"></i>
                         <span>XRP / USDT</span>
                     </button>
                 </div>
@@ -111,50 +159,89 @@
             </div>
         </div>
 
-        <!-- Bot Activation Control Box (Full Width Mobile Responsive Row) -->
-        <div class="w-full p-4 sm:p-5 rounded-2xl bg-neutral-900/90 border border-amber-500/40 shadow-xl flex flex-col md:flex-row items-center justify-between gap-4">
-            <div class="space-y-1.5 text-center md:text-left w-full md:w-auto">
-                <div class="flex items-center justify-center md:justify-start gap-2">
-                    <span class="text-[10px] font-black text-amber-400 tracking-[2px] uppercase">QUANT ENGINE CONTROL</span>
-                    @if($user->is_bot_active)
-                        <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/60 text-emerald-400 text-[10px] font-extrabold uppercase flex items-center gap-1.5">
-                            <span class="relative flex h-2 w-2">
-                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                                <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                            </span>
-                            BOT ACTIVE
-                        </span>
-                    @else
-                        <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/60 text-amber-400 text-[10px] font-extrabold uppercase">
-                            ⚡ PENDING ACTIVATION
-                        </span>
-                    @endif
+        <!-- Live Quant Order Log Stream Widget -->
+        <div class="p-4 sm:p-6 rounded-2xl bg-gradient-to-b from-[#042417] via-[#021d12] to-black border border-amber-500/40 shadow-2xl space-y-4 text-left">
+            <div class="flex items-center justify-between border-b border-amber-500/20 pb-3">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-terminal text-amber-400 text-lg"></i>
+                    <h3 class="text-base font-black text-white uppercase tracking-wide">Live Quant Execution Terminal Stream</h3>
                 </div>
-                <h3 class="text-base sm:text-lg font-black text-white">
-                    {{ $user->is_bot_active ? 'Trading BOT is Active & Mining ROI 24/7' : 'Ready to Launch Quant Trading BOT?' }}
-                </h3>
-                <p class="text-xs text-neutral-300 font-normal leading-relaxed">
-                    @if($user->is_bot_active)
-                        Activated on <strong class="text-amber-300 font-mono">{{ $user->bot_activated_at?->format('F d, Y \a\t H:i A') }}</strong>.
-                    @else
-                        Clicking <strong class="text-amber-300 font-semibold">START BOT</strong> triggers one-time activation of your NextGen Quant Trading Engine to unlock daily ROI.
-                    @endif
-                </p>
+                <div class="flex items-center gap-2">
+                    <div class="pulse-dot-ring bg-emerald-400"></div>
+                    <span class="text-xs font-mono font-bold text-emerald-400 uppercase">Live Feed</span>
+                </div>
             </div>
 
-            <div class="shrink-0 w-full md:w-auto flex justify-center">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 font-mono text-xs text-neutral-300">
+                <div class="p-3 rounded-xl bg-black/60 border border-amber-500/20 flex items-center justify-between">
+                    <span class="text-neutral-400">Execution Speed:</span>
+                    <span class="text-amber-300 font-bold">~12.4ms (Ultra Latency)</span>
+                </div>
+                <div class="p-3 rounded-xl bg-black/60 border border-amber-500/20 flex items-center justify-between">
+                    <span class="text-neutral-400">Algorithmic Win Rate:</span>
+                    <span class="text-emerald-400 font-bold">99.4% Verified</span>
+                </div>
+                <div class="p-3 rounded-xl bg-black/60 border border-amber-500/20 flex items-center justify-between">
+                    <span class="text-neutral-400">Active Liquidity:</span>
+                    <span class="text-yellow-300 font-bold">$2.4M BSC Pool</span>
+                </div>
+            </div>
+
+            <div class="max-h-36 overflow-y-auto font-mono text-[11px] space-y-1.5 pr-2" id="quantLogContainer">
+                <!-- Dynamic execution log lines injected via JS -->
+            </div>
+        </div>
+
+        <!-- Bot Activation Control Box (Left Icon Badge & Strictly Left-Aligned Text) -->
+        <div class="w-full p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-amber-950/80 via-black to-amber-950/80 border border-amber-500/50 shadow-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden text-left">
+            <div class="absolute -left-10 -top-10 w-40 h-40 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+            <div class="flex items-start sm:items-center gap-5 sm:gap-6 z-10 w-full md:w-auto text-left">
+                <!-- Glowing Metallic Icon Badge on Left -->
+                <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-amber-400 via-yellow-400 to-amber-600 text-black flex items-center justify-center shadow-[0_0_25px_rgba(243,202,82,0.5)] text-2xl sm:text-3xl shrink-0 border border-yellow-200 mr-1 sm:mr-2">
+                    <i class="fa-solid fa-bolt-lightning animate-pulse"></i>
+                </div>
+
+                <div class="space-y-1.5 text-left min-w-0 flex-1 pl-1">
+                    <div class="flex items-center gap-2 text-left">
+                        <span class="text-[10px] font-black text-amber-400 tracking-[2px] uppercase">QUANT ENGINE CONTROL</span>
+                        @if($user->is_bot_active)
+                            <span class="px-3 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/60 text-emerald-400 text-[10px] font-extrabold uppercase flex items-center gap-2">
+                                <div class="pulse-dot-ring bg-emerald-400"></div>
+                                BOT ACTIVE
+                            </span>
+                        @else
+                            <span class="px-3 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/60 text-amber-400 text-[10px] font-extrabold uppercase">
+                                ⚡ PENDING ACTIVATION
+                            </span>
+                        @endif
+                    </div>
+                    <h3 class="text-base sm:text-xl font-black text-white text-left">
+                        {{ $user->is_bot_active ? 'Trading BOT is Active & Mining ROI 24/7' : 'Ready to Launch Quant Trading BOT?' }}
+                    </h3>
+                    <p class="text-xs text-neutral-300 font-normal leading-relaxed max-w-xl text-left">
+                        @if($user->is_bot_active)
+                            Activated on <strong class="text-amber-300 font-mono">{{ $user->bot_activated_at?->format('F d, Y \a\t H:i A') }}</strong>. Automated yield compounding is active 24/7.
+                        @else
+                            Clicking <strong class="text-amber-300 font-semibold">START BOT</strong> triggers one-time activation of your NextGen Quant Trading Engine to unlock daily ROI.
+                        @endif
+                    </p>
+                </div>
+            </div>
+
+            <div class="shrink-0 w-full md:w-auto flex justify-start md:justify-end z-10">
                 @if($user->is_bot_active)
                     <button type="button" disabled
-                        class="w-full sm:w-auto px-6 py-3 rounded-xl bg-emerald-600/30 border border-emerald-500/80 text-emerald-300 font-extrabold text-xs uppercase tracking-wider shadow-md flex items-center justify-center gap-2 cursor-not-allowed opacity-90">
-                        <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+                        class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-emerald-600/30 border border-emerald-500/80 text-emerald-300 font-extrabold text-xs uppercase tracking-wider shadow-md flex items-center justify-center gap-2 cursor-not-allowed opacity-90">
+                        <i class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
                         <span>BOT ACTIVE & MINING 24/7</span>
                     </button>
                 @else
                     <form action="{{ route('user.bot.activate') }}" method="POST" onsubmit="return confirm('Are you sure you want to START the Trading BOT? This will initiate automated ROI mining.');" class="w-full sm:w-auto">
                         @csrf
                         <button type="submit"
-                            class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-300 hover:to-yellow-300 text-black font-black text-xs sm:text-sm uppercase tracking-wider shadow-[0_0_20px_rgba(243,202,82,0.5)] hover:scale-105 transition flex items-center justify-center gap-2 border border-yellow-200 cursor-pointer">
-                            <i data-lucide="zap" class="w-4 h-4 text-black fill-black"></i>
+                            class="w-full sm:w-auto px-9 py-4 rounded-xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-300 hover:to-yellow-300 text-black font-black text-xs sm:text-sm uppercase tracking-wider shadow-[0_0_25px_rgba(243,202,82,0.5)] hover:scale-105 transition flex items-center justify-center gap-2.5 border border-yellow-200 cursor-pointer">
+                            <i class="fa-solid fa-bolt text-black text-base"></i>
                             <span>START BOT</span>
                         </button>
                     </form>
@@ -194,7 +281,7 @@
                     "theme": "dark",
                     "style": "1",
                     "locale": "en",
-                    "toolbar_bg": "#0b0d13",
+                    "toolbar_bg": "#021d12",
                     "enable_publishing": false,
                     "hide_side_toolbar": false,
                     "allow_symbol_change": true,
@@ -207,17 +294,50 @@
             // Reset all buttons to inactive state
             const buttons = document.querySelectorAll('.pair-btn');
             buttons.forEach(btn => {
-                btn.className = 'pair-btn shrink-0 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold tracking-wide border transition-all bg-neutral-950 text-neutral-300 border-neutral-800 hover:border-amber-500/50 hover:text-amber-300 flex items-center gap-1.5';
+                btn.className = 'pair-btn shrink-0 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold tracking-wide border transition-all bg-black/80 text-neutral-300 border-amber-500/30 hover:border-amber-400 hover:text-amber-300 flex items-center gap-2';
             });
 
             // Set clicked button to active state
-            btnElement.className = 'pair-btn active-pair shrink-0 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-black tracking-wide border transition-all shadow-[0_0_15px_rgba(243,202,82,0.4)] bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 text-black border-amber-300 scale-105 flex items-center gap-1.5';
+            btnElement.className = 'pair-btn active-pair shrink-0 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-black tracking-wide border transition-all shadow-[0_0_15px_rgba(243,202,82,0.4)] bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 text-black border-amber-300 scale-105 flex items-center gap-2';
 
             loadTradingViewChart(symbol);
         }
 
+        // Live Log Stream Simulator
+        const LOG_SYMBOLS = ['BTC/USDT', 'ETH/USDT', 'SOL/USDT', 'BNB/USDT'];
+        const EXCHANGES = ['Binance', 'OKX', 'Bybit'];
+
+        function addQuantLog() {
+            const container = document.getElementById('quantLogContainer');
+            if (!container) return;
+
+            const sym = LOG_SYMBOLS[Math.floor(Math.random() * LOG_SYMBOLS.length)];
+            const exFrom = EXCHANGES[Math.floor(Math.random() * EXCHANGES.length)];
+            let exTo = EXCHANGES[Math.floor(Math.random() * EXCHANGES.length)];
+            while (exTo === exFrom) exTo = EXCHANGES[Math.floor(Math.random() * EXCHANGES.length)];
+
+            const margin = (Math.random() * 0.75 + 0.15).toFixed(2);
+            const timeStr = new Date().toLocaleTimeString();
+
+            const div = document.createElement('div');
+            div.className = 'log-row-animate flex items-center justify-between p-1.5 rounded bg-black/40 border border-amber-500/10 text-left';
+            div.innerHTML = `
+                <span class="text-neutral-400">[${timeStr}] <strong class="text-white">${sym}</strong> Arb Route: <span class="text-sky-400">${exFrom} ➔ ${exTo}</span></span>
+                <span class="text-emerald-400 font-bold">+${margin}% Yield matched</span>
+            `;
+
+            container.insertBefore(div, container.firstChild);
+            if (container.children.length > 8) {
+                container.removeChild(container.lastChild);
+            }
+        }
+
         document.addEventListener("DOMContentLoaded", function() {
             loadTradingViewChart('BTCUSDT');
+
+            // Seed initial logs
+            for (let i = 0; i < 4; i++) addQuantLog();
+            setInterval(addQuantLog, 3500);
         });
 
         // Window resize event handler to recalculate responsive chart height

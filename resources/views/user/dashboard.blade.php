@@ -116,13 +116,13 @@
             <!-- BOT STATUS CARD -->
             @if(!$user->is_bot_active)
                 <div class="p-4 rounded-3xl pdf-package-card flex flex-col sm:flex-row items-center justify-between gap-3 shadow-xl animate-pulse">
-                    <div class="flex items-center gap-3 text-center sm:text-left overflow-hidden">
+                    <div class="flex items-center gap-3 text-left overflow-hidden min-w-0 flex-1">
                         <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/50 flex items-center justify-center text-amber-400 shrink-0">
                             <i data-lucide="zap" class="w-5 h-5 text-amber-400 fill-amber-400"></i>
                         </div>
-                        <div class="overflow-hidden">
-                            <h4 class="text-xs sm:text-sm font-black text-amber-300 uppercase tracking-wider truncate">⚡ ATTENTION: TRADING BOT IS INACTIVE</h4>
-                            <p class="text-[11px] text-neutral-200 truncate">Daily ROI income is ONLY paid with an active Trading Bot.</p>
+                        <div class="overflow-hidden min-w-0 flex-1 text-left">
+                            <h4 class="text-xs sm:text-sm font-black text-amber-300 uppercase tracking-wider truncate text-left">⚡ ATTENTION: TRADING BOT IS INACTIVE</h4>
+                            <p class="text-[11px] text-neutral-200 truncate text-left">Daily ROI income is ONLY paid with an active Trading Bot.</p>
                         </div>
                     </div>
                     <a href="{{ route('user.bot.index') }}" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-300 hover:to-yellow-400 text-black font-black text-xs uppercase tracking-wider shadow-lg hover:scale-105 transition shrink-0 flex items-center gap-1.5 border border-yellow-200 whitespace-nowrap">
@@ -132,13 +132,13 @@
                 </div>
             @else
                 <div class="p-4 rounded-3xl pdf-package-card flex flex-col sm:flex-row items-center justify-between gap-3 shadow-xl">
-                    <div class="flex items-center gap-3 text-center sm:text-left overflow-hidden">
+                    <div class="flex items-center gap-3 text-left overflow-hidden min-w-0 flex-1">
                         <div class="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/50 flex items-center justify-center text-emerald-400 shrink-0">
                             <i data-lucide="cpu" class="w-5 h-5 text-emerald-400"></i>
                         </div>
-                        <div class="overflow-hidden">
-                            <h4 class="text-xs sm:text-sm font-black text-emerald-300 uppercase tracking-wider truncate">🚀 TRADING BOT IS ACTIVE & MINING</h4>
-                            <p class="text-[11px] text-neutral-200 truncate">Activated on <strong class="text-amber-300 font-mono">{{ $user->bot_activated_at?->format('M d, Y H:i') }}</strong>. Yield mining 24/7.</p>
+                        <div class="overflow-hidden min-w-0 flex-1 text-left">
+                            <h4 class="text-xs sm:text-sm font-black text-emerald-300 uppercase tracking-wider truncate text-left">🚀 TRADING BOT IS ACTIVE & MINING</h4>
+                            <p class="text-[11px] text-neutral-200 truncate text-left">Activated on <strong class="text-amber-300 font-mono">{{ $user->bot_activated_at?->format('M d, Y H:i') }}</strong>. Yield mining 24/7.</p>
                         </div>
                     </div>
                     <a href="{{ route('user.bot.trading') }}" class="px-4 py-2.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/50 font-black text-xs uppercase tracking-wider shadow-md hover:scale-105 transition shrink-0 flex items-center gap-1.5 whitespace-nowrap">

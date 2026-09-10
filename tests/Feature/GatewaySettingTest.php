@@ -28,26 +28,26 @@ class GatewaySettingTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee('PAYMENT GATEWAY CONFIGURATION');
-        $response->assertSee('GATEWAY API & MODE SETTINGS', false);
+        $response->assertSee('GATEWAY API SETTINGS', false);
     }
 
-    public function test_admin_can_update_gateway_mode_to_testing_and_live(): void
+    public function test_admin_can_update_gateway_mode_to_live(): void
     {
         $admin = User::factory()->create([
             'role_id' => 1,
         ]);
 
         $response = $this->actingAs($admin)->put('/admin/gateway-settings', [
-            'api_key' => 'pk_test_123456789',
-            'mode' => 'testing',
+            'api_key' => 'pk_Hwho4MCbvOT8j1e6h254lJOkh647N3Zs',
+            'mode' => 'live',
         ]);
 
         $response->assertRedirect();
         $response->assertSessionHas('success');
 
         $settingService = app(GatewaySettingService::class);
-        $this->assertTrue($settingService->isTesting());
-        $this->assertEquals('pk_test_123456789', $settingService->getApiKey());
+        $this->assertFalse($settingService->isTesting());
+        $this->assertEquals('pk_Hwho4MCbvOT8j1e6h254lJOkh647N3Zs', $settingService->getApiKey());
     }
 
     public function test_payment_gateway_in_testing_mode_does_not_call_external_api_and_simulates_success(): void

@@ -23,14 +23,14 @@ class GatewaySettingService
             if (is_array($data)) {
                 return [
                     'api_key' => $data['api_key'] ?? env('PAYMENT_GATEWAY_API_KEY', 'pk_Hwho4MCbvOT8j1e6h254lJOkh647N3Zs'),
-                    'mode' => $data['mode'] ?? env('PAYMENT_GATEWAY_MODE', 'testing'),
+                    'mode' => $data['mode'] ?? env('PAYMENT_GATEWAY_MODE', 'live'),
                 ];
             }
         }
 
         return [
             'api_key' => env('PAYMENT_GATEWAY_API_KEY', 'pk_Hwho4MCbvOT8j1e6h254lJOkh647N3Zs'),
-            'mode' => env('PAYMENT_GATEWAY_MODE', 'testing'),
+            'mode' => env('PAYMENT_GATEWAY_MODE', 'live'),
         ];
     }
 
@@ -41,7 +41,7 @@ class GatewaySettingService
     {
         $data = [
             'api_key' => trim($apiKey),
-            'mode' => in_array($mode, ['live', 'testing', 'test']) ? $mode : 'testing',
+            'mode' => in_array($mode, ['live', 'testing', 'test']) ? $mode : 'live',
             'updated_at' => now()->toDateTimeString(),
         ];
 

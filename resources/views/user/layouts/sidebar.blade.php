@@ -34,42 +34,72 @@
         </a>
 
         <style>
-            @keyframes arbitrageGoldGlow {
+            @keyframes goldGreenGlow {
                 0%, 100% {
-                    box-shadow: 0 0 15px rgba(243, 202, 82, 0.75), 0 0 25px rgba(212, 175, 55, 0.45);
-                    filter: brightness(1);
+                    box-shadow: 0 0 16px rgba(234, 179, 8, 0.6), 0 0 28px rgba(16, 185, 129, 0.4);
                 }
                 50% {
-                    box-shadow: 0 0 28px rgba(243, 202, 82, 1), 0 0 45px rgba(255, 215, 0, 0.85);
-                    filter: brightness(1.15);
+                    box-shadow: 0 0 30px rgba(254, 240, 138, 0.95), 0 0 45px rgba(16, 185, 129, 0.75);
+                    filter: brightness(1.08);
                 }
             }
 
-            .arbitrage-gold-pill {
-                background: linear-gradient(90deg, #d4af37 0%, #fef08a 45%, #eab308 80%, #d4af37 100%) !important;
+            @keyframes rocketTakeoff {
+                0%, 100% { transform: translateY(0) translateX(0) scale(1); }
+                50% { transform: translateY(-2px) translateX(2px) scale(1.15); }
+            }
+
+            @keyframes liveDotGlow {
+                0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 6px #eab308; }
+                50% { transform: scale(1.35); opacity: 0.7; box-shadow: 0 0 12px #fef08a; }
+            }
+
+            @keyframes shimmerGradient {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+            }
+
+            .arbitrage-pill-gold {
+                background: linear-gradient(135deg, #eab308 0%, #fef08a 35%, #f59e0b 65%, #ca8a04 100%) !important;
+                background-size: 200% 200% !important;
                 color: #000000 !important;
                 border-radius: 9999px !important;
-                animation: arbitrageGoldGlow 2.2s infinite ease-in-out !important;
-                border: 1.5px solid rgba(255, 255, 255, 0.6) !important;
-                transition: all 0.3s ease !important;
+                animation: goldGreenGlow 2.5s infinite ease-in-out, shimmerGradient 4s infinite linear !important;
+                border: 2px solid #ffffff !important;
+                transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
             }
-            .arbitrage-gold-pill .nav-text,
-            .arbitrage-gold-pill i,
-            .arbitrage-gold-pill svg {
-                color: #000000 !important;
-                font-weight: 900 !important;
-                stroke: #000000 !important;
+
+            .arbitrage-pill-gold:hover {
+                transform: scale(1.04) translateY(-1px) !important;
+                box-shadow: 0 0 35px rgba(254, 240, 138, 1), 0 0 50px rgba(16, 185, 129, 0.85) !important;
             }
-            .arbitrage-gold-pill:hover {
-                transform: scale(1.04) !important;
+
+            .rocket-anim-icon {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                animation: rocketTakeoff 1.6s infinite ease-in-out;
+            }
+
+            .live-dot-glow {
+                animation: liveDotGlow 1.4s infinite ease-in-out;
             }
         </style>
 
-        <!-- Arbitrage Link -->
-        <a class='nav-item arbitrage-gold-pill flex items-center gap-3 mx-3 my-1.5 px-4 py-2.5 rounded-full text-sm font-black text-black shadow-xl transition'
+        <!-- Arbitrage Link (Gold Metallic Pill with Rocket & LIVE Badge) -->
+        <a class='nav-item arbitrage-pill-gold flex items-center justify-between mx-3 my-2 px-4 py-2 rounded-full text-sm font-black text-black shadow-2xl transition group'
             href='{{ route("user.arbitrage") }}'>
-            <i data-lucide="rocket" class="w-5 h-5 shrink-0 text-black"></i>
-            <span class="nav-text text-black font-black">Arbitrage</span>
+            <div class="flex items-center gap-2.5 min-w-0">
+                <span class="rocket-anim-icon shrink-0">
+                    <i class="fa-solid fa-rocket text-black text-base font-black"></i>
+                </span>
+                <span class="nav-text text-black font-black text-sm tracking-wide">Arbitrage</span>
+            </div>
+            <div class="shrink-0 bg-black text-amber-400 px-2.5 py-1 rounded-full flex items-center gap-1.5 border border-amber-400/40 shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
+                <span class="w-2 h-2 rounded-full bg-amber-400 live-dot-glow inline-block"></span>
+                <span class="text-[10px] font-black tracking-wider uppercase text-amber-300">LIVE</span>
+            </div>
         </a>
 
         <!-- 1. ADD FUND & WITHDRAWAL SECTION -->
