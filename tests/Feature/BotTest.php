@@ -34,6 +34,7 @@ class BotTest extends TestCase
     public function test_authenticated_user_can_access_bot_overview_page(): void
     {
         $user = User::factory()->create([
+            'status' => 'active',
             'is_bot_active' => false,
         ]);
 
@@ -47,6 +48,7 @@ class BotTest extends TestCase
     public function test_authenticated_user_can_access_bot_trading_view_page(): void
     {
         $user = User::factory()->create([
+            'status' => 'active',
             'is_bot_active' => false,
         ]);
 
@@ -58,9 +60,24 @@ class BotTest extends TestCase
         $response->assertSee('START BOT');
     }
 
+    public function test_inactive_user_cannot_activate_bot(): void
+    {
+        $user = User::factory()->create([
+            'status' => 'inactive',
+            'is_bot_active' => false,
+        ]);
+
+        $response = $this->actingAs($user)->post('/user/bot/activate');
+
+        $response->assertRedirect('/user/bot/trading');
+        $response->assertSessionHas('error');
+        $this->assertFalse((bool) $user->fresh()->is_bot_active);
+    }
+
     public function test_authenticated_user_can_activate_bot(): void
     {
         $user = User::factory()->create([
+            'status' => 'active',
             'is_bot_active' => false,
             'bot_activated_at' => null,
         ]);
@@ -79,6 +96,7 @@ class BotTest extends TestCase
     {
         $activatedTime = now()->subDays(2);
         $user = User::factory()->create([
+            'status' => 'active',
             'is_bot_active' => true,
             'bot_activated_at' => $activatedTime,
         ]);
