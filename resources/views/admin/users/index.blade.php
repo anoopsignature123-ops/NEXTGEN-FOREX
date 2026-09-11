@@ -3,36 +3,36 @@
 @section('content')
 <div class="w-full space-y-6 font-sans">
     <!-- Header Banner -->
-    <div class="ng-banner-title p-6 sm:p-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+    <div class="ng-banner-title p-4 sm:p-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
         <div>
             <div class="flex items-center gap-2 mb-1">
                 <span class="pdf-num-badge">UM</span>
                 <span class="text-xs text-amber-400 font-extrabold tracking-[3px] uppercase">NEXTGEN FOREX NETWORK</span>
             </div>
-            <h1 class="text-2xl sm:text-3xl font-black text-gold-gradient font-heading">USER MANAGEMENT MODULE</h1>
+            <h1 class="text-xl sm:text-3xl font-black text-gold-gradient font-heading">USER MANAGEMENT MODULE</h1>
             <p class="text-xs text-neutral-300 mt-1">Inspect registered accounts, active investment packages, wallet balances, and direct fund credits.</p>
         </div>
 
-        <!-- Right Side Header Controls -->
-        <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
-            <a href="{{ route('admin.users.create') }}" class="px-5 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-black text-xs uppercase tracking-wider shadow-lg hover:scale-105 transition flex items-center gap-2 shrink-0">
+        <!-- Right Side Header Controls (Mobile Responsive Grid/Flex) -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
+            <a href="{{ route('admin.users.create') }}" class="px-5 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-black text-xs uppercase tracking-wider shadow-lg hover:scale-105 transition flex items-center justify-center gap-2 shrink-0">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="16" y1="11" x2="22" y2="11"/></svg>
                 ADD NEW USER
             </a>
 
             <!-- Search Form -->
-            <form id="userSearchForm" action="{{ route('admin.users') }}" method="GET" class="flex items-center gap-2 flex-1 lg:flex-none">
+            <form id="userSearchForm" action="{{ route('admin.users') }}" method="GET" class="flex items-center gap-2 w-full sm:w-auto">
                 @if(request('status'))
                     <input type="hidden" name="status" value="{{ request('status') }}">
                 @endif
 
-                <div class="relative flex-1 lg:w-72">
+                <div class="relative flex-1 sm:w-64 lg:w-72">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                     <input type="text" id="liveSearchInput" name="search" value="{{ request('search') }}" placeholder="Search name, email, code..." class="w-full pl-9 pr-4 py-2.5 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-xs focus:outline-none focus:border-amber-400">
                 </div>
-                <button type="submit" class="px-4 py-2.5 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-300 font-bold text-xs hover:bg-amber-500/30 transition flex items-center gap-1.5 shrink-0">
+                <button type="submit" class="px-4 py-2.5 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-300 font-bold text-xs hover:bg-amber-500/30 transition flex items-center justify-center gap-1.5 shrink-0">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                    Search
+                    <span>Search</span>
                 </button>
             </form>
         </div>
@@ -46,19 +46,19 @@
     @endif
 
     <!-- Quick Status Filter Tabs & Table Container -->
-    <div class="bg-panel p-6 shadow-2xl rounded-2xl border border-amber-500/30 space-y-6">
-        <!-- Top Status Filter Tabs (Properly Isolated Row) -->
-        <div class="border-b border-amber-500/20 pb-4">
-            <div class="flex flex-wrap items-center gap-2.5">
-                <a href="{{ route('admin.users', array_merge(request()->except('status'), ['status' => ''])) }}" class="whitespace-nowrap inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition {{ !request('status') ? 'bg-amber-500 text-black font-black shadow-md' : 'bg-bg border border-amber-500/30 text-neutral-300 hover:text-amber-400' }}">
+    <div class="bg-panel p-4 sm:p-6 shadow-2xl rounded-2xl border border-amber-500/30 space-y-5">
+        <!-- Top Status Filter Tabs (Touch Scrollable on Mobile) -->
+        <div class="border-b border-amber-500/20 pb-3.5 overflow-x-auto">
+            <div class="flex items-center gap-2 whitespace-nowrap min-w-max">
+                <a href="{{ route('admin.users', array_merge(request()->except('status'), ['status' => ''])) }}" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl text-xs font-bold transition {{ !request('status') ? 'bg-amber-500 text-black font-black shadow-md' : 'bg-bg border border-amber-500/30 text-neutral-300 hover:text-amber-400' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                     All Users
                 </a>
-                <a href="{{ route('admin.users', array_merge(request()->except('status'), ['status' => 'active'])) }}" class="whitespace-nowrap inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition {{ request('status') === 'active' ? 'bg-emerald-500 text-black font-black shadow-md' : 'bg-bg border border-amber-500/30 text-neutral-300 hover:text-emerald-400' }}">
+                <a href="{{ route('admin.users', array_merge(request()->except('status'), ['status' => 'active'])) }}" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl text-xs font-bold transition {{ request('status') === 'active' ? 'bg-emerald-500 text-black font-black shadow-md' : 'bg-bg border border-amber-500/30 text-neutral-300 hover:text-emerald-400' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg>
                     Active Users
                 </a>
-                <a href="{{ route('admin.users', array_merge(request()->except('status'), ['status' => 'inactive'])) }}" class="whitespace-nowrap inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition {{ request('status') === 'inactive' ? 'bg-rose-500/20 text-rose-300 border border-rose-500/50 font-black shadow-md' : 'bg-bg border border-amber-500/30 text-neutral-300 hover:text-rose-400' }}">
+                <a href="{{ route('admin.users', array_merge(request()->except('status'), ['status' => 'inactive'])) }}" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl text-xs font-bold transition {{ request('status') === 'inactive' ? 'bg-rose-500/20 text-rose-300 border border-rose-500/50 font-black shadow-md' : 'bg-bg border border-amber-500/30 text-neutral-300 hover:text-rose-400' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="17" y1="8" x2="22" y2="13"/><line x1="22" y1="8" x2="17" y2="13"/></svg>
                     Inactive Users
                 </a>
@@ -281,8 +281,8 @@
 </div>
 
 <!-- DYNAMIC DIRECT ADD FUND MODAL (POPUP) -->
-<div id="addFundModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-panel border border-amber-500/40 rounded-2xl p-6 w-full max-w-md shadow-2xl space-y-5 relative animate-in fade-in zoom-in duration-200">
+<div id="addFundModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-panel border border-amber-500/40 rounded-2xl p-5 sm:p-6 w-full max-w-md max-h-[90vh] overflow-y-auto shadow-2xl space-y-5 relative animate-in fade-in zoom-in duration-200">
         <button onclick="closeAddFundModal()" class="absolute right-4 top-4 text-neutral-400 hover:text-white p-1">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>

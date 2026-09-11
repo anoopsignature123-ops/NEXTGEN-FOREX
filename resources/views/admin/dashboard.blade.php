@@ -65,7 +65,7 @@
         </div>
 
         <!-- 8 DYNAMIC STAT CARDS GRID (MATCHING USER DASHBOARD COMPACT & SLEEK CARDS) -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative z-10">
+        <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 relative z-10">
 
             <!-- CARD 1: Total Members -->
             <div class="p-3.5 sm:p-4 rounded-2xl pdf-package-card relative overflow-hidden group flex flex-col justify-between">

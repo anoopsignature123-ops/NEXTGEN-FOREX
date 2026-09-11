@@ -169,6 +169,13 @@
             margin-bottom: 20px;
         }
 
+        @media (max-width: 1024px) {
+            .grid-3 {
+                grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+                gap: 14px !important;
+            }
+        }
+
         /* Price Cards */
         .price-card-header {
             display: flex;
@@ -363,6 +370,7 @@
         .arbitrage-table-container {
             max-height: 520px;
             overflow-y: auto;
+            overflow-x: auto;
         }
         .arbitrage-table-container::-webkit-scrollbar { width: 6px; }
         .arbitrage-table-container::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.4); }

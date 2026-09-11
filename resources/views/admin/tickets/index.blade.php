@@ -22,8 +22,8 @@
         </div>
     </div>
 
-    <!-- 4 KPI SUMMARY CARDS -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+    <!-- 4 KPI SUMMARY CARDS (2-COLUMN GRID ON MOBILE) -->
+    <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
         <a href="{{ route('admin.tickets.index') }}" class="p-3.5 sm:p-4 rounded-2xl pdf-package-card relative overflow-hidden group block">
             <div class="text-[11px] font-extrabold text-neutral-300 uppercase tracking-wider truncate">TOTAL TICKETS</div>
             <h3 class="text-xl sm:text-2xl font-black text-white font-heading mt-0.5">{{ number_format($allCount) }}</h3>

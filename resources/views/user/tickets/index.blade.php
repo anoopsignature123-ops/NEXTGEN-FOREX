@@ -16,14 +16,14 @@
             <p class="text-xs text-neutral-300 mt-1">Submit support requests, track status, and chat directly with NextGen Forex support.</p>
         </div>
 
-        <a href="{{ route('user.tickets.create') }}" class="px-6 py-3.5 rounded-full pdf-gold-ribbon font-black text-xs uppercase tracking-wider flex items-center gap-2 shadow-xl hover:scale-105 transition text-black">
+        <a href="{{ route('user.tickets.create') }}" class="w-full sm:w-auto px-6 py-3.5 rounded-full pdf-gold-ribbon font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-xl hover:scale-105 transition text-black">
             <i data-lucide="plus-circle" class="w-4 h-4 text-black font-black"></i>
             <span class="text-black font-black">Open New Ticket</span>
         </a>
     </div>
 
-    <!-- 3 KPI SUMMARY CARDS -->
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+    <!-- 3 KPI SUMMARY CARDS (2-COLUMN GRID ON MOBILE) -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3.5">
         <a href="{{ route('user.tickets.index') }}" class="p-5 rounded-3xl pdf-package-card relative overflow-hidden group block">
             <div class="text-xs font-extrabold text-amber-400 uppercase tracking-wider">OPEN TICKETS</div>
             <h3 class="text-3xl font-black text-white font-heading mt-1">{{ number_format($openCount) }}</h3>

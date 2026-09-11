@@ -32,8 +32,8 @@
         </div>
     </div>
 
-    <!-- SUMMARY KPI TILES -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <!-- SUMMARY KPI TILES (2-COLUMN GRID ON MOBILE) -->
+    <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
         <!-- 1. PENDING -->
         <div class="bg-panel p-5 rounded-2xl border border-amber-500/30 shadow-xl flex items-center gap-4">
             <div class="w-12 h-12 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center shrink-0">

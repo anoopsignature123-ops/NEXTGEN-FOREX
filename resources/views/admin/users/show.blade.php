@@ -5,33 +5,33 @@
 @section('content')
     <div class="w-full space-y-6 font-sans">
         <!-- Header Banner Full Width -->
-        <div class="ng-banner-title p-6 sm:p-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+        <div class="ng-banner-title p-4 sm:p-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
             <div>
                 <div class="flex items-center gap-2 mb-1">
                     <span class="pdf-num-badge">👑</span>
                     <span class="text-xs text-amber-400 font-extrabold tracking-[3px] uppercase">ADMIN MEMBER PROFILE AUDIT</span>
                 </div>
-                <h1 class="text-2xl sm:text-3xl font-black text-white font-heading">{{ $user->name }}</h1>
-                <div class="flex items-center gap-3 text-xs text-neutral-300 mt-1 font-mono">
+                <h1 class="text-xl sm:text-3xl font-black text-white font-heading">{{ $user->name }}</h1>
+                <div class="flex flex-wrap items-center gap-2 text-xs text-neutral-300 mt-1 font-mono">
                     <span>Code: <strong class="text-amber-400 font-black">{{ $user->referral_code }}</strong></span>
-                    <span>•</span>
+                    <span class="hidden sm:inline">•</span>
                     <span>Sponsor: <strong class="text-white font-black">{{ $user->sponsor ? $user->sponsor->name . ' (' . $user->sponsor_code . ')' : ($user->sponsor_code ?? 'No Sponsor (N/A)') }}</strong></span>
-                    <span>•</span>
+                    <span class="hidden sm:inline">•</span>
                     <span>Registered: <strong class="text-neutral-300 font-semibold">{{ $user->created_at ? $user->created_at->format('d M Y') : 'N/A' }}</strong></span>
                 </div>
             </div>
 
-            <div class="flex flex-wrap items-center gap-2">
-                <button onclick="openAddFundModal('{{ $user->id }}', '{{ $user->name }}', '{{ $user->referral_code }}')" class="px-4 py-2 rounded-xl pdf-gold-ribbon font-black text-xs uppercase tracking-wider shadow-lg hover:scale-105 transition flex items-center gap-2 text-black">
+            <div class="flex flex-wrap items-center gap-2 w-full lg:w-auto">
+                <button onclick="openAddFundModal('{{ $user->id }}', '{{ $user->name }}', '{{ $user->referral_code }}')" class="flex-1 sm:flex-none px-4 py-2.5 rounded-xl pdf-gold-ribbon font-black text-xs uppercase tracking-wider shadow-lg hover:scale-105 transition flex items-center justify-center gap-2 text-black whitespace-nowrap">
                     <i data-lucide="plus-circle" class="w-4 h-4 text-black font-black"></i> Direct Add Fund
                 </button>
-                <a href="{{ route('admin.users.impersonate', $user->id) }}" target="_blank" class="px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold text-xs uppercase tracking-wider hover:bg-emerald-500/30 transition flex items-center gap-2">
+                <a href="{{ route('admin.users.impersonate', $user->id) }}" target="_blank" class="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold text-xs uppercase tracking-wider hover:bg-emerald-500/30 transition flex items-center justify-center gap-2 whitespace-nowrap">
                     <i data-lucide="external-link" class="w-4 h-4"></i> Login as User
                 </a>
-                <a href="{{ route('admin.users.edit', $user->id) }}" class="px-4 py-2 rounded-xl bg-sky-500/20 border border-sky-500/40 text-sky-300 font-bold text-xs uppercase tracking-wider hover:bg-sky-500/30 transition flex items-center gap-2">
+                <a href="{{ route('admin.users.edit', $user->id) }}" class="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-sky-500/20 border border-sky-500/40 text-sky-300 font-bold text-xs uppercase tracking-wider hover:bg-sky-500/30 transition flex items-center justify-center gap-2 whitespace-nowrap">
                     <i data-lucide="edit-3" class="w-4 h-4"></i> Edit Member
                 </a>
-                <a href="{{ route('admin.users') }}" class="px-4 py-2 rounded-xl bg-black/80 border border-amber-500/40 text-amber-300 font-bold text-xs uppercase tracking-wider hover:bg-amber-500/20 transition flex items-center gap-2">
+                <a href="{{ route('admin.users') }}" class="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-black/80 border border-amber-500/40 text-amber-300 font-bold text-xs uppercase tracking-wider hover:bg-amber-500/20 transition flex items-center justify-center gap-2 whitespace-nowrap">
                     <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Audit List
                 </a>
             </div>
@@ -43,8 +43,8 @@
             </div>
         @endif
 
-        <!-- 4 SUMMARY KPI CARDS (SINGLE ROW 4 COLUMNS) -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+        <!-- 4 SUMMARY KPI CARDS (2-COLUMN GRID ON MOBILE, 4-COLUMN ON DESKTOP) -->
+        <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             <div class="p-3.5 sm:p-4 rounded-2xl pdf-package-card relative overflow-hidden">
                 <div class="text-[11px] font-extrabold text-neutral-300 uppercase tracking-wider truncate">DEPOSIT WALLET</div>
                 <h3 class="text-xl sm:text-2xl font-black text-emerald-400 font-mono mt-0.5">${{ number_format($user->deposit_wallet, 2) }}</h3>

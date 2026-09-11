@@ -3,72 +3,72 @@
 @section('content')
 <div class="w-full space-y-6">
     <!-- Header Banner -->
-    <div class="ng-banner-title p-6 sm:p-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+    <div class="ng-banner-title p-4 sm:p-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
         <div>
             <div class="flex items-center gap-2 mb-1">
                 <span class="pdf-num-badge">DM</span>
                 <span class="text-xs text-amber-400 font-extrabold tracking-[3px] uppercase">MY NETWORK</span>
             </div>
-            <h1 class="text-2xl sm:text-3xl font-black text-gold-gradient font-heading">DIRECT MEMBERS DIRECTORY</h1>
+            <h1 class="text-2xl sm:text-3xl font-black text-gold-gradient font-heading uppercase">DIRECT MEMBERS DIRECTORY</h1>
             <p class="text-xs text-neutral-300 mt-1">Manage and track your direct referrals, binary placements, and team status.</p>
         </div>
 
-        <div class="flex items-center gap-3">
-            <a href="{{ route('user.network.tree') }}" class="px-5 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-black text-xs uppercase tracking-wider shadow-lg hover:scale-105 transition flex items-center gap-2">
-                <i data-lucide="git-merge" class="w-4 h-4 text-black"></i> VIEW MY TEAM TREE
+        <div class="flex items-center gap-3 w-full lg:w-auto">
+            <a href="{{ route('user.network.tree') }}" class="w-full lg:w-auto px-5 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-black text-xs uppercase tracking-wider shadow-lg hover:scale-105 transition flex items-center justify-center gap-2 shrink-0">
+                <i data-lucide="git-merge" class="w-4 h-4 text-black shrink-0"></i> VIEW MY TEAM TREE
             </a>
         </div>
     </div>
 
-    <!-- Stat Cards Summary -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="p-5 rounded-2xl bg-panel border border-amber-500/30 shadow-lg">
-            <div class="flex items-center justify-between">
-                <span class="text-xs font-bold uppercase text-neutral-400">Total Direct Referrals</span>
-                <i data-lucide="users" class="w-5 h-5 text-amber-400"></i>
+    <!-- Stat Cards Summary (2-Column Grid on Mobile) -->
+    <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="p-3.5 sm:p-5 rounded-2xl bg-panel border border-amber-500/30 shadow-lg min-w-0">
+            <div class="flex items-center justify-between gap-1">
+                <span class="text-[10px] sm:text-xs font-bold uppercase text-neutral-400 truncate">Total Direct Referrals</span>
+                <i data-lucide="users" class="w-4 h-4 sm:w-5 sm:h-5 text-amber-400 shrink-0"></i>
             </div>
-            <h3 class="text-2xl font-black text-white mt-2">{{ $stats['total'] }}</h3>
+            <h3 class="text-xl sm:text-2xl font-black text-white mt-1.5">{{ $stats['total'] }}</h3>
         </div>
-        <div class="p-5 rounded-2xl bg-panel border border-amber-500/30 shadow-lg">
-            <div class="flex items-center justify-between">
-                <span class="text-xs font-bold uppercase text-neutral-400">Active Directs</span>
-                <i data-lucide="user-check" class="w-5 h-5 text-emerald-400"></i>
+        <div class="p-3.5 sm:p-5 rounded-2xl bg-panel border border-amber-500/30 shadow-lg min-w-0">
+            <div class="flex items-center justify-between gap-1">
+                <span class="text-[10px] sm:text-xs font-bold uppercase text-neutral-400 truncate">Active Directs</span>
+                <i data-lucide="user-check" class="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400 shrink-0"></i>
             </div>
-            <h3 class="text-2xl font-black text-emerald-400 mt-2">{{ $stats['active'] }}</h3>
+            <h3 class="text-xl sm:text-2xl font-black text-emerald-400 mt-1.5">{{ $stats['active'] }}</h3>
         </div>
-        <div class="p-5 rounded-2xl pdf-package-card shadow-lg">
-            <div class="flex items-center justify-between">
-                <span class="text-xs font-bold uppercase text-neutral-400">Team A Network</span>
-                <i data-lucide="users" class="w-5 h-5 text-amber-400"></i>
+        <div class="p-3.5 sm:p-5 rounded-2xl pdf-package-card shadow-lg min-w-0">
+            <div class="flex items-center justify-between gap-1">
+                <span class="text-[10px] sm:text-xs font-bold uppercase text-neutral-400 truncate">Team A Network</span>
+                <i data-lucide="users" class="w-4 h-4 sm:w-5 sm:h-5 text-amber-400 shrink-0"></i>
             </div>
-            <h3 class="text-2xl font-black text-amber-300 mt-2">{{ $stats['left'] }}</h3>
+            <h3 class="text-xl sm:text-2xl font-black text-amber-300 mt-1.5">{{ $stats['left'] }}</h3>
         </div>
-        <div class="p-5 rounded-2xl pdf-package-card shadow-lg">
-            <div class="flex items-center justify-between">
-                <span class="text-xs font-bold uppercase text-neutral-400">Team B Network</span>
-                <i data-lucide="users" class="w-5 h-5 text-emerald-400"></i>
+        <div class="p-3.5 sm:p-5 rounded-2xl pdf-package-card shadow-lg min-w-0">
+            <div class="flex items-center justify-between gap-1">
+                <span class="text-[10px] sm:text-xs font-bold uppercase text-neutral-400 truncate">Team B Network</span>
+                <i data-lucide="users" class="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400 shrink-0"></i>
             </div>
-            <h3 class="text-2xl font-black text-emerald-400 mt-2">{{ $stats['right'] }}</h3>
+            <h3 class="text-xl sm:text-2xl font-black text-emerald-400 mt-1.5">{{ $stats['right'] }}</h3>
         </div>
     </div>
 
     <!-- Filter & Table Container -->
-    <div class="pdf-package-card p-6 shadow-2xl rounded-2xl space-y-6">
+    <div class="pdf-package-card p-4 sm:p-6 shadow-2xl rounded-2xl space-y-6">
         <!-- Search & Filter Form -->
-        <form action="{{ route('user.network.direct') }}" method="GET" class="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-amber-500/20 pb-4">
+        <form action="{{ route('user.network.direct') }}" method="GET" class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 border-b border-amber-500/20 pb-4">
             <div class="relative w-full sm:w-72">
                 <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-amber-400"></i>
                 <input type="text" name="search" value="{{ request('search') }}" placeholder="Search name, code, email..." class="w-full pl-9 pr-4 py-2.5 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-xs focus:outline-none focus:border-amber-400">
             </div>
 
-            <div class="flex items-center gap-3 w-full sm:w-auto">
-                <select name="position" onchange="this.form.submit()" class="px-4 py-2.5 rounded-xl bg-bg border border-amber-500/40 text-amber-400 font-bold text-xs focus:outline-none cursor-pointer">
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full sm:w-auto">
+                <select name="position" onchange="this.form.submit()" class="w-full sm:w-auto px-3.5 py-2.5 rounded-xl bg-bg border border-amber-500/40 text-amber-400 font-bold text-xs focus:outline-none cursor-pointer">
                     <option value="">All Team Branches</option>
                     <option value="left" {{ request('position') === 'left' ? 'selected' : '' }}>Team A Network</option>
                     <option value="right" {{ request('position') === 'right' ? 'selected' : '' }}>Team B Network</option>
                 </select>
 
-                <select name="status" onchange="this.form.submit()" class="px-4 py-2.5 rounded-xl bg-bg border border-amber-500/40 text-amber-400 font-bold text-xs focus:outline-none cursor-pointer">
+                <select name="status" onchange="this.form.submit()" class="w-full sm:w-auto px-3.5 py-2.5 rounded-xl bg-bg border border-amber-500/40 text-amber-400 font-bold text-xs focus:outline-none cursor-pointer">
                     <option value="">All Statuses</option>
                     <option value="active" {{ request('status') === 'active' ? 'selected' : '' }}>Active Members</option>
                     <option value="inactive" {{ request('status') === 'inactive' ? 'selected' : '' }}>Inactive Members</option>

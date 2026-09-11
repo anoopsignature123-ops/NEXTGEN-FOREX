@@ -23,8 +23,8 @@
         </div>
     </div>
 
-    <!-- 8 INCOME SUMMARY KPI TILES -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <!-- 8 INCOME SUMMARY KPI TILES (2-COLUMN GRID ON MOBILE) -->
+    <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
         
         <!-- 1. ROI -->
         <a href="{{ route('user.reports.roi') }}" class="group bg-panel p-4 rounded-2xl border border-amber-500/30 hover:border-amber-400 shadow-lg transition block">

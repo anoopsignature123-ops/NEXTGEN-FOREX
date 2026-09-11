@@ -15,7 +15,7 @@
     <div class="w-full space-y-6">
 
         <!-- Top Header Banner -->
-        <div class="ng-banner-title p-6 sm:p-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+        <div class="ng-banner-title p-4 sm:p-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
             <div>
                 <div class="flex items-center gap-2 mb-1">
                     <span class="pdf-num-badge">AF</span>
@@ -27,19 +27,19 @@
                     Forex Investment Packages.</p>
             </div>
 
-            <div class="flex items-center gap-3">
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
                 <a href="{{ route('user.deposits.history') }}"
-                    class="px-5 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-black text-xs uppercase tracking-wider shadow-lg hover:scale-105 transition flex items-center gap-2 shrink-0">
+                    class="px-5 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-black text-xs uppercase tracking-wider shadow-lg hover:scale-105 transition flex items-center justify-center gap-2 shrink-0">
                     <i data-lucide="clock" class="w-4 h-4 text-black"></i> View Deposit History
                 </a>
                 <div
-                    class="px-5 py-3 rounded-xl bg-bg border border-amber-500/40 text-amber-300 text-xs font-bold font-mono flex items-center gap-2 shadow-lg shrink-0">
+                    class="px-5 py-3 rounded-xl bg-bg border border-amber-500/40 text-amber-300 text-xs font-bold font-mono flex items-center justify-center gap-2 shadow-lg shrink-0">
                     <i data-lucide="wallet" class="w-4 h-4 text-amber-400"></i>
                     <span>Deposit Wallet: <strong
                             class="text-emerald-400 text-sm font-black">${{ number_format($user->deposit_wallet, 2) }}</strong></span>
                 </div>
             </div>
-            </div>
+        </div>
 
         
          

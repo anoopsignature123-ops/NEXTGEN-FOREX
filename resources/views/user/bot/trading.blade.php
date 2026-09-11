@@ -76,7 +76,7 @@
                 </div>
                 <h1 class="text-xl sm:text-3xl font-black text-amber-300 font-heading tracking-tight drop-shadow uppercase flex items-center gap-3 text-left">
                     <i class="fa-solid fa-chart-line text-amber-400 animate-pulse"></i>
-                    Quant Trading Terminal
+                    QUANT TRADING TERMINAL
                 </h1>
                 <p class="text-xs sm:text-sm text-neutral-300 max-w-2xl font-medium text-left">
                     Monitor real-time crypto markets, switch live trading pairs, and launch your NextGen Autonomous Bot.
@@ -219,8 +219,7 @@
         </div>
 
         <!-- Bot Activation Control Box (Left Icon Badge & Strictly Left-Aligned Text) -->
-        <div
-            class="w-full p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-amber-950/80 via-black to-amber-950/80 border border-amber-500/50 shadow-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden text-left">
+        <div class="w-full p-4 sm:p-6 rounded-2xl bg-gradient-to-r from-amber-950/80 via-black to-amber-950/80 border border-amber-500/50 shadow-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-5 relative overflow-hidden text-left">
             <div class="absolute -left-10 -top-10 w-40 h-40 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
 
             <div class="flex items-start sm:items-center gap-5 sm:gap-6 z-10 w-full md:w-auto text-left">

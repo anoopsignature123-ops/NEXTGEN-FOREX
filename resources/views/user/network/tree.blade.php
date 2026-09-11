@@ -27,21 +27,23 @@
     </div>
 
     <!-- Binary Tree Container Box -->
-    <div class="bg-panel p-6 shadow-2xl rounded-2xl border border-amber-500/30 space-y-6">
-        <div class="flex items-center justify-between border-b border-amber-500/20 pb-4">
+    <div class="bg-panel p-4 sm:p-6 shadow-2xl rounded-2xl border border-amber-500/30 space-y-6 overflow-x-auto">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-amber-500/20 pb-4 gap-3">
             <div class="flex items-center gap-2">
                 <i data-lucide="git-merge" class="w-5 h-5 text-amber-400"></i>
-                <span class="text-sm font-bold text-white uppercase">Root Tree Node:</span>
-                <span class="text-sm font-black text-amber-400 font-mono">{{ $rootUser->name }} ({{ $rootUser->referral_code }})</span>
+                <span class="text-xs sm:text-sm font-bold text-white uppercase">Root Tree Node:</span>
+                <span class="text-xs sm:text-sm font-black text-amber-400 font-mono">{{ $rootUser->name }} ({{ $rootUser->referral_code }})</span>
             </div>
 
-            <a href="{{ route('user.network.tree') }}" class="px-3 py-1.5 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:bg-amber-500/40 transition text-xs font-bold flex items-center gap-1">
+            <a href="{{ route('user.network.tree') }}" class="px-3 py-1.5 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:bg-amber-500/40 transition text-xs font-bold flex items-center gap-1 shrink-0">
                 <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Recenter My Tree
             </a>
         </div>
 
         <!-- Render Reusable Binary Tree Component -->
-        <x-binary-tree :treeData="$treeData" routePrefix="user" />
+        <div class="w-full min-w-[320px] overflow-x-auto">
+            <x-binary-tree :treeData="$treeData" routePrefix="user" />
+        </div>
     </div>
 </div>
 @endsection

@@ -80,7 +80,7 @@
                 </div>
                 <h1 class="text-xl sm:text-3xl font-black text-amber-300 font-heading tracking-tight drop-shadow uppercase flex items-center gap-3 text-left">
                     <i class="fa-solid fa-robot text-amber-400 animate-pulse"></i>
-                    Quant Trading BOT System
+                    QUANT TRADING BOT SYSTEM
                 </h1>
                 <p class="text-xs sm:text-sm text-neutral-300 max-w-2xl font-medium text-left">
                     Activate NextGen Autonomous Quant Bot to execute high-frequency crypto trading and compound your daily ROI.
@@ -102,8 +102,8 @@
             </div>
         </div>
 
-        <!-- 4 Stat Summary Cards (Clean Layout, No Text-Icon Overlaps) -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- 4 Stat Summary Cards (2-Column Mobile Grid) -->
+        <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
             <!-- Card 1 -->
             <div class="ng-bot-card p-4 sm:p-5 flex items-center gap-4 overflow-hidden">
                 <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 text-black flex items-center justify-center font-black text-xl shadow-lg shrink-0">

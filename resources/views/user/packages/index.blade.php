@@ -74,74 +74,56 @@
         @endif
 
         <!-- TOP MAIN INVESTMENT & PACKAGE ACTIVATOR BAR -->
-        <div
-            class="p-6 sm:p-8 rounded-3xl bg-black/90 border-2 border-amber-400 shadow-[0_0_35px_rgba(243,202,82,0.3)] space-y-5">
+        <div class="p-4 sm:p-6 rounded-2xl bg-black/90 border-2 border-amber-400 shadow-[0_0_35px_rgba(243,202,82,0.3)] space-y-4">
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                 <div>
-                    <h3
-                        class="text-base font-black text-amber-400 uppercase tracking-wider font-mono flex items-center gap-2">
-                        <i data-lucide="zap" class="w-5 h-5 text-amber-400"></i> ENTER INVESTMENT AMOUNT & ACTIVATE
+                    <h3 class="text-sm sm:text-base font-black text-amber-400 uppercase tracking-wider font-mono flex items-center gap-2">
+                        <i data-lucide="zap" class="w-4 h-4 text-amber-400 shrink-0"></i> ENTER INVESTMENT AMOUNT & ACTIVATE
                     </h3>
-                    <p class="text-xs text-neutral-300 mt-1">Enter your desired investment amount ($10+). The system
-                        automatically assigns the corresponding tier and daily ROI.</p>
+                    <p class="text-xs text-neutral-300 mt-1">Enter your desired investment amount ($10+). The system automatically assigns the corresponding tier and daily ROI.</p>
                 </div>
             </div>
 
             <!-- Quick Preset Amount Buttons -->
-            <div class="flex flex-wrap items-center gap-2 pt-1">
+            <div class="flex flex-wrap items-center gap-1.5 pt-1">
                 <span class="text-xs font-bold text-amber-400/80 uppercase font-mono mr-1">Presets:</span>
-                <button type="button" onclick="setQuickAmount(10)"
-                    class="px-3.5 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-mono text-xs font-bold transition">$10</button>
-                <button type="button" onclick="setQuickAmount(50)"
-                    class="px-3.5 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-mono text-xs font-bold transition">$50</button>
-                <button type="button" onclick="setQuickAmount(100)"
-                    class="px-3.5 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-mono text-xs font-bold transition">$100</button>
-                <button type="button" onclick="setQuickAmount(250)"
-                    class="px-3.5 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-mono text-xs font-bold transition">$250</button>
-                <button type="button" onclick="setQuickAmount(500)"
-                    class="px-3.5 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-mono text-xs font-bold transition">$500</button>
-                <button type="button" onclick="setQuickAmount(1000)"
-                    class="px-3.5 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-mono text-xs font-bold transition">$1,000</button>
-                <button type="button" onclick="setQuickAmount(5000)"
-                    class="px-3.5 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-mono text-xs font-bold transition">$5,000</button>
+                <button type="button" onclick="setQuickAmount(10)" class="px-2.5 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-mono text-xs font-bold transition cursor-pointer">$10</button>
+                <button type="button" onclick="setQuickAmount(50)" class="px-2.5 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-mono text-xs font-bold transition cursor-pointer">$50</button>
+                <button type="button" onclick="setQuickAmount(100)" class="px-2.5 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-mono text-xs font-bold transition cursor-pointer">$100</button>
+                <button type="button" onclick="setQuickAmount(250)" class="px-2.5 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-mono text-xs font-bold transition cursor-pointer">$250</button>
+                <button type="button" onclick="setQuickAmount(500)" class="px-2.5 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-mono text-xs font-bold transition cursor-pointer">$500</button>
+                <button type="button" onclick="setQuickAmount(1000)" class="px-2.5 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-mono text-xs font-bold transition cursor-pointer">$1,000</button>
+                <button type="button" onclick="setQuickAmount(5000)" class="px-2.5 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-mono text-xs font-bold transition cursor-pointer">$5,000</button>
             </div>
 
-            <form action="{{ route('user.packages.buy') }}" method="POST"
-                class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end"
-                onsubmit="return confirm('Confirm activating package for this investment amount?')">
+            <form action="{{ route('user.packages.buy') }}" method="POST" class="grid grid-cols-1 md:grid-cols-12 gap-3.5 items-end" onsubmit="return confirm('Confirm activating package for this investment amount?')">
                 @csrf
-                <div class="md:col-span-5 space-y-1.5">
-                    <label class="text-xs font-bold text-amber-300 uppercase tracking-wider block">Investment Amount ($
-                        USD)</label>
+                <div class="md:col-span-5 space-y-1">
+                    <label class="text-xs font-bold text-amber-300 uppercase tracking-wider block">Investment Amount ($ USD)</label>
                     <div class="relative">
-                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-amber-400 font-black text-base">$</span>
-                        <input type="number" step="0.01" min="10" id="quickInvestAmount" name="invested_amount" value="100"
-                            class="w-full pl-9 pr-4 py-3.5 rounded-2xl bg-black border-2 border-amber-500/60 text-white font-mono font-black text-lg focus:outline-none focus:border-amber-400"
-                            required oninput="calculateQuickPackage(this.value)">
+                        <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-amber-400 font-black text-sm">$</span>
+                        <input type="number" step="0.01" min="10" id="quickInvestAmount" name="invested_amount" value="100" class="w-full pl-8 pr-3 py-2.5 rounded-xl bg-black border-2 border-amber-500/60 text-white font-mono font-black text-base focus:outline-none focus:border-amber-400" required oninput="calculateQuickPackage(this.value)">
                     </div>
                 </div>
 
                 <div class="md:col-span-7 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                    <div id="quickPkgStatus"
-                        class="flex-1 p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/40 text-xs font-mono font-bold text-emerald-300 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                    <div id="quickPkgStatus" class="flex-1 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/40 text-xs font-mono font-bold text-emerald-300 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
                         <!-- Filled dynamically by JS -->
                     </div>
 
-                    <button type="submit"
-                        class="px-8 py-4 rounded-2xl pdf-gold-ribbon hover:brightness-110 text-black font-black text-sm uppercase tracking-wider shadow-xl flex items-center justify-center gap-2 shrink-0 cursor-pointer">
-                        <i data-lucide="sparkles" class="w-5 h-5 text-black"></i> INVEST NOW
+                    <button type="submit" class="w-full sm:w-auto px-6 py-3 rounded-xl pdf-gold-ribbon hover:brightness-110 text-black font-black text-xs sm:text-sm uppercase tracking-wider shadow-lg flex items-center justify-center gap-2 shrink-0 cursor-pointer whitespace-nowrap">
+                        <i data-lucide="sparkles" class="w-4 h-4 text-black shrink-0"></i> INVEST NOW
                     </button>
                 </div>
             </form>
         </div>
 
         <!-- Section Header Banner matching PDF -->
-        <div class="text-center space-y-2 pt-4">
-            <div
-                class="inline-flex items-center justify-center px-8 py-2.5 rounded-full pdf-gold-ribbon text-base font-black uppercase tracking-widest shadow-xl">
+        <div class="text-center space-y-1.5 pt-3">
+            <div class="inline-flex items-center justify-center px-4 sm:px-6 py-2 rounded-xl sm:rounded-full pdf-gold-ribbon text-xs sm:text-sm font-black uppercase tracking-wider shadow-md">
                 👑 AVAILABLE INVESTMENT TIERS
             </div>
-            <p class="text-xs text-amber-400 font-extrabold tracking-widest uppercase">TIER SUMMARY & RETURN RATES</p>
+            <p class="text-[11px] sm:text-xs text-amber-400 font-extrabold tracking-widest uppercase">TIER SUMMARY & RETURN RATES</p>
         </div>
 
         <!-- PACKAGES GRID CARDS (PURE DISPLAY CARDS - NO BUTTONS & NO INPUTS INSIDE) -->
