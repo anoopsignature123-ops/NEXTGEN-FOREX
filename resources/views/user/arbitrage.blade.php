@@ -5,7 +5,9 @@
 @section('content')
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
@@ -27,40 +29,92 @@
 
         /* Smooth Glow Keyframes */
         @keyframes goldPulseGlow {
-            0%, 100% { box-shadow: 0 0 15px rgba(243, 202, 82, 0.2); }
-            50% { box-shadow: 0 0 30px rgba(243, 202, 82, 0.45); }
+
+            0%,
+            100% {
+                box-shadow: 0 0 15px rgba(243, 202, 82, 0.2);
+            }
+
+            50% {
+                box-shadow: 0 0 30px rgba(243, 202, 82, 0.45);
+            }
         }
 
         @keyframes borderPulse {
-            0%, 100% { border-color: rgba(243, 202, 82, 0.3); }
-            50% { border-color: rgba(243, 202, 82, 0.7); }
+
+            0%,
+            100% {
+                border-color: rgba(243, 202, 82, 0.3);
+            }
+
+            50% {
+                border-color: rgba(243, 202, 82, 0.7);
+            }
         }
 
         @keyframes slideInGlow {
-            0% { opacity: 0; transform: translateY(-12px); background-color: rgba(16, 185, 129, 0.35); }
-            50% { background-color: rgba(243, 202, 82, 0.25); }
-            100% { opacity: 1; transform: translateY(0); background-color: transparent; }
+            0% {
+                opacity: 0;
+                transform: translateY(-12px);
+                background-color: rgba(16, 185, 129, 0.35);
+            }
+
+            50% {
+                background-color: rgba(243, 202, 82, 0.25);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+                background-color: transparent;
+            }
         }
 
         @keyframes marqueeScroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
         }
 
         @keyframes beaconPulse {
-            0% { transform: scale(0.6); opacity: 0.9; }
-            70% { transform: scale(2.2); opacity: 0; }
-            100% { transform: scale(2.5); opacity: 0; }
+            0% {
+                transform: scale(0.6);
+                opacity: 0.9;
+            }
+
+            70% {
+                transform: scale(2.2);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(2.5);
+                opacity: 0;
+            }
         }
 
         @keyframes priceUpFlash {
-            0% { background-color: rgba(16, 185, 129, 0.4); }
-            100% { background-color: transparent; }
+            0% {
+                background-color: rgba(16, 185, 129, 0.4);
+            }
+
+            100% {
+                background-color: transparent;
+            }
         }
 
         @keyframes priceDownFlash {
-            0% { background-color: rgba(239, 68, 68, 0.4); }
-            100% { background-color: transparent; }
+            0% {
+                background-color: rgba(239, 68, 68, 0.4);
+            }
+
+            100% {
+                background-color: transparent;
+            }
         }
 
         /* Card System */
@@ -73,11 +127,13 @@
             overflow: hidden;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
+
         .arbitrage-card:hover {
             border-color: rgba(243, 202, 82, 0.6);
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(243, 202, 82, 0.2);
             transform: translateY(-2px);
         }
+
         .arbitrage-card-header {
             background: var(--bg-card-header);
             border-bottom: 1px solid var(--border-card);
@@ -86,6 +142,7 @@
             justify-content: space-between;
             align-items: center;
         }
+
         .arbitrage-card-header h3 {
             font-size: 0.95rem;
             font-weight: 800;
@@ -94,6 +151,7 @@
             text-transform: uppercase;
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
+
         .arbitrage-card-body {
             padding: 20px 22px;
         }
@@ -102,6 +160,7 @@
         .marquee-section {
             margin-bottom: 20px;
         }
+
         .marquee-box {
             background: linear-gradient(90deg, #042417 0%, #02180f 50%, #000000 100%);
             border: 1px solid rgba(243, 202, 82, 0.35);
@@ -111,13 +170,16 @@
             white-space: nowrap;
             box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8), 0 4px 20px rgba(0, 0, 0, 0.4);
         }
+
         .marquee-track {
             display: inline-flex;
             animation: marqueeScroll 40s linear infinite;
         }
+
         .marquee-track:hover {
             animation-play-state: paused;
         }
+
         .crypto-item {
             display: inline-flex;
             align-items: center;
@@ -129,11 +191,13 @@
             border-radius: 10px;
             transition: all 0.25s ease;
         }
+
         .crypto-item:hover {
             border-color: rgba(243, 202, 82, 0.6);
             background: rgba(243, 202, 82, 0.1);
             transform: scale(1.03);
         }
+
         .crypto-item img {
             width: 20px;
             height: 20px;
@@ -142,20 +206,24 @@
             object-fit: contain;
             vertical-align: middle;
         }
+
         .crypto-symbol {
             font-weight: 800;
             margin-right: 6px;
         }
+
         .crypto-price {
             color: #fef08a;
             font-family: 'JetBrains Mono', monospace;
             font-weight: 700;
             transition: color 0.3s ease;
         }
+
         .price-flash-up {
             animation: priceUpFlash 0.8s ease-out;
             color: #34d399 !important;
         }
+
         .price-flash-down {
             animation: priceDownFlash 0.8s ease-out;
             color: #f87171 !important;
@@ -182,6 +250,7 @@
             align-items: center;
             gap: 10px;
         }
+
         .price-icon-badge {
             width: 36px;
             height: 36px;
@@ -192,9 +261,21 @@
             font-size: 1.1rem;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
         }
-        .bg-btc { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: #000000; }
-        .bg-eth { background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%); color: #ffffff; }
-        .bg-omni { background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%); color: #000000; }
+
+        .bg-btc {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: #000000;
+        }
+
+        .bg-eth {
+            background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+            color: #ffffff;
+        }
+
+        .bg-omni {
+            background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+            color: #000000;
+        }
 
         .price-card-body {
             display: flex;
@@ -202,6 +283,7 @@
             align-items: flex-end;
             padding: 20px 22px;
         }
+
         .price-label {
             font-size: 0.775rem;
             color: var(--text-muted);
@@ -210,6 +292,7 @@
             letter-spacing: 0.05em;
             margin-bottom: 6px;
         }
+
         .price-value {
             font-size: 1.75rem;
             font-weight: 800;
@@ -218,6 +301,7 @@
             font-family: 'JetBrains Mono', monospace;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
+
         .badge-percent {
             font-size: 0.775rem;
             font-weight: 700;
@@ -225,12 +309,14 @@
             border-radius: 8px;
             font-family: 'JetBrains Mono', monospace;
         }
+
         .badge-positive {
             background: rgba(16, 185, 129, 0.2);
             color: #34d399;
             border: 1px solid rgba(16, 185, 129, 0.4);
             box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
         }
+
         .badge-negative {
             background: rgba(239, 68, 68, 0.2);
             color: #f87171;
@@ -256,26 +342,31 @@
             flex-wrap: wrap;
             gap: 14px;
         }
+
         .table-title-group {
             display: flex;
             align-items: center;
             gap: 12px;
         }
+
         .table-title-group i {
             color: var(--accent-gold);
             font-size: 1.2rem;
         }
+
         .table-title-group h3 {
             font-size: 1.05rem;
             font-weight: 800;
             color: #ffffff;
             text-transform: uppercase;
         }
+
         .table-actions {
             display: flex;
             align-items: center;
             gap: 12px;
         }
+
         .live-indicator-badge {
             display: inline-flex;
             align-items: center;
@@ -288,6 +379,7 @@
             padding: 5px 12px;
             border-radius: 20px;
         }
+
         .pulse-dot {
             width: 9px;
             height: 9px;
@@ -295,6 +387,7 @@
             background-color: var(--accent-green);
             position: relative;
         }
+
         .pulse-dot::after {
             content: '';
             position: absolute;
@@ -307,6 +400,7 @@
             opacity: 0.6;
             animation: beaconPulse 1.8s cubic-bezier(0.24, 0, 0.38, 1) infinite;
         }
+
         .btn-action {
             background: rgba(0, 0, 0, 0.6);
             border: 1px solid var(--border-card);
@@ -321,12 +415,14 @@
             gap: 7px;
             transition: all 0.25s ease;
         }
+
         .btn-action:hover {
             background: rgba(243, 202, 82, 0.2);
             color: var(--accent-gold-bright);
             border-color: rgba(243, 202, 82, 0.5);
             box-shadow: 0 0 15px rgba(243, 202, 82, 0.2);
         }
+
         .btn-action.active {
             background: rgba(245, 158, 11, 0.25);
             border-color: rgba(245, 158, 11, 0.6);
@@ -346,15 +442,18 @@
             flex-wrap: wrap;
             gap: 12px;
         }
+
         .stats-item {
             display: flex;
             align-items: center;
             gap: 8px;
         }
+
         .stats-value {
             font-weight: 700;
             color: #ffffff;
         }
+
         .stats-tag {
             background: rgba(243, 202, 82, 0.15);
             border: 1px solid rgba(243, 202, 82, 0.3);
@@ -372,22 +471,37 @@
             overflow-y: auto;
             overflow-x: auto;
         }
-        .arbitrage-table-container::-webkit-scrollbar { width: 6px; }
-        .arbitrage-table-container::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.4); }
-        .arbitrage-table-container::-webkit-scrollbar-thumb { background: rgba(243, 202, 82, 0.3); border-radius: 4px; }
-        .arbitrage-table-container::-webkit-scrollbar-thumb:hover { background: rgba(243, 202, 82, 0.6); }
+
+        .arbitrage-table-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .arbitrage-table-container::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .arbitrage-table-container::-webkit-scrollbar-thumb {
+            background: rgba(243, 202, 82, 0.3);
+            border-radius: 4px;
+        }
+
+        .arbitrage-table-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(243, 202, 82, 0.6);
+        }
 
         .arbitrage-table {
             width: 100%;
             border-collapse: collapse;
             text-align: left;
         }
+
         .arbitrage-table thead {
             position: sticky;
             top: 0;
             background: #042417;
             z-index: 10;
         }
+
         .arbitrage-table th {
             padding: 14px 20px;
             font-size: 0.775rem;
@@ -399,25 +513,31 @@
             border-bottom: 1px solid var(--border-card);
             border-right: 1px solid var(--border-table);
         }
+
         .arbitrage-table th:last-child {
             border-right: none;
         }
+
         .arbitrage-table tbody tr {
             border-bottom: 1px solid var(--border-table);
             transition: background-color 0.25s ease;
         }
+
         .arbitrage-table tbody tr:hover {
             background-color: var(--bg-row-hover);
         }
+
         .arbitrage-table tbody tr.new-row {
             animation: slideInGlow 0.8s ease-out;
         }
+
         .arbitrage-table td {
             padding: 14px 20px;
             font-size: 0.875rem;
             vertical-align: middle;
             border-right: 1px solid var(--border-table);
         }
+
         .arbitrage-table td:last-child {
             border-right: none;
         }
@@ -428,6 +548,7 @@
             align-items: center;
             gap: 14px;
         }
+
         .pair-icons-stack {
             position: relative;
             width: 46px;
@@ -436,6 +557,7 @@
             align-items: center;
             flex-shrink: 0;
         }
+
         .token-pair-img {
             width: 28px;
             height: 28px;
@@ -445,6 +567,7 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
             transition: transform 0.25s ease;
         }
+
         .token-pair-img.token-primary {
             position: absolute;
             left: 0;
@@ -452,6 +575,7 @@
             z-index: 2;
             border: 2px solid #06281a;
         }
+
         .token-pair-img.token-secondary {
             position: absolute;
             left: 18px;
@@ -460,13 +584,16 @@
             border: 2px solid #06281a;
             opacity: 0.95;
         }
+
         .arbitrage-table tbody tr:hover .token-pair-img.token-secondary {
             transform: translateX(4px);
         }
+
         .pair-details {
             display: flex;
             flex-direction: column;
         }
+
         .pair-title {
             font-weight: 700;
             color: #ffffff;
@@ -474,15 +601,18 @@
             align-items: center;
             gap: 8px;
         }
+
         .arbitrage-route {
             font-size: 0.75rem;
             color: var(--text-muted);
             margin-top: 3px;
         }
+
         .route-badge {
             color: #38bdf8;
             font-weight: 600;
         }
+
         .spread-badge {
             display: inline-block;
             padding: 2px 6px;
@@ -494,23 +624,27 @@
             font-weight: 700;
             font-family: 'JetBrains Mono', monospace;
         }
+
         .amount-val {
             font-weight: 700;
             color: #ffffff;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.9rem;
         }
+
         .amount-usd {
             font-size: 0.75rem;
             color: var(--accent-gold);
             margin-top: 2px;
             font-weight: 600;
         }
+
         .hash-cell {
             display: flex;
             align-items: center;
             gap: 8px;
         }
+
         .hash-link {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.825rem;
@@ -525,12 +659,14 @@
             align-items: center;
             gap: 6px;
         }
+
         .hash-link:hover {
             color: #93c5fd;
             background: rgba(59, 130, 246, 0.25);
             border-color: rgba(59, 130, 246, 0.6);
             box-shadow: 0 0 12px rgba(59, 130, 246, 0.3);
         }
+
         .copy-btn {
             background: none;
             border: none;
@@ -541,10 +677,12 @@
             border-radius: 6px;
             transition: color 0.2s, background-color 0.2s;
         }
+
         .copy-btn:hover {
             color: #ffffff;
             background-color: rgba(255, 255, 255, 0.1);
         }
+
         .time-cell {
             color: var(--text-sub);
             font-size: 0.825rem;
@@ -554,6 +692,7 @@
             gap: 7px;
             font-weight: 500;
         }
+
         .empty-state {
             padding: 60px 20px;
             text-align: center;
@@ -561,6 +700,7 @@
             font-size: 0.95rem;
             font-weight: 600;
         }
+
         .empty-state i {
             display: block;
             font-size: 36px;
@@ -570,27 +710,48 @@
         }
 
         @media (max-width: 1024px) {
-            .grid-3 { grid-template-columns: repeat(2, 1fr); }
+            .grid-3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
+
         @media (max-width: 768px) {
-            .grid-3 { grid-template-columns: 1fr; }
-            .arbitrage-card-header { padding: 14px 16px; }
-            .arbitrage-table th, .arbitrage-table td { padding: 11px 14px; }
-            .stats-bar { padding: 10px 14px; }
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .arbitrage-card-header {
+                padding: 14px 16px;
+            }
+
+            .arbitrage-table th,
+            .arbitrage-table td {
+                padding: 11px 14px;
+            }
+
+            .stats-bar {
+                padding: 10px 14px;
+            }
         }
     </style>
 
     <div class="w-full space-y-6">
 
         <!-- Top Header Banner (Metallic Gold NextGen Theme) -->
-        <div class="p-5 sm:p-8 rounded-2xl bg-gradient-to-r from-amber-950/60 via-black to-amber-950/60 border border-amber-500/40 shadow-2xl flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 relative overflow-hidden">
-            <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div
+            class="p-5 sm:p-8 rounded-2xl bg-gradient-to-r from-amber-950/60 via-black to-amber-950/60 border border-amber-500/40 shadow-2xl flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none">
+            </div>
             <div class="space-y-1.5 z-10">
                 <div class="flex items-center gap-2">
-                    <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-400/50 text-amber-300 text-[10px] font-black tracking-widest uppercase">QUANT ENGINE</span>
-                    <span class="text-[10px] sm:text-[11px] text-amber-400 font-extrabold tracking-[2px] uppercase">NEXTGEN CROSS-DEX ARBITRAGE</span>
+                    <span
+                        class="px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-400/50 text-amber-300 text-[10px] font-black tracking-widest uppercase">QUANT
+                        ENGINE</span>
+                    <span class="text-[10px] sm:text-[11px] text-amber-400 font-extrabold tracking-[2px] uppercase">NEXTGEN
+                        CROSS-DEX ARBITRAGE</span>
                 </div>
-                <h1 class="text-xl sm:text-3xl font-black text-amber-300 font-heading tracking-tight drop-shadow uppercase flex items-center gap-3">
+                <h1
+                    class="text-xl sm:text-3xl font-black text-amber-300 font-heading tracking-tight drop-shadow uppercase flex items-center gap-3">
                     <i class="fa-solid fa-arrow-right-arrow-left text-amber-400 animate-pulse"></i>
                     Arbitrage Dashboard
                 </h1>
@@ -600,9 +761,11 @@
             </div>
 
             <div class="z-10 flex items-center gap-3 shrink-0">
-                <div class="px-5 py-3 rounded-xl bg-black/80 border border-amber-500/40 text-amber-300 text-xs font-bold font-mono flex items-center gap-2.5 shadow-xl">
+                <div
+                    class="px-5 py-3 rounded-xl bg-black/80 border border-amber-500/40 text-amber-300 text-xs font-bold font-mono flex items-center gap-2.5 shadow-xl">
                     <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></div>
-                    <span>BOT ENGINE: <strong class="text-emerald-400 text-sm font-black tracking-wider">ACTIVE 24/7</strong></span>
+                    <span>BOT ENGINE: <strong class="text-emerald-400 text-sm font-black tracking-wider">ACTIVE
+                            24/7</strong></span>
                 </div>
             </div>
         </div>
@@ -612,83 +775,99 @@
             <div class="marquee-box">
                 <div class="marquee-track">
                     <div class="crypto-item">
-                        <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/btc.png" alt="BTC" onerror="this.style.display='none'">
+                        <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/btc.png" alt="BTC"
+                            onerror="this.style.display='none'">
                         <span class="crypto-symbol" style="color: #f59e0b;">BTC:</span>
                         <span class="crypto-price" id="ticker-btc">$0.00</span>
                     </div>
                     <div class="crypto-item">
-                        <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/eth.png" alt="ETH" onerror="this.style.display='none'">
+                        <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/eth.png" alt="ETH"
+                            onerror="this.style.display='none'">
                         <span class="crypto-symbol" style="color: #a855f7;">ETH:</span>
                         <span class="crypto-price" id="ticker-eth">$0.00</span>
                     </div>
                     <div class="crypto-item">
-                        <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/xrp.png" alt="XRP" onerror="this.style.display='none'">
+                        <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/xrp.png" alt="XRP"
+                            onerror="this.style.display='none'">
                         <span class="crypto-symbol" style="color: #3b82f6;">XRP:</span>
                         <span class="crypto-price" id="ticker-xrp">$0.00</span>
                     </div>
                     <div class="crypto-item">
-                        <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/ada.png" alt="ADA" onerror="this.style.display='none'">
+                        <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/ada.png" alt="ADA"
+                            onerror="this.style.display='none'">
                         <span class="crypto-symbol" style="color: #60a5fa;">ADA:</span>
                         <span class="crypto-price" id="ticker-ada">$0.00</span>
                     </div>
                     <div class="crypto-item">
-                        <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/doge.png" alt="DOGE" onerror="this.style.display='none'">
+                        <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/doge.png"
+                            alt="DOGE" onerror="this.style.display='none'">
                         <span class="crypto-symbol" style="color: #eab308;">DOGE:</span>
                         <span class="crypto-price" id="ticker-doge">$0.00</span>
                     </div>
                     <div class="crypto-item">
-                        <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/eos.png" alt="EOS" onerror="this.style.display='none'">
+                        <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/eos.png" alt="EOS"
+                            onerror="this.style.display='none'">
                         <span class="crypto-symbol" style="color: #93c5fd;">EOS:</span>
                         <span class="crypto-price" id="ticker-eos">$0.00</span>
                     </div>
                     <div class="crypto-item">
-                        <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/ltc.png" alt="LTC" onerror="this.style.display='none'">
+                        <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/ltc.png" alt="LTC"
+                            onerror="this.style.display='none'">
                         <span class="crypto-symbol" style="color: #cbd5e1;">LTC:</span>
                         <span class="crypto-price" id="ticker-ltc">$0.00</span>
                     </div>
                     <div class="crypto-item">
-                        <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/dash.png" alt="DASH" onerror="this.style.display='none'">
+                        <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/dash.png"
+                            alt="DASH" onerror="this.style.display='none'">
                         <span class="crypto-symbol" style="color: #2563eb;">DASH:</span>
                         <span class="crypto-price" id="ticker-dash">$0.00</span>
                     </div>
                     <!-- Duplicate for seamless continuous scroll -->
                     <div class="crypto-item">
-                        <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/btc.png" alt="BTC" onerror="this.style.display='none'">
+                        <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/btc.png" alt="BTC"
+                            onerror="this.style.display='none'">
                         <span class="crypto-symbol" style="color: #f59e0b;">BTC:</span>
                         <span class="crypto-price" id="ticker-btc-dup">$0.00</span>
                     </div>
                     <div class="crypto-item">
-                        <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/eth.png" alt="ETH" onerror="this.style.display='none'">
+                        <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/eth.png" alt="ETH"
+                            onerror="this.style.display='none'">
                         <span class="crypto-symbol" style="color: #a855f7;">ETH:</span>
                         <span class="crypto-price" id="ticker-eth-dup">$0.00</span>
                     </div>
                     <div class="crypto-item">
-                        <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/xrp.png" alt="XRP" onerror="this.style.display='none'">
+                        <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/xrp.png" alt="XRP"
+                            onerror="this.style.display='none'">
                         <span class="crypto-symbol" style="color: #3b82f6;">XRP:</span>
                         <span class="crypto-price" id="ticker-xrp-dup">$0.00</span>
                     </div>
                     <div class="crypto-item">
-                        <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/ada.png" alt="ADA" onerror="this.style.display='none'">
+                        <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/ada.png" alt="ADA"
+                            onerror="this.style.display='none'">
                         <span class="crypto-symbol" style="color: #60a5fa;">ADA:</span>
                         <span class="crypto-price" id="ticker-ada-dup">$0.00</span>
                     </div>
                     <div class="crypto-item">
-                        <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/doge.png" alt="DOGE" onerror="this.style.display='none'">
+                        <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/doge.png"
+                            alt="DOGE" onerror="this.style.display='none'">
                         <span class="crypto-symbol" style="color: #eab308;">DOGE:</span>
                         <span class="crypto-price" id="ticker-doge-dup">$0.00</span>
                     </div>
                     <div class="crypto-item">
-                        <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/eos.png" alt="EOS" onerror="this.style.display='none'">
+                        <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/eos.png" alt="EOS"
+                            onerror="this.style.display='none'">
                         <span class="crypto-symbol" style="color: #93c5fd;">EOS:</span>
                         <span class="crypto-price" id="ticker-eos-dup">$0.00</span>
                     </div>
                     <div class="crypto-item">
-                        <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/ltc.png" alt="LTC" onerror="this.style.display='none'">
+                        <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/ltc.png" alt="LTC"
+                            onerror="this.style.display='none'">
                         <span class="crypto-symbol" style="color: #cbd5e1;">LTC:</span>
                         <span class="crypto-price" id="ticker-ltc-dup">$0.00</span>
                     </div>
                     <div class="crypto-item">
-                        <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/dash.png" alt="DASH" onerror="this.style.display='none'">
+                        <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/dash.png"
+                            alt="DASH" onerror="this.style.display='none'">
                         <span class="crypto-symbol" style="color: #2563eb;">DASH:</span>
                         <span class="crypto-price" id="ticker-dash-dup">$0.00</span>
                     </div>
@@ -707,7 +886,9 @@
                         </div>
                         <h3>Bitcoin (BTC)</h3>
                     </div>
-                    <span class="text-[10px] font-extrabold text-amber-400 font-mono tracking-wider bg-amber-500/20 px-2 py-0.5 rounded border border-amber-500/40">BINANCE FEED</span>
+                    <span
+                        class="text-[10px] font-extrabold text-amber-400 font-mono tracking-wider bg-amber-500/20 px-2 py-0.5 rounded border border-amber-500/40">BINANCE
+                        FEED</span>
                 </div>
                 <div class="price-card-body">
                     <div>
@@ -727,7 +908,9 @@
                         </div>
                         <h3>Ethereum (ETH)</h3>
                     </div>
-                    <span class="text-[10px] font-extrabold text-amber-400 font-mono tracking-wider bg-amber-500/20 px-2 py-0.5 rounded border border-amber-500/40">BINANCE FEED</span>
+                    <span
+                        class="text-[10px] font-extrabold text-amber-400 font-mono tracking-wider bg-amber-500/20 px-2 py-0.5 rounded border border-amber-500/40">BINANCE
+                        FEED</span>
                 </div>
                 <div class="price-card-body">
                     <div>
@@ -747,7 +930,9 @@
                         </div>
                         <h3>BNB Chain (BNB)</h3>
                     </div>
-                    <span class="text-[10px] font-extrabold text-emerald-400 font-mono tracking-wider bg-emerald-500/20 px-2 py-0.5 rounded border border-emerald-500/40">BSC MAINNET</span>
+                    <span
+                        class="text-[10px] font-extrabold text-emerald-400 font-mono tracking-wider bg-emerald-500/20 px-2 py-0.5 rounded border border-emerald-500/40">BSC
+                        MAINNET</span>
                 </div>
                 <div class="price-card-body">
                     <div>
@@ -869,7 +1054,8 @@
     </div>
 
     <!-- Notification Toast for Copy (Hidden by default) -->
-    <div id="copy-toast" style="display: none; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; position: fixed; bottom: 24px; right: 24px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #ffffff; padding: 12px 22px; border-radius: 12px; font-size: 0.875rem; font-weight: 700; z-index: 9999; box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px rgba(16, 185, 129, 0.4); border: 1px solid rgba(255,255,255,0.3);">
+    <div id="copy-toast"
+        style="display: none; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; position: fixed; bottom: 24px; right: 24px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #ffffff; padding: 12px 22px; border-radius: 12px; font-size: 0.875rem; font-weight: 700; z-index: 9999; box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px rgba(16, 185, 129, 0.4); border: 1px solid rgba(255,255,255,0.3);">
         <i class="fa-solid fa-circle-check mr-2"></i> Transaction hash copied to clipboard!
     </div>
 
@@ -1169,13 +1355,13 @@
         function renderEmptyState() {
             const tbody = document.getElementById('transactions-body');
             tbody.innerHTML = `
-                <tr>
-                    <td colspan="4" class="empty-state">
-                        <i class="fa-solid fa-inbox"></i>
-                        No arbitrage transaction feeds captured.
-                    </td>
-                </tr>
-            `;
+                    <tr>
+                        <td colspan="4" class="empty-state">
+                            <i class="fa-solid fa-inbox"></i>
+                            No arbitrage transaction feeds captured.
+                        </td>
+                    </tr>
+                `;
             document.getElementById('total-tx-count').textContent = '0';
         }
 
@@ -1205,47 +1391,47 @@
             if (!isInitial) tr.className = 'new-row';
             tr.dataset.timestamp = tx.timestamp;
             tr.innerHTML = `
-                <td>
-                    <div class="pair-cell">
-                        <div class="pair-icons-stack">
-                            <img src="${baseIcon}" alt="${tokenBase}" class="token-pair-img token-primary" onerror="this.onerror=null; this.src='https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/generic.png'">
-                            <img src="${quoteIcon}" alt="${tokenQuote}" class="token-pair-img token-secondary" onerror="this.onerror=null; this.src='https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/generic.png'">
+                    <td>
+                        <div class="pair-cell">
+                            <div class="pair-icons-stack">
+                                <img src="${baseIcon}" alt="${tokenBase}" class="token-pair-img token-primary" onerror="this.onerror=null; this.src='https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/generic.png'">
+                                <img src="${quoteIcon}" alt="${tokenQuote}" class="token-pair-img token-secondary" onerror="this.onerror=null; this.src='https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/generic.png'">
+                            </div>
+                            <div class="pair-details">
+                                <span class="pair-title">
+                                    ${tokenBase} / ${tokenQuote}
+                                    <span class="spread-badge">${spread}</span>
+                                </span>
+                                <span class="arbitrage-route">
+                                    <span class="route-badge">${route}</span>
+                                </span>
+                            </div>
                         </div>
-                        <div class="pair-details">
-                            <span class="pair-title">
-                                ${tokenBase} / ${tokenQuote}
-                                <span class="spread-badge">${spread}</span>
-                            </span>
-                            <span class="arbitrage-route">
-                                <span class="route-badge">${route}</span>
-                            </span>
+                    </td>
+                    <td>
+                        <div class="amount-cell">
+                            <span class="amount-val">${tx.amount} ${tokenBase}</span>
+                            <div class="amount-usd">≈ $${tx.amountUsd} USD</div>
                         </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="amount-cell">
-                        <span class="amount-val">${tx.amount} ${tokenBase}</span>
-                        <div class="amount-usd">≈ $${tx.amountUsd} USD</div>
-                    </div>
-                </td>
-                <td>
-                    <div class="hash-cell">
-                        <a href="https://bscscan.com/tx/${tx.hash}" target="_blank" rel="noopener noreferrer" class="hash-link" title="Verify on BSCScan Explorer: ${tx.hash}">
-                            <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.725rem;"></i>
-                            ${shortHash}
-                        </a>
-                        <button class="copy-btn" onclick="copyHash('${tx.hash}')" title="Copy full transaction hash">
-                            <i class="fa-regular fa-copy"></i>
-                        </button>
-                    </div>
-                </td>
-                <td>
-                    <div class="time-cell">
-                        <i class="fa-regular fa-clock" style="color: var(--accent-gold); font-size: 0.8rem;"></i>
-                        <span class="time-text">${getRelativeTime(tx.timestamp)}</span>
-                    </div>
-                </td>
-            `;
+                    </td>
+                    <td>
+                        <div class="hash-cell">
+                            <a href="https://bscscan.com/tx/${tx.hash}" target="_blank" rel="noopener noreferrer" class="hash-link" title="Verify on BSCScan Explorer: ${tx.hash}">
+                                <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.725rem;"></i>
+                                ${shortHash}
+                            </a>
+                            <button class="copy-btn" onclick="copyHash('${tx.hash}')" title="Copy full transaction hash">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="time-cell">
+                            <i class="fa-regular fa-clock" style="color: var(--accent-gold); font-size: 0.8rem;"></i>
+                            <span class="time-text">${getRelativeTime(tx.timestamp)}</span>
+                        </div>
+                    </td>
+                `;
 
             tbody.insertBefore(tr, tbody.firstChild);
             while (tbody.children.length > MAX_ROWS) {

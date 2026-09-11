@@ -17,7 +17,8 @@
                 <!-- Header Brand Logo -->
                 <div class="text-center space-y-3">
                     <a href="{{ url('/') }}" class="inline-block">
-                        <img src="{{ asset('images/nextgen_logo.png') }}" alt="NEXTGEN FOREX Logo" class="h-16 sm:h-20 w-auto mx-auto object-contain drop-shadow-[0_0_20px_rgba(243,202,82,0.8)] hover:scale-105 transition duration-300">
+                        <img src="{{ asset('images/nextgen_logo.png') }}" alt="NEXTGEN FOREX Logo"
+                            class="h-16 sm:h-20 w-auto mx-auto object-contain drop-shadow-[0_0_20px_rgba(243,202,82,0.8)] hover:scale-105 transition duration-300">
                     </a>
                 </div>
 
@@ -29,7 +30,8 @@
                             class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-black uppercase tracking-widest border border-amber-500/40">
                             CREATE NEW ACCOUNT
                         </span>
-                        <h2 class="text-2xl font-black text-white uppercase tracking-tight font-heading mt-2">MEMBER REGISTRATION</h2>
+                        <h2 class="text-2xl font-black text-white uppercase tracking-tight font-heading mt-2">MEMBER
+                            REGISTRATION</h2>
                         <p class="text-xs text-neutral-400">Join the next-generation forex investment ecosystem</p>
                     </div>
 
@@ -42,19 +44,15 @@
                             <div class="flex items-center justify-between mb-1.5">
                                 <label class="block text-xs font-bold text-amber-400 uppercase">Sponsor Code / ID</label>
                                 @if(isset($isLockedSponsor) && $isLockedSponsor)
-                                    <span class="text-[10px] font-black text-amber-300 bg-amber-500/20 px-2 py-0.5 rounded border border-amber-500/40 uppercase flex items-center gap-1">
+                                    <span
+                                        class="text-[10px] font-black text-amber-300 bg-amber-500/20 px-2 py-0.5 rounded border border-amber-500/40 uppercase flex items-center gap-1">
                                         🔒 Locked via Referral Link
                                     </span>
                                 @endif
                             </div>
                             <div class="relative">
-                                <input 
-                                    type="text" 
-                                    id="sponsorInput"
-                                    name="sponsor_id" 
-                                    value="{{ old('sponsor_id', $sponsor ?? '') }}" 
-                                    {{ (isset($isLockedSponsor) && $isLockedSponsor) ? 'readonly' : '' }}
-                                    placeholder="Enter Sponsor Code (e.g. NGF-0967542)" 
+                                <input type="text" id="sponsorInput" name="sponsor_id" value="{{ old('sponsor_id', $sponsor ?? '') }}" {{ (isset($isLockedSponsor) && $isLockedSponsor) ? 'readonly' : '' }}
+                                    placeholder="Enter Sponsor Code (e.g. NGF-0967542)"
                                     class="w-full px-4 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400 {{ (isset($isLockedSponsor) && $isLockedSponsor) ? 'opacity-85 cursor-not-allowed bg-amber-500/5' : '' }}">
                             </div>
 
@@ -70,26 +68,26 @@
                                 <label class="block text-xs font-bold text-amber-400 uppercase mb-1.5">Full Name *</label>
                                 <input type="text" name="name" value="{{ old('name') }}" required placeholder="e.g. John Doe"
                                     class="w-full px-4 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400">
-                                </div>
-
+                            </div>
                             <div>
                                 <label class="block text-xs font-bold text-amber-400 uppercase mb-1.5">Email Address *</label>
                                 <input type="email" name="email" value="{{ old('email') }}" required placeholder="john@example.com"
                                     class="w-full px-4 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400">
-                                </div>
-                                </div>
+                            </div>
+                            </div>
 
                         <!-- Phone -->
                         <div>
                             <label class="block text-xs font-bold text-amber-400 uppercase mb-1.5">Mobile Phone *</label>
                             <input type="text" name="mobile" value="{{ old('mobile') }}" required placeholder="+1 234 567 890"
                                 class="w-full px-4 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400">
-                            </div>
+                        </div>
 
                         <!-- Password & Confirm Password -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-bold text-amber-400 uppercase mb-1.5">Account Password *</label>
+                                <label class="block text-xs font-bold text-amber-400 uppercase mb-1.5">Account Password
+                                    *</label>
                                 <div class="relative">
                                     <input type="password" id="regPassword" name="password" required placeholder="••••••••"
                                         class="w-full pl-4 pr-12 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400">
@@ -107,12 +105,12 @@
                                             <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
                                             <line x1="2" y1="2" x2="22" y2="22" />
                                         </svg>
-                                        </button>
-                                        </div>
-                                        </div>
-
+                                    </button>
+                                    </div>
+                                    </div>
                             <div>
-                                <label class="block text-xs font-bold text-amber-400 uppercase mb-1.5">Confirm Password *</label>
+                                <label class="block text-xs font-bold text-amber-400 uppercase mb-1.5">Confirm Password
+                                    *</label>
                                 <div class="relative">
                                     <input type="password" id="regPasswordConfirm" name="password_confirmation" required placeholder="••••••••"
                                         class="w-full pl-4 pr-12 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400">
@@ -131,10 +129,10 @@
                                             <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
                                             <line x1="2" y1="2" x2="22" y2="22" />
                                         </svg>
-                                        </button>
-                                        </div>
-                                        </div>
-                                        </div>
+                                    </button>
+                                    </div>
+                                    </div>
+                                    </div>
 
                         <!-- Terms Checkbox -->
                         <div class="pt-1">
@@ -142,8 +140,8 @@
                                 <input type="checkbox" required checked class="w-4 h-4 rounded accent-amber-500">
                                 <span>I agree to the <a href="javascript:void(0)" class="text-amber-400 font-bold hover:underline">Terms &
                                         Conditions</a> of NextGen Forex.</span>
-                                </label>
-                                </div>
+                            </label>
+                            </div>
 
                         <!-- Submit Button -->
                         <button type="submit"
@@ -157,12 +155,13 @@
                             </svg>
                             REGISTER & GET MEMBER ID
                         </button>
-                        </form>
+                    </form>
 
                     <div class="text-center pt-3 border-t border-amber-500/20 flex items-center justify-between text-xs">
                         <p class="text-neutral-400">
                             Already have an account?
-                            <a href="{{ route('user.login') }}" class="text-amber-400 font-black hover:underline ml-1">LOG IN HERE</a>
+                            <a href="{{ route('user.login') }}" class="text-amber-400 font-black hover:underline ml-1">LOG IN
+                                HERE</a>
                         </p>
                         <a href="{{ url('/') }}" class="text-neutral-300 font-bold hover:text-amber-400 flex items-center gap-1">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="none"
@@ -171,10 +170,10 @@
                                 <polyline points="9 22 9 12 15 12 15 22" />
                             </svg>
                             Back to Home
-                            </a>
-                            </div>
-                            </div>
-                            </div>
+                        </a>
+                        </div>
+                        </div>
+                        </div>
         @endif
 
         <!-- CONGRATULATIONS SUCCESS MODAL POPUP (NO BACKGROUND FORM CLUTTER) -->
@@ -204,7 +203,8 @@
                         </span>
                         <h3 class="text-2xl font-black text-white uppercase tracking-tight mt-2 font-heading">REGISTRATION
                             SUCCESSFUL</h3>
-                        <p class="text-xs text-neutral-300 mt-1">Welcome to NextGen Forex Trading. Please save your login details
+                        <p class="text-xs text-neutral-300 mt-1">Welcome to NextGen Forex Trading. Please save your login
+                            details
                             below.</p>
                     </div>
 
@@ -271,22 +271,22 @@
                             if (data.success) {
                                 box.className = 'mt-2 p-3 rounded-xl border bg-emerald-500/10 border-emerald-500/40 text-emerald-400 text-xs font-semibold flex items-center justify-between';
                                 box.innerHTML = `
-                                    <div class="flex items-center gap-2">
-                                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                                        <div>
-                                            <span class="font-black uppercase tracking-wider text-white block">✓ VERIFIED SPONSOR</span>
-                                            <span class="text-emerald-300 font-bold">${data.name}</span>
-                                            <span class="text-neutral-400 font-mono text-[11px] block">${data.email}</span>
+                                        <div class="flex items-center gap-2">
+                                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                                            <div>
+                                                <span class="font-black uppercase tracking-wider text-white block">✓ VERIFIED SPONSOR</span>
+                                                <span class="text-emerald-300 font-bold">${data.name}</span>
+                                                <span class="text-neutral-400 font-mono text-[11px] block">${data.email}</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <span class="text-[10px] font-mono bg-black/50 px-2 py-1 rounded text-amber-400 border border-amber-500/30">${data.referral_code}</span>
-                                `;
+                                        <span class="text-[10px] font-mono bg-black/50 px-2 py-1 rounded text-amber-400 border border-amber-500/30">${data.referral_code}</span>
+                                    `;
                             } else {
                                 box.className = 'mt-2 p-3 rounded-xl border bg-rose-500/10 border-rose-500/40 text-rose-300 text-xs font-semibold flex items-center gap-2';
                                 box.innerHTML = `
-                                    <span class="w-2 h-2 rounded-full bg-rose-500"></span>
-                                    <span>${data.message || 'Invalid Sponsor Code! User not found.'}</span>
-                                `;
+                                        <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                                        <span>${data.message || 'Invalid Sponsor Code! User not found.'}</span>
+                                    `;
                             }
                         })
                         .catch(() => {
@@ -300,10 +300,10 @@
             }
         });
 
-            function togglePassVisibility(inputId, openId, closedId) {
-                const pass = document.getElementById(inputId);
-                const openSvg = document.getElementById(openId);
-                const closedSvg = document.getElementById(closedId);
+        function togglePassVisibility(inputId, openId, closedId) {
+            const pass = document.getElementById(inputId);
+            const openSvg = document.getElementById(openId);
+            const closedSvg = document.getElementById(closedId);
 
             if (pass.type === 'password') {
                 pass.type = 'text';
@@ -316,11 +316,11 @@
             }
         }
 
-            function copyDetails(userId, sponsorId, name) {
-                const text = `NextGen Forex Member Credentials:\nMember ID: ${userId}\nSponsor ID: ${sponsorId}\nMember Name: ${name}`;
-                navigator.clipboard.writeText(text).then(() => {
-                    alert('Member details copied to clipboard!');
-                });
-            }
+        function copyDetails(userId, sponsorId, name) {
+            const text = `NextGen Forex Member Credentials:\nMember ID: ${userId}\nSponsor ID: ${sponsorId}\nMember Name: ${name}`;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Member details copied to clipboard!');
+            });
+        }
         </script>
 @endsection

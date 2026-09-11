@@ -1,4 +1,4 @@
-            <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -9,7 +9,7 @@
     <title>Next Gen Forex | Smart Digital Income &amp; Growth Platform</title>
     <link rel="icon" type="image/png" href="{{ asset('website/assets/images/logo.png') }}" />
     <link rel="stylesheet" href="{{ asset('website/assets/css/style.css') }}" />
-    </head>
+</head>
 
 <body>
 
@@ -36,15 +36,15 @@
                 <div class="nav-cta-mobile-row">
                     <a href="{{ route('user.register') }}" class="nav-cta nav-cta-mobile">Sign In</a>
                 </div>
-                </div>
-                <a href="{{ route('user.login') }}" class="nav-cta nav-cta-desktop">Sign Up</a>
-                <a href="{{ route('user.register') }}" class="nav-cta nav-cta-desktop">Sign In</a>
+            </div>
+            <a href="{{ route('user.login') }}" class="nav-cta nav-cta-desktop">Sign Up</a>
+            <a href="{{ route('user.register') }}" class="nav-cta nav-cta-desktop">Sign In</a>
 
-                <div class="nav-toggle" id="navToggle" aria-label="Toggle Menu" aria-expanded="false">
-                    <span></span><span></span><span></span>
-                </div>
-                </div>
-                </nav>
+            <div class="nav-toggle" id="navToggle" aria-label="Toggle Menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </div>
+            </div>
+            </nav>
 
     <!-- ============================================================
                              PAGE 01 — HERO  (REDESIGNED v2 — UNIQUE / PREMIUM)
@@ -136,8 +136,7 @@
                                 <img src="{{ asset('website/assets/icons/lucide/rocket.svg') }}" alt="" />
                                 <span>Get Started</span>
                                 <svg class="hv2-btn-arrow" viewBox="0 0 16 16" fill="none">
-                                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-                                        stroke-linejoin="round" />
+                                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
                             </a>
                             <a href="#sectors" class="hv2-btn-outline">
@@ -145,7 +144,7 @@
                                 <img src="{{ asset('website/assets/icons/lucide/external-link.svg') }}" alt="" />
                             </a>
                         </div>
-                        </div>
+                    </div>
 
                 </div>
 
@@ -170,7 +169,7 @@
                              ============================================================ -->
     <section class="about" id="about">
         <div class="about-container">
-    
+
             <div class="about-img-wrap reveal-left">
                 <img src="{{ asset('website/assets/images/icons.png') }}" alt="About Next Gen Forex"
                     onerror="this.src='{{ asset('website/assets/images/image1.png') }}'" />
@@ -182,7 +181,7 @@
                 </span>
                 <h2 class="section-title">Your Gateway to<br /><span class="about-accent">Global Financial
                         Markets</span></h2>
-            
+
                 <!-- Block 1 — Gateway -->
                 <div class="about-overview-block">
                     <div class="aob-header">
@@ -190,22 +189,22 @@
                             <img src="{{ asset('website/assets/icons/lucide/globe.svg') }}" alt="Gateway" />
                         </div>
                         <h4 class="aob-title">A Gateway to Global Financial Markets</h4>
-                        </div>
-                        <p class="aob-desc">
-                            Headquartered in the United States, Next Gen Forex Trading is a forward-thinking
-                            financial market brand dedicated to redefining how individuals and institutions
-                            interact with the global economy. We are built on the belief that financial
-                            independence should be accessible to anyone willing to learn and take action.
-                            As a premier hub for modern trading, we provide a secure, transparent, and
-                            highly efficient gateway to the world's most dynamic financial ecosystems. Our
-                            primary focus is to empower our clients by giving them the clarity, support, and
-                            tools they need to navigate the complexities of global finance with complete confidence.
-                        </p>
-                        </div>
+                    </div>
+                    <p class="aob-desc">
+                        Headquartered in the United States, Next Gen Forex Trading is a forward-thinking
+                        financial market brand dedicated to redefining how individuals and institutions
+                        interact with the global economy. We are built on the belief that financial
+                        independence should be accessible to anyone willing to learn and take action.
+                        As a premier hub for modern trading, we provide a secure, transparent, and
+                        highly efficient gateway to the world's most dynamic financial ecosystems. Our
+                        primary focus is to empower our clients by giving them the clarity, support, and
+                        tools they need to navigate the complexities of global finance with complete confidence.
+                    </p>
+                    </div>
 
             </div>
-            </div>
-            </section>
+        </div>
+        </section>
 
     <!-- ============================================================
                              PAGE 03 — OUR BUSINESS SECTORS
@@ -213,7 +212,7 @@
     <section class="sectors-section" id="sectors">
         <div class="sectors-bg-overlay"></div>
         <div class="sectors-glow-top"></div>
-    
+
         <div class="sectors-container">
             <!-- Header -->
             <div class="text-center reveal">
@@ -258,14 +257,14 @@
                                 <img src="{{ asset('website/assets/icons/lucide/coins.svg') }}" alt="Crypto" />
                             </div>
                             <div class="sector-icon-ring sector-icon-ring--green"></div>
-                            </div>
-                            <h3 class="sector-title">Crypto</h3>
-                            <p class="sector-desc">Navigate the digital asset revolution with confidence. From Bitcoin to
-                                altcoins — we
-                                break down blockchain fundamentals and crypto market cycles.</p>
-                            <div class="sector-tag sector-tag--green">Digital Assets</div>
-                            </div>
-                            <div class="sector-card-glow sector-card-glow--green"></div>
+                        </div>
+                        <h3 class="sector-title">Crypto</h3>
+                        <p class="sector-desc">Navigate the digital asset revolution with confidence. From Bitcoin to
+                            altcoins — we
+                            break down blockchain fundamentals and crypto market cycles.</p>
+                        <div class="sector-tag sector-tag--green">Digital Assets</div>
+                        </div>
+                        <div class="sector-card-glow sector-card-glow--green"></div>
                 </div>
 
                 <!-- 3. Financial Technology -->
@@ -329,78 +328,76 @@
                                 <img src="{{ asset('website/assets/icons/lucide/arrow-right.svg') }}" alt="Arbitrage" />
                             </div>
                             <div class="sector-icon-ring sector-icon-ring--green"></div>
-                            </div>
+                        </div>
                         <h3 class="sector-title">Arbitrage Trading</h3>
                         <p class="sector-desc">Profit from price differentials across markets and exchanges. We provide
                             structured
                             approaches to identify and act on arbitrage opportunities in real time.</p>
                         <div class="sector-tag sector-tag--green">Smart Execution</div>
-                        </div>
-                    <div class="sector-card-glow sector-card-glow--green"></div>
                     </div>
+                    <div class="sector-card-glow sector-card-glow--green"></div>
+                </div>
 
             </div>
-            
-            
-            </div>
-            </section>
-            
-            <!-- ============================================================
+        </div>
+        </section>
+        
+        <!-- ============================================================
                                                                                          PAGE 04 — WHAT IS CRYPTOCURRENCY
                                                                                          ============================================================ -->
-            <section class="crypto-explainer" id="cryptocurrency">
-                <div class="ce-bg-overlay"></div>
-                <div class="ce-container">
-            
-                    <div class="text-center reveal">
-                        <span class="section-tag">
-                            Understanding Cryptocurrency
-                        </span>
-                        <h2 class="section-title">What is<br />Cryptocurrency?</h2>
-                        <div class="divider"></div>
-                        <p class="section-subtitle">
-                            Cryptocurrency is a form of digital asset that uses cryptographic technology to secure
-                            transactions and manage the creation or transfer of digital units.
-                        </p>
-                    </div>
-            
-                    <div class="ce-layout">
-            
-                        <!-- Left: Key Characteristics -->
-                        <div class="ce-left reveal-left">
-                            <h3 class="ce-sub-heading">Key Characteristics</h3>
-                            <div class="ce-chars">
-            
-                                <div class="ce-char-item">
-                                    <div class="ce-char-icon">
-                                        <img src="{{ asset('website/assets/icons/lucide/monitor.svg') }}" alt="Digital" />
-                                    </div>
-                                    <div>
+    <section class="crypto-explainer" id="cryptocurrency">
+        <div class="ce-bg-overlay"></div>
+        <div class="ce-container">
+    
+            <div class="text-center reveal">
+                <span class="section-tag">
+                    Understanding Cryptocurrency
+                </span>
+                <h2 class="section-title">What is<br />Cryptocurrency?</h2>
+                <div class="divider"></div>
+                <p class="section-subtitle">
+                    Cryptocurrency is a form of digital asset that uses cryptographic technology to secure
+                    transactions and manage the creation or transfer of digital units.
+                </p>
+            </div>
+    
+            <div class="ce-layout">
+    
+                <!-- Left: Key Characteristics -->
+                <div class="ce-left reveal-left">
+                    <h3 class="ce-sub-heading">Key Characteristics</h3>
+                    <div class="ce-chars">
+    
+                        <div class="ce-char-item">
+                            <div class="ce-char-icon">
+                                <img src="{{ asset('website/assets/icons/lucide/monitor.svg') }}" alt="Digital" />
+                            </div>
+                            <div>
                                 <h4>Digital</h4>
                                 <p>Exists in digital form and can be transferred electronically.</p>
+                            </div>
+                            </div>
+                            
+                            <div class="ce-char-item">
+                                <div class="ce-char-icon">
+                                    <img src="{{ asset('website/assets/icons/lucide/share-2.svg') }}" alt="Decentralized" />
                                 </div>
-                                </div>
-                                
-                                <div class="ce-char-item">
-                                    <div class="ce-char-icon">
-                                        <img src="{{ asset('website/assets/icons/lucide/share-2.svg') }}" alt="Decentralized" />
-                                    </div>
-                                    <div>
+                                <div>
                                 <h4>Decentralized Technology</h4>
                                 <p>Many cryptocurrencies operate using blockchain networks rather than a single central
                                     database.</p>
+                            </div>
+                            </div>
+                            
+                            <div class="ce-char-item">
+                                <div class="ce-char-icon">
+                                    <img src="{{ asset('website/assets/icons/lucide/link-2.svg') }}" alt="Blockchain" />
                                 </div>
-                                </div>
-                                
-                                <div class="ce-char-item">
-                                    <div class="ce-char-icon">
-                                        <img src="{{ asset('website/assets/icons/lucide/link-2.svg') }}" alt="Blockchain" />
-                                    </div>
-                                    <div>
+                                <div>
                                 <h4>Blockchain Based</h4>
                                 <p>Transactions can be recorded on a distributed ledger.</p>
-                                </div>
-                                </div>
+                            </div>
+                            </div>
 
                         <div class="ce-char-item">
                             <div class="ce-char-icon">
@@ -413,7 +410,7 @@
                         </div>
 
                     </div>
-                    </div>
+                </div>
 
                 <!-- Right: Visual + Examples -->
                 <div class="ce-right reveal-right">
@@ -435,9 +432,9 @@
 
         <div class="ben-glow-line"></div>
         <div class="ben-bg-overlay"></div>
-        
+
         <div class="ben-container">
-        
+
             <div class="text-center reveal">
                 <span class="section-tag">
                     <img src="assets/icons/lucide/star.svg" alt="" class="tag-icon" />
@@ -448,7 +445,7 @@
                 <p class="section-subtitle">
                     Discover why crypto is reshaping global finance — and why it matters for your future.
                 </p>
-                </div>
+            </div>
 
             <!-- ROW 1 — image LEFT, content RIGHT -->
             <div class="ben-row reveal-left">
@@ -495,20 +492,20 @@
                         </div>
                     </div>
                 </div>
-                </div>
-                </div>
-                </section>
+            </div>
+            </div>
+            </section>
 
     <!-- ============================================================
                              PAGE 06 — BENEFITS OF CRYPTOCURRENCY (Security)
                              ============================================================ -->
     <section class="benefits-section vs12" id="benefits">
-    
+
         <div class="ben-glow-line"></div>
         <div class="ben-bg-overlay"></div>
-    
+
         <div class="ben-container">
-    
+
             <!-- ROW 2 — content LEFT, image RIGHT -->
             <div class="ben-row ben-row--reverse reveal-right">
                 <div class="ben-img-col">
@@ -553,21 +550,21 @@
                         </div>
                     </div>
                 </div>
-                </div>
-                
-                </div>
-                </section>
-    
+            </div>
+            
+            </div>
+            </section>
+
     <!-- ============================================================
                              PAGE 07 — BENEFITS OF CRYPTOCURRENCY (Growth)
                              ============================================================ -->
     <section class="benefits-section vs13" id="benefits">
-    
+
         <div class="ben-glow-line"></div>
         <div class="ben-bg-overlay"></div>
-    
+
         <div class="ben-container">
-    
+
             <!-- ROW 3 — image LEFT, content RIGHT -->
             <div class="ben-row reveal-left">
                 <div class="ben-img-col">
@@ -611,21 +608,21 @@
                             </div>
                         </div>
                     </div>
-                    </div>
-                    </div>
+                </div>
+                </div>
 
         </div>
     </section>
-    
-    
+
+
     <!-- ============================================================
                              PAGE 08 — WHY FOREX &amp; CRYPTO WITH US
                              ============================================================ -->
     <section class="why-us-section" id="why-us">
         <div class="why-us-bg-overlay"></div>
-    
+
         <div class="why-us-container">
-    
+
             <!-- Header -->
             <div class="text-center reveal">
                 <span class="section-tag">
@@ -642,7 +639,7 @@
 
             <!-- 6 Feature Cards -->
             <div class="why-us-grid">
-            
+
                 <!-- 1 -->
                 <div class="why-card reveal" style="--delay:0s">
                     <div class="why-card-top">
@@ -651,13 +648,13 @@
                                 <img src="{{ asset('website/assets/icons/lucide/activity.svg') }}" alt="Real-Time" />
                             </div>
                             <div class="why-icon-glow"></div>
-                            </div>
-                            </div>
-                            <h3>Real-Time Market Data</h3>
-                            <p>Stay ahead with live price feeds, market cap updates and trading volume data across all major
-                                Forex pairs and
-                                cryptocurrencies — refreshed continuously.</p>
-                            <span class="why-card-tag">Live Updates</span>
+                        </div>
+                        </div>
+                        <h3>Real-Time Market Data</h3>
+                        <p>Stay ahead with live price feeds, market cap updates and trading volume data across all major
+                            Forex pairs and
+                            cryptocurrencies — refreshed continuously.</p>
+                        <span class="why-card-tag">Live Updates</span>
                 </div>
 
                 <!-- 2 -->
@@ -683,8 +680,8 @@
                                 <img src="{{ asset('website/assets/icons/lucide/book-open.svg') }}" alt="Easy" />
                             </div>
                             <div class="why-icon-glow"></div>
-                            </div>
-                            </div>
+                        </div>
+                        </div>
                     <h3>Easy to Understand</h3>
                     <p>Complex Forex and crypto concepts broken down into simple, clear and actionable insights for
                         everyone — beginners to
@@ -700,14 +697,14 @@
                                 <img src="{{ asset('website/assets/icons/lucide/globe.svg') }}" alt="Global" />
                             </div>
                             <div class="why-icon-glow why-icon-glow--amber"></div>
-                            </div>
+                        </div>
                     </div>
                     <h3>Global Market Insights</h3>
                     <p>Access worldwide Forex and crypto market trends, regional data and international movement
                         analysis from one place.
                     </p>
                     <span class="why-card-tag why-card-tag--amber">Worldwide</span>
-                    </div>
+                </div>
 
                 <!-- 5 -->
                 <div class="why-card reveal" style="--delay:0.4s">
@@ -717,13 +714,13 @@
                                 <img src="{{ asset('website/assets/icons/lucide/zap.svg') }}" alt="Fast" />
                             </div>
                             <div class="why-icon-glow"></div>
-                            </div>
-                            </div>
-                            <h3>Fast Updates</h3>
-                            <p>Lightning-speed data delivery ensures you always have the most current information when it
-                                matters most.</p>
-                            <span class="why-card-tag">Low Latency</span>
-                            </div>
+                        </div>
+                        </div>
+                        <h3>Fast Updates</h3>
+                        <p>Lightning-speed data delivery ensures you always have the most current information when it
+                            matters most.</p>
+                        <span class="why-card-tag">Low Latency</span>
+                        </div>
 
                 <!-- 6 -->
                 <div class="why-card reveal" style="--delay:0.5s">
@@ -733,26 +730,26 @@
                                 <img src="{{ asset('website/assets/icons/lucide/badge-check.svg') }}" alt="Trusted" />
                             </div>
                             <div class="why-icon-glow why-icon-glow--amber"></div>
-                            </div>
+                        </div>
                     </div>
                     <h3>Trusted Information</h3>
                     <p>All market data and insights are sourced from verified, reputable channels — giving you full
                         confidence in every
                         decision.</p>
                     <span class="why-card-tag why-card-tag--amber">Verified Sources</span>
-                    </div>
-                    
-                    </div>
+                </div>
+                
+                </div>
 
         </div>
     </section>
-    
+
     <!-- ============================================================
                                                      PAGE 09 — FAQs
                                                      ============================================================ -->
     <section class="faq-section" id="faq">
         <div class="faq-bg-overlay"></div>
-    
+
         <div class="faq-container">
 
             <!-- Header -->
@@ -770,7 +767,7 @@
             </div>
             <!-- FAQ Grid -->
             <div class="faq-grid">
-            
+
                 <!-- Left Column -->
                 <div class="faq-col">
 
@@ -963,14 +960,14 @@
                                 day one — whether
                                 you're a complete beginner or an experienced participant.</p>
                         </div>
-                        </div>
+                    </div>
 
                 </div>
 
             </div>
 
         </div>
-        </section>
+    </section>
 
     <!-- ============================================================
                              FOOTER
@@ -990,10 +987,10 @@
                     Get Started Now
                 </a>
             </div>
-            </div>
-            
-            <!-- Main Grid -->
-            <div class="footer-main">
+        </div>
+        
+        <!-- Main Grid -->
+        <div class="footer-main">
 
             <div class="footer-brand">
                 <div class="logo-wrap">
@@ -1020,7 +1017,7 @@
                     <a href="#" class="fsocial-btn" aria-label="Globe">
                         <img src="{{ asset('website/assets/icons/lucide/globe.svg') }}" alt="Website" />
                     </a>
-                    </div>
+                </div>
             </div>
 
             <div class="footer-links">

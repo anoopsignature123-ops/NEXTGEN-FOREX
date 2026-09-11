@@ -5,7 +5,9 @@
 @section('content')
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
@@ -20,10 +22,12 @@
         .pair-switcher-scroll::-webkit-scrollbar {
             height: 4px;
         }
+
         .pair-switcher-scroll::-webkit-scrollbar-track {
             background: rgba(0, 0, 0, 0.6);
             border-radius: 9999px;
         }
+
         .pair-switcher-scroll::-webkit-scrollbar-thumb {
             background: rgba(243, 202, 82, 0.4);
             border-radius: 9999px;
@@ -31,16 +35,29 @@
 
         /* Glowing Pulse Rings */
         @keyframes beaconPulse {
-            0% { transform: scale(0.6); opacity: 0.9; }
-            70% { transform: scale(2.2); opacity: 0; }
-            100% { transform: scale(2.5); opacity: 0; }
+            0% {
+                transform: scale(0.6);
+                opacity: 0.9;
+            }
+
+            70% {
+                transform: scale(2.2);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(2.5);
+                opacity: 0;
+            }
         }
+
         .pulse-dot-ring {
             width: 10px;
             height: 10px;
             border-radius: 50%;
             position: relative;
         }
+
         .pulse-dot-ring::after {
             content: '';
             position: absolute;
@@ -56,9 +73,19 @@
 
         /* Order Log Row Slide Animation */
         @keyframes logSlide {
-            0% { opacity: 0; transform: translateX(-10px); background: rgba(16, 185, 129, 0.2); }
-            100% { opacity: 1; transform: translateX(0); background: transparent; }
+            0% {
+                opacity: 0;
+                transform: translateX(-10px);
+                background: rgba(16, 185, 129, 0.2);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+                background: transparent;
+            }
         }
+
         .log-row-animate {
             animation: logSlide 0.6s ease-out;
         }
@@ -67,14 +94,20 @@
     <div class="w-full space-y-6">
 
         <!-- Top Header Banner (Full Mobile Responsive NextGen Gold Theme) -->
-        <div class="p-5 sm:p-7 rounded-2xl bg-gradient-to-r from-amber-950/60 via-black to-amber-950/60 border border-amber-500/40 shadow-2xl flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 relative overflow-hidden text-left">
-            <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div
+            class="p-5 sm:p-7 rounded-2xl bg-gradient-to-r from-amber-950/60 via-black to-amber-950/60 border border-amber-500/40 shadow-2xl flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 relative overflow-hidden text-left">
+            <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none">
+            </div>
             <div class="space-y-1.5 z-10 w-full lg:w-auto text-left">
                 <div class="flex flex-wrap items-center gap-2">
-                    <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-400/50 text-amber-300 text-[10px] font-black tracking-widest uppercase">LIVE ENGINE</span>
-                    <span class="text-[10px] sm:text-[11px] text-amber-400 font-extrabold tracking-[2px] uppercase">TRADINGVIEW SYSTEM</span>
+                    <span
+                        class="px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-400/50 text-amber-300 text-[10px] font-black tracking-widest uppercase">LIVE
+                        ENGINE</span>
+                    <span class="text-[10px] sm:text-[11px] text-amber-400 font-extrabold tracking-[2px] uppercase">TRADINGVIEW
+                        SYSTEM</span>
                 </div>
-                <h1 class="text-xl sm:text-3xl font-black text-amber-300 font-heading tracking-tight drop-shadow uppercase flex items-center gap-3 text-left">
+                <h1
+                    class="text-xl sm:text-3xl font-black text-amber-300 font-heading tracking-tight drop-shadow uppercase flex items-center gap-3 text-left">
                     <i class="fa-solid fa-chart-line text-amber-400 animate-pulse"></i>
                     QUANT TRADING TERMINAL
                 </h1>
@@ -140,7 +173,8 @@
                         <i class="fa-solid fa-layer-group text-amber-400"></i>
                         Crypto Pair Selector
                     </h2>
-                    <p class="text-xs text-neutral-400 text-left">Select a cryptocurrency pair to update the live TradingView
+                    <p class="text-xs text-neutral-400 text-left">Select a cryptocurrency pair to update the live
+                        TradingView
                         market chart in real time.</p>
                 </div>
 
@@ -219,8 +253,10 @@
         </div>
 
         <!-- Bot Activation Control Box (Left Icon Badge & Strictly Left-Aligned Text) -->
-        <div class="w-full p-4 sm:p-6 rounded-2xl bg-gradient-to-r from-amber-950/80 via-black to-amber-950/80 border border-amber-500/50 shadow-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-5 relative overflow-hidden text-left">
-            <div class="absolute -left-10 -top-10 w-40 h-40 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
+        <div
+            class="w-full p-4 sm:p-6 rounded-2xl bg-gradient-to-r from-amber-950/80 via-black to-amber-950/80 border border-amber-500/50 shadow-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-5 relative overflow-hidden text-left">
+            <div class="absolute -left-10 -top-10 w-40 h-40 bg-amber-500/10 rounded-full blur-2xl pointer-events-none">
+            </div>
 
             <div class="flex items-start sm:items-center gap-5 sm:gap-6 z-10 w-full md:w-auto text-left">
                 <!-- Glowing Metallic Icon Badge on Left -->
@@ -231,7 +267,8 @@
 
                 <div class="space-y-1.5 text-left min-w-0 flex-1 pl-1">
                     <div class="flex items-center gap-2 text-left">
-                        <span class="text-[10px] font-black text-amber-400 tracking-[2px] uppercase">QUANT ENGINE CONTROL</span>
+                        <span class="text-[10px] font-black text-amber-400 tracking-[2px] uppercase">QUANT ENGINE
+                            CONTROL</span>
                         @if($user->is_bot_active)
                             <span
                                 class="px-3 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/60 text-emerald-400 text-[10px] font-extrabold uppercase flex items-center gap-2">
@@ -254,7 +291,8 @@
                                 class="text-amber-300 font-mono">{{ $user->bot_activated_at?->format('F d, Y \a\t H:i A') }}</strong>.
                             Automated yield compounding is active 24/7.
                         @else
-                            Clicking <strong class="text-amber-300 font-semibold">START BOT</strong> triggers one-time activation of
+                            Clicking <strong class="text-amber-300 font-semibold">START BOT</strong> triggers one-time
+                            activation of
                             your NextGen Quant Trading Engine to unlock daily ROI.
                         @endif
                     </p>
@@ -272,13 +310,13 @@
                     <form action="{{ route('user.bot.activate') }}" method="POST"
                         onsubmit="return confirm('Are you sure you want to START the Trading BOT? This will initiate automated ROI mining.');"
                         class="w-full sm:w-auto">
-                            @csrf
-                            <button type="submit"
-                                        class="w-full sm:w-auto px-6 sm:px-9 py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-300 hover:to-yellow-300 text-black font-black text-xs sm:text-sm uppercase tracking-wider shadow-[0_0_25px_rgba(243,202,82,0.5)] hover:scale-105 transition flex items-center justify-center gap-2.5 border border-yellow-200 cursor-pointer whitespace-nowrap">
-                                        <i class="fa-solid fa-bolt text-black text-sm shrink-0"></i>
-                                        <span class="whitespace-nowrap">START BOT</span>
-                                    </button>
-                                </form>
+                        @csrf
+                        <button type="submit"
+                            class="w-full sm:w-auto px-6 sm:px-9 py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-300 hover:to-yellow-300 text-black font-black text-xs sm:text-sm uppercase tracking-wider shadow-[0_0_25px_rgba(243,202,82,0.5)] hover:scale-105 transition flex items-center justify-center gap-2.5 border border-yellow-200 cursor-pointer whitespace-nowrap">
+                            <i class="fa-solid fa-bolt text-black text-sm shrink-0"></i>
+                            <span class="whitespace-nowrap">START BOT</span>
+                        </button>
+                        </form>
                 @else
                     <button type="button" disabled title="Account Activation Required: Purchase an investment package first to start BOT"
                         class="w-full sm:w-auto px-6 sm:px-8 py-3.5 rounded-xl bg-rose-950/70 border-2 border-rose-500/70 text-rose-300 font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-3 cursor-not-allowed opacity-90 shadow-xl whitespace-nowrap">
@@ -362,9 +400,9 @@
             const div = document.createElement('div');
             div.className = 'log-row-animate flex items-center justify-between p-1.5 rounded bg-black/40 border border-amber-500/10 text-left';
             div.innerHTML = `
-                <span class="text-neutral-400">[${timeStr}] <strong class="text-white">${sym}</strong> Arb Route: <span class="text-sky-400">${exFrom} ➔ ${exTo}</span></span>
-                <span class="text-emerald-400 font-bold">+${margin}% Yield matched</span>
-            `;
+                    <span class="text-neutral-400">[${timeStr}] <strong class="text-white">${sym}</strong> Arb Route: <span class="text-sky-400">${exFrom} ➔ ${exTo}</span></span>
+                    <span class="text-emerald-400 font-bold">+${margin}% Yield matched</span>
+                `;
 
             container.insertBefore(div, container.firstChild);
             if (container.children.length > 8) {
@@ -372,7 +410,7 @@
             }
         }
 
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             loadTradingViewChart('BTCUSDT');
 
             // Seed initial logs
@@ -382,9 +420,9 @@
 
         // Window resize event handler to recalculate responsive chart height
         let resizeTimer;
-        window.addEventListener('resize', function() {
+        window.addEventListener('resize', function () {
             clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(function() {
+            resizeTimer = setTimeout(function () {
                 const activeBtn = document.querySelector('.pair-btn.active-pair');
                 let symbol = 'BTCUSDT';
                 if (activeBtn && activeBtn.getAttribute('onclick')) {

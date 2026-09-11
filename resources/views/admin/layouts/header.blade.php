@@ -21,14 +21,18 @@
             <!-- Global Search Form with Live Autocomplete Suggestions -->
             <div class="relative hidden md:block z-50">
                 <form action="{{ route('admin.users') }}" method="GET" id="globalSearchForm">
-                    <i data-lucide="search" class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-muted pointer-events-none"></i>
-                    <input type="text" name="search" value="{{ request('search') }}" id="globalSearch" autocomplete="off" placeholder="Global search members, email, code..."
+                    <i data-lucide="search"
+                        class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-muted pointer-events-none"></i>
+                    <input type="text" name="search" value="{{ request('search') }}" id="globalSearch"
+                        autocomplete="off" placeholder="Global search members, email, code..."
                         class="w-80 pl-10 pr-4 py-2.5 rounded-xl bg-bg border border-border text-sm text-text placeholder:text-muted focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition" />
                 </form>
 
                 <!-- Live Autocomplete Suggestions Dropdown Box -->
-                <div id="globalSearchSuggestions" style="display: none;" class="absolute left-0 top-full mt-2 w-96 rounded-2xl bg-panel border border-amber-500/40 shadow-2xl overflow-hidden p-2 z-50">
-                    <div class="p-2 border-b border-amber-500/20 text-[11px] font-bold text-amber-400 uppercase tracking-wider flex items-center justify-between">
+                <div id="globalSearchSuggestions" style="display: none;"
+                    class="absolute left-0 top-full mt-2 w-96 rounded-2xl bg-panel border border-amber-500/40 shadow-2xl overflow-hidden p-2 z-50">
+                    <div
+                        class="p-2 border-b border-amber-500/20 text-[11px] font-bold text-amber-400 uppercase tracking-wider flex items-center justify-between">
                         <span>SUGGESTED MEMBERS</span>
                         <span id="searchResultCount" class="text-neutral-400 font-mono text-[10px]">0 found</span>
                     </div>
@@ -40,9 +44,11 @@
         </div>
 
         <!-- Centered Mobile Brand Logo -->
-        <div class="lg:hidden absolute left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-none z-10">
+        <div
+            class="lg:hidden absolute left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-none z-10">
             <a href="{{ route('admin.dashboard') }}" class="pointer-events-auto flex items-center justify-center">
-                <img src="{{ asset('images/nextgen_logo.png') }}" alt="NEXTGEN FOREX Logo" class="h-11 sm:h-12 w-auto max-w-[210px] sm:max-w-[240px] object-contain drop-shadow-[0_0_16px_rgba(243,202,82,0.95)]">
+                <img src="{{ asset('images/nextgen_logo.png') }}" alt="NEXTGEN FOREX Logo"
+                    class="h-11 sm:h-12 w-auto max-w-[210px] sm:max-w-[240px] object-contain drop-shadow-[0_0_16px_rgba(243,202,82,0.95)]">
             </a>
         </div>
 
@@ -60,14 +66,18 @@
                 $headerPendingTickets = \App\Models\SupportTicket::whereIn('status', ['open', 'user_reply'])->count();
             @endphp
             @if($headerPendingWithdrawals > 0)
-                <a href="{{ route('admin.withdrawals.index', ['status' => 'pending']) }}" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/50 text-[11px] font-black animate-pulse shadow-lg hover:bg-rose-500/30 transition" title="Click to view pending withdrawal requests">
+                <a href="{{ route('admin.withdrawals.index', ['status' => 'pending']) }}"
+                    class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/50 text-[11px] font-black animate-pulse shadow-lg hover:bg-rose-500/30 transition"
+                    title="Click to view pending withdrawal requests">
                     <i data-lucide="bell" class="w-3.5 h-3.5 text-rose-400"></i>
                     <span>{{ $headerPendingWithdrawals }} PENDING WITHDRAWAL</span>
                 </a>
             @endif
 
             @if($headerPendingTickets > 0)
-                <a href="{{ route('admin.tickets.index', ['status' => 'pending']) }}" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/50 text-[11px] font-black animate-pulse shadow-lg hover:bg-amber-500/30 transition" title="Click to view pending support tickets">
+                <a href="{{ route('admin.tickets.index', ['status' => 'pending']) }}"
+                    class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/50 text-[11px] font-black animate-pulse shadow-lg hover:bg-amber-500/30 transition"
+                    title="Click to view pending support tickets">
                     <i data-lucide="headphones" class="w-3.5 h-3.5 text-amber-400"></i>
                     <span>{{ $headerPendingTickets }} OPEN TICKET</span>
                 </a>
@@ -76,10 +86,7 @@
 
             <!-- Profile Dropdown -->
             <div class="relative">
-                <button
-                    type="button"
-                    id="adminDropdownBtn"
-                    onclick="toggleAdminProfileMenu(event)"
+                <button type="button" id="adminDropdownBtn" onclick="toggleAdminProfileMenu(event)"
                     class="flex items-center gap-2 p-1 rounded-xl hover:bg-white/10 transition cursor-pointer">
                     <span
                         class="w-9 h-9 rounded-full bg-gradient-to-br from-amber-500 to-yellow-600 flex items-center justify-center shadow-md">
@@ -88,17 +95,17 @@
                     <i data-lucide="chevron-down" class="w-4 h-4 text-muted hidden sm:block"></i>
                 </button>
 
-                <div
-                    id="adminProfileMenu"
-                    style="display: none;"
+                <div id="adminProfileMenu" style="display: none;"
                     class="absolute right-0 top-full mt-2 w-56 rounded-2xl bg-panel border border-amber-500/40 shadow-2xl overflow-hidden p-2 z-50">
                     <div class="p-3 mb-1 border-b border-amber-500/20">
                         <p class="font-semibold text-white flex items-center gap-1.5 text-sm">
-                            {{ Auth::user() ? Auth::user()->name : 'Super Admin' }} <span class="px-1.5 py-0.5 text-[10px] bg-amber-500/20 text-amber-400 rounded">ROOT</span>
+                            {{ Auth::user() ? Auth::user()->name : 'Super Admin' }} <span
+                                class="px-1.5 py-0.5 text-[10px] bg-amber-500/20 text-amber-400 rounded">ROOT</span>
                         </p>
-                        <p class="text-xs text-neutral-400">{{ Auth::user() ? Auth::user()->email : 'admin@nextgenforex.com' }}</p>
+                        <p class="text-xs text-neutral-400">{{ Auth::user() ? Auth::user()->email :
+                            'admin@nextgenforex.com' }}</p>
                     </div>
-                    
+
                     <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-white hover:bg-amber-500/10 transition"
                         href="{{ route('admin.profile') }}">
                         <i data-lucide="user-cog" class="w-4 h-4 text-amber-400"></i>
@@ -107,7 +114,8 @@
                     <div class="my-1 border-t border-amber-500/20"></div>
                     <form action="{{ route('admin.logout') }}" method="POST">
                         @csrf
-                        <button type="submit" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-rose-400 hover:bg-rose-500/10 transition cursor-pointer">
+                        <button type="submit"
+                            class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-rose-400 hover:bg-rose-500/10 transition cursor-pointer">
                             <i data-lucide="log-out" class="w-4 h-4 text-rose-400"></i>
                             <span>Logout</span>
                         </button>
@@ -132,7 +140,7 @@
         }
     }
 
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         const searchInput = document.getElementById('globalSearch');
         const dropdown = document.getElementById('globalSearchSuggestions');
         const suggestionsList = document.getElementById('suggestionsList');
@@ -141,7 +149,7 @@
         if (searchInput && dropdown && suggestionsList) {
             let debounceTimer = null;
 
-            searchInput.addEventListener('input', function() {
+            searchInput.addEventListener('input', function () {
                 const query = this.value.trim();
 
                 if (query.length < 2) {
@@ -189,10 +197,10 @@
                 }, 200);
             });
 
-            document.addEventListener('click', function(e) {
+            document.addEventListener('click', function (e) {
                 const btn = document.getElementById('adminDropdownBtn');
                 const menu = document.getElementById('adminProfileMenu');
-                
+
                 if (menu && btn && !btn.contains(e.target) && !menu.contains(e.target)) {
                     menu.style.display = 'none';
                 }

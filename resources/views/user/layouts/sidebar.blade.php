@@ -6,10 +6,13 @@
     aria-hidden="true"></div>
 <aside class="sidebar" id="sidebar">
     <!-- Logo Section -->
-    <div class="logo-section flex items-center justify-between gap-2 px-4 py-4 border-b border-amber-500/30 shrink-0 bg-gradient-to-b from-amber-500/20 via-amber-500/5 to-transparent">
+    <div
+        class="logo-section flex items-center justify-between gap-2 px-4 py-4 border-b border-amber-500/30 shrink-0 bg-gradient-to-b from-amber-500/20 via-amber-500/5 to-transparent">
         <a href="{{ route('user.dashboard') }}" class="flex items-center justify-center flex-1 min-w-0">
-            <img src="{{ asset('images/nextgen_logo.png') }}" alt="NEXTGEN FOREX Logo" class="full-logo h-12 sm:h-14 w-auto max-w-[210px] object-contain drop-shadow-[0_0_16px_rgba(243,202,82,0.9)] hover:scale-105 transition duration-300">
-            <img src="{{ asset('assets/images/favicon.png') }}" alt="NEXTGEN Emblem" class="mini-logo hidden w-10 h-10 object-contain drop-shadow-[0_0_15px_rgba(243,202,82,0.9)] hover:scale-110 transition duration-300 mx-auto">
+            <img src="{{ asset('images/nextgen_logo.png') }}" alt="NEXTGEN FOREX Logo"
+                class="full-logo h-12 sm:h-14 w-auto max-w-[210px] object-contain drop-shadow-[0_0_16px_rgba(243,202,82,0.9)] hover:scale-105 transition duration-300">
+            <img src="{{ asset('assets/images/favicon.png') }}" alt="NEXTGEN Emblem"
+                class="mini-logo hidden w-10 h-10 object-contain drop-shadow-[0_0_15px_rgba(243,202,82,0.9)] hover:scale-110 transition duration-300 mx-auto">
         </a>
         <button
             class="lg:hidden! flex w-8 h-8 items-center justify-center rounded-lg text-amber-400 hover:bg-amber-500/20 transition js-mobile-menu-toggle shrink-0"
@@ -20,10 +23,10 @@
 
     <!-- Navigation -->
     <nav class="py-4 flex-1 overflow-y-auto space-y-1">
-        
+
         <!-- 0. MAIN OVERVIEW SECTION -->
         <div class="nav-section-title px-5 pt-3 pb-2 text-[10px] font-black uppercase tracking-[2px] text-amber-400/70">
-        Dashboard
+            Dashboard
         </div>
 
         <!-- Dashboard Link -->
@@ -35,9 +38,12 @@
 
         <style>
             @keyframes goldGreenGlow {
-                0%, 100% {
+
+                0%,
+                100% {
                     box-shadow: 0 0 16px rgba(234, 179, 8, 0.6), 0 0 28px rgba(16, 185, 129, 0.4);
                 }
+
                 50% {
                     box-shadow: 0 0 30px rgba(254, 240, 138, 0.95), 0 0 45px rgba(16, 185, 129, 0.75);
                     filter: brightness(1.08);
@@ -45,19 +51,45 @@
             }
 
             @keyframes rocketTakeoff {
-                0%, 100% { transform: translateY(0) translateX(0) scale(1); }
-                50% { transform: translateY(-2px) translateX(2px) scale(1.15); }
+
+                0%,
+                100% {
+                    transform: translateY(0) translateX(0) scale(1);
+                }
+
+                50% {
+                    transform: translateY(-2px) translateX(2px) scale(1.15);
+                }
             }
 
             @keyframes liveDotGlow {
-                0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 6px #eab308; }
-                50% { transform: scale(1.35); opacity: 0.7; box-shadow: 0 0 12px #fef08a; }
+
+                0%,
+                100% {
+                    transform: scale(1);
+                    opacity: 1;
+                    box-shadow: 0 0 6px #eab308;
+                }
+
+                50% {
+                    transform: scale(1.35);
+                    opacity: 0.7;
+                    box-shadow: 0 0 12px #fef08a;
+                }
             }
 
             @keyframes shimmerGradient {
-                0% { background-position: 0% 50%; }
-                50% { background-position: 100% 50%; }
-                100% { background-position: 0% 50%; }
+                0% {
+                    background-position: 0% 50%;
+                }
+
+                50% {
+                    background-position: 100% 50%;
+                }
+
+                100% {
+                    background-position: 0% 50%;
+                }
             }
 
             .arbitrage-pill-gold {
@@ -86,7 +118,6 @@
                 animation: liveDotGlow 1.4s infinite ease-in-out;
             }
         </style>
-
         <!-- Arbitrage Link (Gold Metallic Pill with Rocket & LIVE Badge) -->
         <a class='nav-item arbitrage-pill-gold flex items-center justify-between mx-3 my-2 px-4 py-2 rounded-full text-sm font-black text-black shadow-2xl transition group'
             href='{{ route("user.arbitrage") }}'>
@@ -96,7 +127,8 @@
                 </span>
                 <span class="nav-text text-black font-black text-sm tracking-wide">Arbitrage</span>
             </div>
-            <div class="shrink-0 bg-black text-amber-400 px-2.5 py-1 rounded-full flex items-center gap-1.5 border border-amber-400/40 shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
+            <div
+                class="shrink-0 bg-black text-amber-400 px-2.5 py-1 rounded-full flex items-center gap-1.5 border border-amber-400/40 shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
                 <span class="w-2 h-2 rounded-full bg-amber-400 live-dot-glow inline-block"></span>
                 <span class="text-[10px] font-black tracking-wider uppercase text-amber-300">LIVE</span>
             </div>
@@ -106,7 +138,6 @@
         <div class="nav-section-title px-5 pt-4 pb-2 mt-2 text-[10px] font-black uppercase tracking-[2px] text-amber-400/70">
             ADD FUND & WITHDRAWAL
         </div>
-
         <!-- Add Fund / Deposit -->
         <a class='nav-item {{ request()->routeIs("user.deposits.index") ? "active bg-amber-500/15 text-amber-300 border-r-4 border-amber-400 font-bold shadow-lg" : "" }} flex items-center gap-3 mx-3 my-0.5 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:bg-amber-500/10 hover:text-amber-300 transition'
             href='{{ route("user.deposits.index") }}'>
@@ -284,12 +315,14 @@
     <!-- User Footprint -->
     <div class="user-section mt-auto p-4 border-t border-amber-500/30 shrink-0 bg-neutral-950/80">
         <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 bg-gradient-to-br from-emerald-500 to-teal-600 text-white font-black text-sm shadow-md">
+            <div
+                class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 bg-gradient-to-br from-emerald-500 to-teal-600 text-white font-black text-sm shadow-md">
                 US
             </div>
             <div class="user-info flex-1 min-w-0">
                 <p class="font-bold text-sm text-white truncate">{{ Auth::user() ? Auth::user()->name : 'Member' }}</p>
-                <p class="text-[11px] font-semibold truncate {{ Auth::user() && Auth::user()->status === 'active' ? 'text-emerald-400' : 'text-amber-400' }}">
+                <p
+                    class="text-[11px] font-semibold truncate {{ Auth::user() && Auth::user()->status === 'active' ? 'text-emerald-400' : 'text-amber-400' }}">
                     {{ Auth::user() && Auth::user()->status === 'active' ? 'Active Member' : 'Inactive Member' }}
                 </p>
             </div>

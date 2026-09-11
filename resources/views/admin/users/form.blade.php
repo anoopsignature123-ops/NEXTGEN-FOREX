@@ -7,23 +7,22 @@
             <input type="text" name="name" value="{{ old('name', $user->name ?? '') }}" required placeholder="e.g. John Doe"
                 class="w-full px-4 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400">
         </div>
-
+    
         <div>
             <label class="block text-xs font-bold text-amber-400 uppercase mb-1.5">Email Address *</label>
             <input type="email" name="email" value="{{ old('email', $user->email ?? '') }}" required
                 placeholder="member@example.com"
                 class="w-full px-4 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400">
-        </div>
-    </div>
-
-    <!-- Phone & Sponsor Code -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-            <label class="block text-xs font-bold text-amber-400 uppercase mb-1.5">Mobile Phone *</label>
+            </div>
+            </div>
+<!-- Phone & Sponsor Code -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <div>
+        <label class="block text-xs font-bold text-amber-400 uppercase mb-1.5">Mobile Phone *</label>
             <input type="text" name="mobile" value="{{ old('mobile', $user->mobile ?? '') }}" required placeholder="+1 234 567 890"
                 class="w-full px-4 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400">
         </div>
-
+        
         <div>
             <label class="block text-xs font-bold text-amber-400 uppercase mb-1.5">Sponsor Code / ID</label>
             <input type="text" name="sponsor_code" value="{{ old('sponsor_code', $user->sponsor_code ?? '') }}"
@@ -31,12 +30,11 @@
                 class="w-full px-4 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400">
         </div>
     </div>
-
-    <!-- Password & Password Confirmation -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-        <div>
-            <label class="block text-xs font-bold text-amber-400 uppercase mb-1.5">
-                {{ isset($user) ? 'New Password' : 'Account Password *' }}
+<!-- Password & Password Confirmation -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+    <div>
+        <label class="block text-xs font-bold text-amber-400 uppercase mb-1.5">
+            {{ isset($user) ? 'New Password' : 'Account Password *' }}
             </label>
             <div class="relative">
                 <input type="password" id="uPass" name="password" {{ isset($user) ? '' : 'required' }} placeholder="••••••••"
@@ -44,9 +42,8 @@
                 <button type="button" onclick="togglePassVisibility('uPass', 'uEye1', 'uEye2')"
                     class="absolute right-3 top-1/2 -translate-y-1/2 p-2 text-amber-400 hover:text-amber-300">
                     <svg id="uEye1" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2">
-                        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
-                        <circle cx="12" cy="12" r="3" />
+                        stroke="currentColor" stroke-width="2">              <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                                     <circle cx="12" cy="12" r="3" />
                     </svg>
                     <svg id="uEye2" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 hidden text-amber-300" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2">

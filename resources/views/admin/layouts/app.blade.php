@@ -35,7 +35,7 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="{{ asset('js/app-validation.js') }}"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             if (window.lucide) {
                 window.lucide.createIcons();
             }
@@ -62,7 +62,7 @@
             }
 
             sidebarToggles.forEach(btn => {
-                btn.addEventListener('click', function(e) {
+                btn.addEventListener('click', function (e) {
                     e.preventDefault();
                     if (window.innerWidth >= 1024) {
                         document.body.classList.toggle('sidebar-collapsed');
@@ -79,7 +79,7 @@
             });
 
             mobileBtns.forEach(btn => {
-                btn.addEventListener('click', function(e) {
+                btn.addEventListener('click', function (e) {
                     e.preventDefault();
                     if (sidebar) sidebar.classList.toggle('mobile-sidebar-open');
                     if (overlay) {
@@ -90,7 +90,7 @@
             });
 
             if (overlay) {
-                overlay.addEventListener('click', function() {
+                overlay.addEventListener('click', function () {
                     if (sidebar) sidebar.classList.remove('mobile-sidebar-open');
                     overlay.classList.add('hidden');
                     overlay.classList.remove('opacity-100');

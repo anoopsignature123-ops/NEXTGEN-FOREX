@@ -9,13 +9,14 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/favicon.png') }}?v=2" />
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/images/favicon.png') }}?v=2" />
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}?v=2" />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <link href="{{ asset('css/index.css') }}" rel="stylesheet">
     <link href="{{ asset('css/nextgen-theme.css') }}" rel="stylesheet">
     <style>
         body.ng-auth-bg {
             background-color: #020b06 !important;
-            background-image: 
+            background-image:
                 linear-gradient(to bottom, rgba(2, 22, 13, 0.82), rgba(1, 10, 5, 0.92)),
                 url('{{ asset("images/auth_bg.jpg") }}') !important;
             background-size: cover !important;
@@ -32,11 +33,14 @@
     @stack('styles')
 </head>
 
-<body class="ng-auth-bg flex items-center justify-center p-4 sm:p-6 py-12 relative overflow-y-auto text-slate-100 font-sans min-h-screen">
+<body
+    class="ng-auth-bg flex items-center justify-center p-4 sm:p-6 py-12 relative overflow-y-auto text-slate-100 font-sans min-h-screen">
 
     <!-- High-Tech Ambient Glowing Orbs -->
     <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-amber-500/15 blur-[160px]"></div>
+        <div
+            class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-amber-500/15 blur-[160px]">
+        </div>
         <div class="absolute bottom-10 right-10 w-[450px] h-[450px] rounded-full bg-emerald-500/15 blur-[140px]"></div>
     </div>
 
@@ -47,7 +51,7 @@
 
     <script src="{{ asset('js/app-validation.js') }}"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             @if ($errors->any())
                 showToast('Authentication Error', "{{ $errors->first() }}", 'error');
             @endif
