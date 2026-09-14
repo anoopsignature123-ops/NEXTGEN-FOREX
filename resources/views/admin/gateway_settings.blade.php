@@ -11,8 +11,7 @@
                     <span class="text-xs text-amber-400 font-extrabold tracking-[3px] uppercase">NEXTGEN FOREX ADMIN
                         CONTROL</span>
                 </div>
-                <h1 class="text-xl sm:text-3xl font-black text-gold-gradient font-heading uppercase leading-tight">PAYMENT
-                    GATEWAY CONFIGURATION</h1>
+                <h1 class="text-xl sm:text-3xl font-black text-gold-gradient font-heading uppercase leading-tight">PAYMENT GATEWAY CONFIGURATION</h1>
                 <p class="text-xs text-neutral-300 mt-1">Manage iPaymentWallet API Key & Live USDT Payment Engine</p>
             </div>
 
@@ -68,9 +67,7 @@
                             ⚙️
                         </div>
                         <div class="min-w-0 flex-1">
-                            <h3
-                                class="text-sm sm:text-base font-black text-white font-heading tracking-wide uppercase truncate">
-                                GATEWAY API SETTINGS</h3>
+                            <h3 class="text-sm sm:text-base font-black text-white font-heading tracking-wide uppercase truncate">GATEWAY API SETTINGS</h3>
                             <p class="text-xs text-neutral-400 truncate">Manage iPaymentWallet Live API Key</p>
                         </div>
                     </div>

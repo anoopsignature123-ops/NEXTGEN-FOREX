@@ -18,18 +18,42 @@
 <!-- Phone & Sponsor Code -->
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
     <div>
-        <label class="block text-xs font-bold text-amber-400 uppercase mb-1.5">Mobile Phone *</label>
-            <input type="text" name="mobile" value="{{ old('mobile', $user->mobile ?? '') }}" required placeholder="+1 234 567 890"
-                class="w-full px-4 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400">
-        </div>
-        
-        <div>
-            <label class="block text-xs font-bold text-amber-400 uppercase mb-1.5">Sponsor Code / ID</label>
-            <input type="text" name="sponsor_code" value="{{ old('sponsor_code', $user->sponsor_code ?? '') }}"
-                placeholder="e.g. NGF-1000001 (Leave empty for No Sponsor)"
-                class="w-full px-4 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400">
-        </div>
+        <label class="block text-xs font-bold text-amber-400 uppercase mb-1.5">Mobile Phone</label>
+        <input type="text" name="mobile" value="{{ old('mobile', $user->mobile ?? '') }}" placeholder="+1 234 567 890"
+            class="w-full px-4 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400">
     </div>
+
+    <div>
+        <label class="block text-xs font-bold text-amber-400 uppercase mb-1.5">Sponsor Code / ID</label>
+        <input type="text" name="sponsor_code" value="{{ old('sponsor_code', $user->sponsor_code ?? '') }}"
+            placeholder="e.g. NGF-1000001 (Leave empty for No Sponsor)"
+            class="w-full px-4 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400">
+    </div>
+</div>
+
+@if(isset($user))
+    <!-- Account Status -->
+    <div>
+        <label class="block text-xs font-bold text-amber-400 uppercase mb-1.5">Account Status</label>
+        <select name="status"
+            class="w-full px-4 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400">
+            <option value="active" {{ old('status', $user->status ?? 'active') === 'active' ? 'selected' : '' }}>ACTIVE</option>
+            <option value="inactive" {{ old('status', $user->status ?? 'inactive') === 'inactive' ? 'selected' : '' }}>INACTIVE</option>
+        </select>
+    </div>
+@endif
+
+@if(isset($user))
+    <!-- Bot Operational Status -->
+    <div class="pt-1">
+        <label class="block text-xs font-bold text-amber-400 uppercase mb-1.5">AI Bot Trading Status</label>
+        <select name="is_bot_active"
+            class="w-full px-4 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400">
+            <option value="1" {{ old('is_bot_active', isset($user) && $user->is_bot_active ? '1' : '0') == '1' ? 'selected' : '' }}>🤖 BOT ACTIVE (Earning Daily ROI)</option>
+            <option value="0" {{ old('is_bot_active', isset($user) && $user->is_bot_active ? '1' : '0') == '0' ? 'selected' : '' }}>⏸️ BOT INACTIVE (Paused)</option>
+        </select>
+    </div>
+@endif
 <!-- Password & Password Confirmation -->
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
     <div>

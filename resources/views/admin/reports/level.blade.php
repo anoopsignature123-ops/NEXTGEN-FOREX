@@ -111,7 +111,7 @@
                         <tr>
                             <th class="p-4 rounded-l-xl">TXN NUMBER</th>
                             <th class="p-4">INCOME EARNER (SPONSOR)</th>
-                            <th class="p-4">SOURCE MEMBER (PURCHASER)</th>
+                            <th class="p-4">SOURCE MEMBER (DOWNLINE)</th>
                             <th class="p-4">COMMISSION ($)</th>
                             <th class="p-4">POST BALANCE</th>
                             <th class="p-4">DESCRIPTION / REMARK</th>
@@ -137,7 +137,7 @@
                                     @endif
                                 </td>
 
-                                <!-- SOURCE MEMBER (PURCHASER WHO BOUGHT PACKAGE) -->
+                                <!-- SOURCE MEMBER (DOWNLINE ROI GENERATOR) -->
                                 <td class="p-4">
                                     @if($log->source_member)
                                         <a href="{{ route('admin.users.show', $log->source_member->id) }}" class="group block">
@@ -149,7 +149,7 @@
                                             </div>
                                         </a>
                                     @else
-                                        <span class="text-neutral-500 italic text-xs">Direct Purchase</span>
+                                        <span class="text-neutral-500 italic text-xs">Direct Downline</span>
                                     @endif
                                 </td>
                                 <td class="p-4 font-mono font-black text-emerald-400">+${{ number_format($log->amount, 2) }}
@@ -169,7 +169,7 @@
                         @empty
                                         <tr>
                                             <td colspan="8" class="p-8 text-center text-neutral-400 font-medium">
-                                                No Direct Income records found matching your filter parameters.
+                                                No Level Income records found matching your filter parameters.
                                             </td>
                                         </tr>
                                     @endforelse

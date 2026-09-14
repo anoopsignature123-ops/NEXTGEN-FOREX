@@ -24,11 +24,11 @@ class GatewaySettingTest extends TestCase
             'role_id' => 1,
         ]);
 
-        $response = $this->actingAs($admin)->get('/admin/gateway-settings');
+        $response = $this->actingAs($admin)->withSession(['admin_user_id' => $admin->id])->get('/admin/gateway-settings');
 
         $response->assertStatus(200);
         $response->assertSee('PAYMENT GATEWAY CONFIGURATION');
-        $response->assertSee('GATEWAY API SETTINGS', false);
+        $response->assertSee('GATEWAY API SETTINGS');
     }
 
     public function test_admin_can_update_gateway_mode_to_live(): void
@@ -37,7 +37,7 @@ class GatewaySettingTest extends TestCase
             'role_id' => 1,
         ]);
 
-        $response = $this->actingAs($admin)->put('/admin/gateway-settings', [
+        $response = $this->actingAs($admin)->withSession(['admin_user_id' => $admin->id])->put('/admin/gateway-settings', [
             'api_key' => 'pk_Hwho4MCbvOT8j1e6h254lJOkh647N3Zs',
             'mode' => 'live',
         ]);

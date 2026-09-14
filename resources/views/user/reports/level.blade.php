@@ -138,7 +138,7 @@
                         @empty
                             <tr>
                                 <td colspan="6" class="p-8 text-center text-neutral-400 font-medium">
-                                    No Direct Income records found matching your filter parameters.
+                                    No Level Income records found matching your filter parameters.
                                 </td>
                             </tr>
                         @endforelse

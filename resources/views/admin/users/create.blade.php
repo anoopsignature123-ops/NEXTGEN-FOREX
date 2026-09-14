@@ -18,6 +18,20 @@
             </a>
         </div>
 
+        @if($errors->any())
+            <div class="w-full max-w-2xl mx-auto p-4 rounded-xl bg-rose-500/20 border border-rose-500/50 text-rose-300 text-xs font-bold space-y-1 shadow-lg">
+                <div class="flex items-center gap-2 text-rose-400">
+                    <i data-lucide="alert-circle" class="w-4 h-4 shrink-0"></i>
+                    <span>Please fix the following validation errors:</span>
+                </div>
+                <ul class="list-disc list-inside pl-6 space-y-0.5 text-rose-200 text-[11px]">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <!-- Form Card Compact Width Centered -->
         <div
             class="w-full max-w-2xl mx-auto bg-panel p-4 sm:p-8 space-y-6 border border-amber-500/30 rounded-2xl shadow-xl">

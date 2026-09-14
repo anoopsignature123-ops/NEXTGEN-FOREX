@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\Models\User;
 use App\Services\Incomes\DirectSalaryService;
-use App\Services\Incomes\LevelIncomeService;
 use App\Services\Incomes\MatchingIncomeService;
 use App\Services\Incomes\RewardIncomeService;
 use App\Services\Incomes\TeamSalaryService;
@@ -69,11 +68,7 @@ class IncomeProcessCommand extends Command
             $teamSalaryPaid = $teamSalaryService->processUserTeamSalary($user, $weakerLeg);
             $rewardPaid = $rewardService->evaluateRewardMilestones($user, $teamBusiness);
 
-            // Process level income for user's active packages / ROI if applicable
-            $levelPaid = 0.00;
-            foreach ($user->userPackages->where('status', 'active') as $pkg) {
-                $levelPaid += app(LevelIncomeService::class)->distributeLevelIncome($user, $pkg->invested_amount, 'package_purchase');
-            }
+            // Process level income for user's daily ROI yield (handled via RoiIncomeService / php artisan roi:distribute)
 
             $rows[] = [
                 'user' => $user->name.' ('.$user->referral_code.')',

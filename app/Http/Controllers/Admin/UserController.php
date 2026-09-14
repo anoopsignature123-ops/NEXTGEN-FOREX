@@ -220,9 +220,10 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,'.$user->id,
-            'mobile' => 'required|string|max:20',
-            'sponsor_code' => 'required|string',
-            'position' => 'required|in:left,right',
+            'mobile' => 'nullable|string|max:20',
+            'sponsor_code' => 'nullable|string',
+            'status' => 'nullable|in:active,inactive',
+            'is_bot_active' => 'nullable|in:0,1,true,false',
             'password' => 'nullable|min:6|confirmed',
         ]);
 
@@ -231,8 +232,18 @@ class UserController extends Controller
             'email' => $request->email,
             'mobile' => $request->mobile,
             'sponsor_code' => $request->sponsor_code,
-            'position' => strtolower($request->position),
         ];
+
+        if ($request->has('status')) {
+            $data['status'] = $request->status;
+        }
+
+        if ($request->has('is_bot_active')) {
+            $data['is_bot_active'] = (bool) $request->is_bot_active;
+            if ($data['is_bot_active'] && ! $user->bot_activated_at) {
+                $data['bot_activated_at'] = now();
+            }
+        }
 
         if ($request->filled('password')) {
             $data['password'] = Hash::make($request->password);
@@ -240,7 +251,7 @@ class UserController extends Controller
 
         $user->update($data);
 
-        return redirect()->route('admin.users')->with('success', "Member {$user->referral_code} updated successfully.");
+        return redirect()->route('admin.users')->with('success', "Member {$user->name} ({$user->referral_code}) updated successfully.");
     }
 
     /**

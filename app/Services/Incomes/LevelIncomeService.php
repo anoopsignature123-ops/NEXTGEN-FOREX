@@ -124,7 +124,7 @@ class LevelIncomeService
                             'post_balance' => $upline->fresh()->earning_wallet,
                             'trx_type' => '+',
                             'type' => 'level_income',
-                            'description' => "Received Level {$level} Income ({$rate}%) of \$".number_format($incomeAmount, 2)." from downline {$downline->name} ({$downline->referral_code}) {$sourceText}",
+                            'description' => "Received Level {$level} Income ({$rate}%) of \$".number_format($incomeAmount, 2)." from downline {$downline->name} ({$downline->referral_code}) via {$sourceText}",
                             'reference_id' => $downline->id,
                             'status' => 'completed',
                         ]);
