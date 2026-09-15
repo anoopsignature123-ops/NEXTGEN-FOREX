@@ -59,9 +59,18 @@ class DashboardController extends Controller
         // 3. Withdrawal Wallet Statistics
         $totalWithdrawn = Withdrawal::where('user_id', $user->id)->whereIn('status', ['approved', 'completed'])->sum('net_amount');
 
-        // 4. Direct Network Team Statistics
+        // 4. Direct & Downline Network Team Statistics
         $directMembersCount = User::where('sponsor_code', $user->referral_code)->count();
         $activeDirectMembersCount = User::where('sponsor_code', $user->referral_code)->where('status', 'active')->count();
+        $inactiveDirectMembersCount = User::where('sponsor_code', $user->referral_code)->where('status', 'inactive')->count();
+
+        $activeDirectMemberIds = User::where('sponsor_code', $user->referral_code)->where('status', 'active')->pluck('id');
+        $activeDirectBusiness = UserPackage::whereIn('user_id', $activeDirectMemberIds)->sum('invested_amount');
+
+        $downlineUserIds = $user->getDownlineUserIds();
+        $totalTeamCount = count($downlineUserIds);
+        $activeTeamCount = empty($downlineUserIds) ? 0 : User::whereIn('id', $downlineUserIds)->where('status', 'active')->count();
+        $inactiveTeamCount = empty($downlineUserIds) ? 0 : User::whereIn('id', $downlineUserIds)->where('status', 'inactive')->count();
 
         // 5. Personal Recent Collections
         $activePackages = UserPackage::with('package')->where('user_id', $user->id)->latest()->take(5)->get();
@@ -81,7 +90,8 @@ class DashboardController extends Controller
             'totalSalaryEarned',
             'totalRewardsEarned', 'todayRewardsEarned',
             'totalIncomeEarned', 'totalWithdrawn',
-            'directMembersCount', 'activeDirectMembersCount',
+            'directMembersCount', 'activeDirectMembersCount', 'inactiveDirectMembersCount',
+            'activeDirectBusiness', 'totalTeamCount', 'activeTeamCount', 'inactiveTeamCount',
             'activePackages', 'recentTransactions', 'recentDeposits'
         ));
     }

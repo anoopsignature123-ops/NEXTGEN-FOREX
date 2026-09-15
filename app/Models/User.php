@@ -149,6 +149,18 @@ class User extends Authenticatable
     }
 
     /**
+     * Get all downline user IDs recursively (excluding self).
+     *
+     * @return array<int>
+     */
+    public function getDownlineUserIds(): array
+    {
+        $branchIds = $this->getBranchUserIds();
+
+        return array_values(array_diff($branchIds, [$this->id]));
+    }
+
+    /**
      * Get Power Leg Volume & Remaining (Weaker) Leg Volume for 50:50 matching/salary rules.
      */
     public function getLegVolumeStatsAttribute(): array

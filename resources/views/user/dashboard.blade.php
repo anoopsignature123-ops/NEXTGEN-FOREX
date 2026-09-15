@@ -268,167 +268,297 @@
 
         </div>
 
-        <!-- COMPACT FINANCIAL OVERVIEW EARNINGS SUMMARY TABLE CARD -->
-        <div class="p-4 sm:p-5 rounded-3xl pdf-package-card space-y-3 relative z-10 shadow-xl overflow-hidden">
-            <div class="flex items-center justify-between border-b border-amber-500/20 pb-3">
-                <div>
-                    <span class="text-amber-400 font-extrabold text-[10px] uppercase tracking-widest block mb-0.5">FINANCIAL OVERVIEW</span>
-                    <h2 class="text-base sm:text-lg font-black text-white font-heading">Earnings Summary</h2>
+        <!-- 2-COLUMN GRID (COL-SM-6 EQUIVALENT): EARNINGS SUMMARY & TEAM OVERVIEW SIDE-BY-SIDE -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 relative z-10">
+
+            <!-- LEFT CARD: EARNINGS SUMMARY -->
+            <div class="p-4 sm:p-5 rounded-3xl pdf-package-card space-y-3 shadow-xl overflow-hidden flex flex-col justify-between">
+                <div class="flex items-center justify-between border-b border-amber-500/20 pb-3">
+                    <div>
+                        <span class="text-amber-400 font-extrabold text-[10px] uppercase tracking-widest block mb-0.5">FINANCIAL OVERVIEW</span>
+                        <h2 class="text-base sm:text-lg font-black text-white font-heading">Earnings Summary</h2>
+                    </div>
+                    <a href="{{ route('user.reports.summary') }}"
+                        class="px-3 py-1 rounded-full bg-black/60 hover:bg-amber-400 hover:text-black border border-amber-400/60 text-amber-300 text-[11px] font-bold font-heading uppercase tracking-wider transition inline-flex items-center gap-1 shadow">
+                        <span>View History</span>
+                        <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                    </a>
                 </div>
-                <a href="{{ route('user.reports.summary') }}"
-                    class="px-3 py-1 rounded-full bg-black/60 hover:bg-amber-400 hover:text-black border border-amber-400/60 text-amber-300 text-[11px] font-bold font-heading uppercase tracking-wider transition inline-flex items-center gap-1 shadow">
-                    <span>View History</span>
-                    <i data-lucide="arrow-right" class="w-3 h-3"></i>
-                </a>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead class="border-b border-amber-500/20 text-amber-400 font-extrabold text-[10px] tracking-wider uppercase font-mono">
+                            <tr>
+                                <th class="py-2 px-3">INCOME TYPE / METRIC</th>
+                                <th class="py-2 px-3 text-center">TODAY INCOME</th>
+                                <th class="py-2 px-3 text-right">TOTAL INCOME / VOLUME</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-amber-500/10 text-xs">
+                            <!-- 1. Total Team Business -->
+                            <tr class="hover:bg-amber-500/5 transition">
+                                <td class="py-2 px-3 font-semibold text-white flex items-center gap-2.5">
+                                    <span class="w-6 h-6 rounded-lg pdf-gold-badge flex items-center justify-center shrink-0 shadow">
+                                        <i data-lucide="users" class="w-3 h-3 text-black"></i>
+                                    </span>
+                                    <div>
+                                        <span class="block text-xs font-bold">Total Team Business</span>
+                                        <span class="text-[9px] text-neutral-400 font-normal font-mono block">Direct Network: {{ $directMembersCount }} Members ({{ $activeDirectMembersCount }} Active)</span>
+                                    </div>
+                                </td>
+                                <td class="py-2 px-3 text-center font-mono text-xs text-neutral-400">-</td>
+                                <td class="py-2 px-3 text-right font-mono font-bold text-amber-300 text-xs sm:text-sm">${{ number_format($totalTeamBusiness, 2) }}</td>
+                            </tr>
+
+                            <!-- 2. Referral / Direct Income -->
+                            <tr class="hover:bg-amber-500/5 transition">
+                                <td class="py-2 px-3 font-semibold text-white flex items-center gap-2.5">
+                                    <span class="w-6 h-6 rounded-lg bg-sky-500/20 text-sky-400 border border-sky-500/40 flex items-center justify-center shrink-0">
+                                        <i data-lucide="user-plus" class="w-3 h-3"></i>
+                                    </span>
+                                    <div>
+                                        <a href="{{ route('user.reports.direct') }}" class="hover:text-amber-300 transition text-xs font-bold">Referral / Direct Income</a>
+                                        <span class="text-[9px] text-neutral-400 font-normal block">Flat 10% Instant Commission</span>
+                                    </div>
+                                </td>
+                                <td class="py-2 px-3 text-center font-mono font-bold text-emerald-400 text-xs">${{ number_format($todayDirectEarned, 2) }}</td>
+                                <td class="py-2 px-3 text-right font-mono font-bold text-emerald-400 text-xs sm:text-sm">${{ number_format($totalDirectEarned, 2) }}</td>
+                            </tr>
+
+                            <!-- 3. Daily ROI Income -->
+                            <tr class="hover:bg-amber-500/5 transition">
+                                <td class="py-2 px-3 font-semibold text-white flex items-center gap-2.5">
+                                    <span class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 flex items-center justify-center shrink-0">
+                                        <i data-lucide="line-chart" class="w-3 h-3"></i>
+                                    </span>
+                                    <div>
+                                        <a href="{{ route('user.reports.roi') }}" class="hover:text-amber-300 transition text-xs font-bold">Daily ROI Income</a>
+                                        <span class="text-[9px] text-neutral-400 font-normal block">0.5%–1.5% Daily Yield (2X Return Cap)</span>
+                                    </div>
+                                </td>
+                                <td class="py-2 px-3 text-center font-mono font-bold text-emerald-400 text-xs">${{ number_format($todayRoiEarned, 2) }}</td>
+                                <td class="py-2 px-3 text-right font-mono font-bold text-emerald-400 text-xs sm:text-sm">${{ number_format($totalRoiEarned, 2) }}</td>
+                            </tr>
+
+                            <!-- 4. 24H Special Booster Bonus -->
+                            <tr class="hover:bg-amber-500/5 transition">
+                                <td class="py-2 px-3 font-semibold text-white flex items-center gap-2.5">
+                                    <span class="w-6 h-6 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center shrink-0">
+                                        <i data-lucide="zap" class="w-3 h-3"></i>
+                                    </span>
+                                    <div>
+                                        <a href="{{ route('user.reports.bonus') }}" class="hover:text-amber-300 transition text-xs font-bold">24H Special Bonus</a>
+                                        <span class="text-[9px] text-neutral-400 font-normal block">5 Direct Referrals in 24 Hours</span>
+                                    </div>
+                                </td>
+                                <td class="py-2 px-3 text-center font-mono font-bold text-emerald-400 text-xs">${{ number_format($todayBonusEarned, 2) }}</td>
+                                <td class="py-2 px-3 text-right font-mono font-bold text-emerald-400 text-xs sm:text-sm">${{ number_format($totalBonusEarned, 2) }}</td>
+                            </tr>
+
+                            <!-- 5. Level Income -->
+                            <tr class="hover:bg-amber-500/5 transition">
+                                <td class="py-2 px-3 font-semibold text-white flex items-center gap-2.5">
+                                    <span class="w-6 h-6 rounded-lg bg-teal-500/20 text-teal-400 border border-teal-500/40 flex items-center justify-center shrink-0">
+                                        <i data-lucide="layers" class="w-3 h-3"></i>
+                                    </span>
+                                    <div>
+                                        <a href="{{ route('user.reports.level') }}" class="hover:text-amber-300 transition text-xs font-bold">Level Income</a>
+                                        <span class="text-[9px] text-neutral-400 font-normal block">10-Tier Team Commissions (20% to 1%)</span>
+                                    </div>
+                                </td>
+                                <td class="py-2 px-3 text-center font-mono font-bold text-emerald-400 text-xs">${{ number_format($todayLevelEarned, 2) }}</td>
+                                <td class="py-2 px-3 text-right font-mono font-bold text-emerald-400 text-xs sm:text-sm">${{ number_format($totalLevelEarned, 2) }}</td>
+                            </tr>
+
+                            <!-- 6. Matching Income -->
+                            <tr class="hover:bg-amber-500/5 transition">
+                                <td class="py-2 px-3 font-semibold text-white flex items-center gap-2.5">
+                                    <span class="w-6 h-6 rounded-lg bg-purple-500/20 text-purple-400 border border-purple-500/40 flex items-center justify-center shrink-0">
+                                        <i data-lucide="git-merge" class="w-3 h-3"></i>
+                                    </span>
+                                    <div>
+                                        <a href="{{ route('user.reports.matching') }}" class="hover:text-amber-300 transition text-xs font-bold">Matching Income</a>
+                                        <span class="text-[9px] text-neutral-400 font-normal block">5% Matching Volume (50:50 Ratio)</span>
+                                    </div>
+                                </td>
+                                <td class="py-2 px-3 text-center font-mono font-bold text-emerald-400 text-xs">${{ number_format($todayMatchingEarned, 2) }}</td>
+                                <td class="py-2 px-3 text-right font-mono font-bold text-emerald-400 text-xs sm:text-sm">${{ number_format($totalMatchingEarned, 2) }}</td>
+                            </tr>
+
+                            <!-- 7. Direct Salary Income -->
+                            <tr class="hover:bg-amber-500/5 transition">
+                                <td class="py-2 px-3 font-semibold text-white flex items-center gap-2.5">
+                                    <span class="w-6 h-6 rounded-lg bg-rose-500/20 text-rose-400 border border-rose-500/40 flex items-center justify-center shrink-0">
+                                        <i data-lucide="calendar" class="w-3 h-3"></i>
+                                    </span>
+                                    <div>
+                                        <a href="{{ route('user.reports.direct-salary') }}" class="hover:text-amber-300 transition text-xs font-bold">Direct Salary Income</a>
+                                        <span class="text-[9px] text-neutral-400 font-normal block">$1 to $1,000/day for 365 Days</span>
+                                    </div>
+                                </td>
+                                <td class="py-2 px-3 text-center font-mono font-bold text-emerald-400 text-xs">${{ number_format($todayDirectSalaryEarned, 2) }}</td>
+                                <td class="py-2 px-3 text-right font-mono font-bold text-emerald-400 text-xs sm:text-sm">${{ number_format($totalDirectSalaryEarned, 2) }}</td>
+                            </tr>
+
+                            <!-- 8. Team Salary Income -->
+                            <tr class="hover:bg-amber-500/5 transition">
+                                <td class="py-2 px-3 font-semibold text-white flex items-center gap-2.5">
+                                    <span class="w-6 h-6 rounded-lg bg-orange-500/20 text-orange-400 border border-orange-500/40 flex items-center justify-center shrink-0">
+                                        <i data-lucide="award" class="w-3 h-3"></i>
+                                    </span>
+                                    <div>
+                                        <a href="{{ route('user.reports.team-salary') }}" class="hover:text-amber-300 transition text-xs font-bold">Team Salary Income</a>
+                                        <span class="text-[9px] text-neutral-400 font-normal block">Recurring $75 per 15 Days for 12 Months</span>
+                                    </div>
+                                </td>
+                                <td class="py-2 px-3 text-center font-mono font-bold text-emerald-400 text-xs">${{ number_format($todayTeamSalaryEarned, 2) }}</td>
+                                <td class="py-2 px-3 text-right font-mono font-bold text-emerald-400 text-xs sm:text-sm">${{ number_format($totalTeamSalaryEarned, 2) }}</td>
+                            </tr>
+
+                            <!-- 9. Leadership / Reward Bonus -->
+                            <tr class="hover:bg-amber-500/5 transition">
+                                <td class="py-2 px-3 font-semibold text-white flex items-center gap-2.5">
+                                    <span class="w-6 h-6 rounded-lg bg-violet-500/20 text-violet-400 border border-violet-500/40 flex items-center justify-center shrink-0">
+                                        <i data-lucide="trophy" class="w-3 h-3"></i>
+                                    </span>
+                                    <div>
+                                        <a href="{{ route('user.reports.rewards') }}" class="hover:text-amber-300 transition text-xs font-bold">Leadership / Reward Bonus</a>
+                                        <span class="text-[9px] text-neutral-400 font-normal block">10% Milestone Cash Rewards ($100 to $5 Lacs)</span>
+                                    </div>
+                                </td>
+                                <td class="py-2 px-3 text-center font-mono font-bold text-emerald-400 text-xs">${{ number_format($todayRewardsEarned, 2) }}</td>
+                                <td class="py-2 px-3 text-right font-mono font-bold text-emerald-400 text-xs sm:text-sm">${{ number_format($totalRewardsEarned, 2) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
-                    <thead class="border-b border-amber-500/20 text-amber-400 font-extrabold text-[10px] tracking-wider uppercase font-mono">
-                        <tr>
-                            <th class="py-2 px-3">INCOME TYPE / METRIC</th>
-                            <th class="py-2 px-3 text-center">TODAY INCOME</th>
-                            <th class="py-2 px-3 text-right">TOTAL INCOME / VOLUME</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-amber-500/10 text-xs">
-                        <!-- 1. Total Team Business -->
-                        <tr class="hover:bg-amber-500/5 transition">
-                            <td class="py-2 px-3 font-semibold text-white flex items-center gap-2.5">
-                                <span class="w-6 h-6 rounded-lg pdf-gold-badge flex items-center justify-center shrink-0 shadow">
-                                    <i data-lucide="users" class="w-3 h-3 text-black"></i>
-                                </span>
-                                <div>
-                                    <span class="block text-xs font-bold">Total Team Business</span>
-                                    <span class="text-[9px] text-neutral-400 font-normal font-mono block">Direct Network: {{ $directMembersCount }} Members ({{ $activeDirectMembersCount }} Active)</span>
-                                </div>
-                            </td>
-                            <td class="py-2 px-3 text-center font-mono text-xs text-neutral-400">-</td>
-                            <td class="py-2 px-3 text-right font-mono font-bold text-amber-300 text-xs sm:text-sm">${{ number_format($totalTeamBusiness, 2) }}</td>
-                        </tr>
+            <!-- RIGHT CARD: TEAM OVERVIEW & NETWORK METRICS (PREMIUM TILE DESIGN) -->
+            <div class="p-4 sm:p-5 rounded-3xl pdf-package-card space-y-3.5 shadow-xl overflow-hidden flex flex-col justify-between">
+                <div>
+                    <!-- Header -->
+                    <div class="flex items-center justify-between border-b border-amber-500/20 pb-3 mb-3">
+                        <div>
+                            <span class="text-amber-400 font-extrabold text-[10px] uppercase tracking-widest block mb-0.5">NETWORK OVERVIEW</span>
+                            <h2 class="text-base sm:text-lg font-black text-white font-heading flex items-center gap-2">
+                                <span>Team Overview</span>
+                                <span class="px-2 py-0.5 rounded-full text-[9px] font-black pdf-gold-ribbon font-mono">LIVE NETWORK</span>
+                            </h2>
+                        </div>
+                        <a href="{{ route('user.network.direct') }}"
+                            class="px-3 py-1 rounded-full bg-black/60 hover:bg-amber-400 hover:text-black border border-amber-400/60 text-amber-300 text-[11px] font-bold font-heading uppercase tracking-wider transition inline-flex items-center gap-1 shadow">
+                            <span>Direct Team</span>
+                            <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                        </a>
+                    </div>
 
-                        <!-- 2. Referral / Direct Income -->
-                        <tr class="hover:bg-amber-500/5 transition">
-                            <td class="py-2 px-3 font-semibold text-white flex items-center gap-2.5">
-                                <span class="w-6 h-6 rounded-lg bg-sky-500/20 text-sky-400 border border-sky-500/40 flex items-center justify-center shrink-0">
-                                    <i data-lucide="user-plus" class="w-3 h-3"></i>
-                                </span>
-                                <div>
-                                    <a href="{{ route('user.reports.direct') }}" class="hover:text-amber-300 transition text-xs font-bold">Referral / Direct Income</a>
-                                    <span class="text-[9px] text-neutral-400 font-normal block">Flat 10% Instant Commission</span>
-                                </div>
-                            </td>
-                            <td class="py-2 px-3 text-center font-mono font-bold text-emerald-400 text-xs">${{ number_format($todayDirectEarned, 2) }}</td>
-                            <td class="py-2 px-3 text-right font-mono font-bold text-emerald-400 text-xs sm:text-sm">${{ number_format($totalDirectEarned, 2) }}</td>
-                        </tr>
+                    <!-- Network Ratio Bar Banner -->
+                    @php
+                        $teamRatio = $totalTeamCount > 0 ? round(($activeTeamCount / $totalTeamCount) * 100) : 0;
+                    @endphp
+                    <div class="p-3 rounded-2xl bg-black/50 border border-amber-500/20 mb-3 space-y-1.5">
+                        <div class="flex justify-between items-center text-[10px] font-mono">
+                            <span class="text-neutral-300 font-bold uppercase tracking-wider flex items-center gap-1">
+                                <i data-lucide="activity" class="w-3 h-3 text-amber-400"></i> Active Network Ratio
+                            </span>
+                            <span class="text-amber-300 font-black">{{ $teamRatio }}% Active</span>
+                        </div>
+                        <div class="w-full bg-neutral-800 rounded-full h-2 overflow-hidden flex">
+                            <div class="bg-gradient-to-r from-emerald-500 to-teal-400 h-2 rounded-full transition-all duration-500" style="width: {{ $teamRatio }}%"></div>
+                        </div>
+                    </div>
+                </div>
 
-                        <!-- 3. Daily ROI Income -->
-                        <tr class="hover:bg-amber-500/5 transition">
-                            <td class="py-2 px-3 font-semibold text-white flex items-center gap-2.5">
-                                <span class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 flex items-center justify-center shrink-0">
-                                    <i data-lucide="line-chart" class="w-3 h-3"></i>
-                                </span>
-                                <div>
-                                    <a href="{{ route('user.reports.roi') }}" class="hover:text-amber-300 transition text-xs font-bold">Daily ROI Income</a>
-                                    <span class="text-[9px] text-neutral-400 font-normal block">0.5%–1.5% Daily Yield (2X Return Cap)</span>
-                                </div>
-                            </td>
-                            <td class="py-2 px-3 text-center font-mono font-bold text-emerald-400 text-xs">${{ number_format($todayRoiEarned, 2) }}</td>
-                            <td class="py-2 px-3 text-right font-mono font-bold text-emerald-400 text-xs sm:text-sm">${{ number_format($totalRoiEarned, 2) }}</td>
-                        </tr>
+                <!-- 5 Sleek Interactive Metric Tiles -->
+                <div class="space-y-2.5 flex-1 flex flex-col justify-between">
+                    <!-- 1. Total Active Direct Count & Business -->
+                    <div class="p-2.5 sm:p-3 rounded-2xl bg-emerald-950/30 border border-emerald-500/30 hover:border-emerald-500/60 transition flex items-center justify-between gap-3 shadow-md group">
+                        <div class="flex items-center gap-2.5 overflow-hidden">
+                            <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center shrink-0 group-hover:scale-110 transition">
+                                <i data-lucide="user-check" class="w-4 h-4"></i>
+                            </div>
+                            <div class="overflow-hidden">
+                                <span class="block text-xs font-black text-emerald-300 truncate">Active Directs & Business</span>
+                                <span class="text-[10px] text-amber-300 font-mono font-bold block">Volume: ${{ number_format($activeDirectBusiness, 2) }}</span>
+                            </div>
+                        </div>
+                        <div class="text-right shrink-0 font-mono">
+                            <span class="text-sm sm:text-base font-black text-emerald-400 block">{{ $activeDirectMembersCount }}</span>
+                            <span class="px-1.5 py-0.2 rounded text-[8px] font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 uppercase">ACTIVE</span>
+                        </div>
+                    </div>
 
-                        <!-- 4. 24H Special Booster Bonus -->
-                        <tr class="hover:bg-amber-500/5 transition">
-                            <td class="py-2 px-3 font-semibold text-white flex items-center gap-2.5">
-                                <span class="w-6 h-6 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center shrink-0">
-                                    <i data-lucide="zap" class="w-3 h-3"></i>
-                                </span>
-                                <div>
-                                    <a href="{{ route('user.reports.bonus') }}" class="hover:text-amber-300 transition text-xs font-bold">24H Special Bonus</a>
-                                    <span class="text-[9px] text-neutral-400 font-normal block">5 Direct Referrals in 24 Hours</span>
-                                </div>
-                            </td>
-                            <td class="py-2 px-3 text-center font-mono font-bold text-emerald-400 text-xs">${{ number_format($todayBonusEarned, 2) }}</td>
-                            <td class="py-2 px-3 text-right font-mono font-bold text-emerald-400 text-xs sm:text-sm">${{ number_format($totalBonusEarned, 2) }}</td>
-                        </tr>
+                    <!-- 2. Total Inactive Count -->
+                    <div class="p-2.5 sm:p-3 rounded-2xl bg-amber-950/20 border border-amber-500/25 hover:border-amber-500/50 transition flex items-center justify-between gap-3 shadow-md group">
+                        <div class="flex items-center gap-2.5 overflow-hidden">
+                            <div class="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/40 flex items-center justify-center shrink-0 group-hover:scale-110 transition">
+                                <i data-lucide="user-x" class="w-4 h-4"></i>
+                            </div>
+                            <div class="overflow-hidden">
+                                <span class="block text-xs font-black text-amber-300 truncate">Inactive Direct Count</span>
+                                <span class="text-[10px] text-neutral-400 font-sans block">Awaiting package activation</span>
+                            </div>
+                        </div>
+                        <div class="text-right shrink-0 font-mono">
+                            <span class="text-sm sm:text-base font-black text-amber-400 block">{{ $inactiveDirectMembersCount }}</span>
+                            <span class="px-1.5 py-0.2 rounded text-[8px] font-extrabold bg-amber-500/20 text-amber-300 border border-amber-500/40 uppercase">INACTIVE</span>
+                        </div>
+                    </div>
 
-                        <!-- 5. Level Income -->
-                        <tr class="hover:bg-amber-500/5 transition">
-                            <td class="py-2 px-3 font-semibold text-white flex items-center gap-2.5">
-                                <span class="w-6 h-6 rounded-lg bg-teal-500/20 text-teal-400 border border-teal-500/40 flex items-center justify-center shrink-0">
-                                    <i data-lucide="layers" class="w-3 h-3"></i>
-                                </span>
-                                <div>
-                                    <a href="{{ route('user.reports.level') }}" class="hover:text-amber-300 transition text-xs font-bold">Level Income</a>
-                                    <span class="text-[9px] text-neutral-400 font-normal block">10-Tier Team Commissions (20% to 1%)</span>
-                                </div>
-                            </td>
-                            <td class="py-2 px-3 text-center font-mono font-bold text-emerald-400 text-xs">${{ number_format($todayLevelEarned, 2) }}</td>
-                            <td class="py-2 px-3 text-right font-mono font-bold text-emerald-400 text-xs sm:text-sm">${{ number_format($totalLevelEarned, 2) }}</td>
-                        </tr>
+                    <!-- 3. Total Team -->
+                    <div class="p-2.5 sm:p-3 rounded-2xl bg-black/60 border border-amber-400/40 hover:border-amber-400/80 transition flex items-center justify-between gap-3 shadow-md group">
+                        <div class="flex items-center gap-2.5 overflow-hidden">
+                            <div class="w-9 h-9 rounded-xl pdf-gold-badge flex items-center justify-center shrink-0 shadow group-hover:scale-110 transition">
+                                <i data-lucide="users" class="w-4 h-4 text-black"></i>
+                            </div>
+                            <div class="overflow-hidden">
+                                <span class="block text-xs font-black text-white truncate">Total Team</span>
+                                <span class="text-[10px] text-neutral-300 font-sans block">Full downline (All 10 Tiers)</span>
+                            </div>
+                        </div>
+                        <div class="text-right shrink-0 font-mono">
+                            <span class="text-sm sm:text-base font-black text-amber-300 block">{{ $totalTeamCount }}</span>
+                            <span class="px-1.5 py-0.2 rounded text-[8px] font-extrabold bg-purple-500/20 text-purple-300 border border-purple-500/40 uppercase">ALL TIERS</span>
+                        </div>
+                    </div>
 
-                        <!-- 6. Matching Income -->
-                        <tr class="hover:bg-amber-500/5 transition">
-                            <td class="py-2 px-3 font-semibold text-white flex items-center gap-2.5">
-                                <span class="w-6 h-6 rounded-lg bg-purple-500/20 text-purple-400 border border-purple-500/40 flex items-center justify-center shrink-0">
-                                    <i data-lucide="git-merge" class="w-3 h-3"></i>
-                                </span>
-                                <div>
-                                    <a href="{{ route('user.reports.matching') }}" class="hover:text-amber-300 transition text-xs font-bold">Matching Income</a>
-                                    <span class="text-[9px] text-neutral-400 font-normal block">5% Matching Volume (50:50 Ratio)</span>
-                                </div>
-                            </td>
-                            <td class="py-2 px-3 text-center font-mono font-bold text-emerald-400 text-xs">${{ number_format($todayMatchingEarned, 2) }}</td>
-                            <td class="py-2 px-3 text-right font-mono font-bold text-emerald-400 text-xs sm:text-sm">${{ number_format($totalMatchingEarned, 2) }}</td>
-                        </tr>
+                    <!-- 4. Total Active Team -->
+                    <div class="p-2.5 sm:p-3 rounded-2xl bg-teal-950/20 border border-teal-500/30 hover:border-teal-500/60 transition flex items-center justify-between gap-3 shadow-md group">
+                        <div class="flex items-center gap-2.5 overflow-hidden">
+                            <div class="w-9 h-9 rounded-xl bg-teal-500/20 text-teal-400 border border-teal-500/40 flex items-center justify-center shrink-0 group-hover:scale-110 transition">
+                                <i data-lucide="shield-check" class="w-4 h-4"></i>
+                            </div>
+                            <div class="overflow-hidden">
+                                <span class="block text-xs font-black text-teal-300 truncate">Total Active Team</span>
+                                <span class="text-[10px] text-neutral-400 font-sans block">Active paid network members</span>
+                            </div>
+                        </div>
+                        <div class="text-right shrink-0 font-mono">
+                            <span class="text-sm sm:text-base font-black text-teal-300 block">{{ $activeTeamCount }}</span>
+                            <span class="px-1.5 py-0.2 rounded text-[8px] font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 uppercase">ACTIVE</span>
+                        </div>
+                    </div>
 
-                        <!-- 7. Direct Salary Income -->
-                        <tr class="hover:bg-amber-500/5 transition">
-                            <td class="py-2 px-3 font-semibold text-white flex items-center gap-2.5">
-                                <span class="w-6 h-6 rounded-lg bg-rose-500/20 text-rose-400 border border-rose-500/40 flex items-center justify-center shrink-0">
-                                    <i data-lucide="calendar" class="w-3 h-3"></i>
-                                </span>
-                                <div>
-                                    <a href="{{ route('user.reports.direct-salary') }}" class="hover:text-amber-300 transition text-xs font-bold">Direct Salary Income</a>
-                                    <span class="text-[9px] text-neutral-400 font-normal block">$1 to $1,000/day for 365 Days</span>
-                                </div>
-                            </td>
-                            <td class="py-2 px-3 text-center font-mono font-bold text-emerald-400 text-xs">${{ number_format($todayDirectSalaryEarned, 2) }}</td>
-                            <td class="py-2 px-3 text-right font-mono font-bold text-emerald-400 text-xs sm:text-sm">${{ number_format($totalDirectSalaryEarned, 2) }}</td>
-                        </tr>
-
-                        <!-- 8. Team Salary Income -->
-                        <tr class="hover:bg-amber-500/5 transition">
-                            <td class="py-2 px-3 font-semibold text-white flex items-center gap-2.5">
-                                <span class="w-6 h-6 rounded-lg bg-orange-500/20 text-orange-400 border border-orange-500/40 flex items-center justify-center shrink-0">
-                                    <i data-lucide="award" class="w-3 h-3"></i>
-                                </span>
-                                <div>
-                                    <a href="{{ route('user.reports.team-salary') }}" class="hover:text-amber-300 transition text-xs font-bold">Team Salary Income</a>
-                                    <span class="text-[9px] text-neutral-400 font-normal block">Recurring $75 per 15 Days for 12 Months</span>
-                                </div>
-                            </td>
-                            <td class="py-2 px-3 text-center font-mono font-bold text-emerald-400 text-xs">${{ number_format($todayTeamSalaryEarned, 2) }}</td>
-                            <td class="py-2 px-3 text-right font-mono font-bold text-emerald-400 text-xs sm:text-sm">${{ number_format($totalTeamSalaryEarned, 2) }}</td>
-                        </tr>
-
-                        <!-- 9. Leadership / Reward Bonus -->
-                        <tr class="hover:bg-amber-500/5 transition">
-                            <td class="py-2 px-3 font-semibold text-white flex items-center gap-2.5">
-                                <span class="w-6 h-6 rounded-lg bg-violet-500/20 text-violet-400 border border-violet-500/40 flex items-center justify-center shrink-0">
-                                    <i data-lucide="trophy" class="w-3 h-3"></i>
-                                </span>
-                                <div>
-                                    <a href="{{ route('user.reports.rewards') }}" class="hover:text-amber-300 transition text-xs font-bold">Leadership / Reward Bonus</a>
-                                    <span class="text-[9px] text-neutral-400 font-normal block">10% Milestone Cash Rewards ($100 to $5 Lacs)</span>
-                                </div>
-                            </td>
-                            <td class="py-2 px-3 text-center font-mono font-bold text-emerald-400 text-xs">${{ number_format($todayRewardsEarned, 2) }}</td>
-                            <td class="py-2 px-3 text-right font-mono font-bold text-emerald-400 text-xs sm:text-sm">${{ number_format($totalRewardsEarned, 2) }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                    <!-- 5. Total Inactive Team -->
+                    <div class="p-2.5 sm:p-3 rounded-2xl bg-rose-950/20 border border-rose-500/25 hover:border-rose-500/50 transition flex items-center justify-between gap-3 shadow-md group">
+                        <div class="flex items-center gap-2.5 overflow-hidden">
+                            <div class="w-9 h-9 rounded-xl bg-rose-500/20 text-rose-400 border border-rose-500/40 flex items-center justify-center shrink-0 group-hover:scale-110 transition">
+                                <i data-lucide="user-minus" class="w-4 h-4"></i>
+                            </div>
+                            <div class="overflow-hidden">
+                                <span class="block text-xs font-black text-rose-300 truncate">Total Inactive Team</span>
+                                <span class="text-[10px] text-neutral-400 font-sans block">Unpaid network members</span>
+                            </div>
+                        </div>
+                        <div class="text-right shrink-0 font-mono">
+                            <span class="text-sm sm:text-base font-black text-rose-400 block">{{ $inactiveTeamCount }}</span>
+                            <span class="px-1.5 py-0.2 rounded text-[8px] font-extrabold bg-rose-500/20 text-rose-400 border border-rose-500/40 uppercase">INACTIVE</span>
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
 
         <!-- DYNAMIC SIDE-BY-SIDE TABLES GRID -->
