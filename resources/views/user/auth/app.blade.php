@@ -53,7 +53,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             @if ($errors->any())
-                showToast('Authentication Error', "{{ $errors->first() }}", 'error');
+                showToast('Error', "{{ $errors->first() }}", 'error');
             @endif
             @if (session('success'))
                 showToast('Success', "{{ session('success') }}", 'success');

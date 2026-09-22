@@ -31,6 +31,22 @@ class LoginController extends Controller
         if (Auth::attempt([$fieldType => $request->email, 'password' => $request->password], $request->remember)) {
             $user = Auth::user();
 
+            if ($user->isAdmin()) {
+                Auth::logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+
+                return back()->withErrors(['email' => 'Invalid user credentials provided.']);
+            }
+
+            if ($user->status !== 'active') {
+                Auth::logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+
+                return back()->withErrors(['email' => 'Your account is currently inactive.']);
+            }
+
             $request->session()->regenerate();
 
             return redirect()->route('user.dashboard')->with('success', 'Welcome back, '.$user->name);

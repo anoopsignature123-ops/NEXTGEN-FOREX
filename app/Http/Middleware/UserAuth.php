@@ -29,6 +29,10 @@ class UserAuth
             return redirect()->route('user.login')->with('error', 'Please log in to access your Member Portal.');
         }
 
+        if (Auth::user()->isAdmin()) {
+            return redirect()->route('admin.dashboard')->with('info', 'Redirected to Admin Dashboard.');
+        }
+
         return $next($request);
     }
 }

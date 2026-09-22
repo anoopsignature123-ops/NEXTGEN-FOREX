@@ -15,6 +15,10 @@ class UserGuest
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::check()) {
+            if (Auth::user()->isAdmin() && ! session()->has('impersonated_user_id')) {
+                return redirect()->route('admin.dashboard');
+            }
+
             return redirect()->route('user.dashboard')->with('info', 'You are already logged in.');
         }
 
