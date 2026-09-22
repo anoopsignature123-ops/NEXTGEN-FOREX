@@ -6,7 +6,7 @@
     $totalDirects = $treeData['total_directs'] ?? 0;
     $activeDirects = $treeData['active_directs'] ?? 0;
 
-    // Helper closure to calculate user financial stats safely
+    // Helper closure to calculate user financial & leg stats safely
     $getUserStats = function($u) {
         if (!$u) return [
             'sponsor_name' => 'SUPER ADMIN',
@@ -15,13 +15,28 @@
             'earning_wallet' => '$0.00',
             'daily_roi' => '$0.00',
             'direct_income' => '$0.00',
+            'matching_income' => '$0.00',
             'email' => 'N/A',
+            'power_leg' => '$0.00',
+            'weaker_leg' => '$0.00',
+            'power_carry' => '$0.00',
+            'weaker_carry' => '$0.00',
+            'power_leg_short' => '$0',
+            'weaker_leg_short' => '$0',
         ];
 
-        $activeInvest = $u->userPackages ? $u->userPackages->where('status', 'active')->sum('invested_amount') : 0;
-        $dailyRoi = $u->transactions ? $u->transactions->where('type', 'daily_roi')->sum('amount') : 0;
-        $directInc = $u->transactions ? $u->transactions->where('type', 'direct_income')->sum('amount') : 0;
+        $activeInvest = (float) \App\Models\UserPackage::where('user_id', $u->id)->where('status', 'active')->sum('invested_amount');
+        $dailyRoi = (float) \App\Models\Transaction::where('user_id', $u->id)->where('type', 'daily_roi')->sum('amount');
+        $directInc = (float) \App\Models\Transaction::where('user_id', $u->id)->where('type', 'direct_income')->sum('amount');
+        $matchingInc = (float) \App\Models\Transaction::where('user_id', $u->id)->where('type', 'matching_income')->sum('amount');
         
+        $legStats = $u->leg_volume_stats;
+        $pVol = (float) ($legStats['power_leg'] ?? 0);
+        $wVol = (float) ($legStats['remaining_leg'] ?? 0);
+
+        $pShort = '$' . (floor($pVol) == $pVol ? number_format($pVol, 0) : number_format($pVol, 2));
+        $wShort = '$' . (floor($wVol) == $wVol ? number_format($wVol, 0) : number_format($wVol, 2));
+
         return [
             'sponsor_name' => $u->sponsor ? $u->sponsor->name : ($u->sponsor_code ? $u->sponsor_code : 'No Sponsor'),
             'sponsor_code' => $u->sponsor_code ?? 'N/A',
@@ -29,7 +44,14 @@
             'earning_wallet' => '$' . number_format((float)($u->earning_wallet ?? 0), 2),
             'daily_roi' => '$' . number_format($dailyRoi, 2),
             'direct_income' => '$' . number_format($directInc, 2),
+            'matching_income' => '$' . number_format($matchingInc, 2),
             'email' => $u->email ?? 'N/A',
+            'power_leg' => $legStats['power_leg_formatted'] ?? '$0.00',
+            'weaker_leg' => $legStats['remaining_leg_formatted'] ?? '$0.00',
+            'power_carry' => $legStats['power_leg_carry_formatted'] ?? '$0.00',
+            'weaker_carry' => $legStats['weaker_leg_carry_formatted'] ?? '$0.00',
+            'power_leg_short' => $pShort,
+            'weaker_leg_short' => $wShort,
         ];
     };
 
@@ -168,7 +190,7 @@
     box-shadow: 0 20px 45px rgba(0, 0, 0, 0.95), 0 0 35px rgba(245, 158, 11, 0.5);
     border-radius: 1.25rem;
     padding: 1.15rem;
-    width: 300px;
+    width: 320px;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
@@ -208,30 +230,74 @@
 
 <div class="w-full space-y-6 select-none font-sans">
 
-    <!-- TOP 4 GENEALOGY SUMMARY CARDS (Compact & Responsive Grid) -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+    <!-- TOP 6 GENEALOGY SUMMARY CARDS (Responsive Grid) -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
         <!-- Card 1: USER NAME -->
-        <div class="p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl pdf-package-card relative overflow-hidden">
-            <div class="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-amber-400">ROOT USER NAME</div>
-            <h3 class="text-base sm:text-xl font-black text-white font-heading mt-0.5 truncate">{{ $root ? $root->name : 'N/A' }}</h3>
+        <div class="p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl pdf-package-card relative overflow-hidden flex items-center justify-between">
+            <div class="min-w-0 flex-1 pr-2">
+                <div class="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-amber-400">ROOT USER NAME</div>
+                <h3 class="text-base sm:text-lg font-black text-white font-heading mt-0.5 truncate">{{ $root ? $root->name : 'N/A' }}</h3>
+            </div>
+            <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl pdf-gold-badge flex items-center justify-center shrink-0 shadow-md">
+                <i data-lucide="user" class="w-4 h-4 sm:w-5 sm:h-5 text-black"></i>
+            </div>
         </div>
 
         <!-- Card 2: USER ID -->
-        <div class="p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl pdf-package-card relative overflow-hidden">
-            <div class="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-amber-400">REFERRAL CODE</div>
-            <h3 class="text-base sm:text-xl font-black text-amber-300 font-mono tracking-wider mt-0.5">{{ $root ? $root->referral_code : 'N/A' }}</h3>
+        <div class="p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl pdf-package-card relative overflow-hidden flex items-center justify-between">
+            <div class="min-w-0 flex-1 pr-2">
+                <div class="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-amber-400">REFERRAL CODE</div>
+                <h3 class="text-base sm:text-lg font-black text-amber-300 font-mono tracking-wider mt-0.5 truncate">{{ $root ? $root->referral_code : 'N/A' }}</h3>
+            </div>
+            <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl pdf-gold-badge flex items-center justify-center shrink-0 shadow-md">
+                <i data-lucide="qr-code" class="w-4 h-4 sm:w-5 sm:h-5 text-black"></i>
+            </div>
         </div>
 
         <!-- Card 3: TOTAL DIRECT MEMBERS -->
-        <div class="p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl pdf-package-card relative overflow-hidden">
-            <div class="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-emerald-400">TOTAL DIRECTS</div>
-            <h3 class="text-base sm:text-xl font-black text-emerald-400 font-mono mt-0.5">{{ $totalDirects }} Members</h3>
+        <div class="p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl pdf-package-card relative overflow-hidden flex items-center justify-between">
+            <div class="min-w-0 flex-1 pr-2">
+                <div class="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-emerald-400">TOTAL DIRECTS</div>
+                <h3 class="text-base sm:text-lg font-black text-emerald-400 font-mono mt-0.5 truncate">{{ $totalDirects }} Members</h3>
+            </div>
+            <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-emerald-500/20 border border-emerald-500/50 text-emerald-400 flex items-center justify-center shrink-0 shadow-md">
+                <i data-lucide="users" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+            </div>
         </div>
 
         <!-- Card 4: ACTIVE DIRECTS -->
-        <div class="p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl pdf-package-card relative overflow-hidden">
-            <div class="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-sky-400">ACTIVE DIRECTS</div>
-            <h3 class="text-base sm:text-xl font-black text-sky-300 font-mono mt-0.5">{{ $activeDirects }} Active</h3>
+        <div class="p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl pdf-package-card relative overflow-hidden flex items-center justify-between">
+            <div class="min-w-0 flex-1 pr-2">
+                <div class="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-sky-400">ACTIVE DIRECTS</div>
+                <h3 class="text-base sm:text-lg font-black text-sky-300 font-mono mt-0.5 truncate">{{ $activeDirects }} Active</h3>
+            </div>
+            <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-sky-500/20 border border-sky-500/50 text-sky-300 flex items-center justify-center shrink-0 shadow-md">
+                <i data-lucide="user-check" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+            </div>
+        </div>
+
+        <!-- Card 5: POWER LEG BIZ -->
+        <div class="p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl pdf-package-card relative overflow-hidden border border-amber-500/40 flex items-center justify-between">
+            <div class="min-w-0 flex-1 pr-2">
+                <div class="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-amber-400">POWER LEG BIZ</div>
+                <h3 class="text-base sm:text-lg font-black text-amber-300 font-mono mt-0.5 truncate">{{ $rootStats['power_leg'] }}</h3>
+                <p class="text-[10px] text-neutral-400 font-mono">Carry: {{ $rootStats['power_carry'] }}</p>
+            </div>
+            <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-amber-500/20 border border-amber-500/50 text-amber-400 flex items-center justify-center shrink-0 shadow-md">
+                <i data-lucide="zap" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+            </div>
+        </div>
+
+        <!-- Card 6: WEAKER LEG BIZ -->
+        <div class="p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl pdf-package-card relative overflow-hidden border border-amber-500/40 flex items-center justify-between">
+            <div class="min-w-0 flex-1 pr-2">
+                <div class="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-amber-400">WEAKER LEG BIZ</div>
+                <h3 class="text-base sm:text-lg font-black text-amber-300 font-mono mt-0.5 truncate">{{ $rootStats['weaker_leg'] }}</h3>
+                <p class="text-[10px] text-neutral-400 font-mono">Carry: {{ $rootStats['weaker_carry'] }}</p>
+            </div>
+            <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-amber-500/20 border border-amber-500/50 text-amber-400 flex items-center justify-center shrink-0 shadow-md">
+                <i data-lucide="scale" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+            </div>
         </div>
     </div>
 
@@ -283,6 +349,14 @@
                                         <span class="font-black uppercase tracking-wider {{ $root->status === 'active' ? 'text-emerald-400' : 'text-rose-400' }}">{{ $root->status }}</span>
                                     </div>
                                     <div class="flex justify-between items-center text-xs">
+                                        <span class="text-slate-300 font-semibold">Power Leg Business:</span>
+                                        <span class="text-amber-400 font-mono font-bold">{{ $rootStats['power_leg'] }} <span class="text-[10px] text-slate-400 font-normal">(Carry: {{ $rootStats['power_carry'] }})</span></span>
+                                    </div>
+                                    <div class="flex justify-between items-center text-xs">
+                                        <span class="text-slate-300 font-semibold">Weaker Leg Business:</span>
+                                        <span class="text-amber-400 font-mono font-bold">{{ $rootStats['weaker_leg'] }} <span class="text-[10px] text-slate-400 font-normal">(Carry: {{ $rootStats['weaker_carry'] }})</span></span>
+                                    </div>
+                                    <div class="flex justify-between items-center text-xs">
                                         <span class="text-slate-300 font-semibold">Active Capital:</span>
                                         <span class="text-emerald-400 font-mono font-bold">{{ $rootStats['active_invest'] }}</span>
                                     </div>
@@ -299,6 +373,10 @@
                                         <span class="text-amber-400 font-mono font-bold">{{ $rootStats['direct_income'] }}</span>
                                     </div>
                                     <div class="flex justify-between items-center text-xs">
+                                        <span class="text-slate-300 font-semibold">Matching Income:</span>
+                                        <span class="text-amber-400 font-mono font-bold">{{ $rootStats['matching_income'] }}</span>
+                                    </div>
+                                    <div class="flex justify-between items-center text-xs">
                                         <span class="text-slate-300 font-semibold">Total Directs:</span>
                                         <span class="text-amber-400 font-mono font-bold">{{ $totalDirects }} Members</span>
                                     </div>
@@ -309,7 +387,7 @@
                                 </div>
 
                                 <div class="p-2 sm:p-3.5 rounded-xl sm:rounded-2xl bg-[#02180e]/95 border-2 border-amber-400 shadow-[0_0_25px_rgba(243,202,82,0.35)] text-center w-32 sm:w-44 relative group cursor-pointer"
-                                     onclick="openMobileModal('{{ addslashes($root->name) }}', '{{ $root->referral_code }}', '{{ addslashes($rootStats['sponsor_name']) }}', '{{ strtoupper($root->status) }}', '{{ $rootStats['active_invest'] }}', '{{ $rootStats['earning_wallet'] }}', '{{ $rootStats['daily_roi'] }}', '{{ $rootStats['direct_income'] }}', '{{ $totalDirects }}', '{{ $root->created_at ? $root->created_at->format('Y-m-d') : 'N/A' }}')">
+                                     onclick="openMobileModal('{{ addslashes($root->name) }}', '{{ $root->referral_code }}', '{{ addslashes($rootStats['sponsor_name']) }}', '{{ strtoupper($root->status) }}', '{{ $rootStats['active_invest'] }}', '{{ $rootStats['earning_wallet'] }}', '{{ $rootStats['daily_roi'] }}', '{{ $rootStats['direct_income'] }}', '{{ $totalDirects }}', '{{ $root->created_at ? $root->created_at->format('Y-m-d') : 'N/A' }}', '{{ $rootStats['power_leg'] }}', '{{ $rootStats['weaker_leg'] }}', '{{ $rootStats['matching_income'] }}')">
                                     
                                     <!-- Circular Avatar with Status Dot -->
                                     <div class="relative w-10 h-10 sm:w-14 sm:h-14 mx-auto mb-1.5 sm:mb-2">
@@ -336,6 +414,11 @@
                                     <!-- Sponsor ID -->
                                     <div class="text-[9.5px] sm:text-[11px] text-amber-400 font-mono font-bold mt-0.5">
                                         SponsorID: <span class="text-amber-300">{{ $rootStats['sponsor_code'] }}</span>
+                                    </div>
+
+                                    <!-- Power & Weaker Business Mini Pill -->
+                                    <div class="text-[7px] sm:text-[8.5px] text-amber-300 font-mono font-bold mt-0.5 pt-0.5 border-t border-amber-500/20 leading-tight text-center">
+                                        P: {{ $rootStats['power_leg_short'] }} | W: {{ $rootStats['weaker_leg_short'] }}
                                     </div>
                                 </div>
                             </div>
@@ -364,6 +447,14 @@
                                                     <span class="font-black uppercase tracking-wider {{ $direct->status === 'active' ? 'text-emerald-400' : 'text-rose-400' }}">{{ $direct->status }}</span>
                                                 </div>
                                                 <div class="flex justify-between items-center text-xs">
+                                                    <span class="text-slate-300 font-semibold">Power Leg Business:</span>
+                                                    <span class="text-amber-400 font-mono font-bold">{{ $directStats['power_leg'] }} <span class="text-[10px] text-slate-400 font-normal">(Carry: {{ $directStats['power_carry'] }})</span></span>
+                                                </div>
+                                                <div class="flex justify-between items-center text-xs">
+                                                    <span class="text-slate-300 font-semibold">Weaker Leg Business:</span>
+                                                    <span class="text-amber-400 font-mono font-bold">{{ $directStats['weaker_leg'] }} <span class="text-[10px] text-slate-400 font-normal">(Carry: {{ $directStats['weaker_carry'] }})</span></span>
+                                                </div>
+                                                <div class="flex justify-between items-center text-xs">
                                                     <span class="text-slate-300 font-semibold">Active Capital:</span>
                                                     <span class="text-emerald-400 font-mono font-bold">{{ $directStats['active_invest'] }}</span>
                                                 </div>
@@ -380,6 +471,10 @@
                                                     <span class="text-amber-400 font-mono font-bold">{{ $directStats['direct_income'] }}</span>
                                                 </div>
                                                 <div class="flex justify-between items-center text-xs">
+                                                    <span class="text-slate-300 font-semibold">Matching Income:</span>
+                                                    <span class="text-amber-400 font-mono font-bold">{{ $directStats['matching_income'] }}</span>
+                                                </div>
+                                                <div class="flex justify-between items-center text-xs">
                                                     <span class="text-slate-300 font-semibold">Direct Referrals:</span>
                                                     <span class="text-amber-400 font-mono font-bold">{{ $direct->direct_members_count ?? 0 }} Members</span>
                                                 </div>
@@ -393,7 +488,7 @@
                                             </div>
 
                                             <div class="p-2 sm:p-3 rounded-xl sm:rounded-2xl bg-[#02180e]/90 border border-amber-500/50 hover:border-amber-400 hover:scale-[1.04] transition-all text-center w-28 sm:w-40 shadow-xl inline-block cursor-pointer relative"
-                                                 onclick="handleCardClick(event, '{{ route($routePrefix . '.network.tree', ['code' => $direct->referral_code]) }}', '{{ addslashes($direct->name) }}', '{{ $direct->referral_code }}', '{{ addslashes($root->name) }}', '{{ strtoupper($direct->status) }}', '{{ $directStats['active_invest'] }}', '{{ $directStats['earning_wallet'] }}', '{{ $directStats['daily_roi'] }}', '{{ $directStats['direct_income'] }}', '{{ $direct->direct_members_count ?? 0 }}', '{{ $direct->created_at ? $direct->created_at->format('Y-m-d') : 'N/A' }}')">
+                                                 onclick="handleCardClick(event, '{{ route($routePrefix . '.network.tree', ['code' => $direct->referral_code]) }}', '{{ addslashes($direct->name) }}', '{{ $direct->referral_code }}', '{{ addslashes($root->name) }}', '{{ strtoupper($direct->status) }}', '{{ $directStats['active_invest'] }}', '{{ $directStats['earning_wallet'] }}', '{{ $directStats['daily_roi'] }}', '{{ $directStats['direct_income'] }}', '{{ $direct->direct_members_count ?? 0 }}', '{{ $direct->created_at ? $direct->created_at->format('Y-m-d') : 'N/A' }}', '{{ $directStats['power_leg'] }}', '{{ $directStats['weaker_leg'] }}', '{{ $directStats['matching_income'] }}')">
                                                 
                                                 <!-- Circular Avatar with Status Dot -->
                                                 <div class="relative w-9 h-9 sm:w-12 sm:h-12 mx-auto mb-1 sm:mb-1.5">
@@ -421,6 +516,11 @@
                                                 <div class="text-[9px] sm:text-[10px] text-amber-400 font-mono font-bold mt-0.5">
                                                     SponsorID: <span class="text-amber-300">{{ $root->referral_code }}</span>
                                                 </div>
+
+                                                <!-- Power & Weaker Business Mini Pill -->
+                                                <div class="text-[7px] sm:text-[8.5px] text-amber-300 font-mono font-bold mt-0.5 pt-0.5 border-t border-amber-500/20 leading-tight text-center">
+                                                    P: {{ $directStats['power_leg_short'] }} | W: {{ $directStats['weaker_leg_short'] }}
+                                                </div>
                                             </div>
                                         </div>
 
@@ -446,6 +546,14 @@
                                                                     <span class="font-black uppercase tracking-wider {{ $sub->status === 'active' ? 'text-emerald-400' : 'text-rose-400' }}">{{ $sub->status }}</span>
                                                                 </div>
                                                                 <div class="flex justify-between items-center text-xs">
+                                                                    <span class="text-slate-300 font-semibold">Power Leg Business:</span>
+                                                                    <span class="text-amber-400 font-mono font-bold">{{ $subStats['power_leg'] }} <span class="text-[10px] text-slate-400 font-normal">(Carry: {{ $subStats['power_carry'] }})</span></span>
+                                                                </div>
+                                                                <div class="flex justify-between items-center text-xs">
+                                                                    <span class="text-slate-300 font-semibold">Weaker Leg Business:</span>
+                                                                    <span class="text-amber-400 font-mono font-bold">{{ $subStats['weaker_leg'] }} <span class="text-[10px] text-slate-400 font-normal">(Carry: {{ $subStats['weaker_carry'] }})</span></span>
+                                                                </div>
+                                                                <div class="flex justify-between items-center text-xs">
                                                                     <span class="text-slate-300 font-semibold">Active Capital:</span>
                                                                     <span class="text-emerald-400 font-mono font-bold">{{ $subStats['active_invest'] }}</span>
                                                                 </div>
@@ -462,6 +570,10 @@
                                                                     <span class="text-amber-400 font-mono font-bold">{{ $subStats['direct_income'] }}</span>
                                                                 </div>
                                                                 <div class="flex justify-between items-center text-xs">
+                                                                    <span class="text-slate-300 font-semibold">Matching Income:</span>
+                                                                    <span class="text-amber-400 font-mono font-bold">{{ $subStats['matching_income'] }}</span>
+                                                                </div>
+                                                                <div class="flex justify-between items-center text-xs">
                                                                     <span class="text-slate-300 font-semibold">Direct Referrals:</span>
                                                                     <span class="text-amber-400 font-mono font-bold">{{ $sub->direct_members_count ?? 0 }} Members</span>
                                                                 </div>
@@ -475,7 +587,7 @@
                                                             </div>
 
                                                             <div class="p-1.5 sm:p-2.5 rounded-lg sm:rounded-xl bg-[#02180e]/90 border border-amber-500/40 hover:border-amber-400 hover:scale-[1.04] transition-all text-center w-24 sm:w-34 shadow-lg inline-block cursor-pointer relative"
-                                                                 onclick="handleCardClick(event, '{{ route($routePrefix . '.network.tree', ['code' => $sub->referral_code]) }}', '{{ addslashes($sub->name) }}', '{{ $sub->referral_code }}', '{{ addslashes($direct->name) }}', '{{ strtoupper($sub->status) }}', '{{ $subStats['active_invest'] }}', '{{ $subStats['earning_wallet'] }}', '{{ $subStats['daily_roi'] }}', '{{ $subStats['direct_income'] }}', '{{ $sub->direct_members_count ?? 0 }}', '{{ $sub->created_at ? $sub->created_at->format('Y-m-d') : 'N/A' }}')">
+                                                                 onclick="handleCardClick(event, '{{ route($routePrefix . '.network.tree', ['code' => $sub->referral_code]) }}', '{{ addslashes($sub->name) }}', '{{ $sub->referral_code }}', '{{ addslashes($direct->name) }}', '{{ strtoupper($sub->status) }}', '{{ $subStats['active_invest'] }}', '{{ $subStats['earning_wallet'] }}', '{{ $subStats['daily_roi'] }}', '{{ $subStats['direct_income'] }}', '{{ $sub->direct_members_count ?? 0 }}', '{{ $sub->created_at ? $sub->created_at->format('Y-m-d') : 'N/A' }}', '{{ $subStats['power_leg'] }}', '{{ $subStats['weaker_leg'] }}', '{{ $subStats['matching_income'] }}')">
                                                                 
                                                                 <!-- Circular Avatar with Status Dot -->
                                                                 <div class="relative w-8 h-8 sm:w-10 sm:h-10 mx-auto mb-1">
@@ -502,6 +614,11 @@
                                                                 <!-- Sponsor ID -->
                                                                 <div class="text-[9px] sm:text-[9.5px] text-amber-400 font-mono font-bold mt-0.5">
                                                                     SponsorID: <span class="text-amber-300">{{ $direct->referral_code }}</span>
+                                                                </div>
+
+                                                                <!-- Power & Weaker Business Mini Pill -->
+                                                                <div class="text-[7px] sm:text-[8.5px] text-amber-300 font-mono font-bold mt-0.5 pt-0.5 border-t border-amber-500/20 leading-tight text-center">
+                                                                    P: {{ $subStats['power_leg_short'] }} | W: {{ $subStats['weaker_leg_short'] }}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -550,6 +667,14 @@
                 <span id="mobileModalStatus" class="font-black text-emerald-400 uppercase">ACTIVE</span>
             </div>
             <div class="flex justify-between items-center py-1 border-b border-amber-500/10">
+                <span class="text-neutral-400 font-medium">Power Leg Business:</span>
+                <span id="mobileModalPowerLeg" class="font-mono text-amber-400 font-bold">$0.00</span>
+            </div>
+            <div class="flex justify-between items-center py-1 border-b border-amber-500/10">
+                <span class="text-neutral-400 font-medium">Weaker Leg Business:</span>
+                <span id="mobileModalWeakerLeg" class="font-mono text-amber-400 font-bold">$0.00</span>
+            </div>
+            <div class="flex justify-between items-center py-1 border-b border-amber-500/10">
                 <span class="text-neutral-400 font-medium">Active Capital:</span>
                 <span id="mobileModalActiveInvest" class="font-mono text-emerald-400 font-bold">$0.00</span>
             </div>
@@ -564,6 +689,10 @@
             <div class="flex justify-between items-center py-1 border-b border-amber-500/10">
                 <span class="text-neutral-400 font-medium">Direct Income:</span>
                 <span id="mobileModalDirectIncome" class="font-mono text-amber-400 font-bold">$0.00</span>
+            </div>
+            <div class="flex justify-between items-center py-1 border-b border-amber-500/10">
+                <span class="text-neutral-400 font-medium">Matching Income:</span>
+                <span id="mobileModalMatchingIncome" class="font-mono text-amber-400 font-bold">$0.00</span>
             </div>
             <div class="flex justify-between items-center py-1 border-b border-amber-500/10">
                 <span class="text-neutral-400 font-medium">Direct Referrals:</span>
@@ -622,25 +751,28 @@
         });
     }
 
-    function handleCardClick(event, navUrl, name, code, sponsor, status, activeInvest, earningWallet, dailyRoi, directIncome, directs, joined) {
+    function handleCardClick(event, navUrl, name, code, sponsor, status, activeInvest, earningWallet, dailyRoi, directIncome, directs, joined, powerLeg = '$0.00', weakerLeg = '$0.00', matchingIncome = '$0.00') {
         if (window.innerWidth < 768) {
             event.preventDefault();
             event.stopPropagation();
-            openMobileModal(name, code, sponsor, status, activeInvest, earningWallet, dailyRoi, directIncome, directs, joined, navUrl);
+            openMobileModal(name, code, sponsor, status, activeInvest, earningWallet, dailyRoi, directIncome, directs, joined, powerLeg, weakerLeg, matchingIncome, navUrl);
         } else {
             window.location.href = navUrl;
         }
     }
 
-    function openMobileModal(name, code, sponsor, status, activeInvest, earningWallet, dailyRoi, directIncome, directs, joined, navUrl = '#') {
+    function openMobileModal(name, code, sponsor, status, activeInvest, earningWallet, dailyRoi, directIncome, directs, joined, powerLeg = '$0.00', weakerLeg = '$0.00', matchingIncome = '$0.00', navUrl = '#') {
         document.getElementById('mobileModalName').textContent = name;
         document.getElementById('mobileModalCode').textContent = code;
         document.getElementById('mobileModalSponsor').textContent = sponsor;
         document.getElementById('mobileModalStatus').textContent = status;
+        document.getElementById('mobileModalPowerLeg').textContent = powerLeg;
+        document.getElementById('mobileModalWeakerLeg').textContent = weakerLeg;
         document.getElementById('mobileModalActiveInvest').textContent = activeInvest;
         document.getElementById('mobileModalEarningWallet').textContent = earningWallet;
         document.getElementById('mobileModalDailyRoi').textContent = dailyRoi;
         document.getElementById('mobileModalDirectIncome').textContent = directIncome;
+        document.getElementById('mobileModalMatchingIncome').textContent = matchingIncome;
         document.getElementById('mobileModalDirects').textContent = directs + ' Members';
         document.getElementById('mobileModalJoined').textContent = joined;
         

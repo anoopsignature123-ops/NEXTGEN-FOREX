@@ -303,7 +303,7 @@
                                     </span>
                                     <div>
                                         <span class="block text-xs font-bold">Total Team Business</span>
-                                        <span class="text-[9px] text-neutral-400 font-normal font-mono block">Direct Network: {{ $directMembersCount }} Members ({{ $activeDirectMembersCount }} Active)</span>
+                                        <span class="text-[9px] text-neutral-400 font-normal font-mono block">Power: ${{ number_format($powerLegVolume, 2) }} • Weaker: ${{ number_format($weakerLegVolume, 2) }}</span>
                                     </div>
                                 </td>
                                 <td class="py-2 px-3 text-center font-mono text-xs text-neutral-400">-</td>
@@ -378,13 +378,12 @@
                                     </span>
                                     <div>
                                         <a href="{{ route('user.reports.matching') }}" class="hover:text-amber-300 transition text-xs font-bold">Matching Income</a>
-                                        <span class="text-[9px] text-neutral-400 font-normal block">5% Matching Volume (50:50 Ratio)</span>
+                                        <span class="text-[9px] text-neutral-400 font-normal block">5% on Matched Vol (${{ number_format($matchedVolume, 2) }})</span>
                                     </div>
                                 </td>
                                 <td class="py-2 px-3 text-center font-mono font-bold text-emerald-400 text-xs">${{ number_format($todayMatchingEarned, 2) }}</td>
                                 <td class="py-2 px-3 text-right font-mono font-bold text-emerald-400 text-xs sm:text-sm">${{ number_format($totalMatchingEarned, 2) }}</td>
                             </tr>
-
                             <!-- 7. Direct Salary Income -->
                             <tr class="hover:bg-amber-500/5 transition">
                                 <td class="py-2 px-3 font-semibold text-white flex items-center gap-2.5">
@@ -435,10 +434,10 @@
             </div>
 
             <!-- RIGHT CARD: TEAM OVERVIEW & NETWORK METRICS (PREMIUM TILE DESIGN) -->
-            <div class="p-4 sm:p-5 rounded-3xl pdf-package-card space-y-3.5 shadow-xl overflow-hidden flex flex-col justify-between">
+            <div class="p-4 sm:p-5 rounded-3xl pdf-package-card space-y-3 shadow-xl overflow-hidden flex flex-col justify-between">
                 <div>
                     <!-- Header -->
-                    <div class="flex items-center justify-between border-b border-amber-500/20 pb-3 mb-3">
+                    <div class="flex items-center justify-between border-b border-amber-500/20 pb-2.5 mb-2.5">
                         <div>
                             <span class="text-amber-400 font-extrabold text-[10px] uppercase tracking-widest block mb-0.5">NETWORK OVERVIEW</span>
                             <h2 class="text-base sm:text-lg font-black text-white font-heading flex items-center gap-2">
@@ -453,19 +452,43 @@
                         </a>
                     </div>
 
+                    <!-- Power Leg vs Weaker Leg (50:50 Matching Volume & Carry Forward Banner) -->
+                    <div class="grid grid-cols-2 gap-2 mb-2.5">
+                        <div class="p-2 sm:p-2.5 rounded-2xl bg-amber-950/40 border border-amber-400/40 flex items-center gap-2 shadow-sm">
+                            <div class="w-7 h-7 rounded-lg bg-amber-400/20 text-amber-300 border border-amber-400/50 flex items-center justify-center shrink-0">
+                                <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400"></i>
+                            </div>
+                            <div class="overflow-hidden min-w-0">
+                                <span class="text-[9px] text-amber-400 font-extrabold uppercase tracking-wider block truncate">POWER LEG</span>
+                                <span class="text-xs font-mono font-black text-amber-300 block truncate">${{ number_format($powerLegVolume, 2) }}</span>
+                                <span class="text-[8px] text-neutral-400 font-mono block truncate">Carry: ${{ number_format($powerLegCarry, 2) }}</span>
+                            </div>
+                        </div>
+                        <div class="p-2 sm:p-2.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/40 flex items-center gap-2 shadow-sm">
+                            <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/50 flex items-center justify-center shrink-0">
+                                <i data-lucide="scale" class="w-3.5 h-3.5 text-emerald-400"></i>
+                            </div>
+                            <div class="overflow-hidden min-w-0">
+                                <span class="text-[9px] text-emerald-400 font-extrabold uppercase tracking-wider block truncate">WEAKER LEG</span>
+                                <span class="text-xs font-mono font-black text-emerald-300 block truncate">${{ number_format($weakerLegVolume, 2) }}</span>
+                                <span class="text-[8px] text-neutral-400 font-mono block truncate">Carry: ${{ number_format($weakerLegCarry, 2) }}</span>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Network Ratio Bar Banner -->
                     @php
                         $teamRatio = $totalTeamCount > 0 ? round(($activeTeamCount / $totalTeamCount) * 100) : 0;
                     @endphp
-                    <div class="p-3 rounded-2xl bg-black/50 border border-amber-500/20 mb-3 space-y-1.5">
+                    <div class="p-2.5 rounded-2xl bg-black/50 border border-amber-500/20 mb-2.5 space-y-1">
                         <div class="flex justify-between items-center text-[10px] font-mono">
                             <span class="text-neutral-300 font-bold uppercase tracking-wider flex items-center gap-1">
                                 <i data-lucide="activity" class="w-3 h-3 text-amber-400"></i> Active Network Ratio
                             </span>
                             <span class="text-amber-300 font-black">{{ $teamRatio }}% Active</span>
                         </div>
-                        <div class="w-full bg-neutral-800 rounded-full h-2 overflow-hidden flex">
-                            <div class="bg-gradient-to-r from-emerald-500 to-teal-400 h-2 rounded-full transition-all duration-500" style="width: {{ $teamRatio }}%"></div>
+                        <div class="w-full bg-neutral-800 rounded-full h-1.5 overflow-hidden flex">
+                            <div class="bg-gradient-to-r from-emerald-500 to-teal-400 h-1.5 rounded-full transition-all duration-500" style="width: {{ $teamRatio }}%"></div>
                         </div>
                     </div>
                 </div>

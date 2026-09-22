@@ -72,7 +72,15 @@ class DashboardController extends Controller
         $activeTeamCount = empty($downlineUserIds) ? 0 : User::whereIn('id', $downlineUserIds)->where('status', 'active')->count();
         $inactiveTeamCount = empty($downlineUserIds) ? 0 : User::whereIn('id', $downlineUserIds)->where('status', 'inactive')->count();
 
-        // 5. Personal Recent Collections
+        // 5. Power Leg vs Weaker Leg Volume Statistics & Carry Forward
+        $legStats = $user->leg_volume_stats;
+        $powerLegVolume = (float) ($legStats['power_leg'] ?? 0.00);
+        $weakerLegVolume = (float) ($legStats['remaining_leg'] ?? 0.00);
+        $powerLegCarry = (float) ($legStats['power_leg_carry'] ?? 0.00);
+        $weakerLegCarry = (float) ($legStats['weaker_leg_carry'] ?? 0.00);
+        $matchedVolume = min($powerLegVolume, $weakerLegVolume);
+
+        // 6. Personal Recent Collections
         $activePackages = UserPackage::with('package')->where('user_id', $user->id)->latest()->take(5)->get();
         $recentTransactions = Transaction::where('user_id', $user->id)->latest()->take(5)->get();
         $recentDeposits = Deposit::where('user_id', $user->id)->latest()->take(5)->get();
@@ -92,6 +100,7 @@ class DashboardController extends Controller
             'totalIncomeEarned', 'totalWithdrawn',
             'directMembersCount', 'activeDirectMembersCount', 'inactiveDirectMembersCount',
             'activeDirectBusiness', 'totalTeamCount', 'activeTeamCount', 'inactiveTeamCount',
+            'legStats', 'powerLegVolume', 'weakerLegVolume', 'powerLegCarry', 'weakerLegCarry', 'matchedVolume',
             'activePackages', 'recentTransactions', 'recentDeposits'
         ));
     }

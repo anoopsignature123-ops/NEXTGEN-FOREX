@@ -172,9 +172,15 @@ class User extends Authenticatable
                 'power_leg' => 0.00,
                 'remaining_leg' => 0.00,
                 'total_team' => 0.00,
+                'matched_volume' => 0.00,
+                'already_matched_volume' => 0.00,
+                'power_leg_carry' => 0.00,
+                'weaker_leg_carry' => 0.00,
                 'power_leg_formatted' => '$0.00',
                 'remaining_leg_formatted' => '$0.00',
                 'total_team_formatted' => '$0.00',
+                'power_leg_carry_formatted' => '$0.00',
+                'weaker_leg_carry_formatted' => '$0.00',
             ];
         }
 
@@ -194,13 +200,30 @@ class User extends Authenticatable
         $remainingLeg = array_sum(array_slice($legVolumes, 1));
         $totalTeam = $powerLeg + $remainingLeg;
 
+        $matchedVolume = min($powerLeg, $remainingLeg);
+
+        $totalMatchingEarned = (float) Transaction::where('user_id', $this->id)
+            ->where('type', 'matching_income')
+            ->sum('amount');
+
+        $alreadyMatchedVolume = ($totalMatchingEarned * 100.0) / 5.0;
+
+        $powerLegCarry = max(0.00, $powerLeg - $alreadyMatchedVolume);
+        $weakerLegCarry = max(0.00, $remainingLeg - $alreadyMatchedVolume);
+
         return [
             'power_leg' => $powerLeg,
             'remaining_leg' => $remainingLeg,
             'total_team' => $totalTeam,
+            'matched_volume' => $matchedVolume,
+            'already_matched_volume' => $alreadyMatchedVolume,
+            'power_leg_carry' => $powerLegCarry,
+            'weaker_leg_carry' => $weakerLegCarry,
             'power_leg_formatted' => '$'.number_format($powerLeg, 2),
             'remaining_leg_formatted' => '$'.number_format($remainingLeg, 2),
             'total_team_formatted' => '$'.number_format($totalTeam, 2),
+            'power_leg_carry_formatted' => '$'.number_format($powerLegCarry, 2),
+            'weaker_leg_carry_formatted' => '$'.number_format($weakerLegCarry, 2),
         ];
     }
 

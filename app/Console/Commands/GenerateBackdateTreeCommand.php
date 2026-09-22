@@ -367,6 +367,64 @@ class GenerateBackdateTreeCommand extends Command
                 // Distribute Level Income up to 10 Levels based on this daily yield
                 $this->distributeBackdatedLevelIncome($user, $dailyYield, $endOfDay);
             }
+
+            // 3. End-of-Day 5% Matching Income Payout for this Date
+            $allActiveUsers = User::where('status', 'active')->get();
+            foreach ($allActiveUsers as $aUser) {
+                $legStats = $aUser->leg_volume_stats;
+                $powerLeg = (float) ($legStats['power_leg'] ?? 0);
+                $weakerLeg = (float) ($legStats['remaining_leg'] ?? 0);
+                $currentMatched = min($powerLeg, $weakerLeg);
+
+                if ($currentMatched <= 0) {
+                    continue;
+                }
+
+                $alreadyPaidMatching = (float) Transaction::where('user_id', $aUser->id)
+                    ->where('type', 'matching_income')
+                    ->sum('amount');
+
+                $alreadyMatchedVolume = ($alreadyPaidMatching * 100.0) / 5.0;
+                $newMatchedVolume = max(0.00, $currentMatched - $alreadyMatchedVolume);
+
+                if ($newMatchedVolume > 0.00) {
+                    $rawMatching = ($newMatchedVolume * 5.0) / 100.0;
+                    $maxPkg = $aUser->userPackages()->where('status', 'active')->where('created_at', '<=', $endOfDay)->max('invested_amount') ?? 0;
+                    $dailyCap = $maxPkg * 5;
+
+                    if ($dailyCap > 0) {
+                        $todayMatchingPaid = (float) Transaction::where('user_id', $aUser->id)
+                            ->where('type', 'matching_income')
+                            ->where('created_at', '>=', Carbon::parse($dateStr)->startOfDay())
+                            ->where('created_at', '<=', Carbon::parse($dateStr)->endOfDay())
+                            ->sum('amount');
+
+                        $remCap = max(0.00, $dailyCap - $todayMatchingPaid);
+                        $finalMatching = min($rawMatching, $remCap);
+
+                        if ($finalMatching > 0.00) {
+                            $aUser->increment('earning_wallet', $finalMatching);
+                            $mTxn = Transaction::create([
+                                'user_id' => $aUser->id,
+                                'txn_number' => 'TXN-'.rand(10000000, 99999999),
+                                'wallet_type' => 'earning_wallet',
+                                'amount' => $finalMatching,
+                                'charge' => 0.00,
+                                'post_balance' => (float) $aUser->fresh()->earning_wallet,
+                                'trx_type' => '+',
+                                'type' => 'matching_income',
+                                'description' => 'Received 5% Matching Income of $'.number_format($finalMatching, 2).' on new matched volume of $'.number_format($newMatchedVolume, 2),
+                                'status' => 'completed',
+                            ]);
+                            $mTxn->created_at = $endOfDay;
+                            $mTxn->updated_at = $endOfDay;
+                            $mTxn->save();
+
+                            $this->line("    Matching Income (5%): \${$finalMatching} -> {$aUser->name} ({$aUser->referral_code}) on {$dateStr}");
+                        }
+                    }
+                }
+            }
         }
 
         $this->info("\n===========================================================");

@@ -88,12 +88,21 @@
                             <div>
                                 <label class="block text-xs font-bold text-amber-400 uppercase mb-1.5">Account Password
                                     *</label>
-                                <div class="relative">
+                                <div class="relative flex items-center">
+                                    <div class="absolute left-3.5 top-1/2 -translate-y-1/2 text-amber-400 pointer-events-none z-10 flex items-center justify-center"
+                                        style="left: 0.875rem !important; right: auto !important;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+                                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                                        </svg>
+                                    </div>
                                     <input type="password" id="regPassword" name="password" required placeholder="••••••••"
-                                        class="w-full pl-4 pr-12 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400">
+                                        class="w-full pl-11 pr-12 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400">
 
                                     <button type="button" onclick="togglePassVisibility('regPassword', 'regEyeOpen', 'regEyeClosed')"
-                                        class="absolute right-3 top-1/2 -translate-y-1/2 p-2 text-amber-400 hover:text-amber-300 transition focus:outline-none"
+                                        class="absolute right-3.5 top-1/2 -translate-y-1/2 p-1.5 text-amber-400 hover:text-amber-300 transition focus:outline-none z-10 flex items-center justify-center"
+                                        style="right: 0.875rem !important; left: auto !important;"
                                         aria-label="Toggle Password Visibility">
                                         <svg id="regEyeOpen" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -106,17 +115,26 @@
                                             <line x1="2" y1="2" x2="22" y2="22" />
                                         </svg>
                                     </button>
-                                    </div>
-                                    </div>
+                                </div>
+                            </div>
                             <div>
                                 <label class="block text-xs font-bold text-amber-400 uppercase mb-1.5">Confirm Password
                                     *</label>
-                                <div class="relative">
+                                <div class="relative flex items-center">
+                                    <div class="absolute left-3.5 top-1/2 -translate-y-1/2 text-amber-400 pointer-events-none z-10 flex items-center justify-center"
+                                        style="left: 0.875rem !important; right: auto !important;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+                                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                                        </svg>
+                                    </div>
                                     <input type="password" id="regPasswordConfirm" name="password_confirmation" required placeholder="••••••••"
-                                        class="w-full pl-4 pr-12 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400">
+                                        class="w-full pl-11 pr-12 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400">
 
                                     <button type="button" onclick="togglePassVisibility('regPasswordConfirm', 'regConfirmEyeOpen', 'regConfirmEyeClosed')"
-                                        class="absolute right-3 top-1/2 -translate-y-1/2 p-2 text-amber-400 hover:text-amber-300 transition focus:outline-none"
+                                        class="absolute right-3.5 top-1/2 -translate-y-1/2 p-1.5 text-amber-400 hover:text-amber-300 transition focus:outline-none z-10 flex items-center justify-center"
+                                        style="right: 0.875rem !important; left: auto !important;"
                                         aria-label="Toggle Password Visibility">
                                         <svg id="regConfirmEyeOpen" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -130,9 +148,9 @@
                                             <line x1="2" y1="2" x2="22" y2="22" />
                                         </svg>
                                     </button>
-                                    </div>
-                                    </div>
-                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <!-- Terms Checkbox -->
                         <div class="pt-1">

@@ -29,8 +29,9 @@
                 <!-- Email Field -->
                 <div>
                     <label class="block text-xs font-bold text-amber-400 uppercase mb-1.5">Email:</label>
-                    <div class="relative">
-                        <div class="absolute left-3.5 top-1/2 -translate-y-1/2 text-amber-400 pointer-events-none">
+                    <div class="relative flex items-center">
+                        <div class="absolute left-3.5 top-1/2 -translate-y-1/2 text-amber-400 pointer-events-none z-10 flex items-center justify-center"
+                            style="left: 0.875rem !important; right: auto !important;">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <rect width="20" height="16" x="2" y="4" rx="2" />
@@ -45,8 +46,9 @@
                 <!-- Password Field -->
                 <div>
                     <label class="block text-xs font-bold text-amber-400 uppercase mb-1.5">Password:</label>
-                    <div class="relative">
-                        <div class="absolute left-3.5 top-1/2 -translate-y-1/2 text-amber-400 pointer-events-none">
+                    <div class="relative flex items-center">
+                        <div class="absolute left-3.5 top-1/2 -translate-y-1/2 text-amber-400 pointer-events-none z-10 flex items-center justify-center"
+                            style="left: 0.875rem !important; right: auto !important;">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
@@ -58,7 +60,8 @@
                             class="w-full pl-11 pr-12 py-3 rounded-xl bg-bg border border-amber-500/40 text-white font-semibold text-sm focus:outline-none focus:border-amber-400">
 
                         <button type="button" onclick="togglePassword()"
-                            class="absolute right-3 top-1/2 -translate-y-1/2 p-2 text-amber-400 hover:text-amber-300 transition focus:outline-none"
+                            class="absolute right-3.5 top-1/2 -translate-y-1/2 p-1.5 text-amber-400 hover:text-amber-300 transition focus:outline-none z-10 flex items-center justify-center"
+                            style="right: 0.875rem !important; left: auto !important;"
                             aria-label="Toggle Password Visibility">
                             <svg id="eyeIconOpen" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

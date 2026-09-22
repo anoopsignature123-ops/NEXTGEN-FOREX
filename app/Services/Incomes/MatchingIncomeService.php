@@ -48,16 +48,30 @@ class MatchingIncomeService
             return 0.00;
         }
 
-        // Matched Volume is min of Power Leg and Weaker Leg
-        $matchedVolume = min($powerLegVolume, $weakerLegVolume);
+        // 1. Current Matched Business Volume = min(PowerLegVolume, WeakerLegVolume)
+        $currentMatchedVolume = min($powerLegVolume, $weakerLegVolume);
 
-        if ($matchedVolume <= 0) {
+        if ($currentMatchedVolume <= 0) {
             return 0.00;
         }
 
-        $rawIncome = ($matchedVolume * self::MATCHING_PERCENTAGE) / 100;
+        // 2. Calculate how much volume was already matched previously
+        $totalAlreadyPaidMatching = Transaction::where('user_id', $user->id)
+            ->where('type', 'matching_income')
+            ->sum('amount');
 
-        // Calculate 5X Package Daily Capping Limit
+        $alreadyMatchedVolume = ($totalAlreadyPaidMatching * 100) / self::MATCHING_PERCENTAGE;
+
+        // 3. New Unmatched Volume = Current Matched Volume minus Already Matched Volume
+        $newMatchedVolume = max(0.00, $currentMatchedVolume - $alreadyMatchedVolume);
+
+        if ($newMatchedVolume <= 0) {
+            return 0.00;
+        }
+
+        $rawIncome = ($newMatchedVolume * self::MATCHING_PERCENTAGE) / 100;
+
+        // 4. Calculate 5X Package Daily Capping Limit
         $maxPackageAmount = $user->userPackages()->where('status', 'active')->max('invested_amount') ?? 0;
         $dailyCappingLimit = $maxPackageAmount * 5;
 
@@ -66,13 +80,21 @@ class MatchingIncomeService
             return 0.00;
         }
 
-        $finalIncome = min($rawIncome, $dailyCappingLimit);
+        // 5. Apply daily capping constraint
+        $todayMatchingPaid = Transaction::where('user_id', $user->id)
+            ->where('type', 'matching_income')
+            ->where('created_at', '>=', now()->startOfDay())
+            ->sum('amount');
+
+        $remainingDailyCap = max(0.00, $dailyCappingLimit - $todayMatchingPaid);
+
+        $finalIncome = min($rawIncome, $remainingDailyCap);
 
         if ($finalIncome <= 0) {
             return 0.00;
         }
 
-        DB::transaction(function () use ($user, $finalIncome, $matchedVolume) {
+        DB::transaction(function () use ($user, $finalIncome, $newMatchedVolume) {
             $user->increment('earning_wallet', $finalIncome);
 
             Transaction::create([
@@ -84,7 +106,7 @@ class MatchingIncomeService
                 'post_balance' => $user->fresh()->earning_wallet,
                 'trx_type' => '+',
                 'type' => 'matching_income',
-                'description' => 'Received 5% Matching Income of $'.number_format($finalIncome, 2).' on matched volume of $'.number_format($matchedVolume, 2),
+                'description' => 'Received 5% Matching Income of $'.number_format($finalIncome, 2).' on new matched volume of $'.number_format($newMatchedVolume, 2),
                 'status' => 'completed',
             ]);
         });
