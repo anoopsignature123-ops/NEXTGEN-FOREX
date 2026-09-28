@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Transaction;
 use App\Models\Withdrawal;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -55,6 +56,13 @@ class WithdrawalController extends Controller
         $approvedSum = Withdrawal::whereIn('status', ['approved', 'completed'])->sum('net_amount');
         $totalDeductionsSum = Withdrawal::whereIn('status', ['approved', 'completed'])->sum('charge');
 
+        $completedStats = [
+            'today' => Withdrawal::where('status', 'completed')->whereDate('updated_at', today())->sum('net_amount'),
+            'yesterday' => Withdrawal::where('status', 'completed')->whereDate('updated_at', today()->subDay())->sum('net_amount'),
+            'this_month' => Withdrawal::where('status', 'completed')->whereMonth('updated_at', now()->month)->whereYear('updated_at', now()->year)->sum('net_amount'),
+            'all_time' => Withdrawal::where('status', 'completed')->sum('net_amount'),
+        ];
+
         return view('admin.withdrawals.index', compact(
             'withdrawals',
             'pendingCount',
@@ -62,7 +70,8 @@ class WithdrawalController extends Controller
             'completedCount',
             'rejectedCount',
             'approvedSum',
-            'totalDeductionsSum'
+            'totalDeductionsSum',
+            'completedStats'
         ));
     }
 
@@ -162,7 +171,7 @@ class WithdrawalController extends Controller
     /**
      * Bulk Approve selected pending withdrawal requests (Pending -> Approved).
      */
-    public function bulkApprove(Request $request): RedirectResponse
+    public function bulkApprove(Request $request): JsonResponse|RedirectResponse
     {
         $request->validate([
             'withdrawal_ids' => 'required|array|min:1',
@@ -173,6 +182,10 @@ class WithdrawalController extends Controller
         $pendingWithdrawals = Withdrawal::whereIn('id', $ids)->where('status', 'pending')->get();
 
         if ($pendingWithdrawals->isEmpty()) {
+            if ($request->wantsJson()) {
+                return response()->json(['success' => false, 'message' => 'No pending withdrawal requests selected for bulk approval.'], 422);
+            }
+
             return redirect()->back()->with('error', 'No pending withdrawal requests selected for bulk approval.');
         }
 
@@ -190,34 +203,51 @@ class WithdrawalController extends Controller
             }
         });
 
+        if ($request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => "Successfully bulk approved {$count} withdrawal requests!",
+                'updated' => $count,
+            ]);
+        }
+
         return redirect()->back()->with('success', "Successfully bulk approved {$count} withdrawal requests! Moved to Approved status.");
     }
 
     /**
      * Bulk Complete selected approved/pending withdrawal requests (Approved -> Completed).
      */
-    public function bulkComplete(Request $request): RedirectResponse
+    public function bulkComplete(Request $request): JsonResponse|RedirectResponse
     {
+        $hashKey = $request->has('transaction_hash') ? 'transaction_hash' : ($request->has('txn_hash') ? 'txn_hash' : null);
         $request->validate([
             'withdrawal_ids' => 'required|array|min:1',
             'withdrawal_ids.*' => 'exists:withdrawals,id',
+            'txn_hash' => 'nullable|string|max:255',
+            'transaction_hash' => 'nullable|string|max:255',
         ]);
 
         $ids = $request->withdrawal_ids;
+        $txnHash = trim($request->input('txn_hash', $request->input('transaction_hash', '')));
         $eligibleWithdrawals = Withdrawal::whereIn('id', $ids)->whereIn('status', ['pending', 'approved'])->get();
 
         if ($eligibleWithdrawals->isEmpty()) {
+            if ($request->wantsJson()) {
+                return response()->json(['success' => false, 'message' => 'No pending or approved withdrawal requests selected for bulk completion.'], 422);
+            }
+
             return redirect()->back()->with('error', 'No pending or approved withdrawal requests selected for bulk completion.');
         }
 
         $count = 0;
         $totalCompleted = 0.00;
 
-        DB::transaction(function () use ($eligibleWithdrawals, &$count, &$totalCompleted) {
+        DB::transaction(function () use ($eligibleWithdrawals, $txnHash, &$count, &$totalCompleted) {
             foreach ($eligibleWithdrawals as $withdrawal) {
                 $withdrawal->update([
                     'status' => 'completed',
-                    'admin_remark' => 'Bulk completed by Admin.',
+                    'txn_hash' => $txnHash ?: $withdrawal->txn_hash,
+                    'admin_remark' => 'Bulk completed by Admin'.($txnHash ? " | Hash: {$txnHash}" : '.'),
                 ]);
 
                 Transaction::where('txn_number', $withdrawal->trx_number)->update(['status' => 'completed']);
@@ -225,6 +255,15 @@ class WithdrawalController extends Controller
                 $totalCompleted += (float) $withdrawal->net_amount;
             }
         });
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => "Successfully bulk completed {$count} withdrawal requests!",
+                'updated' => $count,
+                'total_completed' => $totalCompleted,
+            ]);
+        }
 
         return redirect()->back()->with('success', "Successfully bulk completed {$count} withdrawal requests! Total net payouts completed: \$".number_format($totalCompleted, 2));
     }

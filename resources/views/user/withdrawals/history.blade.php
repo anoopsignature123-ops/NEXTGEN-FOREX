@@ -147,8 +147,8 @@
                                 <td class="p-4 font-mono font-bold text-rose-400">-${{ number_format($w->charge, 2) }}</td>
                                 <td class="p-4 font-mono font-black text-emerald-400">${{ number_format($w->net_amount, 2) }}
                                 </td>
-                                <td class="p-4 font-mono text-xs text-neutral-300 max-w-xs truncate" title="{{ $w->usdt_address }}">
-                                    {{ $w->usdt_address }}
+                                <td class="p-4 font-mono text-xs text-neutral-300 max-w-xs truncate" title="{{ $w->usdt_address ?: ($user->wallet_address ?? 'N/A') }}">
+                                    {{ $w->usdt_address ?: ($user->wallet_address ?? 'N/A') }}
                                 </td>
                                 <td class="p-4 text-xs text-neutral-400 font-mono">{{ $w->created_at->format('M d, Y h:i A') }}
                                 </td>

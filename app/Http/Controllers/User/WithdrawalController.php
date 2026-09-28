@@ -39,9 +39,9 @@ class WithdrawalController extends Controller
 
         $requestedAmount = (float) $request->amount;
 
-        // 1. Auto-save wallet_address to user profile if not set
-        if (! $user->wallet_address && $request->filled('usdt_address')) {
-            $user->update(['wallet_address' => $request->usdt_address]);
+        // 1. Auto-sync wallet_address to user profile if modified or not set
+        if ($request->filled('usdt_address') && $user->wallet_address !== trim($request->usdt_address)) {
+            $user->update(['wallet_address' => trim($request->usdt_address)]);
         }
 
         // 2. Check Earning Wallet Balance
