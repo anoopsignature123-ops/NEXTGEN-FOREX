@@ -335,12 +335,27 @@
                 @csrf
 
                 <div class="space-y-1.5">
-                    <label class="text-xs font-bold text-amber-400 uppercase tracking-wider">Select Wallet</label>
-                    <select name="wallet_type"
+                    <label class="text-xs font-bold text-amber-400 uppercase tracking-wider">Select Target Wallet</label>
+                    <select name="wallet_type" id="modalWalletType"
                         class="w-full px-4 py-3 rounded-xl bg-black/90 border border-amber-500/40 text-amber-300 font-bold text-xs focus:outline-none focus:border-amber-400 cursor-pointer"
                         required>
+                        <option value="earning_wallet">💰 Earning Wallet (For Income & Withdrawals)</option>
                         <option value="deposit_wallet">💳 Deposit Wallet (For Purchasing Packages)</option>
-                        <option value="earning_wallet">💰 Earning Wallet (For Withdrawals / Earnings)</option>
+                    </select>
+                </div>
+
+                <div class="space-y-1.5">
+                    <label class="text-xs font-bold text-amber-400 uppercase tracking-wider">Income Type / Category</label>
+                    <select name="income_type"
+                        class="w-full px-4 py-3 rounded-xl bg-black/90 border border-amber-500/40 text-amber-300 font-bold text-xs focus:outline-none focus:border-amber-400 cursor-pointer"
+                        required>
+                        <option value="matching_income">🤝 Matching Income (5% Binary Matching)</option>
+                        <option value="admin_add_fund">⚡ Direct Fund Credit (General Admin Credit)</option>
+                        <option value="roi_income">📈 Daily ROI Income</option>
+                        <option value="direct_income">🎁 Direct Referral Income</option>
+                        <option value="level_income">📊 Level Income</option>
+                        <option value="reward">🏆 Reward Income</option>
+                        <option value="team_salary">💼 Team Salary Income</option>
                     </select>
                 </div>
 
@@ -348,7 +363,7 @@
                     <label class="text-xs font-bold text-amber-400 uppercase tracking-wider">Amount ($ USD)</label>
                     <div class="relative">
                         <span class="absolute left-4 top-1/2 -translate-y-1/2 text-amber-400 font-bold">$</span>
-                        <input type="number" step="0.01" min="0.01" name="amount" placeholder="100.00"
+                        <input type="number" step="0.01" min="0.01" name="amount" placeholder="15.75"
                             class="w-full pl-8 pr-4 py-3 rounded-xl bg-black/90 border border-amber-500/40 text-white font-mono font-bold text-xs focus:outline-none focus:border-amber-400"
                             required>
                     </div>

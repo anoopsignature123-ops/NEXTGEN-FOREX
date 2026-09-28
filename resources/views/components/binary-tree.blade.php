@@ -639,19 +639,21 @@
 </div>
 
 <!-- DETAILED MOBILE MEMBER INFO MODAL OVERLAY -->
-<div id="mobileMemberModal" style="display: none;" class="fixed inset-0 z-[99999] bg-black/85 backdrop-blur-sm items-center justify-center p-4">
-    <div class="relative w-full max-w-xs sm:max-w-sm p-5 rounded-3xl border-2 border-amber-400 shadow-[0_0_50px_rgba(243,202,82,0.4)] text-left space-y-3 text-xs" style="background-color: #07120a !important;">
+<div id="mobileMemberModal" style="display: none; z-index: 99999999 !important;" class="fixed inset-0 bg-black/90 backdrop-blur-md items-center justify-center p-4">
+    <div class="relative w-full max-w-xs sm:max-w-sm p-5 rounded-3xl border-2 border-amber-400 shadow-[0_0_60px_rgba(243,202,82,0.6)] text-left space-y-3 text-xs" style="background: linear-gradient(180deg, #071f13 0%, #03100a 100%) !important;">
         
         <!-- Header -->
         <div class="flex justify-between items-center pb-2.5 border-b border-amber-500/30">
             <div class="flex items-center gap-2">
-                <span class="w-8 h-8 rounded-full pdf-gold-badge text-black font-black text-xs flex items-center justify-center shadow">ID</span>
+                <span class="w-8 h-8 rounded-full pdf-gold-badge text-black font-black text-xs flex items-center justify-center shadow">
+                    👑
+                </span>
                 <div>
                     <h3 id="mobileModalName" class="font-black text-white text-sm font-heading">Member Name</h3>
-                    <p id="mobileModalCode" class="text-[11px] text-amber-400 font-mono">NGF-0000000</p>
+                    <p id="mobileModalCode" class="text-[11px] text-amber-400 font-mono font-bold">NGF-0000000</p>
                 </div>
             </div>
-            <button type="button" onclick="closeMobileMemberModal()" class="w-7 h-7 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-300 hover:bg-rose-500/40 flex items-center justify-center font-black text-sm transition">
+            <button type="button" onclick="closeMobileMemberModal()" class="w-8 h-8 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-300 hover:bg-rose-500/40 flex items-center justify-center font-black text-sm transition">
                 ✕
             </button>
         </div>
@@ -659,47 +661,69 @@
         <!-- Details Rows -->
         <div class="space-y-2 py-1">
             <div class="flex justify-between items-center py-1 border-b border-amber-500/10">
-                <span class="text-neutral-400 font-medium">Sponsor:</span>
+                <span class="text-neutral-300 font-medium flex items-center gap-1.5">
+                    <i data-lucide="user-check" class="w-3.5 h-3.5 text-amber-400"></i> Sponsor:
+                </span>
                 <span id="mobileModalSponsor" class="font-bold text-amber-300 font-mono">ROOT</span>
             </div>
             <div class="flex justify-between items-center py-1 border-b border-amber-500/10">
-                <span class="text-neutral-400 font-medium">Status:</span>
+                <span class="text-neutral-300 font-medium flex items-center gap-1.5">
+                    <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i> Account Status:
+                </span>
                 <span id="mobileModalStatus" class="font-black text-emerald-400 uppercase">ACTIVE</span>
             </div>
             <div class="flex justify-between items-center py-1 border-b border-amber-500/10">
-                <span class="text-neutral-400 font-medium">Power Leg Business:</span>
+                <span class="text-neutral-300 font-medium flex items-center gap-1.5">
+                    <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400"></i> Power Leg Business:
+                </span>
                 <span id="mobileModalPowerLeg" class="font-mono text-amber-400 font-bold">$0.00</span>
             </div>
             <div class="flex justify-between items-center py-1 border-b border-amber-500/10">
-                <span class="text-neutral-400 font-medium">Weaker Leg Business:</span>
+                <span class="text-neutral-300 font-medium flex items-center gap-1.5">
+                    <i data-lucide="scale" class="w-3.5 h-3.5 text-sky-400"></i> Weaker Leg Business:
+                </span>
                 <span id="mobileModalWeakerLeg" class="font-mono text-amber-400 font-bold">$0.00</span>
             </div>
             <div class="flex justify-between items-center py-1 border-b border-amber-500/10">
-                <span class="text-neutral-400 font-medium">Active Capital:</span>
+                <span class="text-neutral-300 font-medium flex items-center gap-1.5">
+                    <i data-lucide="wallet" class="w-3.5 h-3.5 text-emerald-400"></i> Active Capital:
+                </span>
                 <span id="mobileModalActiveInvest" class="font-mono text-emerald-400 font-bold">$0.00</span>
             </div>
             <div class="flex justify-between items-center py-1 border-b border-amber-500/10">
-                <span class="text-neutral-400 font-medium">Earning Wallet:</span>
+                <span class="text-neutral-300 font-medium flex items-center gap-1.5">
+                    <i data-lucide="credit-card" class="w-3.5 h-3.5 text-emerald-400"></i> Earning Wallet:
+                </span>
                 <span id="mobileModalEarningWallet" class="font-mono text-emerald-400 font-bold">$0.00</span>
             </div>
             <div class="flex justify-between items-center py-1 border-b border-amber-500/10">
-                <span class="text-neutral-400 font-medium">Daily ROI Income:</span>
+                <span class="text-neutral-300 font-medium flex items-center gap-1.5">
+                    <i data-lucide="trending-up" class="w-3.5 h-3.5 text-amber-400"></i> Daily ROI Income:
+                </span>
                 <span id="mobileModalDailyRoi" class="font-mono text-amber-400 font-bold">$0.00</span>
             </div>
             <div class="flex justify-between items-center py-1 border-b border-amber-500/10">
-                <span class="text-neutral-400 font-medium">Direct Income:</span>
+                <span class="text-neutral-300 font-medium flex items-center gap-1.5">
+                    <i data-lucide="gift" class="w-3.5 h-3.5 text-amber-400"></i> Direct Income:
+                </span>
                 <span id="mobileModalDirectIncome" class="font-mono text-amber-400 font-bold">$0.00</span>
             </div>
             <div class="flex justify-between items-center py-1 border-b border-amber-500/10">
-                <span class="text-neutral-400 font-medium">Matching Income:</span>
+                <span class="text-neutral-300 font-medium flex items-center gap-1.5">
+                    <i data-lucide="git-pull-request" class="w-3.5 h-3.5 text-amber-400"></i> Matching Income:
+                </span>
                 <span id="mobileModalMatchingIncome" class="font-mono text-amber-400 font-bold">$0.00</span>
             </div>
             <div class="flex justify-between items-center py-1 border-b border-amber-500/10">
-                <span class="text-neutral-400 font-medium">Direct Referrals:</span>
+                <span class="text-neutral-300 font-medium flex items-center gap-1.5">
+                    <i data-lucide="users" class="w-3.5 h-3.5 text-sky-400"></i> Direct Referrals:
+                </span>
                 <span id="mobileModalDirects" class="font-bold text-amber-400 font-mono">0 Members</span>
             </div>
             <div class="flex justify-between items-center py-1">
-                <span class="text-neutral-400 font-medium">Joined Date:</span>
+                <span class="text-neutral-300 font-medium flex items-center gap-1.5">
+                    <i data-lucide="calendar" class="w-3.5 h-3.5 text-neutral-400"></i> Joined Date:
+                </span>
                 <span id="mobileModalJoined" class="font-mono text-neutral-200">2026-01-01</span>
             </div>
         </div>
@@ -782,7 +806,12 @@
         }
 
         const modal = document.getElementById('mobileMemberModal');
-        if (modal) modal.style.display = 'flex';
+        if (modal) {
+            modal.style.display = 'flex';
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
     }
 
     function closeMobileMemberModal() {

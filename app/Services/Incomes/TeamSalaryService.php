@@ -38,17 +38,17 @@ class TeamSalaryService
      * Team Salary Tiers Definition Array.
      */
     public const TEAM_SALARY_TIERS = [
-        ['matching_business' => 10000000.00, 'cycle_salary' => 75.00, 'total_salary' => 300000.00, 'label' => '100 Lac Matching Business'],
-        ['matching_business' => 5000000.00,  'cycle_salary' => 75.00, 'total_salary' => 100000.00, 'label' => '50 Lac Matching Business'],
-        ['matching_business' => 2500000.00,  'cycle_salary' => 75.00, 'total_salary' => 42000.00,  'label' => '25 Lac Matching Business'],
-        ['matching_business' => 1000000.00,  'cycle_salary' => 75.00, 'total_salary' => 20000.00,  'label' => '10 Lac Matching Business'],
-        ['matching_business' => 500000.00,   'cycle_salary' => 75.00, 'total_salary' => 9500.00,   'label' => '5 Lac Matching Business'],
-        ['matching_business' => 250000.00,   'cycle_salary' => 75.00, 'total_salary' => 4500.00,   'label' => '2.5 Lac Matching Business'],
-        ['matching_business' => 100000.00,   'cycle_salary' => 75.00, 'total_salary' => 2000.00,   'label' => '1 Lac Matching Business'],
-        ['matching_business' => 50000.00,    'cycle_salary' => 75.00, 'total_salary' => 1000.00,   'label' => '50K Matching Business'],
-        ['matching_business' => 25000.00,    'cycle_salary' => 75.00, 'total_salary' => 500.00,    'label' => '25K Matching Business'],
-        ['matching_business' => 10000.00,    'cycle_salary' => 75.00, 'total_salary' => 250.00,    'label' => '10K Matching Business'],
-        ['matching_business' => 5000.00,     'cycle_salary' => 75.00, 'total_salary' => 150.00,    'label' => '5K Matching Business'],
+        ['matching_business' => 10000000.00, 'cycle_salary' => 150000.00, 'total_salary' => 300000.00, 'label' => '100 Lac Matching Business'],
+        ['matching_business' => 5000000.00,  'cycle_salary' => 50000.00,  'total_salary' => 100000.00, 'label' => '50 Lac Matching Business'],
+        ['matching_business' => 2500000.00,  'cycle_salary' => 21000.00,  'total_salary' => 42000.00,  'label' => '25 Lac Matching Business'],
+        ['matching_business' => 1000000.00,  'cycle_salary' => 10000.00,  'total_salary' => 20000.00,  'label' => '10 Lac Matching Business'],
+        ['matching_business' => 500000.00,   'cycle_salary' => 4750.00,   'total_salary' => 9500.00,   'label' => '5 Lac Matching Business'],
+        ['matching_business' => 250000.00,   'cycle_salary' => 2250.00,   'total_salary' => 4500.00,   'label' => '2.5 Lac Matching Business'],
+        ['matching_business' => 100000.00,   'cycle_salary' => 1000.00,   'total_salary' => 2000.00,   'label' => '1 Lac Matching Business'],
+        ['matching_business' => 50000.00,    'cycle_salary' => 500.00,    'total_salary' => 1000.00,   'label' => '50K Matching Business'],
+        ['matching_business' => 25000.00,    'cycle_salary' => 250.00,    'total_salary' => 500.00,    'label' => '25K Matching Business'],
+        ['matching_business' => 10000.00,    'cycle_salary' => 125.00,    'total_salary' => 250.00,    'label' => '10K Matching Business'],
+        ['matching_business' => 5000.00,     'cycle_salary' => 75.00,     'total_salary' => 150.00,    'label' => '5K Matching Business'],
     ];
 
     /**

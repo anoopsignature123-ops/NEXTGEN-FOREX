@@ -28,31 +28,31 @@ class DashboardController extends Controller
         $totalTeamBusiness = UserPackage::whereIn('user_id', $directMemberIds)->sum('invested_amount');
 
         // 2. Personal Income Summaries (Across all 8 Income Categories)
-        $totalRoiEarned = Transaction::where('user_id', $user->id)->where('type', 'daily_roi')->sum('amount');
-        $todayRoiEarned = Transaction::where('user_id', $user->id)->where('type', 'daily_roi')->where('created_at', '>=', $today)->sum('amount');
+        $totalRoiEarned = Transaction::where('user_id', $user->id)->whereIn('type', ['daily_roi', 'roi_income'])->sum('amount');
+        $todayRoiEarned = Transaction::where('user_id', $user->id)->whereIn('type', ['daily_roi', 'roi_income'])->where('created_at', '>=', $today)->sum('amount');
 
-        $totalDirectEarned = Transaction::where('user_id', $user->id)->where('type', 'direct_commission')->sum('amount');
-        $todayDirectEarned = Transaction::where('user_id', $user->id)->where('type', 'direct_commission')->where('created_at', '>=', $today)->sum('amount');
+        $totalDirectEarned = Transaction::where('user_id', $user->id)->whereIn('type', ['direct_commission', 'direct_income'])->sum('amount');
+        $todayDirectEarned = Transaction::where('user_id', $user->id)->whereIn('type', ['direct_commission', 'direct_income'])->where('created_at', '>=', $today)->sum('amount');
 
-        $totalBonusEarned = Transaction::where('user_id', $user->id)->where('type', '24h_bonus')->sum('amount');
-        $todayBonusEarned = Transaction::where('user_id', $user->id)->where('type', '24h_bonus')->where('created_at', '>=', $today)->sum('amount');
+        $totalBonusEarned = Transaction::where('user_id', $user->id)->whereIn('type', ['24h_bonus', 'bonus_income'])->sum('amount');
+        $todayBonusEarned = Transaction::where('user_id', $user->id)->whereIn('type', ['24h_bonus', 'bonus_income'])->where('created_at', '>=', $today)->sum('amount');
 
-        $totalLevelEarned = Transaction::where('user_id', $user->id)->where('type', 'level_income')->sum('amount');
-        $todayLevelEarned = Transaction::where('user_id', $user->id)->where('type', 'level_income')->where('created_at', '>=', $today)->sum('amount');
+        $totalLevelEarned = Transaction::where('user_id', $user->id)->whereIn('type', ['level_income', 'level_commission'])->sum('amount');
+        $todayLevelEarned = Transaction::where('user_id', $user->id)->whereIn('type', ['level_income', 'level_commission'])->where('created_at', '>=', $today)->sum('amount');
 
-        $totalMatchingEarned = Transaction::where('user_id', $user->id)->where('type', 'matching_income')->sum('amount');
-        $todayMatchingEarned = Transaction::where('user_id', $user->id)->where('type', 'matching_income')->where('created_at', '>=', $today)->sum('amount');
+        $totalMatchingEarned = Transaction::where('user_id', $user->id)->whereIn('type', ['matching_income', 'matching'])->sum('amount');
+        $todayMatchingEarned = Transaction::where('user_id', $user->id)->whereIn('type', ['matching_income', 'matching'])->where('created_at', '>=', $today)->sum('amount');
 
-        $totalDirectSalaryEarned = Transaction::where('user_id', $user->id)->where('type', 'direct_salary')->sum('amount');
-        $todayDirectSalaryEarned = Transaction::where('user_id', $user->id)->where('type', 'direct_salary')->where('created_at', '>=', $today)->sum('amount');
+        $totalDirectSalaryEarned = Transaction::where('user_id', $user->id)->whereIn('type', ['direct_salary'])->sum('amount');
+        $todayDirectSalaryEarned = Transaction::where('user_id', $user->id)->whereIn('type', ['direct_salary'])->where('created_at', '>=', $today)->sum('amount');
 
-        $totalTeamSalaryEarned = Transaction::where('user_id', $user->id)->where('type', 'team_salary')->sum('amount');
-        $todayTeamSalaryEarned = Transaction::where('user_id', $user->id)->where('type', 'team_salary')->where('created_at', '>=', $today)->sum('amount');
+        $totalTeamSalaryEarned = Transaction::where('user_id', $user->id)->whereIn('type', ['team_salary', 'salary_income'])->sum('amount');
+        $todayTeamSalaryEarned = Transaction::where('user_id', $user->id)->whereIn('type', ['team_salary', 'salary_income'])->where('created_at', '>=', $today)->sum('amount');
 
         $totalSalaryEarned = $totalDirectSalaryEarned + $totalTeamSalaryEarned;
 
-        $totalRewardsEarned = Transaction::where('user_id', $user->id)->where('type', 'reward_income')->sum('amount');
-        $todayRewardsEarned = Transaction::where('user_id', $user->id)->where('type', 'reward_income')->where('created_at', '>=', $today)->sum('amount');
+        $totalRewardsEarned = Transaction::where('user_id', $user->id)->whereIn('type', ['reward_income', 'reward'])->sum('amount');
+        $todayRewardsEarned = Transaction::where('user_id', $user->id)->whereIn('type', ['reward_income', 'reward'])->where('created_at', '>=', $today)->sum('amount');
 
         $totalIncomeEarned = $totalRoiEarned + $totalDirectEarned + $totalBonusEarned + $totalLevelEarned + $totalMatchingEarned + $totalSalaryEarned + $totalRewardsEarned;
 

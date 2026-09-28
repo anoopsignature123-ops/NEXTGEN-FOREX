@@ -157,16 +157,18 @@ class UserController extends Controller
     {
         $request->validate([
             'wallet_type' => 'required|in:deposit_wallet,earning_wallet',
+            'income_type' => 'nullable|string',
             'amount' => 'required|numeric|min:0.01',
             'remark' => 'nullable|string|max:255',
         ]);
 
         $walletType = $request->wallet_type;
+        $incomeType = $request->input('income_type', ($walletType === 'deposit_wallet' ? 'deposit' : 'admin_add_fund'));
         $amount = (float) $request->amount;
         $userRemark = $request->input('remark');
         $remark = $userRemark ? "{$userRemark} (Credited by Admin)" : 'Directly Credited by Admin';
 
-        DB::transaction(function () use ($user, $walletType, $amount, $remark) {
+        DB::transaction(function () use ($user, $walletType, $incomeType, $amount, $remark) {
             // Increment selected wallet balance
             $user->increment($walletType, $amount);
 
@@ -183,7 +185,22 @@ class UserController extends Controller
                 ]);
             }
 
-            // Create transaction log with detailed remark
+            $incomeTypeLabels = [
+                'matching_income' => 'Matching Income',
+                'roi_income' => 'Daily ROI Income',
+                'direct_income' => 'Direct Referral Income',
+                'level_income' => 'Level Income',
+                'reward' => 'Reward Income',
+                'team_salary' => 'Team Salary Income',
+                'admin_add_fund' => 'Direct Fund Credit',
+                'deposit' => 'Deposit Fund',
+            ];
+            $label = $incomeTypeLabels[$incomeType] ?? 'Fund Credit';
+
+            $description = $incomeType === 'matching_income'
+                ? "Received Matching Income of \${$amount} ({$remark})"
+                : "{$label} by Admin: {$remark}";
+
             Transaction::create([
                 'user_id' => $user->id,
                 'txn_number' => 'TXN-'.rand(10000000, 99999999),
@@ -192,8 +209,8 @@ class UserController extends Controller
                 'charge' => 0.00,
                 'post_balance' => $user->fresh()->{$walletType},
                 'trx_type' => '+',
-                'type' => $walletType === 'deposit_wallet' ? 'deposit' : 'admin_add_fund',
-                'description' => "Direct Fund Credit by Admin: {$remark}".($deposit ? " (Ref: {$deposit->deposit_ref})" : ''),
+                'type' => $incomeType,
+                'description' => $description,
                 'reference_id' => $deposit ? $deposit->id : ('ADMIN-'.(Auth::id() ?? 1)),
                 'status' => 'completed',
             ]);
@@ -201,7 +218,7 @@ class UserController extends Controller
 
         $walletLabel = $walletType === 'deposit_wallet' ? 'Deposit Wallet' : 'Earning Wallet';
 
-        return redirect()->back()->with('success', "\${$amount} successfully added to {$user->name}'s {$walletLabel}. Remark: {$remark}");
+        return redirect()->back()->with('success', "\${$amount} successfully credited as {$incomeType} to {$user->name}'s {$walletLabel}. Remark: {$remark}");
     }
 
     /**

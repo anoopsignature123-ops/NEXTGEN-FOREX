@@ -60,13 +60,13 @@ class IncomeProcessCommand extends Command
 
             $powerLeg = (float) ($legStats['power_leg'] ?? 0);
             $weakerLeg = (float) ($legStats['remaining_leg'] ?? 0);
-            $teamBusiness = (float) ($legStats['total_team'] ?? 0);
+            $matchedVolume = min($powerLeg, $weakerLeg);
 
             // Process Incomes
             $matchingPaid = $matchingService->processUserMatching($user, $powerLeg, $weakerLeg);
             $directSalaryPaid = $directSalaryService->processUserDirectSalary($user);
-            $teamSalaryPaid = $teamSalaryService->processUserTeamSalary($user, $weakerLeg);
-            $rewardPaid = $rewardService->evaluateRewardMilestones($user, $teamBusiness);
+            $teamSalaryPaid = $teamSalaryService->processUserTeamSalary($user, $matchedVolume);
+            $rewardPaid = $rewardService->evaluateRewardMilestones($user, $matchedVolume);
 
             // Process level income for user's daily ROI yield (handled via RoiIncomeService / php artisan roi:distribute)
 
